@@ -337,10 +337,12 @@ const TestimonialPopup = ({
 	};
 
 	const getAllOptions = () => {
-		const allOptions = options.map(option => ({
-			...option,
-			...(availableOptions?.find(ao => ao.key == option.key) || {})
-		}))
+		const allOptions = options
+			.map(option => ({
+				...option,
+				...(availableOptions?.find(ao => ao.key == option.key) || {})
+			}))
+			.filter(option => option.isEnabled)
 
 		return allOptions;
 	}
