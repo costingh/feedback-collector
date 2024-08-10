@@ -1,0 +1,1 @@
+(self.webpackChunkMyReactApp=self.webpackChunkMyReactApp||[]).push([[820],{7891:function(n,u,e){(window.__NEXT_P=window.__NEXT_P||[]).push(["/_error",function(){return e(4662)}])}},function(n){n.O(0,[888,774,179],function(){return n(n.s=7891)}),n.O()}]);
