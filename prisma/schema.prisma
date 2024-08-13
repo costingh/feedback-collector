@@ -26,20 +26,37 @@ model UserSubscription {
 }
 
 model Form {
-  id               String      @id @default(cuid())
-  backgroundColor  String
-  primaryColor     String
-  withAnimatedBg   Boolean
-  formFields       FormField[]
-  createdAt        DateTime    @default(now())
-  updatedAt        DateTime    @updatedAt
+  id              String          @id @default(cuid())
+  name            String
+  backgroundColor String
+  primaryColor    String
+  withAnimatedBg  Boolean
+  formFields      FormField[]
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  userId          String
+  published       Boolean
+  isPaused        Boolean
+  pausedUntil     DateTime?
+  url             String
+  customUrl       String
+  FormAnalytics   FormAnalytics[]
 }
 
 model FormField {
-  id         String   @id @default(cuid())
+  id         String  @id @default(cuid())
   key        String
   isEnabled  Boolean
   isRequired Boolean
   formId     String
-  form       Form     @relation(fields: [formId], references: [id])
+  form       Form    @relation(fields: [formId], references: [id])
+}
+
+model FormAnalytics {
+  id           String @id @default(cuid())
+  visits       Int
+  testimonials Int
+  responseRate Int
+  formId       String
+  form         Form   @relation(fields: [formId], references: [id])
 }

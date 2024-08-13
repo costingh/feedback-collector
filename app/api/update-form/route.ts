@@ -17,6 +17,7 @@ export async function POST(req: Request) {
         const updatedForm = await prismadb.form.update({
             where: { id: formData.id },
             data: {
+                name: formData.name,
                 backgroundColor: formData.backgroundColor,
                 primaryColor: formData.primaryColor,
                 withAnimatedBg: formData.withAnimatedBg,

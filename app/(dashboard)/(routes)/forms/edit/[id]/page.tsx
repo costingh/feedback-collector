@@ -7,6 +7,7 @@ import {
 	Building2,
 	ChevronDown,
 	ChevronUp,
+	Cog,
 	Earth,
 	LucideOctagon,
 	PaintBucket,
@@ -42,11 +43,20 @@ const submenus = [
 		),
 	},
 	{
+		name: "Advanced",
+		icon: (
+			<Cog
+				size={20}
+				className="text-blue-700 mr-[8px] ml-[15px]"
+			/>
+		),
+	},
+	{
 		name: "Thank you page",
 		icon: (
 			<PartyPopper
 				size={20}
-				className="text-blue-600 mr-[8px] ml-[15px]"
+				className="text-pink-600 mr-[8px] ml-[15px]"
 			/>
 		),
 	},
@@ -149,15 +159,13 @@ export default function NewForm({ params }: { params: { id: string } }) {
 		},
 	]
 
-	// const [backgroundColor, setBackgroundColor] = useState<string>("#9072afff");
-	// const [primaryColor, setPrimaryColor] = useState<string>("#8466b4ff");
-	// const [withAnimatedBg, setWithAnimatedBg] = useState(false);
 	const [step, setStep] = useState(1);
 	const [isSearchingForm, setIsSearchingForm] = useState(false);
 	const [applyingChanges, setApplyingChanges] = useState(false);
 
 	const [form, setForm] = useState({
 		id: null,
+		name: 'Testimonials',
 		primaryColor: '#8466b4ff',
 		backgroundColor: '#9072afff',
 		withAnimatedBg: false,
@@ -166,100 +174,6 @@ export default function NewForm({ params }: { params: { id: string } }) {
 	});
 
 	const router = useRouter();
-
-	// const [availableOptions, setAvailableOptions] = useState([
-	// 	{
-	// 		key: "user_photo",
-	// 		text: "Collect User Photo",
-	// 		description:
-	// 			"Collect user photos to make widgets that convert better because they look more authentic.",
-	// 		isEnabled: true,
-	// 		isRequired: false,
-	// 		icon: <LucideOctagon size={18} />,
-	// 		input: {
-	// 			type: "file",
-	// 			key: "photo",
-	// 			accept: ".jpg,.png,.jpeg,.svg",
-	// 			text: "Photo with you",
-	// 			src: "/avatar-placeholder.jpg",
-	// 			alt: "Avatar",
-	// 			width: 50,
-	// 			height: 50,
-	// 		},
-	// 	},
-	// 	{
-	// 		key: "company_logo",
-	// 		text: "Collect Company Logo",
-	// 		description:
-	// 			"Collect company logos to create widgets that showcase the logos of your customers.",
-	// 		isEnabled: true,
-	// 		isRequired: false,
-	// 		icon: <LucideOctagon size={18} />,
-	// 		input: {
-	// 			type: "file",
-	// 			key: "logo",
-	// 			accept: ".jpg,.png,.jpeg,.svg",
-	// 			text: "Your Company Logo",
-	// 			src: "/company-placeholder-image.png",
-	// 			alt: "Logo",
-	// 			width: 70,
-	// 			height: 50,
-	// 		},
-	// 	},
-	// 	{
-	// 		key: "customer_email",
-	// 		text: "Collect customer email",
-	// 		description:
-	// 			"Collect email addresses so you can stay in touch and send a thank you note",
-	// 		isEnabled: true,
-	// 		isRequired: true,
-	// 		icon: <AtSign size={18} />,
-	// 		alwaysRequired: true,
-	// 		input: { label: "Your Name", placeholder: "John Doe", key: "name" },
-	// 	},
-	// 	{
-	// 		key: "job_title",
-	// 		text: "Job Title",
-	// 		description:
-	// 			"Collect job titles so you search by title, and group testimonials in some widgets.",
-	// 		isEnabled: true,
-	// 		isRequired: false,
-	// 		icon: <BriefcaseBusiness size={18} />,
-	// 		input: {
-	// 			label: "Job Title",
-	// 			placeholder: "Your Job Title",
-	// 			key: "jobTitle",
-	// 		},
-	// 	},
-	// 	{
-	// 		key: "website_url",
-	// 		text: "Collect Website URL",
-	// 		description:
-	// 			"Collect website URL so you can learn more about your customers, and include a link in some widgets.",
-	// 		isEnabled: true,
-	// 		isRequired: false,
-	// 		icon: <Earth size={22} />,
-	// 		input: {
-	// 			label: "Website",
-	// 			placeholder: "https://example.com",
-	// 			key: "website",
-	// 		},
-	// 	},
-	// 	{
-	// 		key: "collect_company",
-	// 		text: "Collect Company",
-	// 		description:
-	// 			"Collect company name so you can search for testimonials from the same company, and display it in some widgets.",
-	// 		isEnabled: true,
-	// 		isRequired: false,
-	// 		icon: <Building2 size={24} />,
-	// 		input: {
-	// 			label: "Company",
-	// 			placeholder: "Your Company",
-	// 			key: "company",
-	// 		},
-	// 	},
-	// ]);
 
 	const toggleAccordion = (index: number) => {
 		setStep(index + 1);
@@ -371,9 +285,8 @@ export default function NewForm({ params }: { params: { id: string } }) {
 								/>
 							</div>
 							<div className="right w-[600px] border-l-[1px] border-gray-200 px-[40px] h-[100vh] relative pt-6">
-								<h1 className="font-black text-gray-800 text-[17px] mb-[20px]">
-									Testimonial Form
-								</h1>
+								<input type='text' value={form.name} onChange={(e) => setForm(prev => ({...prev, name: e.target.value || '-'}))} className="font-black text-gray-800 text-[17px] mb-[20px]" />
+								
 								<div className="overflow-y-auto h-[calc(100vh-180px)]">
 									{submenus.map((submenu, index) => (
 										<div
