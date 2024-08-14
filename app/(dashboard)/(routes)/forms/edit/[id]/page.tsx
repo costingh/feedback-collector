@@ -6,14 +6,13 @@ import {
 	BriefcaseBusiness,
 	Building2,
 	ChevronDown,
-	ChevronUp,
 	Cog,
 	Earth,
 	LucideOctagon,
-	PaintBucket,
 	Paintbrush,
 	PartyPopper,
 	ReceiptText,
+	SquareArrowOutUpRight,
 } from "lucide-react";
 import TestimonialPopup from "@/components/popups/TestimonialPopup";
 import EditFormAspect from "@/components/form-editor/EditFormAspect";
@@ -22,6 +21,10 @@ import { toast } from "sonner";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
+import AdvancedSettings from "@/components/form-editor/AdvancedSettings";
+import Link from "next/link";
+import { Loader } from "@/components/loader";
+import { Form } from "@/types/Form";
 
 const submenus = [
 	{
@@ -44,12 +47,7 @@ const submenus = [
 	},
 	{
 		name: "Advanced",
-		icon: (
-			<Cog
-				size={20}
-				className="text-blue-700 mr-[8px] ml-[15px]"
-			/>
-		),
+		icon: <Cog size={20} className="text-blue-700 mr-[8px] ml-[15px]" />,
 	},
 	{
 		name: "Thank you page",
@@ -63,7 +61,7 @@ const submenus = [
 ];
 
 export default function NewForm({ params }: { params: { id: string } }) {
-	const [openIndex, setOpenIndex] = useState(-1);
+	const [openIndex, setOpenIndex] = useState<number>(-1);
 
 	const options = [
 		{
@@ -157,27 +155,41 @@ export default function NewForm({ params }: { params: { id: string } }) {
 				key: "company",
 			},
 		},
-	]
+	];
 
-	const [step, setStep] = useState(1);
-	const [isSearchingForm, setIsSearchingForm] = useState(false);
-	const [applyingChanges, setApplyingChanges] = useState(false);
+	const [step, setStep] = useState<number>(1);
+	const [isSearchingForm, setIsSearchingForm] = useState<boolean>(true);
+	const [applyingChanges, setApplyingChanges] = useState<boolean>(false);
 
-	const [form, setForm] = useState({
-		id: null,
-		name: 'Testimonials',
-		primaryColor: '#8466b4ff',
-		backgroundColor: '#9072afff',
+	const [form, setForm] = useState<Form>({
+		name: "Testimonials",
+		backgroundColor: "#9072afff",
+		primaryColor: "#8466b4ff",
 		withAnimatedBg: false,
-		formFields: options
-
+		published: false,
+		isPaused: false,
+		pausedUntil: null,
+		url: '',
+		customUrl: '',
+		formFields: options,
+		FormAnalytics: {
+			visits: 0,
+			testimonials: 0,
+			responseRate: 0
+		}
 	});
 
 	const router = useRouter();
 
 	const toggleAccordion = (index: number) => {
-		setStep(index + 1);
-		setOpenIndex(openIndex === index ? -1 : index);
+		// FOR ADVANCED
+		if(index == 2) {
+			setOpenIndex(openIndex === index ? -1 : index);
+		} else {
+			// For ASPECT, CUSTOMER DETAILS
+			setStep(index + 1);
+			setOpenIndex(openIndex === index ? -1 : index);
+		}
 	};
 
 	const renderSubmenu = (submenu: string) => {
@@ -185,26 +197,31 @@ export default function NewForm({ params }: { params: { id: string } }) {
 			return (
 				<EditFormAspect
 					backgroundColor={form.backgroundColor}
-					setBackgroundColor={(val) => setForm(prev => ({...prev, backgroundColor: val}))}
+					setBackgroundColor={(val) =>
+						setForm((prev) => ({ ...prev, backgroundColor: val }))
+					}
 					primaryColor={form.primaryColor}
-					setPrimaryColor={(val) => setForm(prev => ({...prev, primaryColor: val}))}
+					setPrimaryColor={(val) =>
+						setForm((prev) => ({ ...prev, primaryColor: val }))
+					}
 					isChecked={form.withAnimatedBg}
-					setChecked={() => setForm(prev => ({...prev, withAnimatedBg: !prev.withAnimatedBg}))}
+					setChecked={() =>
+						setForm((prev) => ({
+							...prev,
+							withAnimatedBg: !prev.withAnimatedBg,
+						}))
+					}
 				/>
 			);
 		} else if (submenu == submenus[1].name) {
-			return (
-				<CustomerDetails
-					setForm={setForm}
-					form={form}
-				/>
-			);
+			return <CustomerDetails setForm={setForm} form={form} />;
+		} else if (submenu == submenus[2].name) {
+			return <AdvancedSettings setForm={setForm} form={form} />;
 		}
 	};
 
 	const handleGetFormById = useCallback(
 		async (formId: string) => {
-			if (isSearchingForm) return;
 			setIsSearchingForm(true);
 			try {
 				const response = await axios.get(`/api/get-form?id=${formId}`);
@@ -215,7 +232,7 @@ export default function NewForm({ params }: { params: { id: string } }) {
 					return;
 				}
 
-				console.log('Got form: ', formResponse)
+				console.log("Got form: ", formResponse);
 				setForm(formResponse);
 			} catch (err) {
 				console.error(
@@ -226,7 +243,7 @@ export default function NewForm({ params }: { params: { id: string } }) {
 				setIsSearchingForm(false);
 			}
 		},
-		[isSearchingForm]
+		[]
 	);
 
 	useEffect(() => {
@@ -234,7 +251,7 @@ export default function NewForm({ params }: { params: { id: string } }) {
 	}, []);
 
 	const handleApplyChanges = async () => {
-		if(!form) return;
+		if (!form) return;
 		setApplyingChanges(true);
 
 		try {
@@ -248,7 +265,7 @@ export default function NewForm({ params }: { params: { id: string } }) {
 						isEnabled: option.isEnabled,
 						isRequired: option.isRequired,
 					})),
-				}
+				},
 			});
 
 			const updatedForm = response?.data?.form;
@@ -267,7 +284,9 @@ export default function NewForm({ params }: { params: { id: string } }) {
 	return (
 		<>
 			{isSearchingForm ? (
-				<div>Searching form</div>
+				<div className='w-full h-[100vh] flex items-center justify-center'>
+					<Loader/>
+				</div>
 			) : (
 				<>
 					{!form ? (
@@ -282,11 +301,40 @@ export default function NewForm({ params }: { params: { id: string } }) {
 									primaryColor={form.primaryColor}
 									withAnimatedBg={form.withAnimatedBg}
 									availableOptions={form.formFields}
+									published={form.published}
+									isPaused={form.isPaused}
 								/>
 							</div>
 							<div className="right w-[600px] border-l-[1px] border-gray-200 px-[40px] h-[100vh] relative pt-6">
-								<input type='text' value={form.name} onChange={(e) => setForm(prev => ({...prev, name: e.target.value || '-'}))} className="font-black text-gray-800 text-[17px] mb-[20px]" />
-								
+								<div className="flex items-center justify-between gap-2 w-full mb-[20px]">
+									<input
+										type="text"
+										value={form.name}
+										onChange={(e) =>
+											setForm((prev) => ({
+												...prev,
+												name: e.target.value || "-",
+											}))
+										}
+										className="font-black text-gray-800 text-[17px]"
+									/>
+									<div className="flex items-center gap-2">
+										{form.published ? <div className="w-[5px] h-[5px] rounded-full bg-green-500"></div> : <div className="w-[5px] h-[5px] rounded-full bg-red-500"></div>}
+										<Link
+											href={
+												process.env.NEXT_PUBLIC_APP_DOMAIN +
+												form?.url
+											}
+											target="_blank"
+										>
+											<SquareArrowOutUpRight
+												size={15}
+												className="text-gray-700 hover:text-gray-500"
+											/>
+										</Link>
+									</div>
+								</div>
+
 								<div className="overflow-y-auto h-[calc(100vh-180px)]">
 									{submenus.map((submenu, index) => (
 										<div

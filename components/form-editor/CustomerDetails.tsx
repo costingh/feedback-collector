@@ -1,23 +1,15 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import ColorPicker from "../ColorPicker";
-import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
+import React from "react";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Form } from "@/types/Form";
 
 import {
 	AtSign,
 	BriefcaseBusiness,
 	Building2,
-	ChevronDown,
-	ChevronUp,
 	Earth,
 	LucideOctagon,
-	PaintBucket,
-	Paintbrush,
-	PartyPopper,
-	ReceiptText,
 } from "lucide-react";
 
 interface Option {
@@ -31,16 +23,16 @@ interface Option {
 	alwaysRequired?: boolean;
 }
 
-interface FormField {
-	key: string;
-	isEnabled: boolean;
-	isRequired: boolean;
-}
+// interface FormField {
+// 	key: string;
+// 	isEnabled: boolean;
+// 	isRequired: boolean;
+// }
 
-interface Form {
-	formFields: FormField[];
-	[key: string]: any;
-}
+// interface Form {
+// 	formFields: FormField[];
+// 	[key: string]: any;
+// }
 
 interface CustomerDetailsProps {
 	setForm: React.Dispatch<React.SetStateAction<Form>>;

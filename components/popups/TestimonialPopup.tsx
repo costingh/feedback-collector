@@ -4,21 +4,16 @@ import React, { useState } from "react";
 import StarsRating from "../stars-rating";
 import { toast } from "sonner";
 import { BackgroundGradientAnimation } from "../ui/background-gradient-animation";
-import Image from "next/image";
-import { Upload } from "lucide-react";
 import {
 	AtSign,
 	BriefcaseBusiness,
 	Building2,
-	ChevronDown,
-	ChevronUp,
 	Earth,
 	LucideOctagon,
-	PaintBucket,
-	Paintbrush,
-	PartyPopper,
-	ReceiptText,
 } from "lucide-react";
+import FormUnpublished from "../form-editor/FormUnpublished";
+import UploadImage from "../form-editor/UploadImage";
+import { UserInfo } from "@/types/UserInfo";
 
 const options = [
 	{
@@ -112,20 +107,37 @@ const options = [
 			key: "company",
 		},
 	},
-]
+];
 
+interface TestimonialPopupProps {
+	backgroundColor: string;
+	primaryColor: string;
+	withAnimatedBg: boolean;
+	published: boolean;
+	isPaused: boolean;
+	step: number;
+	setStep: React.Dispatch<React.SetStateAction<number>>;
+	availableOptions: any[];
+}
 
-const TestimonialPopup = ({
+const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 	backgroundColor,
 	primaryColor,
 	withAnimatedBg,
+	published,
+	isPaused,
 	step,
 	setStep,
 	availableOptions,
 }) => {
+	// constants
+	const BASE_PRIMARY_COLOR = "rgb(34, 197, 94)";
+
+	// state
 	const [message, setMessage] = useState("");
 	const [stars, setStars] = useState(0);
-	const [userInfoValue, setUserInfoValue] = useState({
+	const [focusedKey, setFocusedKey] = useState("");
+	const [userInfoValue, setUserInfoValue] = useState<UserInfo>({
 		name: "",
 		email: "",
 		company: "",
@@ -133,12 +145,9 @@ const TestimonialPopup = ({
 		website: "",
 	});
 
-	const [focusedKey, setFocusedKey] = useState("");
 
 	const handleFocus = (key: string) => setFocusedKey(key);
 	const handleBlur = () => setFocusedKey("");
-
-	const BASE_PRIMARY_COLOR = "rgb(34, 197, 94)";
 
 	const handleSubmit = async () => {
 		if (step == 1) handleSubmitStepOne();
@@ -179,7 +188,7 @@ const TestimonialPopup = ({
 	const handleSubmitStepTwo = async () => {
 		console.log(availableOptions);
 
-		const requiredFieldsKeys = availableOptions
+		const requiredFieldsKeys : (keyof UserInfo)[] = availableOptions
 			.filter((option) => option.isRequired && option.isEnabled)
 			.map((option) => option.input.key);
 
@@ -194,25 +203,6 @@ const TestimonialPopup = ({
 			toast.error("Please complete all required fields");
 			return;
 		}
-
-		// const data = {
-		// 	message,
-		// 	stars,
-		// };
-
-		// const URL = "http://localhost:3000/api/review";
-
-		// const rawResponse = await fetch(URL, {
-		// 	method: "POST",
-		// 	headers: {
-		// 		Accept: "application/json",
-		// 		"Content-Type": "application/json",
-		// 	},
-		// 	body: JSON.stringify({ data }),
-		// });
-
-		// const content = await rawResponse.json();
-		// console.log(content);
 	};
 
 	const ratingChanged = (newRating: number) => {
@@ -272,8 +262,11 @@ const TestimonialPopup = ({
 					}}
 				></div>
 			</div>
-			{step != 1 && (
-				<div className="flex items-center justify-center w-10 h-10 hover:bg-gray-200 border-[1px] border-gray-300 rounded-full cursor-pointer" onClick={() => setStep(prev => prev - 1)}>
+			{step > 1 && (
+				<div
+					className="flex items-center justify-center w-10 h-10 hover:bg-gray-200 border-[1px] border-gray-300 rounded-full cursor-pointer"
+					onClick={() => setStep((prevStep) => prevStep - 1)}
+				>
 					<svg
 						className="w-6 h-6 text-gray-400"
 						clipRule="evenodd"
@@ -310,42 +303,16 @@ const TestimonialPopup = ({
 		</>
 	);
 
-	const UploadImage = ({ text, src, alt, width, height, isRequired }) => {
-		return (
-			<div className="flex flex-col flex-1 items-center gap-2">
-				<span className="font-[600] text-[13px] text-gray-400">
-					{text}
-					{isRequired && <span className="text-red-500">*</span>}
-				</span>
-				<Image
-					src={src}
-					width={width}
-					height={height}
-					alt={alt}
-					className="rounded-[3px]"
-				/>
-				<button
-					className="px-3 py-1 cursor-pointer rounded-lg text-gray-50  font-normal tracking-wide text-[12px] flex items-center gap-4 justify-center hover:opacity-[0.7]"
-					style={{
-						backgroundColor: primaryColor || BASE_PRIMARY_COLOR,
-					}}
-				>
-					<div>Upload</div> <Upload size={14} />
-				</button>
-			</div>
-		);
-	};
-
 	const getAllOptions = () => {
 		const allOptions = options
-			.map(option => ({
+			.map((option) => ({
 				...option,
-				...(availableOptions?.find(ao => ao.key == option.key) || {})
+				...(availableOptions?.find((ao) => ao.key == option.key) || {}),
 			}))
-			.filter(option => option.isEnabled)
+			.filter((option) => option.isEnabled);
 
 		return allOptions;
-	}
+	};
 
 	const CollectReviewerPersonalInformation = () => (
 		<>
@@ -365,6 +332,7 @@ const TestimonialPopup = ({
 								width={input.width}
 								height={input.height}
 								isRequired={isRequired}
+								baseColor={BASE_PRIMARY_COLOR}
 							/>
 						</div>
 					))}
@@ -394,7 +362,8 @@ const TestimonialPopup = ({
 											)}
 										</span>
 										<input
-											value={userInfoValue[input.key]}
+											// @ts-ignore
+											value={userInfoValue[input.key] || ""}
 											onChange={(e) =>
 												setUserInfoValue((prev) => ({
 													...prev,
@@ -425,7 +394,7 @@ const TestimonialPopup = ({
 					</div>
 				))}
 
-				<div className="mb-6"></div>
+			<div className="mb-6"></div>
 
 			<SubmitButton />
 		</>
@@ -436,9 +405,15 @@ const TestimonialPopup = ({
 			<div className="px-[25px] py-[30px] bg-white shadow-lg rounded-[15px] min-w-[500px] max-w-full text-left border-[1px] border-gray-100 pointer-events ">
 				<FormHeader />
 
-				{step === 1 && <CollectWrittenTestimonial />}
+				{!published && step == -1 ? (
+					<FormUnpublished />
+				) : (
+					<>
+						{step === 1 && <CollectWrittenTestimonial />}
 
-				{step === 2 && <CollectReviewerPersonalInformation />}
+						{step === 2 && <CollectReviewerPersonalInformation />}
+					</>
+				)}
 			</div>
 		);
 	};

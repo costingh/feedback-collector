@@ -21,6 +21,8 @@ export async function POST(req: Request) {
                 backgroundColor: formData.backgroundColor,
                 primaryColor: formData.primaryColor,
                 withAnimatedBg: formData.withAnimatedBg,
+                published: formData.published,
+                isPaused: formData.isPaused,
                 formFields: {
                     deleteMany: {},
                     create: formData.formFields,
