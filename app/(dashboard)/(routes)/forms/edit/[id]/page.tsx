@@ -13,6 +13,7 @@ import {
 	PartyPopper,
 	ReceiptText,
 	SquareArrowOutUpRight,
+	Tag,
 } from "lucide-react";
 import TestimonialPopup from "@/components/popups/TestimonialPopup";
 import EditFormAspect from "@/components/form-editor/EditFormAspect";
@@ -25,6 +26,7 @@ import AdvancedSettings from "@/components/form-editor/AdvancedSettings";
 import Link from "next/link";
 import { Loader } from "@/components/loader";
 import { Form } from "@/types/Form";
+import CustomizeLabels from "@/components/form-editor/CustomizeLabels";
 
 const submenus = [
 	{
@@ -44,6 +46,10 @@ const submenus = [
 				className="text-green-600 mr-[8px] ml-[15px]"
 			/>
 		),
+	},
+	{
+		name: "Customize Labels",
+		icon: <Tag size={20} className="text-orange-600 mr-[8px] ml-[15px]" />,
 	},
 	{
 		name: "Advanced",
@@ -171,6 +177,11 @@ export default function NewForm({ params }: { params: { id: string } }) {
 		pausedUntil: null,
 		url: '',
 		customUrl: '',
+		questions: [],
+		title: '',
+		description: '',
+		textareaPlaceholder: '',
+		buttonLabel: '',
 		formFields: options,
 		FormAnalytics: {
 			visits: 0,
@@ -182,8 +193,8 @@ export default function NewForm({ params }: { params: { id: string } }) {
 	const router = useRouter();
 
 	const toggleAccordion = (index: number) => {
-		// FOR ADVANCED
-		if(index == 2) {
+		// FOR  customize labels, ADVANCED and thank you page
+		if(index == 2 || index == 3 || index == 4) {
 			setOpenIndex(openIndex === index ? -1 : index);
 		} else {
 			// For ASPECT, CUSTOMER DETAILS
@@ -216,6 +227,8 @@ export default function NewForm({ params }: { params: { id: string } }) {
 		} else if (submenu == submenus[1].name) {
 			return <CustomerDetails setForm={setForm} form={form} />;
 		} else if (submenu == submenus[2].name) {
+			return <CustomizeLabels setForm={setForm} form={form} />;
+		} else if (submenu == submenus[3].name) {
 			return <AdvancedSettings setForm={setForm} form={form} />;
 		}
 	};
@@ -265,6 +278,7 @@ export default function NewForm({ params }: { params: { id: string } }) {
 						isEnabled: option.isEnabled,
 						isRequired: option.isRequired,
 					})),
+					questions: form.questions.map(q => ({text: q.text})),
 				},
 			});
 
@@ -303,6 +317,11 @@ export default function NewForm({ params }: { params: { id: string } }) {
 									availableOptions={form.formFields}
 									published={form.published}
 									isPaused={form.isPaused}
+									questions={form.questions}
+									textareaPlaceholder={form.textareaPlaceholder}
+									buttonLabel={form.buttonLabel}
+									title={form.title}
+									description={form.description}
 								/>
 							</div>
 							<div className="right w-[600px] border-l-[1px] border-gray-200 px-[40px] h-[100vh] relative pt-6">
@@ -335,7 +354,7 @@ export default function NewForm({ params }: { params: { id: string } }) {
 									</div>
 								</div>
 
-								<div className="overflow-y-auto h-[calc(100vh-180px)]">
+								<div className="overflow-y-auto h-[calc(100vh-180px)] scroll-container">
 									{submenus.map((submenu, index) => (
 										<div
 											key={index}

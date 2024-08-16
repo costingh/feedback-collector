@@ -22,7 +22,8 @@ export async function GET(req: Request) {
                 where: { id: formId },
                 include: {
                     formFields: true,
-                    FormAnalytics: true
+                    FormAnalytics: true,
+                    questions: true,
                 },
             });
     
@@ -36,7 +37,8 @@ export async function GET(req: Request) {
                 where: { url: formUrl || '' },
                 include: {
                     formFields: true,
-                    FormAnalytics: true
+                    FormAnalytics: true,
+                    questions: true,
                 },
             });
     

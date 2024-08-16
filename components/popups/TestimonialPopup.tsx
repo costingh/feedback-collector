@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import StarsRating from "../stars-rating";
 import { toast } from "sonner";
 import { BackgroundGradientAnimation } from "../ui/background-gradient-animation";
@@ -14,6 +14,8 @@ import {
 import FormUnpublished from "../form-editor/FormUnpublished";
 import UploadImage from "../form-editor/UploadImage";
 import { UserInfo } from "@/types/UserInfo";
+import { Question } from "@/types/Question";
+import { Form } from "@/types/Form";
 
 const options = [
 	{
@@ -118,6 +120,11 @@ interface TestimonialPopupProps {
 	step: number;
 	setStep: React.Dispatch<React.SetStateAction<number>>;
 	availableOptions: any[];
+	questions: any[];
+	textareaPlaceholder: string;
+	buttonLabel: string;
+	title: string;
+	description: string;
 }
 
 const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
@@ -129,6 +136,11 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 	step,
 	setStep,
 	availableOptions,
+	questions,
+	textareaPlaceholder,
+	buttonLabel,
+	title,
+	description
 }) => {
 	// constants
 	const BASE_PRIMARY_COLOR = "rgb(34, 197, 94)";
@@ -144,7 +156,6 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 		jobTitle: "",
 		website: "",
 	});
-
 
 	const handleFocus = (key: string) => setFocusedKey(key);
 	const handleBlur = () => setFocusedKey("");
@@ -223,38 +234,38 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 		</svg>
 	);
 
-	const questions: string[] = [
-		"What do you like best about our service?",
-		"Would you suggest us to a friend?",
-	];
+	// const questions: string[] = [
+	// 	"What do you like best about our service?",
+	// 	"Would you suggest us to a friend?",
+	// ];
 
-	const QuestionList: React.FC = () => (
+	const QuestionList = ({questions}: {questions: Question[]}) => (
 		<ul className="my-4">
-			{questions.map((question, index) => (
+			{questions?.map((question, index) => (
 				<li
 					key={index}
 					className="my-1 text-gray-600 font-normal text-[16px]"
 				>
-					• {question}
+					• {question.text}
 				</li>
 			))}
 		</ul>
 	);
 
-	const SubmitButton = () => (
+	const SubmitButton = ({buttonLabel} : {buttonLabel: string}) => (
 		<button
 			onClick={handleSubmit}
 			className="p-2.5 rounded-lg text-gray-50 w-full mt-2.5 font-mediumtracking-wide text-[15px] flex items-center gap-4 justify-center"
 			style={{ backgroundColor: primaryColor || BASE_PRIMARY_COLOR }}
 		>
-			<div>Submit</div> <RocketIcon />
+			<div>{buttonLabel}</div> <RocketIcon />
 		</button>
 	);
 
-	const FormHeader = () => (
+	const FormHeader = ({title} : {title: string}) => (
 		<div className="flex items-center justify-between mb-8">
 			<div className="text-xl font-black text-gray-900 tracking-wide relative">
-				Your brand here
+				{title}
 				<div
 					className="w-[80px] h-[3px] absolute bottom-[-10px] left-0"
 					style={{
@@ -286,20 +297,20 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 		</div>
 	);
 
-	const CollectWrittenTestimonial = () => (
+	const CollectWrittenTestimonial = ({questions, textareaPlaceholder, buttonLabel}: {questions: Question[], textareaPlaceholder: string, buttonLabel: string, title: string, description: string}) => (
 		<>
 			<p className="my-2 text-gray-900 font-bold text-[16px]">
-				Do you love using our product? We'd love to hear about it!😊
+				{description}
 			</p>
-			<QuestionList />
+			<QuestionList questions={questions} />
 			<StarsRating ratingChanged={ratingChanged} />
 			<textarea
 				value={message}
 				onChange={(e) => setMessage(e.target.value)}
 				className="mt-4 p-2.5 rounded-lg border border-gray-300 text-gray-700 min-h-[120px] w-full font-500"
-				placeholder="Write a nice message here ✨"
+				placeholder={textareaPlaceholder}
 			></textarea>
-			<SubmitButton />
+			<SubmitButton buttonLabel={buttonLabel} />
 		</>
 	);
 
@@ -400,16 +411,22 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 		</>
 	);
 
-	const renderPopup = () => {
+	const renderPopup = (questions: Question[], textareaPlaceholder: string, title: string, description: string, buttonLabel: string) => {
 		return (
-			<div className="px-[25px] py-[30px] bg-white shadow-lg rounded-[15px] min-w-[500px] max-w-full text-left border-[1px] border-gray-100 pointer-events ">
-				<FormHeader />
+			<div className="px-[25px] py-[30px] bg-white shadow-lg rounded-[15px] min-w-[500px] max-w-full w-[530px] text-left border-[1px] border-gray-100 pointer-events ">
+				<FormHeader title={title} />
 
 				{!published && step == -1 ? (
 					<FormUnpublished />
 				) : (
 					<>
-						{step === 1 && <CollectWrittenTestimonial />}
+						{step === 1 && <CollectWrittenTestimonial 
+							questions={questions} 
+							textareaPlaceholder={textareaPlaceholder} 
+							buttonLabel={buttonLabel}
+							title={title}
+							description={description}
+						/>}
 
 						{step === 2 && <CollectReviewerPersonalInformation />}
 					</>
@@ -425,10 +442,10 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 		>
 			{withAnimatedBg ? (
 				<BackgroundGradientAnimation>
-					{renderPopup()}
+					{renderPopup(questions, textareaPlaceholder, title, description, buttonLabel)}
 				</BackgroundGradientAnimation>
 			) : (
-				<>{renderPopup()}</>
+				<>{renderPopup(questions, textareaPlaceholder, title, description, buttonLabel)}</>
 			)}
 		</div>
 	);

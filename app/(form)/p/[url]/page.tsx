@@ -27,7 +27,6 @@ const LandingPage = ({ params }: { params: { url: string } }) => {
 					return;
 				}
 				console.log("Got form: ", formResponse);
-				
 				setForm(formResponse);
 
 				// if form is published, set step to 1
@@ -61,6 +60,11 @@ const LandingPage = ({ params }: { params: { url: string } }) => {
 							isPaused={form.isPaused}
 							step={step}
 							setStep={setStep}
+							questions={form.questions}
+							textareaPlaceholder={form.textareaPlaceholder}
+							buttonLabel={form.buttonLabel}
+							title={form.title}
+							description={form.description}
 						/>
 					) : (
 						<div className="flex items-center justify-center">

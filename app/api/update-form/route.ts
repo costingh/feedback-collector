@@ -23,13 +23,22 @@ export async function POST(req: Request) {
                 withAnimatedBg: formData.withAnimatedBg,
                 published: formData.published,
                 isPaused: formData.isPaused,
+                title: formData.title,
+                description: formData.description,
+                buttonLabel: formData.buttonLabel,
+                textareaPlaceholder: formData.textareaPlaceholder,
                 formFields: {
                     deleteMany: {},
                     create: formData.formFields,
                 },
+                questions: {
+                    deleteMany: {},
+                    create: formData.questions,
+                },
             },
             include: {
                 formFields: true,
+                questions: true
             },
         });
 

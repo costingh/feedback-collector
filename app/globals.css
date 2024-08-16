@@ -123,3 +123,24 @@ body,
     50%{background-size:calc(100%/3) 100%,calc(100%/3) 0%  ,calc(100%/3) 100%}
     66%{background-size:calc(100%/3) 100%,calc(100%/3) 100%,calc(100%/3) 0%  }
 }
+
+.scroll-container {
+  overflow-y: scroll; /* Keeps the scrolling functionality */
+  height: calc(100vh - 180px); /* Sets the height */
+}
+
+/* For WebKit browsers like Chrome and Safari */
+.scroll-container::-webkit-scrollbar {
+  width: 0; /* Hides the scrollbar */
+  background: transparent; /* Optional: hides the scrollbar track */
+}
+
+/* For Firefox */
+.scroll-container {
+  scrollbar-width: none; /* Hides the scrollbar */
+}
+
+/* For Internet Explorer and Edge */
+.scroll-container {
+  -ms-overflow-style: none; /* Hides the scrollbar */
+}

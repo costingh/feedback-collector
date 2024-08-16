@@ -20,4 +20,9 @@ export type Form = {
     customUrl: string;
 	formFields: any[];
 	FormAnalytics: FormAnalytics;
+    questions: any[];
+    title: string;
+    description: string;
+    textareaPlaceholder: string;
+    buttonLabel: string;
 }

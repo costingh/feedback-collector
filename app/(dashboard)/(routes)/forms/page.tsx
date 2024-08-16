@@ -79,7 +79,23 @@ export default function FormsPage() {
 			backgroundColor: "#9072afff",
 			primaryColor: "#8466b4ff",
 			withAnimatedBg: false,
+			title: 'Your brand here',
+			description: "Do you love using our product? We'd love to hear about it!😊",
+			textareaPlaceholder: "Write a nice message here ✨",
+			buttonLabel: 'Submit',
+			published: false,
+			isPaused: false,
+			pausedUntil: null,
+			customUrl: '',
 			formFields: allFields,
+			questions: [
+				{
+					text: 'What do you like best about our service?'
+				},
+				{
+					text: 'Would you suggest us to a friend?'
+				}
+			]
 		};
 
 		try {
@@ -151,6 +167,7 @@ export default function FormsPage() {
 					isEnabled: option.isEnabled,
 					isRequired: option.isRequired,
 				})),
+				questions: form.questions.map(q => ({text: q.text})),
 				isPaused,
 			},
 		});
@@ -233,7 +250,7 @@ export default function FormsPage() {
 										</div>
 										<div className="flex items-center gap-2">
 											<p className="text-light text-[13px] text-gray-500">
-												https://formsly.com{form?.url}
+												{process.env.NEXT_PUBLIC_APP_DOMAIN + form?.url}
 											</p>
 											<Copy
 												className="text-gray-[500] cursor-pointer"

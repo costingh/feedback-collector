@@ -29,17 +29,25 @@ export async function POST(req: Request) {
                 backgroundColor: formData.backgroundColor,
                 primaryColor: formData.primaryColor,
                 withAnimatedBg: formData.withAnimatedBg,
-                published: false,
-                isPaused: false,
-                pausedUntil: null,
+                published: formData.published,
+                isPaused: formData.isPaused,
+                pausedUntil: formData.pausedUntil,
+                title: formData.title,
+                description: formData.description,
+                textareaPlaceholder: formData.textareaPlaceholder,
+                buttonLabel: formData.buttonLabel,
                 url: '/p/' + generateUniqueId(),
-                customUrl: '',
+                customUrl: formData.customUrl,
                 formFields: {
                     create: formData.formFields,
                 },
+                questions: {
+                    create: formData.questions
+                }
             },
             include: {
                 formFields: true,
+                questions: true,
             },
         });
 

@@ -28,23 +28,29 @@ export async function DELETE(req: Request) {
             return new NextResponse("Form not found", { status: 404 });
         }
 
-        await prismadb.formField.deleteMany({
-            where: {
-                formId: formId,
-            },
-        });
-
-        await prismadb.formAnalytics.deleteMany({
-            where: {
-                formId: formId,
-            },
-        });
-
-        await prismadb.form.delete({
-            where: {
-                id: formId,
-            },
-        });
+        // Start a transaction
+        await prismadb.$transaction([
+            prismadb.formField.deleteMany({
+                where: {
+                    formId: formId,
+                },
+            }),
+            prismadb.formAnalytics.deleteMany({
+                where: {
+                    formId: formId,
+                },
+            }),
+            prismadb.question.deleteMany({
+                where: {
+                    formId: formId,
+                },
+            }),
+            prismadb.form.delete({
+                where: {
+                    id: formId,
+                },
+            }),
+        ]);
 
         return new NextResponse("Form deleted successfully", { status: 200 });
     } catch (error) {

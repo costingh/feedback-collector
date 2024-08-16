@@ -61,7 +61,8 @@ const AdvancedSettings: React.FC<AdvancedSettingsProps> = ({
             	isRequired: option.isRequired,
             })),
             published: form.published,
-            isPaused: form.isPaused
+            isPaused: form.isPaused,
+			questions: form.questions.map(q => ({text: q.text})),
         };
 
         const published = !form?.published || false;
