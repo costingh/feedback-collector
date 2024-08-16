@@ -1,17 +1,7 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import {
-	CircleHelp,
-	Loader2,
-	PauseOctagon,
-	Plus,
-	PlusCircle,
-	Rocket,
-	SquarePlus,
-} from "lucide-react";
-import axios from "axios";
-import { toast } from "sonner";
+import React, { useState } from "react";
+import { CircleHelp } from "lucide-react";
 import { Form } from "@/types/Form";
 import {
 	Tooltip,
@@ -19,14 +9,6 @@ import {
 	TooltipProvider,
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
-
-interface Option {
-	key: string;
-	text: string;
-	description: string;
-	isEnabled: boolean;
-	icon: JSX.Element;
-}
 
 interface CustomizeLabelsProps {
 	setForm: React.Dispatch<React.SetStateAction<Form>>;
@@ -37,7 +19,6 @@ type FormLabelsType = {
 	key: string;
 	title: string;
 	tooltipDescription: string;
-	// textareaValue?: string;
 	questions?: { text: string }[];
 };
 
@@ -48,7 +29,6 @@ const CustomizeLabels: React.FC<CustomizeLabelsProps> = ({ setForm, form }) => {
 			title: "Title",
 			tooltipDescription:
 				"This is the title appearing at the top of your form.",
-			// textareaValue: form.title,
 		},
 		{
 			key: "description",
@@ -75,30 +55,19 @@ const CustomizeLabels: React.FC<CustomizeLabelsProps> = ({ setForm, form }) => {
 		},
 	]);
 
-	const handleAddNewQuestions = (q: string[]) => {
-		setFormLabels((prevLabels) =>
-			prevLabels.map((label) => {
-				if (label.key === "questions") {
-					return {
-						...label,
-						questions: [
-							...q.map((question) => ({ text: question })),
-						],
-					};
-				} else {
-					return label;
-				}
-			})
-		);
-	};
-
 	const handleInputChange = (value: string, key: string) => {
-		setForm((prevFormState) => ({
-			...prevFormState,
-			[key]: value
-		}));
-
-		console.log(key + ' - ' + value)
+		if (key == "questions") {
+			const questions = value.split("\n");
+			setForm((prevFormState) => ({
+				...prevFormState,
+				[key]: questions.map(q => ({text: q})),
+			}));
+		} else {
+			setForm((prevFormState) => ({
+				...prevFormState,
+				[key]: value,
+			}));
+		}
 	};
 
 	const extractFieldValue = (form: Form, key: string) => {
@@ -118,8 +87,6 @@ const CustomizeLabels: React.FC<CustomizeLabelsProps> = ({ setForm, form }) => {
 					title={label.title}
 					tooltipDescription={label.tooltipDescription}
 					textareaValue={extractFieldValue(form, label.key) || ""}
-					questions={label.questions}
-					handleAddNewQuestions={handleAddNewQuestions}
 					handleInputChange={handleInputChange}
 				/>
 			))}
@@ -134,8 +101,6 @@ type LabelEditProps = {
 	title: string;
 	tooltipDescription: string;
 	textareaValue?: string;
-	questions?: any[];
-	handleAddNewQuestions?: any;
 	handleInputChange: any;
 };
 
@@ -144,21 +109,8 @@ const LabelEdit: React.FC<LabelEditProps> = ({
 	title,
 	tooltipDescription,
 	textareaValue,
-	questions,
-	handleAddNewQuestions,
 	handleInputChange,
 }) => {
-	const [textareaQuestions, setTextareaQuestions] = useState("");
-
-	const handleChangeTextareaQuestions = (e) => {
-		setTextareaQuestions(e.target.value);
-	};
-
-	useEffect(() => {
-		const questions = textareaQuestions.split("\n");
-		handleAddNewQuestions(questions);
-	}, [textareaQuestions]);
-
 	return (
 		<div className="flex flex-col items-start gap-2 mb-3 w-full">
 			<div className="flex items-center justify-between w-full">
@@ -178,12 +130,10 @@ const LabelEdit: React.FC<LabelEditProps> = ({
 				</TooltipProvider>
 			</div>
 			<textarea
-					className="w-full border-[1px] border-gray-200 rounded-[4px] px-3 py-2 text-[14px]"
-					value={textareaValue}
-					onChange={(e) =>
-						handleInputChange(e.target.value, labelKey)
-					}
-				></textarea>
+				className="w-full border-[1px] border-gray-200 rounded-[4px] px-3 py-2 text-[14px]"
+				value={textareaValue}
+				onChange={(e) => handleInputChange(e.target.value, labelKey)}
+			></textarea>
 		</div>
 	);
 };
