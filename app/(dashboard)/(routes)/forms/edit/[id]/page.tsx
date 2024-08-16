@@ -193,8 +193,12 @@ export default function NewForm({ params }: { params: { id: string } }) {
 	const router = useRouter();
 
 	const toggleAccordion = (index: number) => {
-		// FOR  customize labels, ADVANCED and thank you page
-		if(index == 2 || index == 3 || index == 4) {
+		// FOR  customize labels
+		if(index == 2) {
+			setStep(1);
+			setOpenIndex(openIndex === index ? -1 : index);
+		} else if(index == 3 || index == 4) {
+			// FOR ADVANCED and thank you page
 			setOpenIndex(openIndex === index ? -1 : index);
 		} else {
 			// For ASPECT, CUSTOMER DETAILS
