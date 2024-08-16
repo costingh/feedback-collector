@@ -325,7 +325,7 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 		return allOptions;
 	};
 
-	const CollectReviewerPersonalInformation = () => (
+	const CollectReviewerPersonalInformation = ({buttonLabel} : {buttonLabel : string}) => (
 		<>
 			<p className="my-2 text-gray-900 font-bold text-[16px]">
 				Almost done 🙌
@@ -343,7 +343,7 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 								width={input.width}
 								height={input.height}
 								isRequired={isRequired}
-								baseColor={BASE_PRIMARY_COLOR}
+								baseColor={primaryColor || BASE_PRIMARY_COLOR}
 							/>
 						</div>
 					))}
@@ -407,7 +407,7 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 
 			<div className="mb-6"></div>
 
-			<SubmitButton />
+			<SubmitButton buttonLabel={buttonLabel} />
 		</>
 	);
 
@@ -428,7 +428,7 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 							description={description}
 						/>}
 
-						{step === 2 && <CollectReviewerPersonalInformation />}
+						{step === 2 && <CollectReviewerPersonalInformation buttonLabel={buttonLabel} />}
 					</>
 				)}
 			</div>
