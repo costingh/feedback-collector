@@ -109,8 +109,8 @@ export default function NewForm({ params }: { params: { id: string } }) {
 			},
 		},
 		{
-			key: "customer_email",
-			text: "Collect customer email",
+			key: "name",
+			text: "Collect name",
 			description:
 				"Collect email addresses so you can stay in touch and send a thank you note",
 			isEnabled: true,
@@ -118,6 +118,16 @@ export default function NewForm({ params }: { params: { id: string } }) {
 			icon: <AtSign size={18} />,
 			alwaysRequired: true,
 			input: { label: "Your Name", placeholder: "John Doe", key: "name" },
+		},
+		{
+			key: "customer_email",
+			text: "Collect customer email",
+			description:
+				"Collect email addresses so you can stay in touch and send a thank you note",
+			isEnabled: true,
+			isRequired: false,
+			icon: <AtSign size={18} />,
+			input: { label: "Email", placeholder: "john.doe@example.com", key: "email" },
 		},
 		{
 			key: "job_title",

@@ -50,9 +50,14 @@ export default function FormsPage() {
 			isRequired: false,
 		},
 		{
-			key: "customer_email",
+			key: "name",
 			isEnabled: true,
 			isRequired: true,
+		},
+		{
+			key: "customer_email",
+			isEnabled: true,
+			isRequired: false,
 		},
 		{
 			key: "job_title",

@@ -57,8 +57,8 @@ const options = [
 		},
 	},
 	{
-		key: "customer_email",
-		text: "Collect customer email",
+		key: "name",
+		text: "Collect name",
 		description:
 			"Collect email addresses so you can stay in touch and send a thank you note",
 		isEnabled: true,
@@ -66,6 +66,16 @@ const options = [
 		icon: <AtSign size={18} />,
 		alwaysRequired: true,
 		input: { label: "Your Name", placeholder: "John Doe", key: "name" },
+	},
+	{
+		key: "customer_email",
+		text: "Collect customer email",
+		description:
+			"Collect email addresses so you can stay in touch and send a thank you note",
+		isEnabled: true,
+		isRequired: false,
+		icon: <AtSign size={18} />,
+		input: { label: "Email", placeholder: "john.doe@example.com", key: "email" },
 	},
 	{
 		key: "job_title",
@@ -156,61 +166,31 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 		website: "",
 	});
 
-	const handleSubmit = async () => {
-		if (step == 1) handleSubmitStepOne();
-		else if (step == 2) handleSubmitStepTwo();
-	};
+	// const handleSubmit = async () => {
+	// 	if (step == 1) handleSubmitStepOne();
+	// 	else if (step == 2) handleSubmitStepTwo();
+	// };
 
-	const handleSubmitStepOne = async () => {
-		if (!message) {
-			toast.error("Please write a message!");
-			return;
-		}
+	// const handleSubmitStepTwo = async () => {
+	// 	console.log(availableOptions);
+	// 	console.log(userInfoValue)
 
-		if (!stars) {
-			toast.error("Please give a star rating!");
-			return;
-		}
+	// 	const requiredFieldsKeys: (keyof UserInfo)[] = availableOptions
+	// 		.filter((option) => option.isRequired && option.isEnabled)
+	// 		.map((option) => option.key);
 
-		const data = {
-			message,
-			stars,
-		};
+	// 	let isCompletedForm = true;
+	// 	requiredFieldsKeys.forEach((optionKey) => {
+	// 		if (!userInfoValue[optionKey]) {
+	// 			isCompletedForm = false;
+	// 		}
+	// 	});
 
-		const URL = "http://localhost:3000/api/review";
-
-		const rawResponse = await fetch(URL, {
-			method: "POST",
-			headers: {
-				Accept: "application/json",
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({ data }),
-		});
-
-		const content = await rawResponse.json();
-		console.log(content);
-	};
-
-	const handleSubmitStepTwo = async () => {
-		console.log(availableOptions);
-
-		const requiredFieldsKeys: (keyof UserInfo)[] = availableOptions
-			.filter((option) => option.isRequired && option.isEnabled)
-			.map((option) => option.input.key);
-
-		let isCompletedForm = true;
-		requiredFieldsKeys.forEach((optionKey) => {
-			if (!userInfoValue[optionKey]) {
-				isCompletedForm = false;
-			}
-		});
-
-		if (!isCompletedForm) {
-			toast.error("Please complete all required fields");
-			return;
-		}
-	};
+	// 	if (!isCompletedForm) {
+	// 		toast.error("Please complete all required fields");
+	// 		return;
+	// 	}
+	// };
 
 	const ratingChanged = (newRating: number) => {
 		console.log(newRating);
@@ -248,7 +228,13 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 		</ul>
 	);
 
-	const SubmitButton = ({ buttonLabel }: { buttonLabel: string }) => (
+	const SubmitButton = ({
+		buttonLabel,
+		handleSubmit,
+	}: {
+		buttonLabel: string;
+		handleSubmit: any;
+	}) => (
 		<button
 			onClick={handleSubmit}
 			className="p-2.5 rounded-lg text-gray-50 w-full mt-2.5 font-mediumtracking-wide text-[15px] flex items-center gap-4 justify-center"
@@ -304,6 +290,37 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 	}) => {
 		const messageRef = useRef<HTMLTextAreaElement>(null);
 
+		const handleSubmit = async () => {
+			if (!messageRef) {
+				toast.error("Please write a message!");
+				return;
+			}
+
+			if (!stars) {
+				toast.error("Please give a star rating!");
+				return;
+			}
+
+			const data = {
+				messageRef,
+				stars,
+			};
+
+			const URL = "http://localhost:3000/api/review";
+
+			const rawResponse = await fetch(URL, {
+				method: "POST",
+				headers: {
+					Accept: "application/json",
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ data }),
+			});
+
+			const content = await rawResponse.json();
+			console.log(content);
+		};
+
 		const handleTextareaChange = () => {
 			if (messageRef.current) {
 				console.log(messageRef.current.value);
@@ -323,7 +340,10 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 					className="mt-4 p-2.5 rounded-lg border border-gray-300 text-gray-700 min-h-[120px] w-full font-500"
 					placeholder={textareaPlaceholder}
 				></textarea>
-				<SubmitButton buttonLabel={buttonLabel} />
+				<SubmitButton
+					buttonLabel={buttonLabel}
+					handleSubmit={handleSubmit}
+				/>
 			</>
 		);
 	};
@@ -341,8 +361,64 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 
 	const CollectReviewerPersonalInformation = React.memo(
 		({ buttonLabel }: { buttonLabel: string }) => {
-			const [userInfoValue, setUserInfoValue] = useState({});
+			const [userInfoValue, setUserInfoValue] = useState<UserInfo>({});
 			const [focusedKey, setFocusedKey] = useState<string | null>(null);
+
+			const handleSubmit = async () => {
+				const requiredFieldsKeys = availableOptions
+					.filter((option) => option.isRequired && option.isEnabled)
+					.map((option) => option.key);
+
+				let isCompletedForm = true;
+				requiredFieldsKeys.forEach((optionKey) => {
+					if(optionKey == 'user_photo') {
+						if(!userInfoValue['photo']) {
+							isCompletedForm = false;
+
+						}
+					} else if(optionKey == 'company_logo') {
+						if(!userInfoValue['logo']) {
+							isCompletedForm = false;
+
+						}
+					} else if(optionKey == 'user_photo') {
+						if(!userInfoValue['photo']) {
+							isCompletedForm = false;
+
+						}
+					} else if(optionKey == 'name') {
+						if(!userInfoValue['name']) {
+							isCompletedForm = false;
+
+						}
+					} else if(optionKey == 'customer_email') {
+						if(!userInfoValue['email']) {
+							isCompletedForm = false;
+
+						}
+					} else if(optionKey == 'collect_company') {
+						if(!userInfoValue['company']) {
+							isCompletedForm = false;
+
+						}
+					} else if(optionKey == 'job_title') {
+						if(!userInfoValue['jobTitle']) {
+							isCompletedForm = false;
+
+						}
+					} else if(optionKey == 'website_url') {
+						if(!userInfoValue['website']) {
+							isCompletedForm = false;
+
+						}
+					}
+				});
+
+				if (!isCompletedForm) {
+					toast.error("Please complete all required fields");
+					return;
+				}
+			};
 
 			const handleInputChange = useCallback(
 				(key: string, value: string) => {
@@ -448,7 +524,10 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 
 					<div className="mb-6"></div>
 
-					<SubmitButton buttonLabel={buttonLabel} />
+					<SubmitButton
+						buttonLabel={buttonLabel}
+						handleSubmit={handleSubmit}
+					/>
 				</>
 			);
 		}
