@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import StarsRating from "../stars-rating";
 import { toast } from "sonner";
 import { BackgroundGradientAnimation } from "../ui/background-gradient-animation";
@@ -140,7 +140,7 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 	textareaPlaceholder,
 	buttonLabel,
 	title,
-	description
+	description,
 }) => {
 	// constants
 	const BASE_PRIMARY_COLOR = "rgb(34, 197, 94)";
@@ -148,7 +148,6 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 	// state
 	const [message, setMessage] = useState("");
 	const [stars, setStars] = useState(0);
-	const [focusedKey, setFocusedKey] = useState("");
 	const [userInfoValue, setUserInfoValue] = useState<UserInfo>({
 		name: "",
 		email: "",
@@ -156,9 +155,6 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 		jobTitle: "",
 		website: "",
 	});
-
-	const handleFocus = (key: string) => setFocusedKey(key);
-	const handleBlur = () => setFocusedKey("");
 
 	const handleSubmit = async () => {
 		if (step == 1) handleSubmitStepOne();
@@ -199,7 +195,7 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 	const handleSubmitStepTwo = async () => {
 		console.log(availableOptions);
 
-		const requiredFieldsKeys : (keyof UserInfo)[] = availableOptions
+		const requiredFieldsKeys: (keyof UserInfo)[] = availableOptions
 			.filter((option) => option.isRequired && option.isEnabled)
 			.map((option) => option.input.key);
 
@@ -239,7 +235,7 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 	// 	"Would you suggest us to a friend?",
 	// ];
 
-	const QuestionList = ({questions}: {questions: Question[]}) => (
+	const QuestionList = ({ questions }: { questions: Question[] }) => (
 		<ul className="my-4">
 			{questions?.map((question, index) => (
 				<li
@@ -252,7 +248,7 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 		</ul>
 	);
 
-	const SubmitButton = ({buttonLabel} : {buttonLabel: string}) => (
+	const SubmitButton = ({ buttonLabel }: { buttonLabel: string }) => (
 		<button
 			onClick={handleSubmit}
 			className="p-2.5 rounded-lg text-gray-50 w-full mt-2.5 font-mediumtracking-wide text-[15px] flex items-center gap-4 justify-center"
@@ -262,7 +258,7 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 		</button>
 	);
 
-	const FormHeader = ({title} : {title: string}) => (
+	const FormHeader = ({ title }: { title: string }) => (
 		<div className="flex items-center justify-between mb-8">
 			<div className="text-xl font-black text-gray-900 tracking-wide relative">
 				{title}
@@ -297,22 +293,40 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 		</div>
 	);
 
-	const CollectWrittenTestimonial = ({questions, textareaPlaceholder, buttonLabel}: {questions: Question[], textareaPlaceholder: string, buttonLabel: string, title: string, description: string}) => (
-		<>
-			<p className="my-2 text-gray-900 font-bold text-[16px]">
-				{description}
-			</p>
-			<QuestionList questions={questions} />
-			<StarsRating ratingChanged={ratingChanged} />
-			<textarea
-				value={message}
-				onChange={(e) => setMessage(e.target.value)}
-				className="mt-4 p-2.5 rounded-lg border border-gray-300 text-gray-700 min-h-[120px] w-full font-500"
-				placeholder={textareaPlaceholder}
-			></textarea>
-			<SubmitButton buttonLabel={buttonLabel} />
-		</>
-	);
+	const CollectWrittenTestimonial = ({
+		questions,
+		textareaPlaceholder,
+		buttonLabel,
+	}: {
+		questions: Question[];
+		textareaPlaceholder: string;
+		buttonLabel: string;
+	}) => {
+		const messageRef = useRef<HTMLTextAreaElement>(null);
+
+		const handleTextareaChange = () => {
+			if (messageRef.current) {
+				console.log(messageRef.current.value);
+			}
+		};
+
+		return (
+			<>
+				<p className="my-2 text-gray-900 font-bold text-[16px]">
+					{description}
+				</p>
+				<QuestionList questions={questions} />
+				<StarsRating ratingChanged={ratingChanged} />
+				<textarea
+					ref={messageRef}
+					onChange={handleTextareaChange}
+					className="mt-4 p-2.5 rounded-lg border border-gray-300 text-gray-700 min-h-[120px] w-full font-500"
+					placeholder={textareaPlaceholder}
+				></textarea>
+				<SubmitButton buttonLabel={buttonLabel} />
+			</>
+		);
+	};
 
 	const getAllOptions = () => {
 		const allOptions = options
@@ -325,93 +339,128 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 		return allOptions;
 	};
 
-	const CollectReviewerPersonalInformation = ({buttonLabel} : {buttonLabel : string}) => (
-		<>
-			<p className="my-2 text-gray-900 font-bold text-[16px]">
-				Almost done 🙌
-			</p>
+	const CollectReviewerPersonalInformation = React.memo(
+		({ buttonLabel }: { buttonLabel: string }) => {
+			const [userInfoValue, setUserInfoValue] = useState({});
+			const [focusedKey, setFocusedKey] = useState<string | null>(null);
 
-			<div className="flex items-center gap-4 mb-2 justify-center">
-				{getAllOptions()
-					.filter((option) => option.input.type == "file")
-					.map(({ isEnabled, isRequired, input }) => (
-						<div key={input.key}>
-							<UploadImage
-								text={input.text}
-								src={input.src}
-								alt={input.alt}
-								width={input.width}
-								height={input.height}
-								isRequired={isRequired}
-								baseColor={primaryColor || BASE_PRIMARY_COLOR}
-							/>
-						</div>
-					))}
-			</div>
-			{getAllOptions()
-				.filter((option) => option.input.type != "file")
-				.map(({ isEnabled, isRequired, input }) => (
-					<div key={input.key}>
-						{isEnabled && (
-							<>
-								{input.type == "file" ? (
+			const handleInputChange = useCallback(
+				(key: string, value: string) => {
+					setUserInfoValue((prev) => ({
+						...prev,
+						[key]: value,
+					}));
+				},
+				[]
+			);
+
+			const handleFocus = (key: string) => setFocusedKey(key);
+
+			const handleBlur = () => setFocusedKey(null);
+
+			return (
+				<>
+					<p className="my-2 text-gray-900 font-bold text-[16px]">
+						Almost done 🙌
+					</p>
+
+					<div className="flex items-center gap-4 mb-2 justify-center">
+						{getAllOptions()
+							.filter((option) => option.input.type === "file")
+							.map(({ isEnabled, isRequired, input }) => (
+								<div key={input.key}>
 									<UploadImage
 										text={input.text}
 										src={input.src}
 										alt={input.alt}
 										width={input.width}
 										height={input.height}
+										isRequired={isRequired}
+										baseColor={
+											primaryColor || BASE_PRIMARY_COLOR
+										}
 									/>
-								) : (
-									<div className="mb-2">
-										<span className="font-[600] text-[13px] text-gray-400">
-											{input.label}{" "}
-											{isRequired && (
-												<span className="text-red-500">
-													*
-												</span>
-											)}
-										</span>
-										<input
-											// @ts-ignore
-											value={userInfoValue[input.key] || ""}
-											onChange={(e) =>
-												setUserInfoValue((prev) => ({
-													...prev,
-													[input.key]: e.target.value,
-												}))
-											}
-											onFocus={() =>
-												handleFocus(input.key)
-											}
-											onBlur={handleBlur}
-											style={
-												focusedKey == input.key
-													? {
-															border: `solid 1px ${
-																primaryColor ||
-																BASE_PRIMARY_COLOR
-															}`,
-													  }
-													: {}
-											}
-											className="px-[15px] py-[8px] rounded-[5px] border border-gray-300 text-gray-700 w-full font-[500] text-[14px] outline-none"
-											placeholder={input.placeholder}
-										/>
-									</div>
-								)}
-							</>
-						)}
+								</div>
+							))}
 					</div>
-				))}
+					{getAllOptions()
+						.filter((option) => option.input.type !== "file")
+						.map(({ isEnabled, isRequired, input }) => (
+							<div key={input.key}>
+								{isEnabled && (
+									<>
+										{input.type === "file" ? (
+											<UploadImage
+												text={input.text}
+												src={input.src}
+												alt={input.alt}
+												width={input.width}
+												height={input.height}
+											/>
+										) : (
+											<div className="mb-2">
+												<span className="font-[600] text-[13px] text-gray-400">
+													{input.label}{" "}
+													{isRequired && (
+														<span className="text-red-500">
+															*
+														</span>
+													)}
+												</span>
+												<input
+													// @ts-ignore
+													value={
+														userInfoValue[
+															input.key
+														] || ""
+													}
+													onChange={(e) =>
+														handleInputChange(
+															input.key,
+															e.target.value
+														)
+													}
+													onFocus={() =>
+														handleFocus(input.key)
+													}
+													onBlur={handleBlur}
+													style={
+														focusedKey === input.key
+															? {
+																	border: `solid 1px ${
+																		primaryColor ||
+																		BASE_PRIMARY_COLOR
+																	}`,
+															  }
+															: {}
+													}
+													className="px-[15px] py-[8px] rounded-[5px] border border-gray-300 text-gray-700 w-full font-[500] text-[14px] outline-none"
+													placeholder={
+														input.placeholder
+													}
+												/>
+											</div>
+										)}
+									</>
+								)}
+							</div>
+						))}
 
-			<div className="mb-6"></div>
+					<div className="mb-6"></div>
 
-			<SubmitButton buttonLabel={buttonLabel} />
-		</>
+					<SubmitButton buttonLabel={buttonLabel} />
+				</>
+			);
+		}
 	);
 
-	const renderPopup = (questions: Question[], textareaPlaceholder: string, title: string, description: string, buttonLabel: string) => {
+	const renderPopup = (
+		questions: Question[],
+		textareaPlaceholder: string,
+		title: string,
+		description: string,
+		buttonLabel: string
+	) => {
 		return (
 			<div className="px-[25px] py-[30px] bg-white shadow-lg rounded-[15px] min-w-[500px] max-w-full w-[530px] text-left border-[1px] border-gray-100 pointer-events ">
 				<FormHeader title={title} />
@@ -420,15 +469,19 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 					<FormUnpublished />
 				) : (
 					<>
-						{step === 1 && <CollectWrittenTestimonial 
-							questions={questions} 
-							textareaPlaceholder={textareaPlaceholder} 
-							buttonLabel={buttonLabel}
-							title={title}
-							description={description}
-						/>}
+						{step === 1 && (
+							<CollectWrittenTestimonial
+								questions={questions}
+								textareaPlaceholder={textareaPlaceholder}
+								buttonLabel={buttonLabel}
+							/>
+						)}
 
-						{step === 2 && <CollectReviewerPersonalInformation buttonLabel={buttonLabel} />}
+						{step === 2 && (
+							<CollectReviewerPersonalInformation
+								buttonLabel={buttonLabel}
+							/>
+						)}
 					</>
 				)}
 			</div>
@@ -442,10 +495,24 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 		>
 			{withAnimatedBg ? (
 				<BackgroundGradientAnimation>
-					{renderPopup(questions, textareaPlaceholder, title, description, buttonLabel)}
+					{renderPopup(
+						questions,
+						textareaPlaceholder,
+						title,
+						description,
+						buttonLabel
+					)}
 				</BackgroundGradientAnimation>
 			) : (
-				<>{renderPopup(questions, textareaPlaceholder, title, description, buttonLabel)}</>
+				<>
+					{renderPopup(
+						questions,
+						textareaPlaceholder,
+						title,
+						description,
+						buttonLabel
+					)}
+				</>
 			)}
 		</div>
 	);
