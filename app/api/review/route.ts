@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 
 import { checkSubscription } from "@/lib/subscription";
 import { incrementApiLimit, checkApiLimit } from "@/lib/api-limit";
-
+import prismadb from "@/lib/prismadb";
 
 export async function POST(req: Request) {
     try {
@@ -16,7 +16,7 @@ export async function POST(req: Request) {
             return new NextResponse("Unauthorized", { status: 401 });
         }
 
-        console.log(data)
+        console.log(data);
 
         const freeTrial = await checkApiLimit();
         const isPro = await checkSubscription();
@@ -28,13 +28,36 @@ export async function POST(req: Request) {
             );
         }
 
+        const existingReview = await prismadb.formResponse.findFirst({
+            where: { email: data.email, formId: data.formId },
+        });
+
+        console.log(existingReview)
+        if (existingReview) {
+            return NextResponse.json({ result: null, error: "A review was already submitted with this email." });
+        }
+
+        const result = await prismadb.formResponse.create({
+            data: {
+                stars: data.stars || 0,
+                message: data.message || '',
+                email: data.email || '',
+                name: data.name || '',
+                company: data.company || '',
+                jobTitle: data.jobTitle || '',
+                website: data.website || '',
+                formId: data.formId || '',
+            },
+        });
+
+        return NextResponse.json({ result, error: null });
+
         // if (!isPro) {
         //     await incrementApiLimit();
         // }
 
-        return NextResponse.json(data);
     } catch (error) {
-        console.log("[VIDEO_ERROR]", error);
+        console.log("[REVIEW_ERROR]", error);
         return new NextResponse("Internal Error", { status: 500 });
     }
 }

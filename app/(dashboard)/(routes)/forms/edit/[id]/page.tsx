@@ -336,6 +336,7 @@ export default function NewForm({ params }: { params: { id: string } }) {
 									buttonLabel={form.buttonLabel}
 									title={form.title}
 									description={form.description}
+									formId={form.id}
 								/>
 							</div>
 							<div className="right w-[600px] border-l-[1px] border-gray-200 px-[40px] h-[100vh] relative pt-6">

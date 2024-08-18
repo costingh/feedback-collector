@@ -47,6 +47,7 @@ model Form {
   questions           Question[]
   textareaPlaceholder String
   buttonLabel         String
+  FormResponse        FormResponse[]
 }
 
 model FormField {
@@ -72,4 +73,17 @@ model FormAnalytics {
   responseRate Int
   formId       String
   form         Form   @relation(fields: [formId], references: [id])
+}
+
+model FormResponse {
+  id       String @id @default(cuid())
+  stars    Float
+  message  String
+  name     String
+  email    String
+  company  String
+  jobTitle String
+  website  String
+  formId   String
+  form     Form   @relation(fields: [formId], references: [id])
 }
