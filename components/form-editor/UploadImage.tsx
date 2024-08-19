@@ -66,7 +66,7 @@ const UploadImage: React.FC<UploadImageProps> = ({
 
     const handleButtonClick = () => {
         // Trigger file input click
-        document.getElementById('fileInput')?.click();
+        document.getElementById('fileInput-' + inputType)?.click();
     };
 
     return (
@@ -93,7 +93,7 @@ const UploadImage: React.FC<UploadImageProps> = ({
             </button>
             <input
                 type="file"
-                id="fileInput"
+                id={"fileInput-" + inputType}
                 accept="image/jpeg, image/png, image/svg+xml"
                 style={{ display: 'none' }}
                 onChange={handleFileChange}
