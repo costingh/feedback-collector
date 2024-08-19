@@ -4,149 +4,17 @@ import React from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Form } from "@/types/Form";
 
-import {
-	AtSign,
-	BriefcaseBusiness,
-	Building2,
-	Earth,
-	LucideOctagon,
-} from "lucide-react";
-
-interface Option {
-	key: string;
-	text: string;
-	description: string;
-	isEnabled: boolean;
-	isRequired: boolean;
-	icon: JSX.Element;
-	input: Record<string, any>;
-	alwaysRequired?: boolean;
-}
-
-// interface FormField {
-// 	key: string;
-// 	isEnabled: boolean;
-// 	isRequired: boolean;
-// }
-
-// interface Form {
-// 	formFields: FormField[];
-// 	[key: string]: any;
-// }
-
 interface CustomerDetailsProps {
 	setForm: React.Dispatch<React.SetStateAction<Form>>;
 	form: Form;
 }
 
-const options: Option[] = [
-	{
-		key: "user_photo",
-		text: "Collect User Photo",
-		description:
-			"Collect user photos to make widgets that convert better because they look more authentic.",
-		isEnabled: true,
-		isRequired: false,
-		icon: <LucideOctagon size={18} />,
-		input: {
-			type: "file",
-			key: "photo",
-			accept: ".jpg,.png,.jpeg,.svg",
-			text: "Photo with you",
-			src: "/avatar-placeholder.jpg",
-			alt: "Avatar",
-			width: 50,
-			height: 50,
-		},
-	},
-	{
-		key: "company_logo",
-		text: "Collect Company Logo",
-		description:
-			"Collect company logos to create widgets that showcase the logos of your customers.",
-		isEnabled: true,
-		isRequired: false,
-		icon: <LucideOctagon size={18} />,
-		input: {
-			type: "file",
-			key: "logo",
-			accept: ".jpg,.png,.jpeg,.svg",
-			text: "Your Company Logo",
-			src: "/company-placeholder-image.png",
-			alt: "Logo",
-			width: 70,
-			height: 50,
-		},
-	},
-	{
-		key: "name",
-		text: "Collect name",
-		description:
-			"Collect email addresses so you can stay in touch and send a thank you note",
-		isEnabled: true,
-		isRequired: true,
-		icon: <AtSign size={18} />,
-		alwaysRequired: true,
-		input: { label: "Your Name", placeholder: "John Doe", key: "name" },
-	},
-	{
-		key: "customer_email",
-		text: "Collect customer email",
-		description:
-			"Collect email addresses so you can stay in touch and send a thank you note",
-		isEnabled: true,
-		isRequired: false,
-		icon: <AtSign size={18} />,
-		input: { label: "Email", placeholder: "john.doe@example.com", key: "email" },
-	},
-	{
-		key: "job_title",
-		text: "Job Title",
-		description:
-			"Collect job titles so you search by title, and group testimonials in some widgets.",
-		isEnabled: true,
-		isRequired: false,
-		icon: <BriefcaseBusiness size={18} />,
-		input: {
-			label: "Job Title",
-			placeholder: "Your Job Title",
-			key: "jobTitle",
-		},
-	},
-	{
-		key: "website_url",
-		text: "Collect Website URL",
-		description:
-			"Collect website URL so you can learn more about your customers, and include a link in some widgets.",
-		isEnabled: true,
-		isRequired: false,
-		icon: <Earth size={22} />,
-		input: {
-			label: "Website",
-			placeholder: "https://example.com",
-			key: "website",
-		},
-	},
-	{
-		key: "collect_company",
-		text: "Collect Company",
-		description:
-			"Collect company name so you can search for testimonials from the same company, and display it in some widgets.",
-		isEnabled: true,
-		isRequired: false,
-		icon: <Building2 size={24} />,
-		input: {
-			label: "Company",
-			placeholder: "Your Company",
-			key: "company",
-		},
-	},
-];
+import options from "./CustomerDetailsOptionList";
+import { Option } from "@/types/Option";
 
 const CustomerDetails: React.FC<CustomerDetailsProps> = ({ setForm, form }) => {
 
 	const handleCheck = (
-		checked: boolean, 
 		option: Option, 
 		type: "enable" | "required"
 	) => {
@@ -190,7 +58,6 @@ const CustomerDetails: React.FC<CustomerDetailsProps> = ({ setForm, form }) => {
 													className="w-[15px] h-[15px] rounde-[4px]"
 													onClick={() =>
 														handleCheck(
-															option.isEnabled,
 															option,
 															"enable"
 														)
@@ -210,7 +77,6 @@ const CustomerDetails: React.FC<CustomerDetailsProps> = ({ setForm, form }) => {
 													className="w-[15px] h-[15px] rounde-[4px]"
 													onClick={() =>
 														handleCheck(
-															option.isRequired,
 															option,
 															"required"
 														)

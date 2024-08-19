@@ -85,5 +85,7 @@ model FormResponse {
   jobTitle String
   website  String
   formId   String
+  avatar   String
+  logo     String
   form     Form   @relation(fields: [formId], references: [id])
 }

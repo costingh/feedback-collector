@@ -40,12 +40,12 @@ export default function FormsPage() {
 
 	const allFields = [
 		{
-			key: "user_photo",
+			key: "avatar",
 			isEnabled: true,
 			isRequired: false,
 		},
 		{
-			key: "company_logo",
+			key: "logo",
 			isEnabled: true,
 			isRequired: false,
 		},

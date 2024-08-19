@@ -32,7 +32,6 @@ export async function POST(req: Request) {
             where: { email: data.email, formId: data.formId },
         });
 
-        console.log(existingReview)
         if (existingReview) {
             return NextResponse.json({ result: null, error: "A review was already submitted with this email." });
         }
@@ -47,6 +46,8 @@ export async function POST(req: Request) {
                 jobTitle: data.jobTitle || '',
                 website: data.website || '',
                 formId: data.formId || '',
+                avatar: data.avatar || '',
+                logo: data.logo || ''
             },
         });
 

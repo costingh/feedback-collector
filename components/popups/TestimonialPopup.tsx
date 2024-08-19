@@ -9,6 +9,7 @@ import {
 	BriefcaseBusiness,
 	Building2,
 	Earth,
+	Loader2,
 	LucideOctagon,
 } from "lucide-react";
 import FormUnpublished from "../form-editor/FormUnpublished";
@@ -16,115 +17,7 @@ import UploadImage from "../form-editor/UploadImage";
 import { UserInfo } from "@/types/UserInfo";
 import { Question } from "@/types/Question";
 import { Form } from "@/types/Form";
-
-const options = [
-	{
-		key: "user_photo",
-		text: "Collect User Photo",
-		description:
-			"Collect user photos to make widgets that convert better because they look more authentic.",
-		isEnabled: true,
-		isRequired: false,
-		icon: <LucideOctagon size={18} />,
-		input: {
-			type: "file",
-			key: "photo",
-			accept: ".jpg,.png,.jpeg,.svg",
-			text: "Photo with you",
-			src: "/avatar-placeholder.jpg",
-			alt: "Avatar",
-			width: 50,
-			height: 50,
-		},
-	},
-	{
-		key: "company_logo",
-		text: "Collect Company Logo",
-		description:
-			"Collect company logos to create widgets that showcase the logos of your customers.",
-		isEnabled: true,
-		isRequired: false,
-		icon: <LucideOctagon size={18} />,
-		input: {
-			type: "file",
-			key: "logo",
-			accept: ".jpg,.png,.jpeg,.svg",
-			text: "Your Company Logo",
-			src: "/company-placeholder-image.png",
-			alt: "Logo",
-			width: 70,
-			height: 50,
-		},
-	},
-	{
-		key: "name",
-		text: "Collect name",
-		description:
-			"Collect email addresses so you can stay in touch and send a thank you note",
-		isEnabled: true,
-		isRequired: true,
-		icon: <AtSign size={18} />,
-		alwaysRequired: true,
-		input: { label: "Your Name", placeholder: "John Doe", key: "name" },
-	},
-	{
-		key: "customer_email",
-		text: "Collect customer email",
-		description:
-			"Collect email addresses so you can stay in touch and send a thank you note",
-		isEnabled: true,
-		isRequired: false,
-		icon: <AtSign size={18} />,
-		input: {
-			label: "Email",
-			placeholder: "john.doe@example.com",
-			key: "email",
-		},
-	},
-	{
-		key: "job_title",
-		text: "Job Title",
-		description:
-			"Collect job titles so you search by title, and group testimonials in some widgets.",
-		isEnabled: true,
-		isRequired: false,
-		icon: <BriefcaseBusiness size={18} />,
-		input: {
-			label: "Job Title",
-			placeholder: "Your Job Title",
-			key: "jobTitle",
-		},
-	},
-	{
-		key: "website_url",
-		text: "Collect Website URL",
-		description:
-			"Collect website URL so you can learn more about your customers, and include a link in some widgets.",
-		isEnabled: true,
-		isRequired: false,
-		icon: <Earth size={22} />,
-		input: {
-			label: "Website",
-			placeholder: "https://example.com",
-			key: "website",
-		},
-	},
-	{
-		key: "collect_company",
-		text: "Collect Company",
-		description:
-			"Collect company name so you can search for testimonials from the same company, and display it in some widgets.",
-		isEnabled: true,
-		isRequired: false,
-		icon: <Building2 size={24} />,
-		input: {
-			label: "Company",
-			placeholder: "Your Company",
-			key: "company",
-		},
-	},
-];
-
+import options from "../form-editor/CustomerDetailsOptionList";
 interface TestimonialPopupProps {
 	backgroundColor: string;
 	primaryColor: string;
@@ -195,16 +88,19 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 	const SubmitButton = ({
 		buttonLabel,
 		handleSubmit,
+		loading
 	}: {
 		buttonLabel: string;
 		handleSubmit: any;
+		loading?: boolean;
 	}) => (
 		<button
 			onClick={handleSubmit}
+			disabled={loading}
 			className="p-2.5 rounded-lg text-gray-50 w-full mt-2.5 font-mediumtracking-wide text-[15px] flex items-center gap-4 justify-center"
 			style={{ backgroundColor: primaryColor || BASE_PRIMARY_COLOR }}
 		>
-			<div>{buttonLabel}</div> <RocketIcon />
+			{loading ? <Loader2 className="spin" /> : <><div>{buttonLabel}</div> <RocketIcon /></>}
 		</button>
 	);
 
@@ -326,45 +222,51 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 	const CollectReviewerPersonalInformation = React.memo(
 		({ buttonLabel }: { buttonLabel: string }) => {
 			const [userInfoValue, setUserInfoValue] = useState<UserInfo>({});
+			const [isSubmitting, setIsSubmitting] = useState(false)
 			const [focusedKey, setFocusedKey] = useState<string | null>(null);
-
+			const [images, setImages] = useState({
+				avatar: '',
+				logo: ''
+			})
 			const handleSubmit = async () => {
+				setIsSubmitting(true)
 				const requiredFieldsKeys = availableOptions
 					.filter((option) => option.isRequired && option.isEnabled)
 					.map((option) => option.key);
 
+				const responseToSubmit = { ...finalResponse, ...userInfoValue, ...images, formId };
+
+				console.log(requiredFieldsKeys)
+				console.log(responseToSubmit)
+
 				let isCompletedForm = true;
 				requiredFieldsKeys.forEach((optionKey) => {
-					if (optionKey == "user_photo") {
-						if (!userInfoValue["photo"]) {
+					if (optionKey == "avatar") {
+						if (!responseToSubmit["avatar"]) {
 							isCompletedForm = false;
 						}
-					} else if (optionKey == "company_logo") {
-						if (!userInfoValue["logo"]) {
-							isCompletedForm = false;
-						}
-					} else if (optionKey == "user_photo") {
-						if (!userInfoValue["photo"]) {
+					} else if (optionKey == "logo") {
+						if (!responseToSubmit["logo"]) {
 							isCompletedForm = false;
 						}
 					} else if (optionKey == "name") {
-						if (!userInfoValue["name"]) {
+						if (!responseToSubmit["name"]) {
 							isCompletedForm = false;
 						}
 					} else if (optionKey == "customer_email") {
-						if (!userInfoValue["email"]) {
+						if (!responseToSubmit["email"]) {
 							isCompletedForm = false;
 						}
 					} else if (optionKey == "collect_company") {
-						if (!userInfoValue["company"]) {
+						if (!responseToSubmit["company"]) {
 							isCompletedForm = false;
 						}
 					} else if (optionKey == "job_title") {
-						if (!userInfoValue["jobTitle"]) {
+						if (!responseToSubmit["jobTitle"]) {
 							isCompletedForm = false;
 						}
 					} else if (optionKey == "website_url") {
-						if (!userInfoValue["website"]) {
+						if (!responseToSubmit["website"]) {
 							isCompletedForm = false;
 						}
 					}
@@ -374,10 +276,6 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 					toast.error("Please complete all required fields");
 					return;
 				}
-
-				const responseToSubmit = { ...finalResponse, ...userInfoValue, formId };
-
-				// setFinalResponse(responseToSubmit);
 
 				const URL = "/api/review";
 				const rawResponse = await fetch(URL, {
@@ -390,12 +288,14 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 				});
 
 				const response = await rawResponse.json();
+
 				if(response?.error) {
 					toast.error(response.error)
 				} else {
 					// maybe redirect to thank you page
 					toast.success('Response submitted successfully!')
 				}
+				setIsSubmitting(false)
 			};
 
 			const handleInputChange = useCallback(
@@ -433,6 +333,8 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 										baseColor={
 											primaryColor || BASE_PRIMARY_COLOR
 										}
+										setImages={setImages}
+										inputType={input.key}
 									/>
 								</div>
 							))}
@@ -450,6 +352,8 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 												alt={input.alt}
 												width={input.width}
 												height={input.height}
+												inputType={input.key}
+												setImages={setImages}
 											/>
 										) : (
 											<div className="mb-2">
@@ -505,6 +409,7 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 					<SubmitButton
 						buttonLabel={buttonLabel}
 						handleSubmit={handleSubmit}
+						loading={isSubmitting}
 					/>
 				</>
 			);
