@@ -17,6 +17,7 @@ export async function GET(req: Request) {
             include: {
                 formFields: true,
                 FormAnalytics: true,
+                questions: true
             },
         });
 

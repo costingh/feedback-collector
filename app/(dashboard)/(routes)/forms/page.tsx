@@ -27,16 +27,18 @@ import axios from "axios";
 import { useAuth } from "@clerk/nextjs";
 import Link from "next/link";
 import { Form } from "@/types/Form";
+import { Loader } from "@/components/loader";
+import FormSkeleton from "@/components/skeletons/FormSkeleton";
 
 export default function FormsPage() {
 	const router = useRouter();
 
 	const [isLoading, setIsLoading] = useState(false);
-	const [fetchingForms, setFetchingForms] = useState(false);
+	const [fetchingForms, setFetchingForms] = useState(true);
 	const [userForms, setUserForms] = useState<Form[]>([]);
 	const { userId } = useAuth();
-	const [isDeleting, setIsDeleting] = useState(false);
-	const [isPausing, setIsPausing] = useState(false);
+	const [isDeleting, setIsDeleting] = useState("");
+	const [isPausing, setIsPausing] = useState("");
 
 	const allFields = [
 		{
@@ -84,23 +86,24 @@ export default function FormsPage() {
 			backgroundColor: "#9072afff",
 			primaryColor: "#8466b4ff",
 			withAnimatedBg: false,
-			title: 'Your brand here',
-			description: "Do you love using our product? We'd love to hear about it!😊",
+			title: "Your brand here",
+			description:
+				"Do you love using our product? We'd love to hear about it!😊",
 			textareaPlaceholder: "Write a nice message here ✨",
-			buttonLabel: 'Submit',
+			buttonLabel: "Submit",
 			published: false,
 			isPaused: false,
 			pausedUntil: null,
-			customUrl: '',
+			customUrl: "",
 			formFields: allFields,
 			questions: [
 				{
-					text: 'What do you like best about our service?'
+					text: "What do you like best about our service?",
 				},
 				{
-					text: 'Would you suggest us to a friend?'
-				}
-			]
+					text: "Would you suggest us to a friend?",
+				},
+			],
 		};
 
 		try {
@@ -139,7 +142,7 @@ export default function FormsPage() {
 	};
 
 	const handleDeleteForm = async (formId: string) => {
-		setIsDeleting(true);
+		setIsDeleting(formId);
 		try {
 			const response = await axios.delete(
 				`/api/delete-form?id=${formId}`
@@ -157,11 +160,11 @@ export default function FormsPage() {
 			console.error("Failed to delete form:", error);
 			toast.error("An error occurred while deleting the form");
 		}
-		setIsDeleting(false);
+		setIsDeleting("");
 	};
 
 	const setPausedForm = async (form: Form) => {
-		setIsPausing(true);
+		setIsPausing(form.id);
 		const isPaused = !form?.isPaused || false;
 		const response = await axios.post("/api/update-form", {
 			formData: {
@@ -172,7 +175,7 @@ export default function FormsPage() {
 					isEnabled: option.isEnabled,
 					isRequired: option.isRequired,
 				})),
-				questions: form.questions.map(q => ({text: q.text})),
+				questions: form.questions.map((q) => ({ text: q.text })),
 				isPaused,
 			},
 		});
@@ -181,7 +184,7 @@ export default function FormsPage() {
 
 		if (!updatedForm) {
 			toast.error("Could not perform operation!");
-			setIsPausing(false);
+			setIsPausing("");
 			return;
 		}
 
@@ -199,7 +202,65 @@ export default function FormsPage() {
 					};
 			})
 		);
-		setIsPausing(false);
+		setIsPausing("");
+	};
+
+	const [isDuplicatingForm, setIsDuplicatingForm] = useState("");
+
+	const handleDuplicateForm = async (formId: string) => {
+		console.log(formId);
+		setIsDuplicatingForm(formId);
+
+		const formToDuplicate = userForms.find((f) => f.id == formId);
+
+		if (!formToDuplicate) {
+			toast.error("Error when duplicating form, maybe try a refresh.");
+			return;
+		}
+
+		const formData = {
+			userId,
+			name: formToDuplicate.name + " - Copy",
+			backgroundColor: formToDuplicate.backgroundColor,
+			primaryColor: formToDuplicate.primaryColor,
+			withAnimatedBg: formToDuplicate.withAnimatedBg,
+			title: formToDuplicate.title,
+			description: formToDuplicate.description,
+			textareaPlaceholder: formToDuplicate.textareaPlaceholder,
+			buttonLabel: formToDuplicate.buttonLabel,
+			published: formToDuplicate.published,
+			isPaused: formToDuplicate.isPaused,
+			pausedUntil: formToDuplicate.pausedUntil,
+			customUrl: formToDuplicate.customUrl,
+			formFields: formToDuplicate?.formFields?.map((option) => ({
+				key: option.key,
+				isEnabled: option.isEnabled,
+				isRequired: option.isRequired,
+			})),
+			questions: formToDuplicate?.questions?.map((q) => ({
+				text: q.text,
+			})),
+		};
+
+		try {
+			const response = await axios.post("/api/create-form", {
+				formData,
+			});
+
+			const createdForm = response?.data?.form;
+
+			if (!createdForm) {
+				toast.error("Form duplicated successfully!");
+				return;
+			}
+
+			setUserForms((prev) => [...prev, createdForm]);
+		} catch (err) {
+			console.error(err);
+			toast.error("Could not duplicate form!");
+		}
+
+		setIsDuplicatingForm("");
 	};
 
 	return (
@@ -229,7 +290,11 @@ export default function FormsPage() {
 			</div>
 
 			{fetchingForms ? (
-				<Loader2 className="ml-[30px] spin" />
+				<div className="mt-10">
+					{[...Array(3)].map((_, i) => (
+						<FormSkeleton key={i} />
+					))}
+				</div>
 			) : (
 				<>
 					{userForms?.length ? (
@@ -255,7 +320,9 @@ export default function FormsPage() {
 										</div>
 										<div className="flex items-center gap-2">
 											<p className="text-light text-[13px] text-gray-500">
-												{process.env.NEXT_PUBLIC_APP_DOMAIN + form?.url}
+												{process.env
+													.NEXT_PUBLIC_APP_DOMAIN +
+													form?.url}
 											</p>
 											<Copy
 												className="text-gray-[500] cursor-pointer"
@@ -305,7 +372,7 @@ export default function FormsPage() {
 										<div
 											className="rounded-[7px] bg-gray-200 text-gray-500 px-[10px] py-[4px] cursor-pointer hover:bg-gray-300 flex items-center gap-[4px]"
 											onClick={() =>
-												handleEditForm(form?.id || '')
+												handleEditForm(form?.id || "")
 											}
 										>
 											<Edit2
@@ -335,7 +402,7 @@ export default function FormsPage() {
 												className="text-orange-400"
 											/>
 											<div className="text-[13px] font-[500]">
-												{isPausing ? (
+												{isPausing == form.id ? (
 													<Loader2
 														size={14}
 														className="spin my-[4px] mx-[4px]"
@@ -347,13 +414,28 @@ export default function FormsPage() {
 												)}
 											</div>
 										</div>
-										<div className="rounded-[7px] bg-gray-200 text-gray-500 px-[10px] py-[4px] cursor-pointer hover:bg-gray-300 flex items-center gap-[4px]">
+										<div
+											className="rounded-[7px] bg-gray-200 text-gray-500 px-[10px] py-[4px] cursor-pointer hover:bg-gray-300 flex items-center gap-[4px]"
+											onClick={() =>
+												handleDuplicateForm(
+													form?.id || ""
+												)
+											}
+										>
 											<CopyPlus
 												size={14}
 												className="text-blue-500"
 											/>
 											<div className="text-[13px] font-[500]">
-												Duplicate
+												{isDuplicatingForm ==
+												form.id ? (
+													<Loader2
+														size={14}
+														className="spin my-[4px] mx-[4px]"
+													/>
+												) : (
+													"Duplicate"
+												)}
 											</div>
 										</div>
 										<Link
@@ -382,10 +464,10 @@ export default function FormsPage() {
 										<div
 											className="text-[13px] font-[500]"
 											onClick={() =>
-												handleDeleteForm(form?.id || '')
+												handleDeleteForm(form?.id || "")
 											}
 										>
-											{isDeleting ? (
+											{isDeleting == form.id ? (
 												<Loader2
 													size={14}
 													className="spin my-[4px] mx-[4px]"
