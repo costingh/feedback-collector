@@ -26,28 +26,30 @@ model UserSubscription {
 }
 
 model Form {
-  id              String          @id @default(cuid())
-  name            String
-  backgroundColor String
-  primaryColor    String
-  withAnimatedBg  Boolean
-  formFields      FormField[]
-  createdAt       DateTime        @default(now())
-  updatedAt       DateTime        @updatedAt
-  userId          String
-  published       Boolean
-  isPaused        Boolean
-  pausedUntil     DateTime?
-  url             String
-  customUrl       String
-  FormAnalytics   FormAnalytics[]
-
+  id                  String          @id @default(cuid())
+  name                String
+  backgroundColor     String
+  primaryColor        String
+  withAnimatedBg      Boolean
+  formFields          FormField[]
+  createdAt           DateTime        @default(now())
+  updatedAt           DateTime        @updatedAt
+  userId              String
+  published           Boolean
+  isPaused            Boolean
+  pausedUntil         DateTime?
+  url                 String
+  customUrl           String
+  FormAnalytics       FormAnalytics[]
   title               String
   description         String
   questions           Question[]
   textareaPlaceholder String
   buttonLabel         String
   FormResponse        FormResponse[]
+  thankYouPageTitle   String
+  thankYouPageMessage String
+  thankYouCustomURL   String
 }
 
 model FormField {

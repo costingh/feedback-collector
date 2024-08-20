@@ -28,6 +28,7 @@ import { Loader } from "@/components/loader";
 import { Form } from "@/types/Form";
 import CustomizeLabels from "@/components/form-editor/CustomizeLabels";
 import options from "@/components/form-editor/CustomerDetailsOptionList";
+import ThankYouPage from "@/components/form-editor/ThankYouPage";
 
 const submenus = [
 	{
@@ -56,15 +57,15 @@ const submenus = [
 		name: "Advanced",
 		icon: <Cog size={20} className="text-blue-700 mr-[8px] ml-[15px]" />,
 	},
-	// {
-	// 	name: "Thank you page",
-	// 	icon: (
-	// 		<PartyPopper
-	// 			size={20}
-	// 			className="text-pink-600 mr-[8px] ml-[15px]"
-	// 		/>
-	// 	),
-	// },
+	{
+		name: "Thank you page",
+		icon: (
+			<PartyPopper
+				size={20}
+				className="text-pink-600 mr-[8px] ml-[15px]"
+			/>
+		),
+	},
 ];
 
 export default function NewForm({ params }: { params: { id: string } }) {
@@ -90,6 +91,9 @@ export default function NewForm({ params }: { params: { id: string } }) {
 		textareaPlaceholder: '',
 		buttonLabel: '',
 		formFields: options,
+		thankYouPageTitle: '',
+		thankYouPageMessage: '',
+		thankYouCustomURL: '',
 		FormAnalytics: {
 			visits: 0,
 			testimonials: 0,
@@ -104,8 +108,12 @@ export default function NewForm({ params }: { params: { id: string } }) {
 		if(index == 2) {
 			setStep(1);
 			setOpenIndex(openIndex === index ? -1 : index);
-		} else if(index == 3 || index == 4) {
-			// FOR ADVANCED and thank you page
+		} else if(index == 3) {
+			// FOR ADVANCED
+			setOpenIndex(openIndex === index ? -1 : index);
+		} else if(index == 4) {
+			// FOR thank you page
+			setStep(3);
 			setOpenIndex(openIndex === index ? -1 : index);
 		} else {
 			// For ASPECT, CUSTOMER DETAILS
@@ -141,6 +149,8 @@ export default function NewForm({ params }: { params: { id: string } }) {
 			return <CustomizeLabels setForm={setForm} form={form} />;
 		} else if (submenu == submenus[3].name) {
 			return <AdvancedSettings setForm={setForm} form={form} />;
+		} else if (submenu == submenus[4].name) {
+			return <ThankYouPage setForm={setForm} form={form} />;
 		}
 	};
 
@@ -234,6 +244,8 @@ export default function NewForm({ params }: { params: { id: string } }) {
 									title={form.title}
 									description={form.description}
 									formId={form.id}
+									thankYouPageTitle={form.thankYouPageTitle}
+									thankYouPageMessage={form.thankYouPageMessage}
 								/>
 							</div>
 							<div className="right w-[600px] border-l-[1px] border-gray-200 px-[40px] h-[100vh] relative pt-6">

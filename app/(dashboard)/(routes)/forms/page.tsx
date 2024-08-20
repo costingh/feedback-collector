@@ -102,6 +102,9 @@ export default function FormsPage() {
 			pausedUntil: null,
 			customUrl: "",
 			formFields: allFields,
+			thankYouPageTitle: 'Thanks for offering us feedback 🙏',
+			thankYouPageMessage: 'Thank you so much for your support! We appreciate your support and we hope you enjoy using our product.',
+			thankYouCustomURL: '',
 			questions: [
 				{
 					text: "What do you like best about our service?",
@@ -228,6 +231,9 @@ export default function FormsPage() {
 			isPaused: formToDuplicate.isPaused,
 			pausedUntil: formToDuplicate.pausedUntil,
 			customUrl: formToDuplicate.customUrl,
+			thankYouPageTitle: 'Thanks for offering us feedback 🙏',
+			thankYouPageMessage: 'Thank you so much for your support! We appreciate your support and we hope you enjoy using our product.',
+			thankYouCustomURL: '',
 			formFields: formToDuplicate?.formFields?.map((option) => ({
 				key: option.key,
 				isEnabled: option.isEnabled,

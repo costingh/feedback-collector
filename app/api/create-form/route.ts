@@ -38,6 +38,9 @@ export async function POST(req: Request) {
                 buttonLabel: formData.buttonLabel,
                 url: '/p/' + generateUniqueId(),
                 customUrl: formData.customUrl,
+                thankYouPageTitle: formData.thankYouPageTitle,
+                thankYouPageMessage: formData.thankYouPageMessage,
+                thankYouCustomURL: formData.thankYouCustomURL,
                 formFields: {
                     create: formData.formFields,
                 },

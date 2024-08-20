@@ -25,4 +25,7 @@ export type Form = {
     description: string;
     textareaPlaceholder: string;
     buttonLabel: string;
+    thankYouPageTitle: string;
+    thankYouPageMessage: string;
+    thankYouCustomURL: string;
 }

@@ -66,6 +66,8 @@ const LandingPage = ({ params }: { params: { url: string } }) => {
 							title={form.title}
 							description={form.description}
 							formId={form.id}
+							thankYouPageTitle={form.thankYouPageTitle}
+							thankYouPageMessage={form.thankYouPageMessage}
 						/>
 					) : (
 						<div className="flex items-center justify-center">

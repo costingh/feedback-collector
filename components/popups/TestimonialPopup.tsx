@@ -18,6 +18,7 @@ import { UserInfo } from "@/types/UserInfo";
 import { Question } from "@/types/Question";
 import { Form } from "@/types/Form";
 import options from "../form-editor/CustomerDetailsOptionList";
+import Confetti from "../Confetti";
 interface TestimonialPopupProps {
 	backgroundColor: string;
 	primaryColor: string;
@@ -32,7 +33,9 @@ interface TestimonialPopupProps {
 	buttonLabel: string;
 	title: string;
 	description: string;
-	formId: string | undefined
+	formId: string | undefined;
+	thankYouPageTitle: string,
+	thankYouPageMessage: string;
 }
 
 const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
@@ -49,7 +52,9 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 	buttonLabel,
 	title,
 	description,
-	formId
+	formId,
+	thankYouPageTitle,
+	thankYouPageMessage
 }) => {
 	// constants
 	const BASE_PRIMARY_COLOR = "rgb(34, 197, 94)";
@@ -115,7 +120,7 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 					}}
 				></div>
 			</div>
-			{step > 1 && (
+			{step == 2 && (
 				<div
 					className="flex items-center justify-center w-10 h-10 hover:bg-gray-200 border-[1px] border-gray-300 rounded-full cursor-pointer"
 					onClick={() => setStep((prevStep) => prevStep - 1)}
@@ -204,6 +209,43 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 				>
 					<div>Next</div> <RocketIcon />
 				</button>
+			</>
+		);
+	};
+
+	const ShowThankYouScreen = ({
+		thankYouPageTitle,
+		thankYouPageMessage
+	}: {
+		thankYouPageTitle: string;
+		thankYouPageMessage: string;
+	}) => {
+		const [showConfetti, setShowConfetti] = useState(false);
+
+		const triggerConfetti = () => {
+			setShowConfetti(true);
+			setTimeout(() => setShowConfetti(false), 5000); // Hide after 5 seconds
+		  };
+
+		useEffect(() => {
+			triggerConfetti()
+		}, [])
+
+		const confettiOptions = {
+			particleCount: 100,
+			angle: 60,
+			spread: 55,
+			startVelocity: 45,
+			colors: ['#ff0', '#f00', '#00f']
+		  };
+		
+		return (
+			<>
+				<p className="my-2 text-gray-900 font-bold text-[16px]">
+					{thankYouPageTitle}
+				</p>
+				<p className="text-gray-600 font-normal text-[16px]">{thankYouPageMessage}</p>
+				{showConfetti && <Confetti options={confettiOptions} />}
 			</>
 		);
 	};
@@ -421,7 +463,9 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 		textareaPlaceholder: string,
 		title: string,
 		description: string,
-		buttonLabel: string
+		buttonLabel: string,
+		thankYouPageTitle: string,
+		thankYouPageMessage: string,
 	) => {
 		return (
 			<div className="px-[25px] py-[30px] bg-white shadow-lg rounded-[15px] min-w-[500px] max-w-full w-[530px] text-left border-[1px] border-gray-100 pointer-events ">
@@ -445,6 +489,13 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 								buttonLabel={buttonLabel}
 							/>
 						)}
+
+						{step === 3 && (
+							<ShowThankYouScreen
+								thankYouPageTitle={thankYouPageTitle}
+								thankYouPageMessage={thankYouPageMessage}
+							/>
+						)}
 					</>
 				)}
 			</div>
@@ -463,7 +514,9 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 						textareaPlaceholder,
 						title,
 						description,
-						buttonLabel
+						buttonLabel,
+						thankYouPageTitle,
+						thankYouPageMessage
 					)}
 				</BackgroundGradientAnimation>
 			) : (
@@ -473,7 +526,9 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 						textareaPlaceholder,
 						title,
 						description,
-						buttonLabel
+						buttonLabel,
+						thankYouPageTitle,
+						thankYouPageMessage
 					)}
 				</>
 			)}
