@@ -40,6 +40,8 @@ export async function POST(req: Request) {
                 customUrl: formData.customUrl,
                 thankYouPageTitle: formData.thankYouPageTitle,
                 thankYouPageMessage: formData.thankYouPageMessage,
+                brandLogo: formData.brandLogo,
+                brandName: formData.brandName,
                 thankYouCustomURL: formData.thankYouCustomURL,
                 formFields: {
                     create: formData.formFields,

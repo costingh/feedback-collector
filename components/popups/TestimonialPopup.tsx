@@ -19,6 +19,8 @@ import { Question } from "@/types/Question";
 import { Form } from "@/types/Form";
 import options from "../form-editor/CustomerDetailsOptionList";
 import Confetti from "../Confetti";
+import Image from "next/image";
+import UploadFormEditorLogo from "../form-editor/UploadFormEditorLogo";
 interface TestimonialPopupProps {
 	backgroundColor: string;
 	primaryColor: string;
@@ -36,6 +38,8 @@ interface TestimonialPopupProps {
 	formId: string | undefined;
 	thankYouPageTitle: string,
 	thankYouPageMessage: string;
+	brandLogo: string;
+	brandName: string;
 }
 
 const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
@@ -54,7 +58,9 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 	description,
 	formId,
 	thankYouPageTitle,
-	thankYouPageMessage
+	thankYouPageMessage,
+	brandLogo,
+	brandName
 }) => {
 	// constants
 	const BASE_PRIMARY_COLOR = "rgb(34, 197, 94)";
@@ -63,6 +69,8 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 		stars: 0,
 		message: "",
 	});
+
+	const [images, setImages] = useState('')
 
 	const RocketIcon = () => (
 		<svg
@@ -109,10 +117,13 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 		</button>
 	);
 
-	const FormHeader = ({ title }: { title: string }) => (
+	const FormHeader = ({ brandName, brandLogo, setImages }: { brandName: string, brandLogo: string, setImages: any }) => (		
 		<div className="flex items-center justify-between mb-8">
-			<div className="text-xl font-black text-gray-900 tracking-wide relative">
-				{title}
+			<div className="relative">
+				<div className="flex items-center gap-3">
+					<Image src={brandLogo || ''} alt={brandName || 'logo'} width={45} height={45}/>
+					<h1 className="text-xl font-black text-gray-900 tracking-wide ">{brandName}</h1>
+				</div>
 				<div
 					className="w-[80px] h-[3px] absolute bottom-[-10px] left-0"
 					style={{
@@ -215,7 +226,7 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 
 	const ShowThankYouScreen = ({
 		thankYouPageTitle,
-		thankYouPageMessage
+		thankYouPageMessage,
 	}: {
 		thankYouPageTitle: string;
 		thankYouPageMessage: string;
@@ -278,9 +289,6 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 
 				const responseToSubmit = { ...finalResponse, ...userInfoValue, ...images, formId };
 
-				console.log(requiredFieldsKeys)
-				console.log(responseToSubmit)
-
 				let isCompletedForm = true;
 				requiredFieldsKeys.forEach((optionKey) => {
 					if (optionKey == "avatar") {
@@ -336,6 +344,9 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 				} else {
 					// maybe redirect to thank you page
 					toast.success('Response submitted successfully!')
+					setStep(3)
+
+					// TODO - maybe set a cookie here to not let user submit the form another time, maybe save its IP addres to db to prevend fraud
 				}
 				setIsSubmitting(false)
 			};
@@ -466,10 +477,13 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 		buttonLabel: string,
 		thankYouPageTitle: string,
 		thankYouPageMessage: string,
+		brandName: string,
+		brandLogo: string,
+		setImages
 	) => {
 		return (
 			<div className="px-[25px] py-[30px] bg-white shadow-lg rounded-[15px] min-w-[500px] max-w-full w-[530px] text-left border-[1px] border-gray-100 pointer-events ">
-				<FormHeader title={title} />
+				<FormHeader brandName={brandName} brandLogo={brandLogo} setImages={setImages}/>
 
 				{!published && step == -1 ? (
 					<FormUnpublished />
@@ -516,7 +530,10 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 						description,
 						buttonLabel,
 						thankYouPageTitle,
-						thankYouPageMessage
+						thankYouPageMessage,
+						brandName,
+						brandLogo,
+						setImages
 					)}
 				</BackgroundGradientAnimation>
 			) : (
@@ -528,7 +545,10 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 						description,
 						buttonLabel,
 						thankYouPageTitle,
-						thankYouPageMessage
+						thankYouPageMessage,
+						brandName,
+						brandLogo,
+						setImages
 					)}
 				</>
 			)}

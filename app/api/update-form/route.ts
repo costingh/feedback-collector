@@ -29,6 +29,8 @@ export async function POST(req: Request) {
                 textareaPlaceholder: formData.textareaPlaceholder,
                 thankYouPageTitle: formData.thankYouPageTitle,
                 thankYouPageMessage: formData.thankYouPageMessage,
+                brandLogo: formData.brandLogo,
+                brandName: formData.brandName,
                 thankYouCustomURL: formData.thankYouCustomURL,
                 formFields: {
                     deleteMany: {},

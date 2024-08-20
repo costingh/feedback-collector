@@ -28,6 +28,8 @@ model UserSubscription {
 model Form {
   id                  String          @id @default(cuid())
   name                String
+  brandLogo           String
+  brandName           String
   backgroundColor     String
   primaryColor        String
   withAnimatedBg      Boolean

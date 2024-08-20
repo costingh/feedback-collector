@@ -7,6 +7,8 @@ export type FormAnalytics = {
 export type Form = {
     id?: string;
     name: string;
+    brandLogo: string;
+    brandName: string;
     backgroundColor: string;
     primaryColor: string;
     withAnimatedBg: boolean;

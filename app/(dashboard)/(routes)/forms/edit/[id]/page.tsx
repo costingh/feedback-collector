@@ -77,6 +77,8 @@ export default function NewForm({ params }: { params: { id: string } }) {
 
 	const [form, setForm] = useState<Form>({
 		name: "Testimonials",
+		brandLogo: '/logo.png',
+		brandName: 'Trustly',
 		backgroundColor: "#9072afff",
 		primaryColor: "#8466b4ff",
 		withAnimatedBg: false,
@@ -140,6 +142,14 @@ export default function NewForm({ params }: { params: { id: string } }) {
 							...prev,
 							withAnimatedBg: !prev.withAnimatedBg,
 						}))
+					}
+					brandLogo={form.brandLogo}
+					brandName={form.brandName}
+					handleBrandNameChange={(val) =>
+						setForm((prev) => ({ ...prev, brandName: val }))
+					}
+					setBrandLogo={(val) =>
+						setForm((prev) => ({ ...prev, brandLogo: val }))
 					}
 				/>
 			);
@@ -246,6 +256,8 @@ export default function NewForm({ params }: { params: { id: string } }) {
 									formId={form.id}
 									thankYouPageTitle={form.thankYouPageTitle}
 									thankYouPageMessage={form.thankYouPageMessage}
+									brandLogo={form.brandLogo}
+									brandName={form.brandName}
 								/>
 							</div>
 							<div className="right w-[600px] border-l-[1px] border-gray-200 px-[40px] h-[100vh] relative pt-6">
