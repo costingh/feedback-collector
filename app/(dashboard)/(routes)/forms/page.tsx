@@ -1,25 +1,16 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { Card } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
 import {
-	ArrowRight,
 	Copy,
 	CopyPlus,
-	Delete,
-	Edit,
 	Edit2,
 	FilePlus2,
 	Loader2,
 	OctagonPause,
-	PauseCircleIcon,
-	PlusCircle,
-	Share,
 	Share2,
 	SquareArrowOutUpRight,
 	Trash2,
-	Upload,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -27,8 +18,45 @@ import axios from "axios";
 import { useAuth } from "@clerk/nextjs";
 import Link from "next/link";
 import { Form } from "@/types/Form";
-import { Loader } from "@/components/loader";
 import FormSkeleton from "@/components/skeletons/FormSkeleton";
+
+const allFields = [
+	{
+		key: "avatar",
+		isEnabled: true,
+		isRequired: false,
+	},
+	{
+		key: "logo",
+		isEnabled: true,
+		isRequired: false,
+	},
+	{
+		key: "name",
+		isEnabled: true,
+		isRequired: true,
+	},
+	{
+		key: "customer_email",
+		isEnabled: true,
+		isRequired: false,
+	},
+	{
+		key: "job_title",
+		isEnabled: true,
+		isRequired: false,
+	},
+	{
+		key: "website_url",
+		isEnabled: true,
+		isRequired: false,
+	},
+	{
+		key: "collect_company",
+		isEnabled: true,
+		isRequired: false,
+	},
+];
 
 export default function FormsPage() {
 	const router = useRouter();
@@ -39,44 +67,22 @@ export default function FormsPage() {
 	const { userId } = useAuth();
 	const [isDeleting, setIsDeleting] = useState("");
 	const [isPausing, setIsPausing] = useState("");
+	const [copied, setCopied] = useState(false);
 
-	const allFields = [
-		{
-			key: "avatar",
-			isEnabled: true,
-			isRequired: false,
-		},
-		{
-			key: "logo",
-			isEnabled: true,
-			isRequired: false,
-		},
-		{
-			key: "name",
-			isEnabled: true,
-			isRequired: true,
-		},
-		{
-			key: "customer_email",
-			isEnabled: true,
-			isRequired: false,
-		},
-		{
-			key: "job_title",
-			isEnabled: true,
-			isRequired: false,
-		},
-		{
-			key: "website_url",
-			isEnabled: true,
-			isRequired: false,
-		},
-		{
-			key: "collect_company",
-			isEnabled: true,
-			isRequired: false,
-		},
-	];
+	const fetchAllUserForms = async () => {
+		setFetchingForms(true);
+		const response = await axios.get("/api/get-all-user-forms");
+		setUserForms(response.data.forms);
+		setFetchingForms(false);
+	};
+
+	useEffect(() => {
+		fetchAllUserForms();
+	}, []);
+
+	const handleEditForm = (id: string) => {
+		router.push(`/forms/edit/${id}`);
+	};
 
 	const handleCreateNewForm = async () => {
 		setIsLoading(true);
@@ -126,21 +132,6 @@ export default function FormsPage() {
 		}
 	};
 
-	const fetchAllUserForms = async () => {
-		setFetchingForms(true);
-		const response = await axios.get("/api/get-all-user-forms");
-		setUserForms(response.data.forms);
-		setFetchingForms(false);
-	};
-
-	useEffect(() => {
-		fetchAllUserForms();
-	}, []);
-
-	const handleEditForm = (id: string) => {
-		router.push(`/forms/edit/${id}`);
-	};
-
 	const handleDeleteForm = async (formId: string) => {
 		setIsDeleting(formId);
 		try {
@@ -164,7 +155,12 @@ export default function FormsPage() {
 	};
 
 	const setPausedForm = async (form: Form) => {
-		setIsPausing(form.id);
+		if(!form) {
+			toast.error('Error pausing form, try a refresh')
+			return;
+		}
+		setIsPausing(form?.id || '');
+
 		const isPaused = !form?.isPaused || false;
 		const response = await axios.post("/api/update-form", {
 			formData: {
@@ -263,6 +259,18 @@ export default function FormsPage() {
 		setIsDuplicatingForm("");
 	};
 
+
+	const handleCopy = (url : string) => {
+		navigator.clipboard.writeText(url).then(() => {
+			setCopied(true);
+			toast.success("URL copied to clipboard!");
+			setTimeout(() => setCopied(false), 2000);
+		}).catch(err => {
+			console.error("Failed to copy: ", err);
+			toast.error("Failed to copy URL.");
+		});
+	};
+
 	return (
 		<div className="px-8  py-5">
 			<div className="mb-8 space-y-4">
@@ -327,6 +335,9 @@ export default function FormsPage() {
 											<Copy
 												className="text-gray-[500] cursor-pointer"
 												size={12}
+												onClick={(e) => handleCopy(process.env
+													.NEXT_PUBLIC_APP_DOMAIN +
+												form.url)}
 											/>
 										</div>
 									</div>
