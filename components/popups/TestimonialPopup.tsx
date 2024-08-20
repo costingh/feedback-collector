@@ -70,8 +70,6 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 		message: "",
 	});
 
-	const [images, setImages] = useState('')
-
 	const RocketIcon = () => (
 		<svg
 			className="text-gray-50"
@@ -117,7 +115,7 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 		</button>
 	);
 
-	const FormHeader = ({ brandName, brandLogo, setImages }: { brandName: string, brandLogo: string, setImages: any }) => (		
+	const FormHeader = ({ brandName, brandLogo }: { brandName: string, brandLogo: string }) => (		
 		<div className="flex items-center justify-between mb-8">
 			<div className="relative">
 				<div className="flex items-center gap-3">
@@ -184,6 +182,7 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 				return;
 			}
 
+			// @ts-ignore
 			setFinalResponse((prev) => ({
 				...prev,
 				stars,
@@ -420,11 +419,7 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 												</span>
 												<input
 													// @ts-ignore
-													value={
-														userInfoValue[
-															input.key
-														] || ""
-													}
+													value={userInfoValue[input.key] || ""}
 													onChange={(e) =>
 														handleInputChange(
 															input.key,
@@ -479,11 +474,10 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 		thankYouPageMessage: string,
 		brandName: string,
 		brandLogo: string,
-		setImages
 	) => {
 		return (
 			<div className="px-[25px] py-[30px] bg-white shadow-lg rounded-[15px] min-w-[500px] max-w-full w-[530px] text-left border-[1px] border-gray-100 pointer-events ">
-				<FormHeader brandName={brandName} brandLogo={brandLogo} setImages={setImages}/>
+				<FormHeader brandName={brandName} brandLogo={brandLogo} />
 
 				{!published && step == -1 ? (
 					<FormUnpublished />
@@ -533,7 +527,6 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 						thankYouPageMessage,
 						brandName,
 						brandLogo,
-						setImages
 					)}
 				</BackgroundGradientAnimation>
 			) : (
@@ -548,7 +541,6 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 						thankYouPageMessage,
 						brandName,
 						brandLogo,
-						setImages
 					)}
 				</>
 			)}

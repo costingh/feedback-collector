@@ -24,12 +24,12 @@ type FormLabelsType = {
 
 const CustomizeLabels: React.FC<CustomizeLabelsProps> = ({ setForm, form }) => {
 	const [formLabels, setFormLabels] = useState<FormLabelsType[]>([
-		{
-			key: "title",
-			title: "Title",
-			tooltipDescription:
-				"This is the title appearing at the top of your form.",
-		},
+		// {
+		// 	key: "title",
+		// 	title: "Title",
+		// 	tooltipDescription:
+		// 		"This is the title appearing at the top of your form.",
+		// },
 		{
 			key: "description",
 			title: "Description",
