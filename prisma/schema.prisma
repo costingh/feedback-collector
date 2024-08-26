@@ -92,4 +92,5 @@ model FormResponse {
   avatar   String
   logo     String
   form     Form   @relation(fields: [formId], references: [id])
+  createdAt DateTime @default(now())
 }
