@@ -91,6 +91,7 @@ model FormResponse {
   formId   String
   avatar   String
   logo     String
+  approved Boolean
   form     Form   @relation(fields: [formId], references: [id])
   createdAt DateTime @default(now())
 }

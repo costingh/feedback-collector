@@ -7,7 +7,7 @@ import { Loader } from "@/components/loader";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import StarsRating from "@/components/stars-rating";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Trash2 } from "lucide-react";
+import { BadgeCheck, BadgeMinus, Loader2, Tag, Trash2 } from "lucide-react";
 
 const LandingPage = () => {
 	const [isSearchingTestimonials, setIsSearchingTestimonials] =
@@ -83,15 +83,84 @@ const LandingPage = () => {
 		return checkedItems.has(id);
 	};
 
+	const [loading, setLoading] = useState({
+		action: '',
+		loading: false
+	})
+
+	const updateForm = async (action: string, approved: boolean) => {
+		setLoading({ action, loading: true });
+		try {
+			const URL = "/api/edit-testimonial";
+	
+			// Convert the set to an array and iterate over the ids
+			const idsArray = Array.from(checkedItems);
+			for (const id of idsArray) {
+				const rawResponse = await fetch(URL, {
+					method: "POST",
+					headers: {
+						Accept: "application/json",
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({ data: { id, approved } }),
+				});
+	
+				const response = await rawResponse.json();
+	
+				if (response?.error) {
+					// toast.error(response.error);
+				} else {
+					//@ts-ignore
+					setTestimonials(prevT => prevT.map(t => {
+						//@ts-ignore
+						if(checkedItems.has(t.id)) return {...t, approved}
+						//@ts-ignore
+						else return {...t}
+					}))
+					// toast.success("Response approved!");
+				}
+			}
+		} catch (err) {
+			console.error(err);
+			toast.error('Unexpected error');
+		} finally {
+			setLoading({ action: '', loading: false });
+		}
+	};
+
 	return (
 		<>
 			<div className="px-8 py-5 relative">
-				{checkedItems.size > 0 && <div className="top absolute top-0 bg-black px-6 py-2 w-[50%] left-[25%] rounded-b-[30px] flex items-center justify-center">
-					<div className='flex items-center justify-center gap-2 cursor-pointer hover:opacity-60'>
-						<Trash2 size={16} className="text-red-600" />
-						<span className="text-gray-200 font-[400] text-[13px]">Delete</span>
+				{checkedItems.size > 0 && (
+					<div className="top absolute top-0 bg-black px-6 py-2 w-[50%] left-[25%] rounded-b-[30px] flex items-center justify-center gap-3">
+						<div className="flex items-center justify-center gap-2 cursor-pointer hover:opacity-60 bg-[#3c3b3b] px-[8px] py-[3px] rounded-[10px]">
+							<Trash2 size={14} className="text-red-600" />
+							<span className="text-gray-200 font-[400] text-[13px]">
+								Delete
+							</span>
+						</div>
+
+						<div 
+							onClick={() => updateForm('approve', true)}
+							className="flex items-center justify-center gap-2 cursor-pointer hover:opacity-60 bg-[#3c3b3b] px-[8px] py-[3px] rounded-[10px]"
+						>
+							<BadgeCheck size={14} className="text-gray-200" />
+							<span className="text-gray-200 font-[400] text-[13px]">
+								{(loading.action == 'approve' && loading.loading) ? <Loader2  size={11} className="spin my-[4px] mx-[4px]"/> : 'Approve'}
+							</span>
+						</div>
+
+						<div 
+							onClick={() => updateForm('unapprove', false)} 
+							className="flex items-center justify-center gap-2 cursor-pointer hover:opacity-60 bg-[#3c3b3b] px-[8px] py-[3px] rounded-[10px]"
+						>
+							<BadgeMinus size={14} className="text-gray-200" />
+							<span className="text-gray-200 font-[400] text-[13px]">
+								{loading.action == 'unapprove' && loading.loading ? <Loader2  size={11} className="spin my-[4px] mx-[4px]"/> : 'Unapprove'}
+							</span>
+						</div>
 					</div>
-				</div>}
+				)}
 				<div className="mb-8 space-y-4">
 					<div className="flex w-full justify-between items-start">
 						<div className="flex flex-col ">
@@ -103,19 +172,6 @@ const LandingPage = () => {
 								from each of your forms.
 							</p>
 						</div>
-						{/* <div className="rounded-[7px] bg-gray-800 px-[16px] py-[2px] cursor-pointer hover:bg-gray-700 inline-flex items-center gap-[4px] h-[35px]">
-							<FilePlus2 size={13} className="text-gray-300" />
-							<div
-								onClick={handleCreateNewForm}
-								className="text-gray-300 text-normal text-[13px] min-w-[100px]"
-							>
-								{isLoading ? (
-									<Loader2 className="ml-[30px] spin" />
-								) : (
-									"Create new form"
-								)}
-							</div>
-						</div> */}
 					</div>
 				</div>
 
@@ -163,24 +219,58 @@ const LandingPage = () => {
 												{/* <span>{t?.company}</span> */}
 												{/* <span>{t?.website}</span> */}
 												{/* <span>{t?.jobTitle}</span> */}
-												<span className="text-gray-400 font-semibold text-[12px]">
-													{timeAgo(t?.createdAt)}
-												</span>
+												<div className="flex items-center gap-6">
+													<span className="text-gray-400 font-semibold text-[12px]">
+														{timeAgo(t?.createdAt)}
+													</span>
+
+													<div className="flex items-center gap-1">
+														<Tag
+															size={13}
+															className="text-gray-400"
+														/>
+														<span className="text-gray-400 font-semibold text-[12px]">
+															No tags yet
+														</span>
+													</div>
+												</div>
 
 												<div className="my-3 text-[16px] text-gray-700 font-normal max-w-[700px]">
 													{t?.message}
 												</div>
-												<StarsRating
+												{/* <StarsRating
 													ratingChanged={() =>
 														undefined
 													}
 													count={5}
-												/>
+												/> */}
+
+												<div className="flex items-center">
+													{[1, 2, 3, 4, 5].map(
+														(i) => (
+															<svg
+																key={i}
+																xmlns="http://www.w3.org/2000/svg"
+																width="28"
+																height="28"
+																viewBox="0 0 24 24"
+																stroke="currentColor"
+																fill="currentColor"
+																stroke-width="2"
+																stroke-linecap="round"
+																stroke-linejoin="round"
+																className="text-gray-200 duration-200 hover:scale-110"
+															>
+																<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+															</svg>
+														)
+													)}
+												</div>
 											</div>
 
 											<div className="w-[350px] flex items-center gap-4 justify-end">
 												<span className="px-2 py-1 rounded-[10px] bg-[#ffc10769] text-[#7d5e01e6] text-[12px] font-semibold cursor-pointer">
-													Waiting for approval
+													{t?.approved ? 'Approved' : 'Not approved'}
 												</span>
 												<Checkbox
 													id={`check-${t.id}`}

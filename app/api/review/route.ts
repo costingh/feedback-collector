@@ -47,7 +47,8 @@ export async function POST(req: Request) {
                 website: data.website || '',
                 formId: data.formId || '',
                 avatar: data.avatar || '',
-                logo: data.logo || ''
+                logo: data.logo || '',
+                approved: false
             },
         });
 
