@@ -17,7 +17,9 @@ const LandingPage = () => {
 	const handleGetAllUserTestimonials = useCallback(async () => {
 		setIsSearchingTestimonials(true);
 		try {
-			const response = await axios.get("/api/get-all-user-testimonials");
+			const response = await axios.get(
+				"/api/testimonials/get-all-user-testimonials"
+			);
 			console.log(response.data.testimonials);
 			setTestimonials(response.data.testimonials);
 		} catch (err) {
@@ -54,9 +56,9 @@ const LandingPage = () => {
 	const timeAgo = (date: string): string => {
 		const now = new Date();
 		const givenDate = new Date(date);
-		const diffInSeconds = Math.floor((now - givenDate) / 1000);
-
-		const intervals = [
+		const diffInSeconds = Math.floor((now.getTime() - givenDate.getTime()) / 1000);
+	
+		const intervals: { label: string; seconds: number }[] = [
 			{ label: "year", seconds: 31536000 },
 			{ label: "month", seconds: 2592000 },
 			{ label: "day", seconds: 86400 },
@@ -64,7 +66,7 @@ const LandingPage = () => {
 			{ label: "minute", seconds: 60 },
 			{ label: "second", seconds: 1 },
 		];
-
+	
 		for (const interval of intervals) {
 			const count = Math.floor(diffInSeconds / interval.seconds);
 			if (count >= 1) {
@@ -73,10 +75,10 @@ const LandingPage = () => {
 					: `${count} ${interval.label}s ago`;
 			}
 		}
-
+	
 		return "just now";
 	};
-
+	
 	const [checkedItems, setChecked] = useState(new Set());
 
 	const isChecked = (id: number) => {
@@ -84,15 +86,15 @@ const LandingPage = () => {
 	};
 
 	const [loading, setLoading] = useState({
-		action: '',
-		loading: false
-	})
+		action: "",
+		loading: false,
+	});
 
 	const updateForm = async (action: string, approved: boolean) => {
 		setLoading({ action, loading: true });
 		try {
-			const URL = "/api/edit-testimonial";
-	
+			const URL = "/api/testimonials/edit";
+
 			// Convert the set to an array and iterate over the ids
 			const idsArray = Array.from(checkedItems);
 			for (const id of idsArray) {
@@ -104,27 +106,60 @@ const LandingPage = () => {
 					},
 					body: JSON.stringify({ data: { id, approved } }),
 				});
-	
+
 				const response = await rawResponse.json();
-	
+
 				if (response?.error) {
 					// toast.error(response.error);
 				} else {
 					//@ts-ignore
-					setTestimonials(prevT => prevT.map(t => {
-						//@ts-ignore
-						if(checkedItems.has(t.id)) return {...t, approved}
-						//@ts-ignore
-						else return {...t}
-					}))
+					setTestimonials((prevT) =>
+						prevT.map((t) => {
+							//@ts-ignore
+							if (checkedItems.has(t.id)) return { ...t, approved };
+							//@ts-ignore
+							else return { ...t };
+						})
+					);
 					// toast.success("Response approved!");
 				}
 			}
 		} catch (err) {
 			console.error(err);
-			toast.error('Unexpected error');
+			toast.error("Unexpected error");
 		} finally {
-			setLoading({ action: '', loading: false });
+			setLoading({ action: "", loading: false });
+		}
+	};
+
+	const handleDelete = async () => {
+		setLoading({ action: "delete", loading: true });
+		try {
+			const rawResponse = await fetch("/api/testimonials/delete", {
+				method: "DELETE",
+				headers: {
+					Accept: "application/json",
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ ids: Array.from(checkedItems) }),
+			});
+
+			const response = await rawResponse.json();
+			console.log(response);
+			if (!response?.success) {
+				toast.error("Could not delete testimonials");
+			} else {
+				setTestimonials((prevT) =>
+					prevT.filter((t) => !checkedItems.has(t.id))
+				);
+				setChecked(new Set());
+				toast.success("Testimonials deleted successfully!");
+			}
+		} catch (err) {
+			console.error(err);
+			toast.error("Unexpected error");
+		} finally {
+			setLoading({ action: "", loading: false });
 		}
 	};
 
@@ -133,30 +168,57 @@ const LandingPage = () => {
 			<div className="px-8 py-5 relative">
 				{checkedItems.size > 0 && (
 					<div className="top absolute top-0 bg-black px-6 py-2 w-[50%] left-[25%] rounded-b-[30px] flex items-center justify-center gap-3">
-						<div className="flex items-center justify-center gap-2 cursor-pointer hover:opacity-60 bg-[#3c3b3b] px-[8px] py-[3px] rounded-[10px]">
+						<div
+							onClick={handleDelete}
+							className="flex items-center justify-center gap-2 cursor-pointer hover:opacity-60 bg-[#3c3b3b] px-[8px] py-[3px] rounded-[10px]"
+						>
 							<Trash2 size={14} className="text-red-600" />
 							<span className="text-gray-200 font-[400] text-[13px]">
-								Delete
+								{loading.action == "delete" &&
+								loading.loading ? (
+									<Loader2
+										size={11}
+										className="spin my-[4px] mx-[4px]"
+									/>
+								) : (
+									"Delete"
+								)}
 							</span>
 						</div>
 
-						<div 
-							onClick={() => updateForm('approve', true)}
+						<div
+							onClick={() => updateForm("approve", true)}
 							className="flex items-center justify-center gap-2 cursor-pointer hover:opacity-60 bg-[#3c3b3b] px-[8px] py-[3px] rounded-[10px]"
 						>
 							<BadgeCheck size={14} className="text-gray-200" />
 							<span className="text-gray-200 font-[400] text-[13px]">
-								{(loading.action == 'approve' && loading.loading) ? <Loader2  size={11} className="spin my-[4px] mx-[4px]"/> : 'Approve'}
+								{loading.action == "approve" &&
+								loading.loading ? (
+									<Loader2
+										size={11}
+										className="spin my-[4px] mx-[4px]"
+									/>
+								) : (
+									"Approve"
+								)}
 							</span>
 						</div>
 
-						<div 
-							onClick={() => updateForm('unapprove', false)} 
+						<div
+							onClick={() => updateForm("unapprove", false)}
 							className="flex items-center justify-center gap-2 cursor-pointer hover:opacity-60 bg-[#3c3b3b] px-[8px] py-[3px] rounded-[10px]"
 						>
 							<BadgeMinus size={14} className="text-gray-200" />
 							<span className="text-gray-200 font-[400] text-[13px]">
-								{loading.action == 'unapprove' && loading.loading ? <Loader2  size={11} className="spin my-[4px] mx-[4px]"/> : 'Unapprove'}
+								{loading.action == "unapprove" &&
+								loading.loading ? (
+									<Loader2
+										size={11}
+										className="spin my-[4px] mx-[4px]"
+									/>
+								) : (
+									"Unapprove"
+								)}
 							</span>
 						</div>
 					</div>
@@ -238,12 +300,6 @@ const LandingPage = () => {
 												<div className="my-3 text-[16px] text-gray-700 font-normal max-w-[700px]">
 													{t?.message}
 												</div>
-												{/* <StarsRating
-													ratingChanged={() =>
-														undefined
-													}
-													count={5}
-												/> */}
 
 												<div className="flex items-center">
 													{[1, 2, 3, 4, 5].map(
@@ -260,6 +316,13 @@ const LandingPage = () => {
 																stroke-linecap="round"
 																stroke-linejoin="round"
 																className="text-gray-200 duration-200 hover:scale-110"
+																style={
+																	t.stars >= i
+																		? {
+																				color: "#fbbf24",
+																		  }
+																		: {}
+																}
 															>
 																<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
 															</svg>
@@ -269,9 +332,16 @@ const LandingPage = () => {
 											</div>
 
 											<div className="w-[350px] flex items-center gap-4 justify-end">
-												<span className="px-2 py-1 rounded-[10px] bg-[#ffc10769] text-[#7d5e01e6] text-[12px] font-semibold cursor-pointer">
-													{t?.approved ? 'Approved' : 'Not approved'}
-												</span>
+												{t?.approved ? (
+													<span className="px-2 py-1 rounded-[10px] bg-[#4dff0769] text-[#0d7d01e6] text-[12px] font-semibold cursor-pointer">
+														Approved
+													</span>
+												) : (
+													<span className="px-2 py-1 rounded-[10px] bg-[#ffc10769] text-[#7d5e01e6] text-[12px] font-semibold cursor-pointer">
+														Not Approved
+													</span>
+												)}
+
 												<Checkbox
 													id={`check-${t.id}`}
 													checked={checkedItems.has(

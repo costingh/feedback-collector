@@ -326,7 +326,7 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 					return;
 				}
 
-				const URL = "/api/review";
+				const URL = "/api/testimonials/create";
 				const rawResponse = await fetch(URL, {
 					method: "POST",
 					headers: {
