@@ -7,7 +7,8 @@ import { Loader } from "@/components/loader";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import StarsRating from "@/components/stars-rating";
 import { Checkbox } from "@/components/ui/checkbox";
-import { BadgeCheck, BadgeMinus, Loader2, Tag, Trash2 } from "lucide-react";
+import { BadgeCheck, BadgeMinus, Loader2, Network, Tag, Trash2 } from "lucide-react";
+import { CreateWidgetModal } from "@/components/testimonials/CreateWidgetModal";
 
 const LandingPage = () => {
 	const [isSearchingTestimonials, setIsSearchingTestimonials] =
@@ -185,6 +186,8 @@ const LandingPage = () => {
 								)}
 							</span>
 						</div>
+
+						<CreateWidgetModal loading={loading}/>
 
 						<div
 							onClick={() => updateForm("approve", true)}

@@ -19,6 +19,7 @@ import CodeSnippet from "./CodeSnippet";
 
 export function ShareTestimonialModal({form, formUrl, handleCopy} : {form: Form, formUrl: string, handleCopy: (url: string) => void}) {
 	const [isActive, setIsActive] = useState("share");
+	const [embeddingType, setEmbeddingType] = useState(1);
 
 	return (
 		<Dialog>
@@ -133,7 +134,7 @@ export function ShareTestimonialModal({form, formUrl, handleCopy} : {form: Form,
                                     You can embed your form as an inline embed or as a popup widget.
 								</span>
 								<div className="flex items-center space-x-2 mt-2" >
-									<div className="left w-[50%] rounded-[10px] border-[1px] border-gray-200 p-4 cursor-pointer hover:bg-gray-100 h-[234px]">
+									<div className="left w-[50%] rounded-[10px] border-[1px] border-gray-200 p-4 cursor-pointer hover:bg-gray-100 h-[234px]" onClick={() => setEmbeddingType(1)} style={embeddingType == 1 ? {background: 'rgb(243 244 246'} : {} }>
                                         <div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
                                         <div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
                                         <div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
@@ -142,7 +143,7 @@ export function ShareTestimonialModal({form, formUrl, handleCopy} : {form: Form,
                                         <div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
                                         <div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
                                     </div>
-                                    <div className="right w-[50%] rounded-[10px] border-[1px] border-gray-200 p-4 cursor-pointer hover:bg-gray-100 h-[234px] relative">
+                                    <div className="right w-[50%] rounded-[10px] border-[1px] border-gray-200 p-4 cursor-pointer hover:bg-gray-100 h-[234px] relative" onClick={() => setEmbeddingType(2)} style={embeddingType == 2 ? {background: 'rgb(243 244 246'} : {} }>
                                         <div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
                                         <div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
                                         <div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>

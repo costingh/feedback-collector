@@ -80,18 +80,29 @@ model FormAnalytics {
 }
 
 model FormResponse {
-  id       String @id @default(cuid())
-  stars    Float
-  message  String
-  name     String
-  email    String
-  company  String
-  jobTitle String
-  website  String
-  formId   String
-  avatar   String
-  logo     String
-  approved Boolean
-  form     Form   @relation(fields: [formId], references: [id])
+  id        String   @id @default(cuid())
+  stars     Float
+  message   String
+  name      String
+  email     String
+  company   String
+  jobTitle  String
+  website   String
+  formId    String
+  avatar    String
+  logo      String
+  approved  Boolean
+  form      Form     @relation(fields: [formId], references: [id])
   createdAt DateTime @default(now())
+}
+
+model Widget {
+  id        String   @id @default(cuid())
+  name      String
+  target    String
+  url       String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    String
+  type      String
 }
