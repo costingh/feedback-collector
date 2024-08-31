@@ -19,7 +19,8 @@ export async function POST(req: Request) {
                 target: data.target,
                 url: data.url,
                 userId,
-                type: data.type
+                type: data.type,
+                testimonialsIds: data.testimonialsIds
             }
         });
 

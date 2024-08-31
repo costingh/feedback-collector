@@ -11,7 +11,8 @@ import {
 	Zap,
 	Bug,
 	Feather,
-	Tag
+	Tag,
+	BrickWall
 } from "lucide-react";
 
 export const routes = [
@@ -39,6 +40,17 @@ export const routes = [
 				label: "Tags",
 				icon: Tag,
 				href: "/tags",
+				color: "text-sky-500",
+			},
+		]
+	},
+	{
+		section: 'SHARE',
+		routes: [
+			{
+				label: "Widgets",
+				icon: BrickWall,
+				href: "/widgets",
 				color: "text-sky-500",
 			},
 		]

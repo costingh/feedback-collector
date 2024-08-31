@@ -7,8 +7,15 @@ import { Loader } from "@/components/loader";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import StarsRating from "@/components/stars-rating";
 import { Checkbox } from "@/components/ui/checkbox";
-import { BadgeCheck, BadgeMinus, Loader2, Network, Tag, Trash2 } from "lucide-react";
-import { CreateWidgetModal } from "@/components/testimonials/CreateWidgetModal";
+import {
+	BadgeCheck,
+	BadgeMinus,
+	Loader2,
+	Network,
+	Tag,
+	Trash2,
+} from "lucide-react";
+import { CreateWidgetModal } from "@/components/widgets/CreateWidgetModal";
 
 const LandingPage = () => {
 	const [isSearchingTestimonials, setIsSearchingTestimonials] =
@@ -21,33 +28,12 @@ const LandingPage = () => {
 			const response = await axios.get(
 				"/api/testimonials/get-all-user-testimonials"
 			);
-			console.log(response.data.testimonials);
 			setTestimonials(response.data.testimonials);
 		} catch (err) {
 			toast.error("An error occurred while retrieving the form!");
 		} finally {
 			setIsSearchingTestimonials(false);
 		}
-		// try {
-		// 	const response = await axios.get(
-		// 		`/api/get-form?url=${formUrl}`
-		// 	);
-		// 	const formResponse = response?.data?.form;
-
-		// 	if (!formResponse) {
-		// 		toast.error("Form not found!");
-		// 		return;
-		// 	}
-		// 	console.log("Got form: ", formResponse);
-		// 	setForm(formResponse);
-
-		// 	// if form is published, set step to 1
-		// 	if(formResponse.published) setStep(1)
-		// } catch (err) {
-		// 	toast.error("An error occurred while retrieving the form!");
-		// } finally {
-		// 	setIsSearchingTestimonials(false);
-		// }
 	}, []);
 
 	useEffect(() => {
@@ -57,8 +43,10 @@ const LandingPage = () => {
 	const timeAgo = (date: string): string => {
 		const now = new Date();
 		const givenDate = new Date(date);
-		const diffInSeconds = Math.floor((now.getTime() - givenDate.getTime()) / 1000);
-	
+		const diffInSeconds = Math.floor(
+			(now.getTime() - givenDate.getTime()) / 1000
+		);
+
 		const intervals: { label: string; seconds: number }[] = [
 			{ label: "year", seconds: 31536000 },
 			{ label: "month", seconds: 2592000 },
@@ -67,7 +55,7 @@ const LandingPage = () => {
 			{ label: "minute", seconds: 60 },
 			{ label: "second", seconds: 1 },
 		];
-	
+
 		for (const interval of intervals) {
 			const count = Math.floor(diffInSeconds / interval.seconds);
 			if (count >= 1) {
@@ -76,10 +64,10 @@ const LandingPage = () => {
 					: `${count} ${interval.label}s ago`;
 			}
 		}
-	
+
 		return "just now";
 	};
-	
+
 	const [checkedItems, setChecked] = useState(new Set());
 
 	const isChecked = (id: number) => {
@@ -117,7 +105,8 @@ const LandingPage = () => {
 					setTestimonials((prevT) =>
 						prevT.map((t) => {
 							//@ts-ignore
-							if (checkedItems.has(t.id)) return { ...t, approved };
+							if (checkedItems.has(t.id))
+								return { ...t, approved };
 							//@ts-ignore
 							else return { ...t };
 						})
@@ -151,6 +140,7 @@ const LandingPage = () => {
 				toast.error("Could not delete testimonials");
 			} else {
 				setTestimonials((prevT) =>
+					//@ts-ignore
 					prevT.filter((t) => !checkedItems.has(t.id))
 				);
 				setChecked(new Set());
@@ -187,7 +177,11 @@ const LandingPage = () => {
 							</span>
 						</div>
 
-						<CreateWidgetModal loading={loading}/>
+						<CreateWidgetModal
+							loading={loading}
+							//@ts-ignore
+							selectedIds={Array.from(checkedItems)}
+						/>
 
 						<div
 							onClick={() => updateForm("approve", true)}

@@ -37,7 +37,7 @@ function generateUniqueId(length = 8) {
     return uniqueId;
 }
 
-export function CreateWidgetModal({ loading }: { loading: any }) {
+export function CreateWidgetModal({ loading, selectedIds }: { loading: any, selectedIds: string[] }) {
     const router = useRouter()
     const [creatingWidget, setCreatingWidget] = useState(false)
     const [formValue, setFormValue] = useState({
@@ -61,6 +61,7 @@ export function CreateWidgetModal({ loading }: { loading: any }) {
                     target: formValue.target,
                     url: '/' + generateUniqueId(7),
                     type: 'basic_wall',
+                    testimonialsIds: selectedIds
                 }
 			});
 
@@ -77,7 +78,7 @@ export function CreateWidgetModal({ loading }: { loading: any }) {
                 name: '',
                 target: ''
             })
-            router.push('/widgets/' + createdWidget.id)
+            router.push('/share/' + createdWidget.id)
         } catch(e) {
             console.error(e)
             toast.error('Could not create widget')
