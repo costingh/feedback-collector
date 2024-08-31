@@ -78,7 +78,7 @@ export function CreateWidgetModal({ loading, selectedIds }: { loading: any, sele
                 name: '',
                 target: ''
             })
-            router.push('/share/' + createdWidget.id)
+            router.push('/share/' + createdWidget.url)
         } catch(e) {
             console.error(e)
             toast.error('Could not create widget')

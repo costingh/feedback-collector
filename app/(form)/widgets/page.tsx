@@ -10,6 +10,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { BadgeCheck, BadgeMinus, ExternalLink, Eye, Loader2, MousePointerClick, Network, Percent, Tag, Trash2 } from "lucide-react";
 import DisplayWidget from "@/components/widgets/DisplayWidget";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const LandingPage = () => {
 	const router = useRouter();
@@ -182,7 +183,8 @@ const LandingPage = () => {
 											className="border-[1px] border-gray-200 rounded-[12px] overflow-hidden"
 										>
 											<div className="top w-full h-[250px] bg-[#dcdcdc34]">
-												<DisplayWidget widget={t}/>
+												{t.type == "basic_wall" && <Image src='/widgets/basic-wall.png' alt={t.type} width={800} height={800} className='max-w-full w-full max-h-full'/>}
+
 											</div>
 											<div className="bottom w-full py-4 px-5">
 												<div className="flex justify-between items-center">
@@ -198,11 +200,11 @@ const LandingPage = () => {
 												</div>
 												<div className="flex items-center gap-2 my-4">
 													<span className="px-2 py-1 rounded-[6px] bg-[#dcdcdc34] text-gray-400 text-[12px] font-normal cursor-pointer">
-														Testimonials Wall
+														{t.name}
 													</span>
-													<span className="px-2 py-1 rounded-[6px] bg-[#dcdcdc34] text-gray-400 text-[12px] font-normal cursor-pointer">
-														Pricing Page
-													</span>
+													{t.target && <span className="px-2 py-1 rounded-[6px] bg-[#dcdcdc34] text-gray-400 text-[12px] font-normal cursor-pointer">
+														{t.target}
+													</span>}
 													<span className="text-[12px] text-gray-400 font-[400]">Edited {timeAgo(t.updatedAt)}</span>
 												</div>
 												<div className="bg-[#dcdcdc34] rounded-[10px] px-3 py-[5px] flex items-center gap-2">

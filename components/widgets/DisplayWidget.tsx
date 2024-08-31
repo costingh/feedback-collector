@@ -4,7 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 function DisplayWidget({ widget }: { widget: any }) {
 	return (
 		<div className="w-full h-full py-5">
-			<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-[1200px] mx-auto">
+			<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-[70%] mx-auto">
 				{widget?.testimonials
 					?.filter((t) => t.approved)
 					?.map((t) => (
