@@ -19,6 +19,7 @@ import { useAuth } from "@clerk/nextjs";
 import Link from "next/link";
 import { Form } from "@/types/Form";
 import FormSkeleton from "@/components/skeletons/FormSkeleton";
+import { ShareTestimonialModal } from "@/components/testimonials/ShareTestimonialModal";
 
 const allFields = [
 	{
@@ -273,7 +274,7 @@ export default function FormsPage() {
 	const handleCopy = (url : string) => {
 		navigator.clipboard.writeText(url).then(() => {
 			setCopied(true);
-			toast.success("URL copied to clipboard!");
+			toast.success("Copied to clipboard!");
 			setTimeout(() => setCopied(false), 2000);
 		}).catch(err => {
 			console.error("Failed to copy: ", err);
@@ -405,15 +406,7 @@ export default function FormsPage() {
 											</div>
 										</div>
 
-										<div className="rounded-[7px] bg-gray-200 text-gray-500 px-[10px] py-[4px] cursor-pointer hover:bg-gray-300 flex items-center gap-[4px]">
-											<Share2
-												size={14}
-												className="text-green-500"
-											/>
-											<div className="text-[13px] font-[500]">
-												Share
-											</div>
-										</div>
+										<ShareTestimonialModal form={form} formUrl={process.env.NEXT_PUBLIC_APP_DOMAIN + form?.url} handleCopy={handleCopy}/>
 										<div
 											onClick={() => setPausedForm(form)}
 											className="rounded-[7px] bg-gray-200 text-gray-500 px-[10px] py-[4px] cursor-pointer hover:bg-gray-300 flex items-center gap-[4px]"

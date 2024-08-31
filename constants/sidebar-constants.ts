@@ -38,7 +38,7 @@ export const routes = [
 			{
 				label: "Tags",
 				icon: Tag,
-				href: "/testimonials",
+				href: "/tags",
 				color: "text-sky-500",
 			},
 		]

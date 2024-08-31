@@ -145,6 +145,18 @@ body,
   -ms-overflow-style: none; /* Hides the scrollbar */
 }
 
+.hide-scrollbar::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
+
+.hide-scrollbar {
+  scrollbar-width: none;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+}
 
 /* styles/globals.css or create a separate CSS file */
 .confetti-container {
