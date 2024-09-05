@@ -94,6 +94,8 @@ model FormResponse {
   approved  Boolean
   form      Form     @relation(fields: [formId], references: [id])
   createdAt DateTime @default(now())
+  tagId     String?
+  tag       Tag?     @relation(fields: [tagId], references: [id])
 }
 
 model Widget {
@@ -106,4 +108,15 @@ model Widget {
   userId          String
   type            String
   testimonialsIds String[]
+}
+
+model Tag {
+  id             String         @id @default(cuid())
+  tagName        String
+  category       String
+  tagDescription String
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  userId         String
+  formResponses  FormResponse[]
 }

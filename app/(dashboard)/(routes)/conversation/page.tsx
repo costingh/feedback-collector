@@ -40,6 +40,8 @@ export default function ConversationPage() {
   const isLoading = form.formState.isSubmitting;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    proModal.onOpen();
+
     try {
       const userMessage: OpenAI.ChatCompletionUserMessageParam = {
         role: "user",

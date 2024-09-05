@@ -12,7 +12,8 @@ import {
 	Bug,
 	Feather,
 	Tag,
-	BrickWall
+	BrickWall,
+	CreditCard
 } from "lucide-react";
 
 export const routes = [
@@ -79,6 +80,23 @@ export const routes = [
 				label: "Report a bug",
 				icon: Bug,
 				href: "/report-a-bug",
+				color: "text-sky-500",
+			},
+		]
+	},
+	{
+		section: 'ACCOUNT',
+		routes: [
+			{
+				label: "Subscription",
+				icon: CreditCard,
+				href: "/subscription",
+				color: "text-sky-500",
+			},
+			{
+				label: "Settings",
+				icon: Settings,
+				href: "/settings",
 				color: "text-sky-500",
 			},
 		]

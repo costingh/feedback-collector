@@ -158,6 +158,19 @@ body,
   -ms-overflow-style: none;
 }
 
+.smooth-scrollbar::-webkit-scrollbar {
+  width: 1px;
+  background: transparent;
+}
+
+.smooth-scrollbar {
+  scrollbar-width: none;
+}
+
+.smooth-scrollbar {
+  -ms-overflow-style: none;
+}
+
 /* styles/globals.css or create a separate CSS file */
 .confetti-container {
   position: fixed;

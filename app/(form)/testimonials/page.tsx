@@ -28,9 +28,10 @@ const LandingPage = () => {
 			const response = await axios.get(
 				"/api/testimonials/get-all-user-testimonials"
 			);
-			setTestimonials(response.data.testimonials);
+
+			setTestimonials(response?.data?.testimonials || []);
 		} catch (err) {
-			toast.error("An error occurred while retrieving the form!");
+			toast.error("An error occurred while retrieving your testimonials!");
 		} finally {
 			setIsSearchingTestimonials(false);
 		}
@@ -84,6 +85,10 @@ const LandingPage = () => {
 		try {
 			const URL = "/api/testimonials/edit";
 
+			if(!checkedItems) {
+				setLoading({ action: '', loading: false });
+				return;
+			}
 			// Convert the set to an array and iterate over the ids
 			const idsArray = Array.from(checkedItems);
 			for (const id of idsArray) {
@@ -299,7 +304,7 @@ const LandingPage = () => {
 												</div>
 
 												<div className="flex items-center">
-													<StarsRating value={t.stars} readonly={true}/>
+													<StarsRating value={Math.ceil(t.stars)} readonly={true}/>
 												</div>
 											</div>
 
