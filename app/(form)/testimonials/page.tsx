@@ -8,11 +8,13 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import StarsRating from "@/components/stars-rating";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
+	ArrowDownToLine,
 	BadgeCheck,
 	BadgeMinus,
 	Loader2,
 	Network,
 	Tag,
+	TagIcon,
 	Trash2,
 } from "lucide-react";
 import { CreateWidgetModal } from "@/components/widgets/CreateWidgetModal";
@@ -31,7 +33,9 @@ const LandingPage = () => {
 
 			setTestimonials(response?.data?.testimonials || []);
 		} catch (err) {
-			toast.error("An error occurred while retrieving your testimonials!");
+			toast.error(
+				"An error occurred while retrieving your testimonials!"
+			);
 		} finally {
 			setIsSearchingTestimonials(false);
 		}
@@ -85,8 +89,8 @@ const LandingPage = () => {
 		try {
 			const URL = "/api/testimonials/edit";
 
-			if(!checkedItems) {
-				setLoading({ action: '', loading: false });
+			if (!checkedItems) {
+				setLoading({ action: "", loading: false });
 				return;
 			}
 			// Convert the set to an array and iterate over the ids
@@ -159,16 +163,117 @@ const LandingPage = () => {
 		}
 	};
 
+	const handleExport = () => {
+		try {
+			setLoading({ action: "export", loading: true });
+
+			// Filter only the selected testimonials
+			const testimonialsToExport: any = testimonials.filter((t:any) =>
+				checkedItems.has(t.id)
+			);
+
+			// Define the columns to export
+			const csvHeaders = [
+				"ID",
+				"Name",
+				"Email",
+				"Stars",
+				"Message",
+				"Approved",
+				"Created At",
+				"Form Name",
+			];
+
+			// Function to escape commas, quotes, and newlines in the CSV fields
+			const escapeCsvField = (field: string | null) => {
+				if (field == null) return "N/A"; // Handle null/undefined
+				const fieldStr = field.toString();
+				if (/[,"\n]/.test(fieldStr)) {
+					// Escape double quotes by doubling them
+					return `"${fieldStr.replace(/"/g, '""')}"`;
+				}
+				return fieldStr;
+			};
+
+			// Convert the testimonials to CSV-friendly format, escaping necessary fields
+			const csvRows = testimonialsToExport.map((t : any) => ({
+				id: t.id,
+				name: escapeCsvField(t.name || "N/A"),
+				email: escapeCsvField(t.email || "N/A"),
+				stars: escapeCsvField(t.stars || "N/A"),
+				message: escapeCsvField(t.message || "N/A"),
+				approved: t.approved ? "Yes" : "No",
+				createdAt: escapeCsvField(
+					new Date(t.createdAt).toLocaleDateString()
+				),
+				formName: escapeCsvField(t.form?.name || "N/A"),
+			}));
+
+			// Convert array of objects to CSV string
+			const csvContent = [
+				csvHeaders.join(","), // Add the header row
+				...csvRows.map((row: any) => Object.values(row).join(",")), // Add each row of data
+			].join("\n");
+
+			// Create a Blob from the CSV string
+			const blob = new Blob([csvContent], {
+				type: "text/csv;charset=utf-8;",
+			});
+
+			// Create a temporary URL for the Blob
+			const url = window.URL.createObjectURL(blob);
+
+			// Create a temporary <a> element and trigger the download
+			const a = document.createElement("a");
+			a.href = url;
+			a.download = "testimonials_export.csv"; // The file name for download
+			a.style.display = "none";
+			document.body.appendChild(a);
+			a.click();
+
+			// Clean up by revoking the Blob URL and removing the element
+			window.URL.revokeObjectURL(url);
+			document.body.removeChild(a);
+
+			toast.success("Testimonials exported successfully!");
+		} catch (err) {
+			console.error("Error while exporting:", err);
+			toast.error("Error while exporting");
+		} finally {
+			setLoading({ action: "", loading: false });
+		}
+	};
+
 	return (
 		<>
 			<div className="px-8 py-5 relative">
 				{checkedItems.size > 0 && (
 					<div className="top absolute top-0 bg-black px-6 py-2 w-[50%] left-[25%] rounded-b-[30px] flex items-center justify-center gap-3">
 						<div
-							onClick={handleDelete}
+							onClick={handleExport}
 							className="flex items-center justify-center gap-2 cursor-pointer hover:opacity-60 bg-[#3c3b3b] px-[8px] py-[3px] rounded-[10px]"
 						>
-							<Trash2 size={14} className="text-red-600" />
+							<ArrowDownToLine
+								size={14}
+								className="text-gray-200"
+							/>
+							<span className="text-gray-200 font-[400] text-[13px]">
+								{loading.action == "export" &&
+								loading.loading ? (
+									<Loader2
+										size={11}
+										className="spin my-[4px] mx-[4px]"
+									/>
+								) : (
+									"Export"
+								)}
+							</span>
+						</div>
+						<div
+							// onClick={handleDelete}
+							className="flex items-center justify-center gap-2 cursor-pointer hover:opacity-60 bg-[#3c3b3b] px-[8px] py-[3px] rounded-[10px]"
+						>
+							<TagIcon size={14} className="text-gray-200" />
 							<span className="text-gray-200 font-[400] text-[13px]">
 								{loading.action == "delete" &&
 								loading.loading ? (
@@ -177,7 +282,7 @@ const LandingPage = () => {
 										className="spin my-[4px] mx-[4px]"
 									/>
 								) : (
-									"Delete"
+									"Tag"
 								)}
 							</span>
 						</div>
@@ -220,6 +325,23 @@ const LandingPage = () => {
 									/>
 								) : (
 									"Unapprove"
+								)}
+							</span>
+						</div>
+						<div
+							onClick={handleDelete}
+							className="flex items-center justify-center gap-2 cursor-pointer hover:opacity-60 bg-[#3c3b3b] px-[8px] py-[3px] rounded-[10px]"
+						>
+							<Trash2 size={14} className="text-red-600" />
+							<span className="text-gray-200 font-[400] text-[13px]">
+								{loading.action == "delete" &&
+								loading.loading ? (
+									<Loader2
+										size={11}
+										className="spin my-[4px] mx-[4px]"
+									/>
+								) : (
+									"Delete"
 								)}
 							</span>
 						</div>
@@ -304,7 +426,12 @@ const LandingPage = () => {
 												</div>
 
 												<div className="flex items-center">
-													<StarsRating value={Math.ceil(t.stars)} readonly={true}/>
+													<StarsRating
+														value={Math.ceil(
+															t.stars
+														)}
+														readonly={true}
+													/>
 												</div>
 											</div>
 
