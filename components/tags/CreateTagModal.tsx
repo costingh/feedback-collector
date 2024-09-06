@@ -49,6 +49,7 @@ const Category = ({
 			className="flex gap-3 hover:bg-gray-50 py-3 border-b-[1px] border-[rgb(229 231 235)] cursor-pointer"
 			onClick={() => {
 				setActive(index);
+				// @ts-ignore
 				setFormValue((prev) => ({ ...prev, category: category.name }));
 			}}
 		>
@@ -92,7 +93,7 @@ export function CreateTagModal({setTags}: {setTags? : (tags: Tag[]) => void}) {
 					tagName: formValue.tagName,
 					category: formValue.category,
 					tagDescription: formValue.tagDescription,
-					formResponseIds: [],
+					formResponsesIds: [],
 				},
 			});
 

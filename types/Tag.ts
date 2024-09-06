@@ -6,4 +6,5 @@ export type Tag = {
     updatedAt: string;
     category: string;
     userId: string;
+    formResponsesIds?: string[];
 }

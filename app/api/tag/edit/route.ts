@@ -7,13 +7,13 @@ export async function POST(req: Request) {
     try {
         const { userId } = auth();
         const body = await req.json();
-        const { tagName, category, tagDescription, formResponseIds } = body.data;
+        const { tagName, category, tagDescription, formResponsesIds } = body.data;
 
         if (!userId) {
             return new NextResponse("Unauthorized", { status: 401 });
         }
 
-        console.log({ tagName, category, tagDescription, formResponseIds })
+        console.log({ tagName, category, tagDescription, formResponsesIds })
 
         const newTag = await prismadb.tag.create({
             data: {
@@ -21,9 +21,7 @@ export async function POST(req: Request) {
                 category,
                 tagDescription,
                 userId,
-                formResponses: {
-                    connect: formResponseIds.map((id: string) => ({ id })),
-                },
+                formResponsesIds
             },
         });
 

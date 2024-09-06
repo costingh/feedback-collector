@@ -12,37 +12,40 @@ import {
 	BadgeCheck,
 	BadgeMinus,
 	Loader2,
-	Network,
-	Tag,
 	TagIcon,
 	Trash2,
 } from "lucide-react";
 import { CreateWidgetModal } from "@/components/widgets/CreateWidgetModal";
+import { TagTestimonials } from "@/components/tags/TagTestimonials";
+import { Tag } from "@/types/Tag";
 
 const LandingPage = () => {
 	const [isSearchingTestimonials, setIsSearchingTestimonials] =
 		useState(true);
 	const [testimonials, setTestimonials] = useState([]);
-
-	const handleGetAllUserTestimonials = useCallback(async () => {
-		setIsSearchingTestimonials(true);
-		try {
-			const response = await axios.get(
-				"/api/testimonials/get-all-user-testimonials"
-			);
-
-			setTestimonials(response?.data?.testimonials || []);
-		} catch (err) {
-			toast.error(
-				"An error occurred while retrieving your testimonials!"
-			);
-		} finally {
-			setIsSearchingTestimonials(false);
-		}
-	}, []);
+	const [tags, setTags] = useState<Tag[]>([]);
 
 	useEffect(() => {
-		handleGetAllUserTestimonials();
+		const fetchAllData = async () => {
+			try {
+				setIsSearchingTestimonials(true);
+
+				const [tagsResponse, testimonialsResponse] = await Promise.all([
+					axios.get("/api/tag/get-all-user-tags"),
+					axios.get("/api/testimonials/get-all-user-testimonials"),
+				]);
+
+				console.log(tagsResponse?.data?.tags )
+				setTags(tagsResponse?.data?.tags || []);
+				setTestimonials(testimonialsResponse?.data?.testimonials || []);
+			} catch (err) {
+				toast.error("An error occurred while retrieving your data!");
+			} finally {
+				setIsSearchingTestimonials(false);
+			}
+		};
+
+		fetchAllData();
 	}, []);
 
 	const timeAgo = (date: string): string => {
@@ -168,7 +171,7 @@ const LandingPage = () => {
 			setLoading({ action: "export", loading: true });
 
 			// Filter only the selected testimonials
-			const testimonialsToExport: any = testimonials.filter((t:any) =>
+			const testimonialsToExport: any = testimonials.filter((t: any) =>
 				checkedItems.has(t.id)
 			);
 
@@ -196,7 +199,7 @@ const LandingPage = () => {
 			};
 
 			// Convert the testimonials to CSV-friendly format, escaping necessary fields
-			const csvRows = testimonialsToExport.map((t : any) => ({
+			const csvRows = testimonialsToExport.map((t: any) => ({
 				id: t.id,
 				name: escapeCsvField(t.name || "N/A"),
 				email: escapeCsvField(t.email || "N/A"),
@@ -248,7 +251,8 @@ const LandingPage = () => {
 		<>
 			<div className="px-8 py-5 relative">
 				{checkedItems.size > 0 && (
-					<div className="top absolute top-0 bg-black px-6 py-2 w-[50%] left-[25%] rounded-b-[30px] flex items-center justify-center gap-3">
+					// <div className="top absolute top-0 bg-black px-6 py-2 w-[50%] left-[25%] rounded-b-[25px] flex flex-wrap items-center justify-center gap-3">
+					<div className="top absolute top-0 bg-black px-6 py-2 w-[50%] md:w-[100%] lg:w-[80%] left-[25%] md:left-0 lg:left-[10%] rounded-b-[25px] flex flex-wrap items-center justify-center gap-3">
 						<div
 							onClick={handleExport}
 							className="flex items-center justify-center gap-2 cursor-pointer hover:opacity-60 bg-[#3c3b3b] px-[8px] py-[3px] rounded-[10px]"
@@ -269,23 +273,14 @@ const LandingPage = () => {
 								)}
 							</span>
 						</div>
-						<div
-							// onClick={handleDelete}
-							className="flex items-center justify-center gap-2 cursor-pointer hover:opacity-60 bg-[#3c3b3b] px-[8px] py-[3px] rounded-[10px]"
-						>
-							<TagIcon size={14} className="text-gray-200" />
-							<span className="text-gray-200 font-[400] text-[13px]">
-								{loading.action == "delete" &&
-								loading.loading ? (
-									<Loader2
-										size={11}
-										className="spin my-[4px] mx-[4px]"
-									/>
-								) : (
-									"Tag"
-								)}
-							</span>
-						</div>
+
+						<TagTestimonials
+							loading={loading}
+							setLoading={setLoading}
+							allUserTags={tags}
+							testimonialsIds={Array.from(checkedItems) as string[]}
+							setTags={setTags}
+						/>
 
 						<CreateWidgetModal
 							loading={loading}
@@ -411,7 +406,7 @@ const LandingPage = () => {
 													</span>
 
 													<div className="flex items-center gap-1">
-														<Tag
+														<TagIcon
 															size={13}
 															className="text-gray-400"
 														/>

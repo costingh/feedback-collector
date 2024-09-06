@@ -7,7 +7,7 @@ export async function PUT(req: Request) {
     try {
         const { userId } = auth();
         const body = await req.json();
-        const { id, tagName, category, tagDescription, formResponseIds } = body.data;
+        const { id, tagName, category, tagDescription, formResponsesIds } = body.data;
 
         if (!userId) {
             return new NextResponse("Unauthorized", { status: 401 });
@@ -32,12 +32,8 @@ export async function PUT(req: Request) {
                 tagName: tagName || existingTag.tagName,
                 category: category || existingTag.category,
                 tagDescription: tagDescription || existingTag.tagDescription,
-                // userId,
-                // formResponses: formResponseIds
-                //     ? {
-                //         connect: formResponseIds.map((id: string) => ({ id })),
-                //     }
-                //     : undefined
+                userId,
+                formResponsesIds: formResponsesIds || existingTag.formResponsesIds
             },
         });
 
