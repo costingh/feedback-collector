@@ -9,7 +9,7 @@ import StarsRating from "@/components/stars-rating";
 import { Checkbox } from "@/components/ui/checkbox";
 import { CreateTagModal } from "@/components/tags/CreateTagModal";
 import { Tag } from "@/types/Tag";
-import { timeAgo } from "@/lib/utils";
+import { formatNumber, timeAgo } from "@/lib/utils";
 import { Eye, Loader2, Pencil, Trash2 } from "lucide-react";
 import { ConfirmDeleteTag } from "@/components/tags/ConfirmDeleteTag";
 import { EditTag } from "@/components/tags/EditTag";
@@ -122,7 +122,7 @@ const LandingPage = () => {
 													/>{" "}
 												</span>
 												<span className="text-gray-400 font-normal text-[14px]">
-													5123k testimonials tagged
+													{formatNumber(tag?.formResponsesIds?.length || 0)} testimonials tagged
 												</span>
 											</div>
 											<div>
