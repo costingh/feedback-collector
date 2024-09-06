@@ -18,6 +18,7 @@ import {
 import { CreateWidgetModal } from "@/components/widgets/CreateWidgetModal";
 import { TagTestimonials } from "@/components/tags/TagTestimonials";
 import { Tag } from "@/types/Tag";
+import DisplayTestimonialTags from "@/components/tags/DisplayTestimonialTags";
 
 const LandingPage = () => {
 	const [isSearchingTestimonials, setIsSearchingTestimonials] =
@@ -405,15 +406,10 @@ const LandingPage = () => {
 														{timeAgo(t?.createdAt)}
 													</span>
 
-													<div className="flex items-center gap-1">
-														<TagIcon
-															size={13}
-															className="text-gray-400"
-														/>
-														<span className="text-gray-400 font-semibold text-[12px]">
-															No tags yet
-														</span>
-													</div>
+													<DisplayTestimonialTags
+														tags={tags}
+														id={t.id}
+													/>
 												</div>
 
 												<div className="my-3 text-[16px] text-gray-700 font-normal max-w-[700px]">

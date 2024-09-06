@@ -36,7 +36,7 @@ export default function Sidebar({
 										key={r.href}
 										href={r.href}
 										className={cn(
-											"text-sm group flex w-full justify-start font-[400] cursor-pointer hover:text-[#FF8CC6] hover:bg-gray-100 rounded-lg transition mb-[4px] px-[6px] py-[5px]",
+											"text-sm group flex w-full justify-start font-[400] cursor-pointer hover:bg-gray-100 rounded-lg transition mb-[4px] px-[6px] py-[5px]",
 											pathname === r.href
 												? "text-gray-700 bg-gray-100"
 												: "text-gray-700"
