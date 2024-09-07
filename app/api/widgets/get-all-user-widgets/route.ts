@@ -39,32 +39,52 @@ export async function GET(req: Request) {
             });
         }
 
-        // For each widget, fetch the corresponding FormResponses based on testimonialsIds
-        const widgetsWithTestimonials = await Promise.all(
+        // Get widget IDs to fetch analytics for
+        const widgetIds = widgets.map((widget) => widget.id);
+
+        // Fetch and aggregate metrics for the widgets
+        const widgetMetrics = await prismadb.widgetAnalytics.groupBy({
+            by: ['widgetId', 'actionType'],
+            where: {
+                widgetId: {
+                    in: widgetIds,
+                },
+            },
+            _sum: {
+                value: true,  // Sum the 'value' field for each actionType
+            },
+        });
+
+        // Attach metrics to the widgets
+        const widgetsWithMetrics = await Promise.all(
             widgets.map(async (widget) => {
+                // Get metrics for this widget
+                const metrics = widgetMetrics.filter((metric) => metric.widgetId === widget.id);
+
+                // Fetch corresponding FormResponses based on testimonialsIds
+                let testimonials : any = [];
                 if (widget.testimonialsIds.length > 0) {
-                    const formResponses = await prismadb.formResponse.findMany({
+                    testimonials = await prismadb.formResponse.findMany({
                         where: {
                             id: {
                                 in: widget.testimonialsIds,
                             },
                         },
                     });
-
-                    return {
-                        ...widget,
-                        testimonials: formResponses,
-                    };
-                } else {
-                    return {
-                        ...widget,
-                        testimonials: [],
-                    };
                 }
+
+                return {
+                    ...widget,
+                    metrics: metrics.map((metric) => ({
+                        actionType: metric.actionType,
+                        total: metric._sum.value,
+                    })),
+                    testimonials,
+                };
             })
         );
 
-        return NextResponse.json({ widgets: widgetsWithTestimonials, error: null });
+        return NextResponse.json({ widgets: widgetsWithMetrics, error: null });
     } catch (error) {
         console.error("[ERROR]", error);
         return new NextResponse("Internal Server Error", { status: 500 });
