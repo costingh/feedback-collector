@@ -42,7 +42,6 @@ model Form {
   pausedUntil         DateTime?
   url                 String
   customUrl           String
-  FormAnalytics       FormAnalytics[]
   title               String
   description         String
   questions           Question[]
@@ -52,6 +51,7 @@ model Form {
   thankYouPageTitle   String
   thankYouPageMessage String
   thankYouCustomURL   String
+  FormAnalytics       FormAnalytics[]
 }
 
 model FormField {
@@ -71,12 +71,15 @@ model Question {
 }
 
 model FormAnalytics {
-  id           String @id @default(cuid())
-  visits       Int
-  testimonials Int
-  responseRate Int
-  formId       String
-  form         Form   @relation(fields: [formId], references: [id])
+  id         Int      @id @default(autoincrement())
+  actionType String
+  value      Float
+  formId     String
+  createdAt  DateTime @default(now())
+
+  Form Form @relation(fields: [formId], references: [id])
+
+  @@index([formId, createdAt])
 }
 
 model FormResponse {

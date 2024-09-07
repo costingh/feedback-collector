@@ -1,8 +1,26 @@
 export type FormAnalytics = {
-    visits: number;
-    testimonials: number;
-    responseRate: number;
-}
+    actionType: string;
+    total: number;
+};
+
+export type FormField = {
+    id: string;
+    label: string;
+    fieldType: string; 
+    required: boolean;
+    options?: string[];
+    key: string;
+    isEnabled: boolean;
+    isRequired: boolean;
+};
+
+
+export type Question = {
+    id: string;
+    text: string;
+    type: string;
+    options?: string[];
+};
 
 export type Form = {
     id?: string;
@@ -20,9 +38,9 @@ export type Form = {
     pausedUntil: Date | null;
     url: string;
     customUrl: string;
-	formFields: any[];
-	FormAnalytics: FormAnalytics;
-    questions: any[];
+    formFields: FormField[];
+    metrics?: FormAnalytics[];
+    questions: Question[];
     title: string;
     description: string;
     textareaPlaceholder: string;
@@ -30,4 +48,4 @@ export type Form = {
     thankYouPageTitle: string;
     thankYouPageMessage: string;
     thankYouCustomURL: string;
-}
+};

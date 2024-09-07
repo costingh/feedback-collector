@@ -182,9 +182,8 @@ const LandingPage = () => {
 											key={t.id}
 											className="border-[1px] border-gray-200 rounded-[12px] overflow-hidden"
 										>
-											<div className="top w-full h-[250px] bg-[#dcdcdc34]">
+											<div className="top w-full h-[250px] bg-gray-100 flex items-center justify-center">
 												{t.type == "basic_wall" && <Image src='/widgets/basic-wall.png' alt={t.type} width={800} height={800} className='max-w-full w-full max-h-full'/>}
-
 											</div>
 											<div className="bottom w-full py-4 px-5">
 												<div className="flex justify-between items-center">

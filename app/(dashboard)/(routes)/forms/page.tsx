@@ -73,6 +73,7 @@ export default function FormsPage() {
 	const fetchAllUserForms = async () => {
 		setFetchingForms(true);
 		const response = await axios.get("/api/get-all-user-forms");
+		// console.log(response.data.forms)
 		setUserForms(response.data.forms);
 		setFetchingForms(false);
 	};
@@ -282,6 +283,17 @@ export default function FormsPage() {
 		});
 	};
 
+	const getResponseRate = (form: Form) => {
+		const completions = form?.metrics?.find(m => m.actionType == 'completion')?.total|| 0;
+		const visits = form?.metrics?.find(m => m.actionType == 'views')?.total|| 0;
+
+		if(completions) {
+			return visits/completions*100;
+		} else {
+			return 0
+		}
+	}
+
 	return (
 		<div className="px-8  py-5">
 			<div className="mb-8 space-y-4">
@@ -362,23 +374,18 @@ export default function FormsPage() {
 												<p className="font-semibold text-[15px] text-gray-700 m-0 p-0 leading-3">
 													{item == "Visits" && (
 														<>
-															{form?.FormAnalytics
-																?.visits || 0}
+															{form?.metrics?.find(m => m.actionType == 'view')?.total|| 0}
 														</>
 													)}
 													{item == "Testimonials" && (
 														<>
-															{form?.FormAnalytics
-																?.testimonials ||
-																0}
+															{form?.metrics?.find(m => m.actionType == 'completion')?.total|| 0}
 														</>
 													)}
 													{item ==
 														"Response Rate" && (
 														<>
-															{form?.FormAnalytics
-																?.responseRate ||
-																0}
+															{getResponseRate(form)}%
 														</>
 													)}
 												</p>

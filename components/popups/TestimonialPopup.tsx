@@ -40,6 +40,8 @@ interface TestimonialPopupProps {
 	thankYouPageMessage: string;
 	brandLogo: string;
 	brandName: string;
+	onSubmit: any;
+	onInteraction: any;
 }
 
 const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
@@ -60,7 +62,9 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 	thankYouPageTitle,
 	thankYouPageMessage,
 	brandLogo,
-	brandName
+	brandName,
+	onSubmit,
+	onInteraction
 }) => {
 	// constants
 	const BASE_PRIMARY_COLOR = "rgb(34, 197, 94)";
@@ -99,14 +103,17 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 	const SubmitButton = ({
 		buttonLabel,
 		handleSubmit,
-		loading
+		loading,
 	}: {
 		buttonLabel: string;
 		handleSubmit: any;
 		loading?: boolean;
 	}) => (
 		<button
-			onClick={handleSubmit}
+			onClick={() => {
+				handleSubmit();
+				if (onInteraction) onInteraction("submitButton");
+			}}
 			disabled={loading}
 			className="p-2.5 rounded-lg text-gray-50 w-full mt-2.5 font-mediumtracking-wide text-[15px] flex items-center gap-4 justify-center"
 			style={{ backgroundColor: primaryColor || BASE_PRIMARY_COLOR }}
@@ -132,7 +139,10 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 			{step == 2 && (
 				<div
 					className="flex items-center justify-center w-10 h-10 hover:bg-gray-200 border-[1px] border-gray-300 rounded-full cursor-pointer"
-					onClick={() => setStep((prevStep) => prevStep - 1)}
+					onClick={() => {
+						setStep((prevStep) => prevStep - 1);
+						if (onInteraction) onInteraction("prevStep");
+					}}
 				>
 					<svg
 						className="w-6 h-6 text-gray-400"
@@ -255,6 +265,7 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 					{thankYouPageTitle}
 				</p>
 				<p className="text-gray-600 font-normal text-[16px]">{thankYouPageMessage}</p>
+				{/* @ts-ignore */}
 				{showConfetti && <Confetti options={confettiOptions} />}
 			</>
 		);
@@ -273,7 +284,13 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 
 	const CollectReviewerPersonalInformation = React.memo(
 		({ buttonLabel }: { buttonLabel: string }) => {
-			const [userInfoValue, setUserInfoValue] = useState<UserInfo>({});
+			const [userInfoValue, setUserInfoValue] = useState<UserInfo>({
+				name: '',
+				email: '',
+				company: '',
+				jobTitle: '',
+				website: '',
+			});
 			const [isSubmitting, setIsSubmitting] = useState(false)
 			const [focusedKey, setFocusedKey] = useState<string | null>(null);
 			const [images, setImages] = useState({
@@ -344,6 +361,7 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 					// maybe redirect to thank you page
 					toast.success('Response submitted successfully!')
 					setStep(3)
+					onSubmit && onSubmit()
 
 					// TODO - maybe set a cookie here to not let user submit the form another time, maybe save its IP addres to db to prevend fraud
 				}
