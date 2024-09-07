@@ -8,6 +8,7 @@ import {
 	FilePlus2,
 	Loader2,
 	OctagonPause,
+	PlusSquare,
 	Share2,
 	SquareArrowOutUpRight,
 	Trash2,
@@ -304,17 +305,17 @@ export default function FormsPage() {
 							Use forms to collect testimonials from your users.
 						</p>
 					</div>
-					<div className="rounded-[7px] bg-gray-800 px-[16px] py-[2px] cursor-pointer hover:bg-gray-700 inline-flex items-center gap-[4px] h-[35px]">
-						<FilePlus2 size={13} className="text-gray-300" />
+					<div className="rounded-[7px] bg-gray-200 text-gray-500 px-[10px] py-[4px] cursor-pointer hover:bg-gray-300 flex items-center gap-[4px]">
+						<PlusSquare size={14} className="text-gray-800" />
 						<div
 							onClick={handleCreateNewForm}
-							className="text-gray-300 text-normal text-[13px] min-w-[100px]"
+							className="text-[13px] font-[500] whitespace-nowrap w-[105px]"
 						>
 							{isLoading ? (
-								<Loader2 className="ml-[30px] spin" />
+								<Loader2 size={14} className="spin mx-auto" />
 							) : (
 								"Create new form"
-							)}
+							)} 
 						</div>
 					</div>
 				</div>
