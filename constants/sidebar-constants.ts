@@ -13,7 +13,8 @@ import {
 	Feather,
 	Tag,
 	BrickWall,
-	CreditCard
+	CreditCard,
+	Pickaxe
 } from "lucide-react";
 
 export const routes = [
@@ -49,9 +50,15 @@ export const routes = [
 		section: 'SHARE',
 		routes: [
 			{
-				label: "Widgets",
+				label: "Widgets hub",
 				icon: BrickWall,
 				href: "/widgets",
+				color: "text-sky-500",
+			},
+			{
+				label: "Creator",
+				icon: Pickaxe,
+				href: "/creator",
 				color: "text-sky-500",
 			},
 		]

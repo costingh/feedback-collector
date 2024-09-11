@@ -216,3 +216,23 @@ body,
   50%  {box-shadow: 19px 0 0 3px, 38px 0 0 7px, 57px 0 0 3px}
   100% {box-shadow: 19px 0 0 0  , 38px 0 0 3px, 57px 0 0 7px}
 }
+
+.slider-container {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.slider-content {
+  display: flex;
+  animation: scroll 20s linear infinite;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-400px * 5)); 
+  }
+}

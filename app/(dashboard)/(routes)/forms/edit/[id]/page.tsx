@@ -78,7 +78,7 @@ export default function NewForm({ params }: { params: { id: string } }) {
 	const [form, setForm] = useState<Form>({
 		name: "Testimonials",
 		brandLogo: '/logo.png',
-		brandName: 'Trustly',
+		brandName: 'Feedbackz',
 		backgroundColor: "#9072afff",
 		primaryColor: "#8466b4ff",
 		withAnimatedBg: false,

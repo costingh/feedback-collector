@@ -1,4 +1,12 @@
-import { Braces, Copy, Link, Loader2, Network, Share2 } from "lucide-react";
+import {
+	Braces,
+	Copy,
+	Link,
+	Loader2,
+	Network,
+	PlusSquare,
+	Share2,
+} from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -28,80 +36,107 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 
 function generateUniqueId(length = 8) {
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let uniqueId = '';
-    for (let i = 0; i < length; i++) {
-        const randomIndex = Math.floor(Math.random() * characters.length);
-        uniqueId += characters[randomIndex];
-    }
-    return uniqueId;
+	const characters =
+		"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+	let uniqueId = "";
+	for (let i = 0; i < length; i++) {
+		const randomIndex = Math.floor(Math.random() * characters.length);
+		uniqueId += characters[randomIndex];
+	}
+	return uniqueId;
 }
 
-export function CreateWidgetModal({ loading, selectedIds }: { loading: any, selectedIds: string[] }) {
-    const router = useRouter()
-    const [creatingWidget, setCreatingWidget] = useState(false)
-    const [formValue, setFormValue] = useState({
-        name: '',
-        target: ''
-    })
+export function CreateWidgetModal({
+	loading,
+	selectedIds,
+	section,
+	predefinedWidgetType
+}: {
+	loading: any;
+	selectedIds: string[];
+	section?: string;
+	predefinedWidgetType?: string;
+}) {
+	const router = useRouter();
+	const [creatingWidget, setCreatingWidget] = useState(false);
+	const [formValue, setFormValue] = useState({
+		name: "",
+		target: "",
+	});
+	const [widgetType, setWidgetType] = useState(predefinedWidgetType || "");
 
-    const handleCreateWidget = async () => {
-        setCreatingWidget(true)
+	const handleCreateWidget = async () => {
+		setCreatingWidget(true);
 
-        if(!formValue.name) {
-            toast.error('Please enter a name')
-            setCreatingWidget(false)
-            return;
-        }
+		if (!formValue.name) {
+			toast.error("Please enter a name");
+			setCreatingWidget(false);
+			return;
+		}
 
-        try {
-            const response = await axios.post("/api/widgets/create", {
+		if (!widgetType) {
+			toast.error("Please select the type of the widget");
+			setCreatingWidget(false);
+			return;
+		}
+
+		try {
+			const response = await axios.post("/api/widgets/create", {
 				data: {
-                    name: formValue.name,
-                    target: formValue.target,
-                    url: '/' + generateUniqueId(7),
-                    type: 'basic_wall',
-                    testimonialsIds: selectedIds
-                }
+					name: formValue.name,
+					target: formValue.target,
+					url: "/" + generateUniqueId(7),
+					type: widgetType,
+					testimonialsIds: selectedIds,
+				},
 			});
 
 			const createdWidget = response?.data?.result;
 
 			if (!createdWidget) {
 				toast.error("Widget could not be created!");
-                setCreatingWidget(false)
+				setCreatingWidget(false);
 				return;
 			}
 
-            toast.success('Widget created successfully')
-            setFormValue({
-                name: '',
-                target: ''
-            })
-            router.push('/share/' + createdWidget.url)
-        } catch(e) {
-            console.error(e)
-            toast.error('Could not create widget')
-        } finally {
-            setCreatingWidget(false)
-        }
-    }
+			toast.success("Widget created successfully");
+			setFormValue({
+				name: "",
+				target: "",
+			});
+			router.push("/share/" + createdWidget.url);
+		} catch (e) {
+			console.error(e);
+			toast.error("Could not create widget");
+		} finally {
+			setCreatingWidget(false);
+		}
+	};
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
-				<div className="flex items-center justify-center gap-2 cursor-pointer hover:opacity-60 bg-[#3c3b3b] px-[8px] py-[3px] rounded-[10px]">
-					<Network size={14} className="text-gray-200" />
-					<span className="text-gray-200 font-[400] text-[13px]">
-						{loading.action == "share" && loading.loading ? (
-							<Loader2
-								size={11}
-								className="spin my-[4px] mx-[4px]"
-							/>
-						) : (
-							"Share"
-						)}
-					</span>
-				</div>
+				{section == "creator" ? (
+					<div className="rounded-[7px] bg-gray-200 text-gray-500 px-[10px] py-[4px] cursor-pointer hover:bg-gray-300 flex items-center gap-[4px]">
+						<PlusSquare size={14} className="text-gray-800" />
+						<span className="text-[13px] font-[500] whitespace-nowrap">
+							Start creating
+						</span>
+					</div>
+				) : (
+					<div className="flex items-center justify-center gap-2 cursor-pointer hover:opacity-60 bg-[#3c3b3b] px-[8px] py-[3px] rounded-[10px]">
+						<Network size={14} className="text-gray-200" />
+						<span className="text-gray-200 font-[400] text-[13px]">
+							{loading.action == "share" && loading.loading ? (
+								<Loader2
+									size={11}
+									className="spin my-[4px] mx-[4px]"
+								/>
+							) : (
+								"Share"
+							)}
+						</span>
+					</div>
+				)}
 			</DialogTrigger>
 			<DialogContent className="max-w-[500px]">
 				<DialogHeader>
@@ -117,18 +152,29 @@ export function CreateWidgetModal({ loading, selectedIds }: { loading: any, sele
 					</span>
 					<Input
 						id="widget-name"
-                        value={formValue.name}
-                        onChange={(e) => setFormValue(prev => ({...prev, name: e.target.value}))}
+						value={formValue.name}
+						onChange={(e) =>
+							setFormValue((prev) => ({
+								...prev,
+								name: e.target.value,
+							}))
+						}
 						placeholder="Ex: Pricing Page Testimonials"
 						className="outline-none focus-visible:ring-0 focus-visible:ring-transparent"
 					/>
 
 					<div className="divider h-4"></div>
+
 					<span className="text-gray-500 font-[500] text-[14px] m-0 p-0">
 						Where do you plan to embed this widget?
 					</span>
 
-					<Select value={formValue.target} onValueChange={(value) => setFormValue(prev => ({...prev, target: value}))}>
+					<Select
+						value={formValue.target}
+						onValueChange={(value) =>
+							setFormValue((prev) => ({ ...prev, target: value }))
+						}
+					>
 						<SelectTrigger className="w-full outline-none focus-visible:ring-0 focus-visible:ring-transparent ">
 							<SelectValue placeholder="Select target" />
 						</SelectTrigger>
@@ -151,10 +197,41 @@ export function CreateWidgetModal({ loading, selectedIds }: { loading: any, sele
 							</SelectGroup>
 						</SelectContent>
 					</Select>
+
+					
+
+					{!predefinedWidgetType && (
+						<>
+							<div className="divider h-4"></div>
+
+							<span className="text-gray-500 font-[500] text-[14px] m-0 p-0">
+								Please choose the widget type
+							</span>
+
+							<Select
+								value={widgetType}
+								onValueChange={(value) => setWidgetType(value)}
+							>
+								<SelectTrigger className="w-full outline-none focus-visible:ring-0 focus-visible:ring-transparent ">
+									<SelectValue placeholder="Choose widget type" />
+								</SelectTrigger>
+								<SelectContent>
+									<SelectGroup>
+										<SelectLabel>Widget types</SelectLabel>
+										<SelectItem value="basic_wall">Wall</SelectItem>
+										<SelectItem value="rolling_wall">Carousel</SelectItem>
+									</SelectGroup>
+								</SelectContent>
+							</Select>
+						</>
+					)}
 				</div>
 
 				<DialogFooter>
-					<div onClick={handleCreateWidget} className="text-center py-[10px] rounded-[8px] bg-[#000] text-[#eee] w-full cursor-pointer text-[14px] font-semibold mt-3 hover:opacity-80">
+					<div
+						onClick={handleCreateWidget}
+						className="text-center py-[10px] rounded-[8px] bg-[#000] text-[#eee] w-full cursor-pointer text-[14px] font-semibold mt-3 hover:opacity-80"
+					>
 						{!creatingWidget ? (
 							"Create Widget"
 						) : (

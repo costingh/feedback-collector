@@ -26,7 +26,7 @@
 //         } else {
 //             inlineScript.innerHTML = `
 //                 window.SenjaCollectorConfig = {
-//                     project: "Trustly",
+//                     project: "Feedbackz",
 //                     form: "xp9Ecq",
 //                     trigger: {"type":"none"}
 //                 }

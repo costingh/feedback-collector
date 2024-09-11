@@ -6,9 +6,10 @@ type StarsRatingProps = {
 	count?: number;
 	readonly?: boolean;
 	value?: number;
+	style?: any;
 };
 
-const StarsRating: React.FC<StarsRatingProps> = ({ ratingChanged, readonly, value }) => {
+const StarsRating: React.FC<StarsRatingProps> = ({ ratingChanged, readonly, value, style }) => {
 	return (
 		//@ts-ignore
 		<Rating
@@ -16,7 +17,7 @@ const StarsRating: React.FC<StarsRatingProps> = ({ ratingChanged, readonly, valu
 			unratedColor="amber"
 			ratedColor="amber"
 			className="text-[#FFBF00]"
-			style={{transform: 'scale(1.2)', marginLeft: '10px'}}
+			style={{transform: 'scale(1.2)', marginLeft: '10px', ...style}}
 			onChange={(value) => ratingChanged && ratingChanged(value)}
 			readonly={readonly}
 		/>

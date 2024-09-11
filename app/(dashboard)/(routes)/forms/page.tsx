@@ -94,7 +94,7 @@ export default function FormsPage() {
 			name: "Testimonials",
 			backgroundColor: "#9072afff",
 			brandLogo: '/logo.png',
-			brandName: 'Trustly',
+			brandName: 'Feedbackz',
 			primaryColor: "#8466b4ff",
 			withAnimatedBg: false,
 			title: "Your brand here",

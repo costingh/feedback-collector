@@ -20,7 +20,8 @@ export async function POST(req: Request) {
                 url: data.url,
                 userId,
                 type: data.type,
-                testimonialsIds: data.testimonialsIds
+                testimonialsIds: data.testimonialsIds,
+                // widgetType: data.widgetType
             }
         });
 
