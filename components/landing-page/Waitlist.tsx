@@ -36,27 +36,32 @@ export default function Waitlist() {
 
 	const addToWaitlist = async () => {
 		setLoading(true);
-		const response = await axios.post("/api/email/add-contact", {
-			data: {
-				email: formData.email,
-				firstName: formData.firstName,
-				lastName: formData.lastName,
-				audienceId: "82ebb73c-74ea-40bf-ae8a-a62bceaef152",
-			},
-		});
-
-		if (!response?.data?.error) {
-			toast.success("You are added to the waitlist!");
-			setFormData({
-				email: "",
-				firstName: "",
-				lastName: "",
+		try {
+			const response = await axios.post("/api/email/add-contact", {
+				data: {
+					email: formData.email,
+					firstName: formData.firstName,
+					lastName: formData.lastName,
+					audienceId: "82ebb73c-74ea-40bf-ae8a-a62bceaef152",
+				},
 			});
-			setIsOpened(false);
-		} else {
+	
+			if (!response?.data?.error) {
+				toast.success("You are added to the waitlist!");
+				setFormData({
+					email: "",
+					firstName: "",
+					lastName: "",
+				});
+				setIsOpened(false);
+			} else {
+				toast.error("An error occured!");
+			}
+		} catch(err) {
 			toast.error("An error occured!");
+		} finally {
+			setLoading(false);
 		}
-		setLoading(false);
 	};
 
 	return (
