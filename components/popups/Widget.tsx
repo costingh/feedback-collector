@@ -11,6 +11,7 @@ import React from "react";
 import RollingWall from "./RollingWall";
 import RatingBadge from "./RatingBadge";
 import SocialStar from "./SocialStar";
+import HeroQuotes from "./HeroQuotes";
 
 function Widget({handleGoToWidget, t}: {t: any, handleGoToWidget: any}) {
 	return (
@@ -34,8 +35,12 @@ function Widget({handleGoToWidget, t}: {t: any, handleGoToWidget: any}) {
                     <RatingBadge/>
                 </div>}
 
-				{t?.type == 'social_star' && <div>
+				{t?.type == 'social_star' && <div style={{transform: 'scale(0.8)'}}>
                     <SocialStar/>
+                </div>}
+
+				{t?.type == 'hero_quotes' && <div style={{transform: 'scale(0.8)'}}>
+                    <HeroQuotes/>
                 </div>}
 			</div>
 			<div className="bottom w-full py-4 px-5">

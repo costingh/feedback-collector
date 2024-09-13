@@ -1,30 +1,29 @@
 import { ClerkProvider } from "@clerk/nextjs";
 import { constructMetadata } from "@/lib/metadata";
 
-import { Toaster } from 'sonner'
+import { Toaster } from "sonner";
 import { ModalProvider } from "@/components/modal-provider";
 
 import "./globals.css";
-import '@fontsource-variable/dm-sans';
+import "@fontsource-variable/dm-sans";
+import Head from "next/head";
 
 export const metadata = constructMetadata();
 
 export default function RootLayout({
-  children,
+	children,
 }: {
-  children: React.ReactNode;
+	children: React.ReactNode;
 }) {
-  return (
-    <ClerkProvider>
-      <html lang="en" suppressHydrationWarning>
-
-        <body>
-          <Toaster richColors/>
-          <ModalProvider />
-
-          {children}
-        </body>
-      </html>
-    </ClerkProvider>
-  );
+	return (
+		<ClerkProvider>
+			<html lang="en" suppressHydrationWarning>
+				<body>
+					<Toaster richColors />
+					<ModalProvider />
+					{children}
+				</body>
+			</html>
+		</ClerkProvider>
+	);
 }

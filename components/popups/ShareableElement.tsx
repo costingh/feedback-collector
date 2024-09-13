@@ -4,6 +4,7 @@ import { CreateWidgetModal } from "../widgets/CreateWidgetModal";
 import RollingWall from "./RollingWall";
 import RatingBadge from "./RatingBadge";
 import SocialStar from "./SocialStar";
+import HeroQuotes from "./HeroQuotes";
 
 function ShareableElement({type}: {type: string}) {
     const [loading, setLoading] = useState({
@@ -34,6 +35,10 @@ function ShareableElement({type}: {type: string}) {
 				{type == 'social_star' && <div style={{transform: 'scale(0.8)'}}>
                     <SocialStar/>
                 </div>}
+
+				{type == 'hero_quotes' && <div style={{transform: 'scale(0.8)'}}>
+                    <HeroQuotes/>
+                </div>}
 			</div>
 			<div className="bottom w-full py-4 px-5">
 				<div className="flex items-center justify-between gap-2 w-full">
@@ -42,6 +47,7 @@ function ShareableElement({type}: {type: string}) {
 						{type == 'rolling_wall' && 'Carousel'}
 						{type == 'rating_badge' && 'Rating Badge'}
 						{type == 'social_star' && 'Social Star'}
+						{type == 'hero_quotes' && 'Hero Quotes'}
 
 					</span>
 
