@@ -7,8 +7,8 @@ function DisplayWidget({ widget }: { widget: any }) {
 		<div className="w-full h-full py-5">
 			<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-[70%] mx-auto">
 				{widget?.testimonials
-					?.filter((t) => t.approved)
-					?.map((t) => (
+					?.filter((t: any) => t.approved)
+					?.map((t: any) => (
 						<div key={t.id} className='bg-white border-[1px] border-gray-200 rounded-[15px] p-4'>
 							<div className="flex items-center gap-2">
 								<Avatar>
