@@ -96,11 +96,11 @@ export default function NewForm({ params }: { params: { id: string } }) {
 		thankYouPageTitle: '',
 		thankYouPageMessage: '',
 		thankYouCustomURL: '',
-		FormAnalytics: {
-			visits: 0,
-			testimonials: 0,
-			responseRate: 0
-		}
+		// FormAnalytics: {
+		// 	visits: 0,
+		// 	testimonials: 0,
+		// 	responseRate: 0
+		// }
 	});
 
 	const router = useRouter();
@@ -258,6 +258,8 @@ export default function NewForm({ params }: { params: { id: string } }) {
 									thankYouPageMessage={form.thankYouPageMessage}
 									brandLogo={form.brandLogo}
 									brandName={form.brandName}
+									onInteraction={() => {}} 
+									onSubmit={() => {}} 
 								/>
 							</div>
 							<div className="right w-[600px] border-l-[1px] border-gray-200 px-[40px] h-[100vh] relative pt-6">

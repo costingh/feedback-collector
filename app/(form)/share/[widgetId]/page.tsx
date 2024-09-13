@@ -31,7 +31,9 @@ const LandingPage = ({ params }: { params: { widgetId: string } }) => {
 	}, []);
 
 	const handleBounce = () => {
+		//@ts-ignore
 		if (!hasInteracted && widgets?.[0]?.id) {
+			//@ts-ignore
 			trackMetric("bounce", 0, widgets?.[0]?.id);
 		}
 	};
@@ -46,6 +48,7 @@ const LandingPage = ({ params }: { params: { widgetId: string } }) => {
 		return () => {
 			if (startTime) {
 				const timeSpent = (Date.now() - startTime) / 1000;
+				//@ts-ignore
 				trackMetric("time", timeSpent, widgets?.[0]?.id);
 			}
 			window.removeEventListener("beforeunload", handleBounce);
@@ -61,6 +64,7 @@ const LandingPage = ({ params }: { params: { widgetId: string } }) => {
 	const handleInteraction = () => {
 		if (!hasInteracted) {
 			setHasInteracted(true);
+			//@ts-ignore
 			trackMetric("interaction", 0, widgets?.[0]?.id);
 		}
 	};

@@ -1,7 +1,8 @@
+import { FormField } from '@/types/Form';
 import { Option } from '@/types/Option';
 import { LucideOctagon, AtSign, BriefcaseBusiness, Earth, Building2 } from 'lucide-react';
 
-const options: Option[] = [
+const options: any[] = [
   {
     key: "avatar",
     text: "Collect User Photo",

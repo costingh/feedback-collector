@@ -76,7 +76,7 @@ export const BackgroundGradientAnimation = ({
 		move();
 	}, [tgX, tgY]);
 
-	const handleMouseMove = (event: MouseEvent) => {
+	const handleMouseMove = (event: any) => {
 		if (interactiveRef.current) {
 			const rect = interactiveRef.current.getBoundingClientRect();
 			setTgX(event.clientX - rect.left);

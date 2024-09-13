@@ -7,6 +7,7 @@ export const UserAvatar = () => {
 
   return (
     <Avatar className="h-8 w-8">
+      {/* @ts-ignore */}
       <AvatarImage src={user?.profileImageUrl} />
       <AvatarFallback>
         {user?.firstName?.charAt(0)}

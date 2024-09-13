@@ -14,6 +14,10 @@ export async function DELETE(req: Request) {
         const url = new URL(req.url);
         const tagId = url.searchParams.get("id");
 
+        if(!tagId) {
+            return NextResponse.json({ message: 'Invalid tag id provided', error: true });
+        }
+
         await prismadb.tag.delete({
             where: {
                 id: tagId,

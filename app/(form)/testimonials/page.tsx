@@ -119,6 +119,7 @@ const LandingPage = () => {
 						prevT.map((t) => {
 							//@ts-ignore
 							if (checkedItems.has(t.id))
+								//@ts-ignore
 								return { ...t, approved };
 							//@ts-ignore
 							else return { ...t };

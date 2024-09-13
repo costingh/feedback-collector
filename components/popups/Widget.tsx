@@ -83,7 +83,7 @@ function Widget({handleGoToWidget, t}: {t: any, handleGoToWidget: any}) {
 						<div className="flex items-center gap-1">
 							<Eye className="text-gray-400" size={20} />{" "}
 							<p className="text-gray-400 text-[16px] font-semibold">
-								{t?.metrics?.find((m) => m.actionType == "view")
+								{t?.metrics?.find((m : any) => m.actionType == "view")
 									?.total || 0}
 							</p>
 						</div>
@@ -99,7 +99,7 @@ function Widget({handleGoToWidget, t}: {t: any, handleGoToWidget: any}) {
 							/>{" "}
 							<p className="text-gray-400 text-[16px] font-semibold">
 								{t?.metrics?.find(
-									(m) => m.actionType == "interaction"
+									(m: any) => m.actionType == "interaction"
 								)?.total || 0}
 							</p>
 						</div>
@@ -112,7 +112,7 @@ function Widget({handleGoToWidget, t}: {t: any, handleGoToWidget: any}) {
 							<Percent className="text-gray-400" size={20} />{" "}
 							<p className="text-gray-400 text-[16px] font-semibold">
 								{t?.metrics?.find(
-									(m) => m.actionType == "bounce"
+									(m: any) => m.actionType == "bounce"
 								)?.total || 0}
 							</p>
 						</div>
