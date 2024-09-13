@@ -143,7 +143,7 @@ export function EditTag({
 							<SelectGroup>
 								<SelectLabel>Categories</SelectLabel>
 								{categories.map((c) => (
-									<SelectItem value={c.name}>
+									<SelectItem value={c.name} key={c.name}>
 										{c.emoji} {c.name}
 									</SelectItem>
 								))}

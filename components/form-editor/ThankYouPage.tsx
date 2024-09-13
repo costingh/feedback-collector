@@ -63,6 +63,7 @@ const ThankYouPage: React.FC<ThankYouPageProps> = ({ setForm, form }) => {
 			{formLabels.map((label) => (
 				<LabelEdit
 					labelKey={label.key}
+					key={label.key}
 					title={label.title}
 					tooltipDescription={label.tooltipDescription}
 					textareaValue={extractFieldValue(form, label.key) || ""}

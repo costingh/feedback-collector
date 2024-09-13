@@ -16,7 +16,7 @@ function SocialStar() {
             <div className="block">
                 <StarsRating value={5} readonly style={{transform: 'scale(0.8)', marginLeft: '-15px'}}/>
             </div>
-            <p className='text-gray-900 font-bold text-[15px]'>I've already seen an increase in conversion rate and revenue</p>
+            <p className='text-gray-900 font-bold text-[15px]'>I&apos;ve already seen an increase in conversion rate and revenue</p>
             <span className='text-gray-400 font-normal text-[12px]'>Jay Claude / <span className='text-blue-300'>@jayclouse</span></span>
         </div>
     </div>

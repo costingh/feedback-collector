@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { RgbaColorPicker } from "react-colorful";
 
-function ColorPicker({inputValue, setInputValue}) {
+function ColorPicker({inputValue, setInputValue} : {inputValue: string, setInputValue: any}) {
 	const [color, setColor] = useState<{ r: number; g: number; b: number; a: number }>({ r: 255, g: 255, b: 255, a: 1 });
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 

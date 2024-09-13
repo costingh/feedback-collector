@@ -11,7 +11,7 @@ function HeroQuotes() {
 				<AvatarFallback>CN</AvatarFallback>
 			</Avatar>
 			<p className="text-gray-900 font-bold text-[15px]">
-				"I've already seen an increase in conversion rate and revenue"
+				&quot;I&apos;ve already seen an increase in conversion rate and revenue&quot;
 			</p>
 			<div className="block">
 				<StarsRating

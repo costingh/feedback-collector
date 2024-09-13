@@ -370,8 +370,8 @@ export default function FormsPage() {
 											"Visits",
 											"Testimonials",
 											"Response Rate",
-										].map((item) => (
-											<div className="flex flex-col items-center justify-center gap-[0px]">
+										].map((item, index) => (
+											<div key={index} className="flex flex-col items-center justify-center gap-[0px]">
 												<p className="font-semibold text-[15px] text-gray-700 m-0 p-0 leading-3">
 													{item == "Visits" && (
 														<>

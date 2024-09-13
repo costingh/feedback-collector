@@ -146,7 +146,7 @@ const LandingPage = () => {
 								<h1 className="font-semibold">No tags yet.</h1>
 								<p className="text-gray-600 text-[14px]">
 									Create tags by clicking the top right button
-									"Create tag".
+									&quot;Create tag&quot;.
 								</p>
 							</div>
 						</div>

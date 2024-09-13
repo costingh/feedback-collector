@@ -78,7 +78,7 @@ const LandingPage = () => {
 										No widgets yet.
 									</h1>
 									<p className="text-gray-600 text-[14px]">
-										Go to your "Testimonials" tab, and bulk share testimonials as a widget.
+										Go to your &quot;Testimonials&quot; tab, and bulk share testimonials as a widget.
 									</p>
 								</div>
 							</div>

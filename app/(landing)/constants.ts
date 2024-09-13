@@ -3,7 +3,7 @@ export const testimonials = [
     name: "Joel",
     avatar: "J",
     title: "Software Engineer",
-    description: "This is the best application I've ever used!",
+    description: "This is the best application I&apos;ve ever used!",
   },
   {
     name: "Antonio",

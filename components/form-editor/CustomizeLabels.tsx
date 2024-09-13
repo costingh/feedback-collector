@@ -58,6 +58,7 @@ const CustomizeLabels: React.FC<CustomizeLabelsProps> = ({ setForm, form }) => {
 	const handleInputChange = (value: string, key: string) => {
 		if (key == "questions") {
 			const questions = value.split("\n");
+			// @ts-ignore
 			setForm((prevFormState) => ({
 				...prevFormState,
 				[key]: questions.map(q => ({text: q})),
@@ -84,6 +85,7 @@ const CustomizeLabels: React.FC<CustomizeLabelsProps> = ({ setForm, form }) => {
 			{formLabels.map((label) => (
 				<LabelEdit
 					labelKey={label.key}
+					key={label.key}
 					title={label.title}
 					tooltipDescription={label.tooltipDescription}
 					textareaValue={extractFieldValue(form, label.key) || ""}

@@ -482,6 +482,8 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 		}
 	);
 
+	CollectReviewerPersonalInformation.displayName = "CollectReviewerPersonalInformation";
+
 	const renderPopup = (
 		questions: Question[],
 		textareaPlaceholder: string,

@@ -92,7 +92,7 @@ export default function Waitlist() {
 					</h1>
 					<p className="text-center max-w-2xl leading-normal text-muted-foreground text-xl pt-6 sm:leading-8 my-5">
 						<span>
-							Don't miss out—be among the first to boost your
+							Don&apos;t miss out—be among the first to boost your
 							business with social proof that speaks for itself!
 						</span>
 						<span className="whitespace-nowrap">
@@ -133,30 +133,6 @@ export default function Waitlist() {
 							className="rounded-[15px] mt-10"
 						/>
 					</div>
-					{/* <h1 className="text-white text-[30px] font-black">
-						Turn Customer Testimonials into a Powerful Marketing
-						Tool
-					</h1>
-					<p className="text-gray-300">
-						Feedbackz helps small and medium-sized businesses easily
-						gather authentic customer testimonials through
-						customizable forms. With just a few clicks, showcase
-						these reviews as sleek widgets or embed them directly on
-						your website, building trust and driving conversions.
-						Don't miss out—be among the first to boost your business
-						with social proof that speaks for itself! Join the
-						waitlist today.
-					</p>
-					<Button className="mt-10">Join Now</Button>
-					<div className="relative">
-						<Image
-							width={1000}
-							height={1000}
-							alt=""
-							src="/demo/demo-create-form.png"
-							className="rounded-[15px] mt-10"
-						/>
-					</div> */}
 				</div>
 			</div>
 
