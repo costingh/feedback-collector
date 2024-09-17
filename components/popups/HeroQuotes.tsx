@@ -2,16 +2,24 @@ import React from "react";
 import StarsRating from "../stars-rating";
 import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import clsx from "clsx"; // Import clsx for easier conditional class management
 
-function HeroQuotes() {
+function HeroQuotes({ transition }: { transition?: boolean }) {
 	return (
-		<div className="flex justify-center items-center gap-3 p-2 w-[400px]">
+		<div
+			className={clsx(
+				"flex justify-center items-center gap-3 p-2 w-[400px]",
+				transition &&
+					"transition-transform duration-300 ease-in-out group-hover:scale-110"
+			)}
+		>
 			<Avatar>
 				<AvatarImage src={"/avatar-placeholder.jpg"} />
 				<AvatarFallback>CN</AvatarFallback>
 			</Avatar>
 			<p className="text-gray-900 font-bold text-[15px]">
-				&quot;I&apos;ve already seen an increase in conversion rate and revenue&quot;
+				&quot;I&apos;ve already seen an increase in conversion rate and
+				revenue&quot;
 			</p>
 			<div className="block">
 				<StarsRating

@@ -236,3 +236,11 @@ body,
     transform: translateX(calc(-400px * 5)); 
   }
 }
+
+.group:hover .hover-scale {
+  transform: scale(1.1);
+}
+
+.hover-scale {
+  transition: transform 300ms ease-in-out;
+}

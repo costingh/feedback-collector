@@ -25,19 +25,19 @@ function ShareableElement({type}: {type: string}) {
                 )}
 
                 {type == 'rolling_wall' && <div style={{transform: 'scale(0.4)'}}>
-                    <RollingWall/>
+                    <RollingWall transition={true}/>
                 </div>}
 
                 {type == 'rating_badge' && <div>
-                    <RatingBadge/>
+                    <RatingBadge transition={true}/>
                 </div>}
 
 				{type == 'social_star' && <div style={{transform: 'scale(0.8)'}}>
-                    <SocialStar/>
+                    <SocialStar transition={true}/>
                 </div>}
 
 				{type == 'hero_quotes' && <div style={{transform: 'scale(0.8)'}}>
-                    <HeroQuotes/>
+                    <HeroQuotes transition={true}/>
                 </div>}
 			</div>
 			<div className="bottom w-full py-4 px-5">

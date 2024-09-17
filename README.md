@@ -2,7 +2,7 @@
 
 A Next.js 14, Typescript, Clerk, Supabase, Stripe, OpenAi template ready to go.
 
-Welcome to Omniscient, an advanced AI Platform offered as a SaaS (Software as a Service). Empower your projects with cutting-edge artificial intelligence capabilities across various domains. Built on a robust technology stack, Omniscient seamlessly integrates with Next.js 14, React, Typescript, and powerful APIs such as OpenAI and Replicate. This platform is designed to provide a comprehensive solution for code generation, conversation simulation, image creation, music composition, and video generation.
+Welcome to Feedbackz, an advanced AI Platform offered as a SaaS (Software as a Service). Empower your projects with cutting-edge artificial intelligence capabilities across various domains. Built on a robust technology stack, Feedbackz seamlessly integrates with Next.js 14, React, Typescript, and powerful APIs such as OpenAI and Replicate. This platform is designed to provide a comprehensive solution for code generation, conversation simulation, image creation, music composition, and video generation.
 
 ## Key Features
 
@@ -95,11 +95,11 @@ npx prisma migrate reset
 
 ## Contributing
 
-Contributions are welcome to enhance Omniscient's capabilities. Whether it's fixing bugs, improving existing features, or proposing new ones, your input is valuable.
+Contributions are welcome to enhance Feedbackz's capabilities. Whether it's fixing bugs, improving existing features, or proposing new ones, your input is valuable.
 
 ## Reporting Issues
 
-If you encounter any issues or have suggestions for improvement, please [create an issue](https://github.com/your-username/omniscient/issues) on our GitHub repository.
+If you encounter any issues or have suggestions for improvement, please [create an issue](https://github.com/your-username/feedbackz/issues) on our GitHub repository.
 
 ## License
 
@@ -107,4 +107,4 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## Original authors
 
-This template was copied and slightly adjusted from [@RicardoGEsteves' repo](https://github.com/RicardoGEsteves/omniscient) and [@AntonioErdeljac's youtube video](https://www.youtube.com/watch?v=ffJ38dBzrlY&t=9505s&ab_channel=CodeWithAntonio).
+This template was copied and slightly adjusted from [@RicardoGEsteves' repo](https://github.com/RicardoGEsteves/feedbackz) and [@AntonioErdeljac's youtube video](https://www.youtube.com/watch?v=ffJ38dBzrlY&t=9505s&ab_channel=CodeWithAntonio).

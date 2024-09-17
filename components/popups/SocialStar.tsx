@@ -1,10 +1,17 @@
 import React from 'react'
 import StarsRating from '../stars-rating'
 import Image from 'next/image'
+import clsx from 'clsx'
 
-function SocialStar() {
+function SocialStar({ transition }: { transition?: boolean }) {
   return (
-    <div className='flex items-center gap-3 p-2 rounded-[20px] bg-white w-[400px]'>
+    <div 
+		className={clsx(
+				"flex items-center gap-3 p-2 rounded-[20px] bg-white w-[400px]",
+				transition &&
+					"transition-transform duration-300 ease-in-out group-hover:scale-110"
+			)}
+		>
         <Image
             width={100}
             height={100}

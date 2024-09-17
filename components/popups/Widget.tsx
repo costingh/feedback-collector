@@ -45,7 +45,7 @@ function Widget({handleGoToWidget, t}: {t: any, handleGoToWidget: any}) {
 			</div>
 			<div className="bottom w-full py-4 px-5">
 				<div className="flex justify-between items-center">
-					<span className="text-gray-700 text-[14px]">2</span>
+					<span className="text-gray-700 text-[14px]">{t?.name}</span>
 					<div className="flex items-center gap-2">
 						<div
 							className="hover:bg-gray-200 cursor-pointer rounded-[6px] p-1"
@@ -60,22 +60,27 @@ function Widget({handleGoToWidget, t}: {t: any, handleGoToWidget: any}) {
 							<ExternalLink className="text-gray-600" size={15} />
 						</div>
 						<span className="px-2 py-1 rounded-[6px] bg-[#4dff073e] text-[#0d7d019a] text-[12px] font-normal cursor-pointer">
-							Widget
+							{t?.type == 'basic_wall' && 'Wall of Love'}
+							{t?.type == 'rolling_wall' && 'Carousel'}
+							{t?.type == 'social_star' && 'Social Star'}
+							{t?.type == 'rating_badge' && 'Rating Badge'}
 						</span>
 					</div>
 				</div>
-				<div className="flex items-center gap-2 my-4">
+				<div className="flex items-center justify-between gap-2 my-4 flex-wrap">
 					<span className="px-2 py-1 rounded-[6px] bg-[#dcdcdc34] text-gray-400 text-[12px] font-normal cursor-pointer">
-						{t?.name}
+						{process.env.NEXT_PUBLIC_APP_DOMAIN + '/share' + t?.url}
 					</span>
-					{t?.target && (
-						<span className="px-2 py-1 rounded-[6px] bg-[#dcdcdc34] text-gray-400 text-[12px] font-normal cursor-pointer">
-							{t?.target}
+					<div className="flex items-center gap-2">
+						{t?.target && (
+							<span className="px-2 py-1 rounded-[6px] bg-[#dcdcdc34] text-gray-400 text-[12px] font-normal cursor-pointer">
+								{t?.target}
+							</span>
+						)}
+						<span className="text-[12px] text-gray-400 font-[400]">
+							Edited {timeAgo(t?.updatedAt)}
 						</span>
-					)}
-					<span className="text-[12px] text-gray-400 font-[400]">
-						Edited {timeAgo(t?.updatedAt)}
-					</span>
+					</div>
 				</div>
 				<div className="bg-[#dcdcdc34] rounded-[10px] px-3 py-[5px] flex items-center gap-2">
 					<div className="flex-[0.33] flex flex-col gap-1">
