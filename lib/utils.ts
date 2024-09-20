@@ -1,5 +1,6 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { Tag } from "@/types/Tag";
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
@@ -47,6 +48,15 @@ export const formatNumber = (num: number): string => {
 	}
 };
 
+export const groupTagsByCategory = (tags: Tag[]) => {
+	return tags.reduce((acc, tag) => {
+		if (!acc[tag.category]) {
+			acc[tag.category] = [];
+		}
+		acc[tag.category].push(tag);
+		return acc;
+	}, {} as { [category: string]: Tag[] });
+};
 
 export const tagCategories = [
 	{
@@ -68,11 +78,11 @@ export const tagCategories = [
 		description:
 			"Use this category to tag testimonials based on the size of your customer's company, which helps in segmenting feedback according to company scale.",
 		suggestions: [
-			"0-10 Employees",
-			"11-50 Employees",
-			"51-200 Employees",
-			"201-500 Employees",
-			"500+ Employees",
+			"0-10",
+			"11-50",
+			"51-200",
+			"201-500",
+			"500+",
 		],
 	},
 	{

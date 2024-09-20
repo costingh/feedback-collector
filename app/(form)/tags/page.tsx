@@ -7,46 +7,18 @@ import { Loader } from "@/components/loader";
 import { Eye, Pencil, Trash2 } from "lucide-react";
 import { CreateTagModal } from "@/components/tags/CreateTagModal";
 import { Tag } from "@/types/Tag";
-import { formatNumber, tagCategories, timeAgo } from "@/lib/utils";
+import { formatNumber, groupTagsByCategory, tagCategories, timeAgo } from "@/lib/utils";
 import { ConfirmDeleteTag } from "@/components/tags/ConfirmDeleteTag";
 import { EditTag } from "@/components/tags/EditTag";
+import { useTags } from "@/hooks/useTags";
 
 const LandingPage = () => {
-	const [isSearchingTags, setIsSearchingTags] = useState(true);
-	const [tags, setTags] = useState<Tag[]>([]);
 	const [loading, setLoading] = useState({
 		action: "",
 		loading: false,
 	});
 
-	// Function to group tags by category
-	const groupTagsByCategory = (tags: Tag[]) => {
-		return tags.reduce((acc, tag) => {
-			if (!acc[tag.category]) {
-				acc[tag.category] = [];
-			}
-			acc[tag.category].push(tag);
-			return acc;
-		}, {} as { [category: string]: Tag[] });
-	};
-
-	const handleGetAllUserTags = useCallback(async () => {
-		setIsSearchingTags(true);
-		try {
-			const response = await axios.get("/api/tag/get-all-user-tags");
-			setTags(response?.data?.tags || []);
-		} catch (err) {
-			toast.error("An error occurred while retrieving your tags!");
-		} finally {
-			setIsSearchingTags(false);
-		}
-	}, []);
-
-	useEffect(() => {
-		handleGetAllUserTags();
-	}, []);
-
-	const groupedTags = groupTagsByCategory(tags);
+	const { tags, setTags, isSearchingTags, groupedTags, reloadTags } = useTags();
 
 	return (
 		<div className="px-8 py-5 relative">

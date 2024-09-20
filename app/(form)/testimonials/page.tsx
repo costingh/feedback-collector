@@ -19,6 +19,7 @@ import { CreateWidgetModal } from "@/components/widgets/CreateWidgetModal";
 import { TagTestimonials } from "@/components/tags/TagTestimonials";
 import { Tag } from "@/types/Tag";
 import DisplayTestimonialTags from "@/components/tags/DisplayTestimonialTags";
+import FiterTestimonialsSidebar from "@/components/testimonials/FiterTestimonialsSidebar";
 
 const LandingPage = () => {
 	const [isSearchingTestimonials, setIsSearchingTestimonials] =
@@ -36,7 +37,7 @@ const LandingPage = () => {
 					axios.get("/api/testimonials/get-all-user-testimonials"),
 				]);
 
-				console.log(tagsResponse?.data?.tags )
+				console.log(testimonialsResponse?.data?.testimonials)
 				setTags(tagsResponse?.data?.tags || []);
 				setTestimonials(testimonialsResponse?.data?.testimonials || []);
 			} catch (err) {
@@ -250,7 +251,7 @@ const LandingPage = () => {
 	};
 
 	return (
-		<>
+		<div className='flex'>
 			<div className="px-8 py-5 relative">
 				{checkedItems.size > 0 && (
 					// <div className="top absolute top-0 bg-black px-6 py-2 w-[50%] left-[25%] rounded-b-[25px] flex flex-wrap items-center justify-center gap-3">
@@ -485,21 +486,10 @@ const LandingPage = () => {
 						)}
 					</>
 				)}
+
 			</div>
-			{/* {isSearchingTestimonials ? (
-				<Loader />
-			) : (
-				<>
-					{testimonials ? (
-						<>asdasd</>
-					) : (
-						<div className="flex items-center justify-center">
-							<p className="mt-10">Not found</p>
-						</div>
-					)}
-				</>
-			)} */}
-		</>
+			<FiterTestimonialsSidebar testimonials={testimonials}/>
+		</div>
 	);
 };
 

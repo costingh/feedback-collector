@@ -8,6 +8,7 @@ import "./globals.css";
 import "@fontsource-variable/dm-sans";
 import Head from "next/head";
 import { Analytics } from "@vercel/analytics/react"
+import { CrispChat } from "@/components/CustomerSupport/CrispChat";
 
 export const metadata = constructMetadata();
 
@@ -20,6 +21,7 @@ export default function RootLayout({
 		<ClerkProvider>
 			<html lang="en" suppressHydrationWarning>
 				<body>
+					<CrispChat/>
 					<Analytics/>
 					<Toaster richColors />
 					<ModalProvider />

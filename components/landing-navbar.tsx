@@ -30,7 +30,7 @@ export const LandingNavbar = ({ isWaitlist }: { isWaitlist?: boolean }) => {
 			</Link>
 			<div className="flex items-center gap-x-2">
 				{!isWaitlist && (
-					<Link href={isSignedIn ? "/dashboard" : "/sign-up"}>
+					<Link href={isSignedIn ? "/forms" : "/sign-up"}>
 						<Button variant="outline" className="rounded-full">
 							Get Started
 						</Button>
