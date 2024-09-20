@@ -32,7 +32,7 @@ const TagComponent = ({
 const FiterTestimonialsSidebar: React.FC = ({
 	testimonials,
 }: {
-	testimonials: any[];
+	testimonials: any;
 }) => {
 	const { tags, setTags, isSearchingTags, groupedTags, reloadTags } =
 		useTags();

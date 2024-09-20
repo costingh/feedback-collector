@@ -15,7 +15,7 @@ interface UseTagsReturn {
 export const useTags = (): UseTagsReturn => {
 	const [isSearchingTags, setIsSearchingTags] = useState(true);
 	const [tags, setTags] = useState<Tag[]>([]);
-	const [groupedTags, setGroupedTagsTags] = useState<Record<string, Tag[]>>([]);
+	const [groupedTags, setGroupedTagsTags] = useState<Record<string, Tag[]>>({});
 
 	const handleGetAllUserTags = useCallback(async () => {
 		setIsSearchingTags(true);

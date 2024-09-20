@@ -488,6 +488,7 @@ const LandingPage = () => {
 				)}
 
 			</div>
+			{/* @ts-ignore */}
 			<FiterTestimonialsSidebar testimonials={testimonials}/>
 		</div>
 	);
