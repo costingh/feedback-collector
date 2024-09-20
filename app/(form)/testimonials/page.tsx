@@ -20,12 +20,53 @@ import { TagTestimonials } from "@/components/tags/TagTestimonials";
 import { Tag } from "@/types/Tag";
 import DisplayTestimonialTags from "@/components/tags/DisplayTestimonialTags";
 import FiterTestimonialsSidebar from "@/components/testimonials/FiterTestimonialsSidebar";
+import { useTestimonialsFilter } from "@/hooks/useTestimonialsFilters";
 
 const LandingPage = () => {
 	const [isSearchingTestimonials, setIsSearchingTestimonials] =
 		useState(true);
 	const [testimonials, setTestimonials] = useState([]);
+	const [filteredTestimonials, setFilteredTestimonials] = useState([]);
+
 	const [tags, setTags] = useState<Tag[]>([]);
+
+	const {filters, setFilters} = useTestimonialsFilter();
+
+	useEffect(() => {
+		let _filteredTestimonials = [...testimonials];
+	
+		if (filters.approvalStatus === "approved") {
+			_filteredTestimonials = _filteredTestimonials.filter(t => t.approved === true);
+		} else if (filters.approvalStatus === "unapproved") {
+			_filteredTestimonials = _filteredTestimonials.filter(t => t.approved === false);
+		}
+	
+		if (filters.rating !== 0) {
+			_filteredTestimonials = _filteredTestimonials.filter(t => t.stars === filters.rating);
+		}
+
+		if (filters.tags.length > 0) {
+			_filteredTestimonials = _filteredTestimonials.filter(t =>
+				filters.tags.some(tag => tag.formResponsesIds.includes(t.id))
+			);
+		}
+
+		if (filters.forms.length > 0) {
+			_filteredTestimonials = _filteredTestimonials.filter(t =>
+				filters.forms.some(form => t.form.id == form.id)
+			);
+		}
+
+		if (filters.searchForKeywords) {
+			_filteredTestimonials = _filteredTestimonials.filter(testimonial =>
+				testimonial.message.includes(filters.searchForKeywords)
+			);
+		}
+		
+		setFilteredTestimonials(_filteredTestimonials);
+	
+	}, [filters, testimonials]);
+	
 
 	useEffect(() => {
 		const fetchAllData = async () => {
@@ -174,7 +215,7 @@ const LandingPage = () => {
 			setLoading({ action: "export", loading: true });
 
 			// Filter only the selected testimonials
-			const testimonialsToExport: any = testimonials.filter((t: any) =>
+			const testimonialsToExport: any = filteredTestimonials.filter((t: any) =>
 				checkedItems.has(t.id)
 			);
 
@@ -252,7 +293,7 @@ const LandingPage = () => {
 
 	return (
 		<div className='flex'>
-			<div className="px-8 py-5 relative">
+			<div className="px-8 py-5 relative w-full">
 				{checkedItems.size > 0 && (
 					// <div className="top absolute top-0 bg-black px-6 py-2 w-[50%] left-[25%] rounded-b-[25px] flex flex-wrap items-center justify-center gap-3">
 					<div className="top absolute top-0 bg-black px-6 py-2 w-[50%] md:w-[100%] lg:w-[80%] left-[25%] md:left-0 lg:left-[10%] rounded-b-[25px] flex flex-wrap items-center justify-center gap-3">
@@ -365,9 +406,9 @@ const LandingPage = () => {
 					</div>
 				) : (
 					<>
-						{testimonials?.length ? (
+						{filteredTestimonials?.length ? (
 							<>
-								{testimonials.map((t: any, index: number) => (
+								{filteredTestimonials.map((t: any, index: number) => (
 									<>
 										<div
 											key={t.id}
@@ -489,7 +530,7 @@ const LandingPage = () => {
 
 			</div>
 			{/* @ts-ignore */}
-			<FiterTestimonialsSidebar testimonials={testimonials}/>
+			<FiterTestimonialsSidebar testimonials={testimonials} filters={filters} setFilters={setFilters}/>
 		</div>
 	);
 };

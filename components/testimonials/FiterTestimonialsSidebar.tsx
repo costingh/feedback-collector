@@ -1,9 +1,12 @@
+"use client";
+
 import { X } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import StarsRating from "../stars-rating";
 import { Input } from "@/components/ui/input";
 import { useTags } from "@/hooks/useTags";
 import { cn, tagCategories } from "@/lib/utils";
+import axios from "axios";
 
 const TagComponent = ({
 	label,
@@ -31,25 +34,33 @@ const TagComponent = ({
 
 const FiterTestimonialsSidebar: React.FC = ({
 	testimonials,
+	filters,
+	setFilters,
 }: {
 	testimonials: any;
+	filters: any;
+	setFilters: any;
 }) => {
 	const { tags, setTags, isSearchingTags, groupedTags, reloadTags } =
 		useTags();
 
-	const [filters, setFilters] = useState({
-		searchForKeywords: "",
-		rating: 0,
-		approvalStatus: "approved",
-		tags: [],
-		forms: [],
-	});
+	const [userForms, setUserForms] = useState([]);
+	const fetchAllUserForms = async () => {
+		const response = await axios.get("/api/get-all-user-forms");
+		setUserForms(response.data.forms);
+	};
+
+	useEffect(() => {
+		fetchAllUserForms();
+	}, []);
 
 	return (
 		<div className="w-[380px] border-l-[1px] border-gray-200 h-[100vh] px-6 py-6">
 			<div className="flex items-center justify-between">
-				<h1>Search and Filter</h1>
-				<X />
+				<h1 className="text-[18px] font-bold">Search and Filter</h1>
+				<div className="flex items-center justify-center p-2 rounded-[6px] bg-gray-200 cursor-pointer transition-all hover:bg-gray-100">
+					<X size={14} />
+				</div>
 			</div>
 
 			<Input
@@ -65,18 +76,31 @@ const FiterTestimonialsSidebar: React.FC = ({
 			/>
 
 			<span className="text-gray-500 font-normal text-[14px] mb-2">
-				Rating
+				Rating ({filters.rating})
 			</span>
-			<div className="block mb-3">
-				<StarsRating
-					value={filters.rating}
-					ratingChanged={(val) =>
+			<div className="flex items-center justify-between mb-3 gap-5">
+				<div className="block">
+					<StarsRating
+						value={filters.rating}
+						ratingChanged={(val) =>
+							setFilters((prevFilters) => ({
+								...prevFilters,
+								rating: val,
+							}))
+						}
+					/>
+				</div>
+				<span
+					className="border-b-2 border-dotted border-gray-400 text-gray-400 text-[14px] cursor-pointer transition-all hover:opacity-50"
+					onClick={() =>
 						setFilters((prevFilters) => ({
 							...prevFilters,
-							rating: val,
+							rating: 0,
 						}))
 					}
-				/>
+				>
+					Clear
+				</span>
 			</div>
 
 			<span className="text-gray-500 font-normal text-[14px] mb-2">
@@ -146,20 +170,19 @@ const FiterTestimonialsSidebar: React.FC = ({
 								<TagComponent
 									key={tag.id}
 									label={tag.tagName}
-									isActive={filters?.tags?.includes(
-										tag.tagName
+									isActive={filters?.tags?.find(
+										(t) => t.id == tag.id
 									)}
 									onClick={() =>
 										setFilters((prevFilters) => ({
 											...prevFilters,
-											tags: prevFilters.tags.includes(
-												tag.tagName
+											tags: prevFilters.tags.find(
+												(t) => t.id == tag.id
 											)
-												? prevFilters.tags.filter(t => t != tag.tagName)
-												: [
-														...prevFilters.tags,
-														tag.tagName,
-												  ],
+												? prevFilters.tags.filter(
+														(t) => t.id != tag.id
+												  )
+												: [...prevFilters.tags, tag],
 										}))
 									}
 								/>
@@ -174,17 +197,24 @@ const FiterTestimonialsSidebar: React.FC = ({
 			</span>
 
 			<div className="flex items-center flex-wrap gap-2">
-				{testimonials.map((t) => (
+				{userForms.map((form) => (
 					<TagComponent
-						key={t.id}
-						label={t.form.name}
-						isActive={filters.forms.includes(t.form.name)}
+						key={form.id}
+						label={process.env.NEXT_PUBLIC_APP_DOMAIN + form.url}
+						isActive={filters.forms.find(
+							(testimonial) => testimonial.id == form.id
+						)}
 						onClick={() =>
 							setFilters((prevFilters) => ({
 								...prevFilters,
-								forms: prevFilters.forms.includes(t.form.name)
-									? prevFilters.forms.filter(f => f != t.form.name)
-									: [...prevFilters.forms, t.form.name],
+								forms: prevFilters.forms.find(
+									(testimonial) => testimonial.id == form.id
+								)
+									? prevFilters.forms.filter(
+											(testimonial) =>
+												testimonial.id != form.id
+									  )
+									: [...prevFilters.forms, form],
 							}))
 						}
 					/>
