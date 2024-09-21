@@ -5,6 +5,7 @@ import RollingWall from "./RollingWall";
 import RatingBadge from "./RatingBadge";
 import SocialStar from "./SocialStar";
 import HeroQuotes from "./HeroQuotes";
+import { testimonialsMock } from "@/constants/testimonials-mock";
 
 function ShareableElement({type}: {type: string}) {
     const [loading, setLoading] = useState({
@@ -25,7 +26,7 @@ function ShareableElement({type}: {type: string}) {
                 )}
 
                 {type == 'rolling_wall' && <div style={{transform: 'scale(0.4)'}}>
-                    <RollingWall transition={true}/>
+                    <RollingWall transition={true} testimonials={testimonialsMock}/>
                 </div>}
 
                 {type == 'rating_badge' && <div>

@@ -5,6 +5,7 @@ import {
 	Link,
 	MousePointerClick,
 	Percent,
+	TriangleAlert,
 } from "lucide-react";
 import Image from "next/image";
 import React from "react";
@@ -12,8 +13,15 @@ import RollingWall from "./RollingWall";
 import RatingBadge from "./RatingBadge";
 import SocialStar from "./SocialStar";
 import HeroQuotes from "./HeroQuotes";
+import { testimonialsMock } from "@/constants/testimonials-mock";
+import {
+	Tooltip,
+	TooltipContent,
+	TooltipProvider,
+	TooltipTrigger,
+} from "@/components/ui/tooltip";
 
-function Widget({handleGoToWidget, t}: {t: any, handleGoToWidget: any}) {
+function Widget({ handleGoToWidget, t }: { t: any; handleGoToWidget: any }) {
 	return (
 		<div className="border-[1px] border-gray-200 rounded-[12px] overflow-hidden">
 			<div className="top w-full h-[250px] bg-gray-100 flex items-center justify-center">
@@ -27,21 +35,29 @@ function Widget({handleGoToWidget, t}: {t: any, handleGoToWidget: any}) {
 					/>
 				)}
 
-				{t?.type == 'rolling_wall' && <div style={{transform: 'scale(0.4)'}}>
-                    <RollingWall/>
-                </div>}
+				{t?.type == "rolling_wall" && (
+					<div style={{ transform: "scale(0.4)" }}>
+						<RollingWall testimonials={testimonialsMock} />
+					</div>
+				)}
 
-				{t?.type == 'rating_badge' && <div>
-                    <RatingBadge/>
-                </div>}
+				{t?.type == "rating_badge" && (
+					<div>
+						<RatingBadge />
+					</div>
+				)}
 
-				{t?.type == 'social_star' && <div style={{transform: 'scale(0.8)'}}>
-                    <SocialStar/>
-                </div>}
+				{t?.type == "social_star" && (
+					<div style={{ transform: "scale(0.8)" }}>
+						<SocialStar />
+					</div>
+				)}
 
-				{t?.type == 'hero_quotes' && <div style={{transform: 'scale(0.8)'}}>
-                    <HeroQuotes/>
-                </div>}
+				{t?.type == "hero_quotes" && (
+					<div style={{ transform: "scale(0.8)" }}>
+						<HeroQuotes />
+					</div>
+				)}
 			</div>
 			<div className="bottom w-full py-4 px-5">
 				<div className="flex justify-between items-center">
@@ -59,17 +75,33 @@ function Widget({handleGoToWidget, t}: {t: any, handleGoToWidget: any}) {
 						>
 							<ExternalLink className="text-gray-600" size={15} />
 						</div>
+						{t?.type == "rolling_wall" && t.testimonials?.length < 10 && (
+							
+
+							<TooltipProvider>
+							<Tooltip delayDuration={0}>
+								<TooltipTrigger asChild>
+								<div className='rounded-[6px] p-1 bg-yellow-200 cursor-pointer'>
+								<TriangleAlert className="text-yellow-600" size={15}/>
+							</div>
+								</TooltipTrigger>
+								<TooltipContent>
+									<p>You must have at least 10 testimonials selected for the rolling wall. <br/> We suggest you to add more testimonials for this to look more appealing.</p>
+								</TooltipContent>
+							</Tooltip>
+							</TooltipProvider>
+						)}
 						<span className="px-2 py-1 rounded-[6px] bg-[#4dff073e] text-[#0d7d019a] text-[12px] font-normal cursor-pointer">
-							{t?.type == 'basic_wall' && 'Wall of Love'}
-							{t?.type == 'rolling_wall' && 'Carousel'}
-							{t?.type == 'social_star' && 'Social Star'}
-							{t?.type == 'rating_badge' && 'Rating Badge'}
+							{t?.type == "basic_wall" && "Wall of Love"}
+							{t?.type == "rolling_wall" && "Carousel"}
+							{t?.type == "social_star" && "Social Star"}
+							{t?.type == "rating_badge" && "Rating Badge"}
 						</span>
 					</div>
 				</div>
 				<div className="flex items-center justify-between gap-2 my-4 flex-wrap">
 					<span className="px-2 py-1 rounded-[6px] bg-[#dcdcdc34] text-gray-400 text-[12px] font-normal cursor-pointer">
-						{process.env.NEXT_PUBLIC_APP_DOMAIN + '/share' + t?.url}
+						{process.env.NEXT_PUBLIC_APP_DOMAIN + "/share" + t?.url}
 					</span>
 					<div className="flex items-center gap-2">
 						{t?.target && (
@@ -88,8 +120,9 @@ function Widget({handleGoToWidget, t}: {t: any, handleGoToWidget: any}) {
 						<div className="flex items-center gap-1">
 							<Eye className="text-gray-400" size={20} />{" "}
 							<p className="text-gray-400 text-[16px] font-semibold">
-								{t?.metrics?.find((m : any) => m.actionType == "view")
-									?.total || 0}
+								{t?.metrics?.find(
+									(m: any) => m.actionType == "view"
+								)?.total || 0}
 							</p>
 						</div>
 					</div>

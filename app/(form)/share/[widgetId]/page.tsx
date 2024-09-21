@@ -91,7 +91,7 @@ const LandingPage = ({ params }: { params: { widgetId: string } }) => {
 		<>
 			<div
 				onClick={handleInteraction}
-				className="px-8 py-5 relative bg-gray-100 min-h-[100vh]"
+				className="py-8 relative bg-gray-100 min-h-[100vh]"
 			>
 				{isSearchingWidgets ? (
 					<div className="mt-10">
