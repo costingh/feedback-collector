@@ -1,3 +1,5 @@
+'use client'
+
 import { timeAgo } from "@/lib/utils";
 import {
 	ExternalLink,
@@ -8,7 +10,7 @@ import {
 	TriangleAlert,
 } from "lucide-react";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import RollingWall from "./RollingWall";
 import RatingBadge from "./RatingBadge";
 import SocialStar from "./SocialStar";
@@ -20,8 +22,22 @@ import {
 	TooltipProvider,
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { toast } from "sonner";
 
 function Widget({ handleGoToWidget, t }: { t: any; handleGoToWidget: any }) {
+	const [copied, setCopied] = useState(false)
+
+	const handleCopy = (url : string) => {
+		navigator.clipboard.writeText(url).then(() => {
+			setCopied(true);
+			toast.success("Copied to clipboard!");
+			setTimeout(() => setCopied(false), 2000);
+		}).catch(err => {
+			console.error("Failed to copy: ", err);
+			toast.error("Failed to copy URL.");
+		});
+	};
+
 	return (
 		<div className="border-[1px] border-gray-200 rounded-[12px] overflow-hidden">
 			<div className="top w-full h-[250px] bg-gray-100 flex items-center justify-center">
@@ -65,7 +81,7 @@ function Widget({ handleGoToWidget, t }: { t: any; handleGoToWidget: any }) {
 					<div className="flex items-center gap-2">
 						<div
 							className="hover:bg-gray-200 cursor-pointer rounded-[6px] p-1"
-							onClick={() => handleGoToWidget(t?.url)}
+							onClick={() => handleCopy(t?.url)}
 						>
 							<Link className="text-gray-600" size={15} />
 						</div>
@@ -76,8 +92,6 @@ function Widget({ handleGoToWidget, t }: { t: any; handleGoToWidget: any }) {
 							<ExternalLink className="text-gray-600" size={15} />
 						</div>
 						{t?.type == "rolling_wall" && t.testimonials?.length < 10 && (
-							
-
 							<TooltipProvider>
 							<Tooltip delayDuration={0}>
 								<TooltipTrigger asChild>
