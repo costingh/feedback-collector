@@ -14,7 +14,8 @@ import {
 	Tag,
 	BrickWall,
 	CreditCard,
-	Pickaxe
+	Pickaxe,
+	SquareDashedMousePointer
 } from "lucide-react";
 
 export const routes = [
@@ -155,64 +156,9 @@ export const routes = [
 
 export const studioSidebarButtons = [
 	{
-		label: "Forms",
-		icon: Rows2,
-		href: "/forms",
+		key: 'select_testimonials',
+		label: "Add testimonials to this widget",
+		icon: SquareDashedMousePointer,
 		color: "text-sky-500",
 	},
-	{
-		label: "Testimonials",
-		icon: Heart,
-		href: "/testimonials",
-		color: "text-sky-500",
-	},
-	{
-		label: "Tags",
-		icon: Tag,
-		href: "/tags",
-		color: "text-sky-500",
-	},
-	{
-		label: "Widgets hub",
-		icon: BrickWall,
-		href: "/widgets",
-		color: "text-sky-500",
-	},
-	{
-		label: "Creator",
-		icon: Pickaxe,
-		href: "/creator",
-		color: "text-sky-500",
-	},
-	{
-		label: "Automate",
-		icon: Zap,
-		href: "/automate",
-		color: "text-sky-500",
-	},
-	{
-		label: "Feature request",
-		icon: Feather,
-		href: "/feature-request",
-		color: "text-sky-500",
-	},
-	{
-		label: "Report a bug",
-		icon: Bug,
-		href: "/report-a-bug",
-		color: "text-sky-500",
-	},
-	{
-		label: "Subscription",
-		icon: CreditCard,
-		href: "/subscription",
-		color: "text-sky-500",
-	},
-	{
-		label: "Settings",
-		icon: Settings,
-		href: "/settings",
-		color: "text-sky-500",
-	},
-
 ];
