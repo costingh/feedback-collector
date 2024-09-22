@@ -53,7 +53,7 @@ export default function WidgetEditorSidebar({
 										/>
 									</div>
 								</TooltipTrigger>
-								<TooltipContent side="right" sideOffset={5} align="start" className='fixed z-100'>
+								<TooltipContent side="right" sideOffset={5} align="start" className=''>
 									<p>{route.label}</p>
 								</TooltipContent>
 							</Tooltip>
