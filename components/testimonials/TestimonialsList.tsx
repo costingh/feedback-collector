@@ -60,7 +60,7 @@ function TestimonialsList({
 								<DisplayTestimonialTags tags={tags} id={t.id} />
 							</div>
 
-							<div className="my-3 text-[16px] text-gray-700 font-normal max-w-[700px]">
+							<div className="my-3 text-[15px] text-gray-700 font-normal max-w-[700px]">
 								{t?.message}
 							</div>
 

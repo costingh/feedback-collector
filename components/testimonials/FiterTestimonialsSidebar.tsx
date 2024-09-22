@@ -36,10 +36,14 @@ const FiterTestimonialsSidebar: React.FC = ({
 	testimonials,
 	filters,
 	setFilters,
+	showFilterSidebar,
+	setShowFilterSidebar
 }: {
 	testimonials: any;
 	filters: any;
 	setFilters: any;
+	showFilterSidebar: boolean;
+	setShowFilterSidebar: any;
 }) => {
 	const { tags, setTags, isSearchingTags, groupedTags, reloadTags } =
 		useTags();
@@ -55,10 +59,13 @@ const FiterTestimonialsSidebar: React.FC = ({
 	}, []);
 
 	return (
-		<div className="w-[380px] border-l-[1px] border-gray-200 h-[100vh] px-6 py-6">
+		<div className={cn(
+			"border-l-[1px] border-gray-200 h-[100vh] px-6 py-6 overflow-hidden transition-all",
+			showFilterSidebar ? 'w-[380px]' : 'w-0 p-0' 
+		)}>
 			<div className="flex items-center justify-between">
 				<h1 className="text-[18px] font-bold">Search and Filter</h1>
-				<div className="flex items-center justify-center p-2 rounded-[6px] bg-gray-200 cursor-pointer transition-all hover:bg-gray-100">
+				<div onClick={() => setShowFilterSidebar(false)} className="flex items-center justify-center p-2 rounded-[6px] bg-gray-200 cursor-pointer transition-all hover:bg-gray-100">
 					<X size={14} />
 				</div>
 			</div>

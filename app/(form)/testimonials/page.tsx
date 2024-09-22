@@ -11,6 +11,7 @@ import {
 	ArrowDownToLine,
 	BadgeCheck,
 	BadgeMinus,
+	Filter,
 	Loader2,
 	TagIcon,
 	Trash2,
@@ -35,7 +36,8 @@ const LandingPage = () => {
 		action: "",
 		loading: false,
 	});
-
+	const [showFilterSidebar, setShowFilterSidebar] = useState(false)
+	
 	useEffect(() => {
 		let _filteredTestimonials = [...testimonials];
 	
@@ -366,6 +368,10 @@ const LandingPage = () => {
 								from each of your forms.
 							</p>
 						</div>
+						<div onClick={() => setShowFilterSidebar(true)} className='flex items-center gap-3 cursor-pointer px-4 py-2 transition-all hover:bg-gray-200 bg-gray-100 rounded-[6px]'>
+							<span className='text-[16px] text-gray-500'>Filter</span>
+							<Filter size={16} className='text-gray-500'/>
+						</div>
 					</div>
 				</div>
 
@@ -401,7 +407,7 @@ const LandingPage = () => {
 
 			</div>
 			{/* @ts-ignore */}
-			<FiterTestimonialsSidebar testimonials={testimonials} filters={filters} setFilters={setFilters}/>
+			<FiterTestimonialsSidebar testimonials={testimonials} filters={filters} setFilters={setFilters} showFilterSidebar={showFilterSidebar} setShowFilterSidebar={setShowFilterSidebar}/>
 		</div>
 	);
 };
