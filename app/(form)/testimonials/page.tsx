@@ -21,16 +21,20 @@ import { Tag } from "@/types/Tag";
 import DisplayTestimonialTags from "@/components/tags/DisplayTestimonialTags";
 import FiterTestimonialsSidebar from "@/components/testimonials/FiterTestimonialsSidebar";
 import { useTestimonialsFilter } from "@/hooks/useTestimonialsFilters";
+import TestimonialsList from "@/components/testimonials/TestimonialsList";
 
 const LandingPage = () => {
 	const [isSearchingTestimonials, setIsSearchingTestimonials] =
 		useState(true);
 	const [testimonials, setTestimonials] = useState([]);
 	const [filteredTestimonials, setFilteredTestimonials] = useState([]);
-
+	const [checkedItems, setChecked] = useState(new Set());
 	const [tags, setTags] = useState<Tag[]>([]);
-
 	const {filters, setFilters} = useTestimonialsFilter();
+	const [loading, setLoading] = useState({
+		action: "",
+		loading: false,
+	});
 
 	useEffect(() => {
 		let _filteredTestimonials = [...testimonials];
@@ -66,7 +70,6 @@ const LandingPage = () => {
 		setFilteredTestimonials(_filteredTestimonials);
 	
 	}, [filters, testimonials]);
-	
 
 	useEffect(() => {
 		const fetchAllData = async () => {
@@ -91,44 +94,10 @@ const LandingPage = () => {
 		fetchAllData();
 	}, []);
 
-	const timeAgo = (date: string): string => {
-		const now = new Date();
-		const givenDate = new Date(date);
-		const diffInSeconds = Math.floor(
-			(now.getTime() - givenDate.getTime()) / 1000
-		);
-
-		const intervals: { label: string; seconds: number }[] = [
-			{ label: "year", seconds: 31536000 },
-			{ label: "month", seconds: 2592000 },
-			{ label: "day", seconds: 86400 },
-			{ label: "hour", seconds: 3600 },
-			{ label: "minute", seconds: 60 },
-			{ label: "second", seconds: 1 },
-		];
-
-		for (const interval of intervals) {
-			const count = Math.floor(diffInSeconds / interval.seconds);
-			if (count >= 1) {
-				return count === 1
-					? `1 ${interval.label} ago`
-					: `${count} ${interval.label}s ago`;
-			}
-		}
-
-		return "just now";
-	};
-
-	const [checkedItems, setChecked] = useState(new Set());
-
 	const isChecked = (id: number) => {
 		return checkedItems.has(id);
 	};
 
-	const [loading, setLoading] = useState({
-		action: "",
-		loading: false,
-	});
 
 	const updateForm = async (action: string, approved: boolean) => {
 		setLoading({ action, loading: true });
@@ -407,111 +376,13 @@ const LandingPage = () => {
 				) : (
 					<>
 						{filteredTestimonials?.length ? (
-							<>
-								{filteredTestimonials.map((t: any, index: number) => (
-									<>
-										<div
-											key={t.id}
-											className="flex px-4 py-3 rounded-[10px] w-full justify-between cursor:pointer hover:bg-zinc-100 gap-4 mb-4"
-											style={
-												isChecked(t.id)
-													? {
-															background:
-																"rgb(243 244 246)",
-													  }
-													: {}
-											}
-										>
-											<div className="avatar flex flex-col items-start max-w-full w-[350px]">
-												<Avatar>
-													<AvatarImage
-														src={t?.avatar}
-													/>
-													<AvatarFallback>
-														CN
-													</AvatarFallback>
-												</Avatar>
-												<p className="text-zinc-700 text-[14px] font-[600] mb-1 mt-2">
-													{t?.name}
-												</p>
-												{/* <span>{t?.email}</span> */}
-												<span className="text-gray-600 text-[13px] font-[400]">
-													{t?.jobTitle || t?.email}
-												</span>
-											</div>
-											<div className="w-full">
-												{/* <span>{t?.logo}</span> */}
-												{/* <span>{t?.company}</span> */}
-												{/* <span>{t?.website}</span> */}
-												{/* <span>{t?.jobTitle}</span> */}
-												<div className="flex items-center gap-6">
-													<span className="text-gray-400 font-semibold text-[12px]">
-														{timeAgo(t?.createdAt)}
-													</span>
-
-													<DisplayTestimonialTags
-														tags={tags}
-														id={t.id}
-													/>
-												</div>
-
-												<div className="my-3 text-[16px] text-gray-700 font-normal max-w-[700px]">
-													{t?.message}
-												</div>
-
-												<div className="flex items-center">
-													<StarsRating
-														value={Math.ceil(
-															t.stars
-														)}
-														readonly={true}
-													/>
-												</div>
-											</div>
-
-											<div className="w-[350px] flex items-center gap-4 justify-end">
-												{t?.approved ? (
-													<span className="px-2 py-1 rounded-[10px] bg-[#4dff0769] text-[#0d7d01e6] text-[12px] font-semibold cursor-pointer">
-														Approved
-													</span>
-												) : (
-													<span className="px-2 py-1 rounded-[10px] bg-[#ffc10769] text-[#7d5e01e6] text-[12px] font-semibold cursor-pointer">
-														Not Approved
-													</span>
-												)}
-
-												<Checkbox
-													id={`check-${t.id}`}
-													checked={checkedItems.has(
-														t.id
-													)}
-													onClick={() =>
-														setChecked((prev) => {
-															const newCheckedItems =
-																new Set(prev);
-															if (
-																newCheckedItems.has(
-																	t.id
-																)
-															) {
-																newCheckedItems.delete(
-																	t.id
-																); // Uncheck by removing the item from the set
-															} else {
-																newCheckedItems.add(
-																	t.id
-																); // Check by adding the item to the set
-															}
-															return newCheckedItems;
-														})
-													}
-												/>
-											</div>
-										</div>
-										<div className="w-full bg-gray-100 h-[1px]"></div>
-									</>
-								))}
-							</>
+							<TestimonialsList
+								testimonials={filteredTestimonials}
+								tags={tags}
+								isChecked={isChecked}
+								setChecked={setChecked}
+								checkedItems={checkedItems}
+							/>
 						) : (
 							<div className="flex items-center justify-center mt-[100px]">
 								<div className="flex flex-col items-center">
