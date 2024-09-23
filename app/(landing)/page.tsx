@@ -3,17 +3,18 @@ import { LandingHero } from "@/components/landing-hero";
 import { LandingContent } from "@/components/landing-content";
 import Waitlist from "@/components/landing-page/Waitlist";
 import Head from "next/head";
+import { CrispChat } from "@/components/CustomerSupport/CrispChat";
 
 const LandingPage = () => {
-  return (
-    <div className="h-full ">
-     
-      {/* <LandingNavbar />
+	return (
+		<div className="h-full ">
+			{/* <LandingNavbar />
       <LandingHero />
       <LandingContent /> */}
-      <Waitlist/>
-    </div>
-  );
+			<CrispChat />
+			<Waitlist />
+		</div>
+	);
 };
 
 export default LandingPage;

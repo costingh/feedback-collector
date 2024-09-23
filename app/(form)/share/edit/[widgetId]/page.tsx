@@ -187,12 +187,12 @@ const LandingPage = ({ params }: { params: { widgetId: string } }) => {
 										testimonials
 									</h1>
 									<p className="text-gray-700 text-[16px] mb-2">
-										You cant share this "Carousel" like
+										You cant share this &quot;Carousel&quot; like
 										this, so please select some testimonials
 										to include them in the carousel.
 									</p>
 									<span className="text-gray-500 text-[14px]">
-										Very important: only "approved"
+										Very important: only &quot;approved&quot;
 										testimonials will appear here.
 									</span>
 								</div>
