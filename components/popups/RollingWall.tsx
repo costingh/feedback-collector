@@ -19,7 +19,7 @@ function RollingWall({ transition, testimonials }: { transition?: boolean, testi
 			>
 				{/* First Row */}
 				<div className="slider-content flex gap-[40px]">
-					{firstRowReviews.map((review, index) => (
+					{firstRowReviews.map((review : any, index : number) => (
 						<div
 							className="slide flex w-[400px] items-center justify-center"
 							key={index}
@@ -27,7 +27,7 @@ function RollingWall({ transition, testimonials }: { transition?: boolean, testi
 							<MinimalistReview review={review} />
 						</div>
 					))}
-					{firstRowReviews.map((review, index) => (
+					{firstRowReviews.map((review : any, index : number) => (
 						<div
 							className="slide flex w-[400px] items-center justify-center"
 							key={index + firstRowReviews.length}
@@ -39,7 +39,7 @@ function RollingWall({ transition, testimonials }: { transition?: boolean, testi
 
 				{/* Second Row */}
 				<div className="slider-content flex gap-[40px] ml-[100px]">
-					{secondRowReviews.map((review, index) => (
+					{secondRowReviews.map((review : any, index : number) => (
 						<div
 							className="slide flex w-[400px] items-center justify-center"
 							key={index}
@@ -47,7 +47,7 @@ function RollingWall({ transition, testimonials }: { transition?: boolean, testi
 							<MinimalistReview review={review} />
 						</div>
 					))}
-					{secondRowReviews.map((review, index) => (
+					{secondRowReviews.map((review : any, index : number) => (
 						<div
 							className="slide flex w-[400px] items-center justify-center"
 							key={index + secondRowReviews.length}

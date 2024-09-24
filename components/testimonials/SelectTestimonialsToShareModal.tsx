@@ -60,7 +60,7 @@ export const SelectTestimonialsToShareModal = ({
             }
         } catch(error) {
             console.log(error)
-            toast.error(error)
+            toast.error(JSON.stringify(error))
         } finally {
             setIsLoading(false)
         }

@@ -87,7 +87,7 @@ function TestimonialsList({
 								id={`check-${t.id}`}
 								checked={checkedItems.has(t.id)}
 								onClick={() =>
-									setChecked((prev) => {
+									setChecked((prev:any) => {
 										const newCheckedItems = new Set(prev);
 										if (newCheckedItems.has(t.id)) {
 											newCheckedItems.delete(t.id); // Uncheck by removing the item from the set

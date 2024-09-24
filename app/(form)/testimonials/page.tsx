@@ -42,29 +42,32 @@ const LandingPage = () => {
 		let _filteredTestimonials = [...testimonials];
 	
 		if (filters.approvalStatus === "approved") {
-			_filteredTestimonials = _filteredTestimonials.filter(t => t.approved === true);
+			_filteredTestimonials = _filteredTestimonials.filter((t : any) => t.approved === true);
 		} else if (filters.approvalStatus === "unapproved") {
-			_filteredTestimonials = _filteredTestimonials.filter(t => t.approved === false);
+			_filteredTestimonials = _filteredTestimonials.filter((t : any) => t.approved === false);
 		}
 	
 		if (filters.rating !== 0) {
-			_filteredTestimonials = _filteredTestimonials.filter(t => t.stars === filters.rating);
+			_filteredTestimonials = _filteredTestimonials.filter((t : any) => t.stars === filters.rating);
 		}
 
 		if (filters.tags.length > 0) {
 			_filteredTestimonials = _filteredTestimonials.filter(t =>
+				// @ts-ignore
 				filters.tags.some(tag => tag.formResponsesIds.includes(t.id))
 			);
 		}
 
 		if (filters.forms.length > 0) {
 			_filteredTestimonials = _filteredTestimonials.filter(t =>
+				// @ts-ignore
 				filters.forms.some(form => t.form.id == form.id)
 			);
 		}
 
 		if (filters.searchForKeywords) {
 			_filteredTestimonials = _filteredTestimonials.filter(testimonial =>
+				// @ts-ignore
 				testimonial.message.includes(filters.searchForKeywords)
 			);
 		}

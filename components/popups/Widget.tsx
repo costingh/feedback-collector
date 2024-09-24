@@ -59,7 +59,7 @@ function Widget({ handleGoToWidget, t }: { t: any; handleGoToWidget: any }) {
 
 				{t?.type == "rating_badge" && (
 					<div>
-						<RatingBadge />
+						<RatingBadge testimonials={testimonialsMock}/>
 					</div>
 				)}
 

@@ -4,6 +4,7 @@ import StarsRating from "../stars-rating";
 import RollingWall from "../popups/RollingWall";
 import BasicWall from "../popups/BasicWall";
 import { testimonials } from "./../../app/(landing)/constants";
+import RatingBadge from "../popups/RatingBadge";
 
 function DisplayWidget({ widget }: { widget: any }) {
 	return (
@@ -12,12 +13,15 @@ function DisplayWidget({ widget }: { widget: any }) {
 				<BasicWall testimonials={widget?.testimonials} />
 			)}
 
-			{widget?.testimonials?.length > 10 ? (
-				widget.type == "rolling_wall" && (
+			{widget.type == "rolling_wall" &&
+				(widget?.testimonials?.length > 10 ? (
 					<RollingWall testimonials={widget?.testimonials} />
-				)
-			) : (
-				<BasicWall testimonials={widget?.testimonials} />
+				) : (
+					<BasicWall testimonials={widget?.testimonials} />
+				))}
+
+			{widget.type == "rating_badge" && (
+				<RatingBadge testimonials={widget?.testimonials} />
 			)}
 		</div>
 	);

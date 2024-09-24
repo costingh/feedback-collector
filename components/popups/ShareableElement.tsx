@@ -30,7 +30,7 @@ function ShareableElement({type}: {type: string}) {
                 </div>}
 
                 {type == 'rating_badge' && <div>
-                    <RatingBadge transition={true}/>
+                    <RatingBadge transition={true} testimonials={testimonialsMock}/>
                 </div>}
 
 				{type == 'social_star' && <div style={{transform: 'scale(0.8)'}}>
