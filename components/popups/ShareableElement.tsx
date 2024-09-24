@@ -34,7 +34,7 @@ function ShareableElement({type}: {type: string}) {
                 </div>}
 
 				{type == 'social_star' && <div style={{transform: 'scale(0.8)'}}>
-                    <SocialStar transition={true}/>
+                    <SocialStar transition={true} testimonials={testimonialsMock.slice(0,1)}/>
                 </div>}
 
 				{type == 'hero_quotes' && <div style={{transform: 'scale(0.8)'}}>
