@@ -16,7 +16,7 @@ function SocialStar({
 				<div
 					key={t.id}
 					className={clsx(
-						"flex items-start gap-3 p-2 rounded-[20px] bg-white w-[600px]",
+						"flex items-start gap-3 p-2 rounded-[20px] bg-white w-full max-w-[600px]",
 						transition &&
 							"transition-transform duration-300 ease-in-out group-hover:scale-110"
 					)}
@@ -30,17 +30,17 @@ function SocialStar({
 					/>
 					<div>
 						<div className="block">
-							<StarsRating
-								value={t?.stars || 0}
-								readonly
-							/>
+							<StarsRating value={t?.stars || 0} readonly />
 						</div>
-						<p className="text-gray-800 font-normal text-[15px]">
+						<p className="text-gray-800 font-normal text-[12px] sm:text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px]">
 							{t?.message}
 						</p>
-						<span className="text-gray-400 font-normal text-[12px]">
+
+						<span className="text-gray-400 font-normal text-[10px] sm:text-[11px] md:text-[12px] lg:text-[13px] xl:text-[14px]">
 							{t.name} /{" "}
-							<span className="text-blue-300">{t?.jobTitle || t?.company || t?.email}</span>
+							<span className="text-blue-300 text-[10px] sm:text-[11px] md:text-[12px] lg:text-[13px] xl:text-[14px]">
+								{t?.jobTitle || t?.company || t?.email}
+							</span>
 						</span>
 					</div>
 				</div>

@@ -8,7 +8,7 @@ import DisplayWidget from "@/components/widgets/DisplayWidget";
 import WidgetEditorNav from "@/components/widgets/WidgetEditorNav";
 import WidgetEditorSidebar from "@/components/widgets-studio/WidgetEditorSidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { timeAgo } from "@/lib/utils";
+import { cn, timeAgo } from "@/lib/utils";
 import DisplayTestimonialTags from "@/components/tags/DisplayTestimonialTags";
 import StarsRating from "@/components/stars-rating";
 import TestimonialsList from "@/components/testimonials/TestimonialsList";
@@ -19,14 +19,14 @@ interface Testimonial {
 	id: string;
 	content: string;
 	// Add more fields as needed
-  }
-  
-  interface Widget {
+}
+
+interface Widget {
 	id: string;
 	testimonials: Testimonial[]; // Array of testimonials
 	// Add more fields as needed
-  }
-  
+}
+
 const LandingPage = ({ params }: { params: { widgetId: string } }) => {
 	const [isSearchingWidgets, setIsSearchingWidgets] = useState(true);
 	const [widgets, setWidgets] = useState([]);
@@ -36,6 +36,21 @@ const LandingPage = ({ params }: { params: { widgetId: string } }) => {
 	const [checkedItems, setChecked] = useState(new Set());
 	const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
 	const [tags, setTags] = useState([]);
+	const [deviceResolution, setDeviceResolution] = useState({
+		width: window.innerWidth, // Get current width in pixels
+		height: window.innerHeight, // Get current height in pixels
+	});
+
+	useEffect(() => {
+		const handleResize = () => {
+			setDeviceResolution({
+				width: window.innerWidth,
+				height: window.innerHeight,
+			});
+		};
+		window.addEventListener("resize", handleResize);
+		return () => window.removeEventListener("resize", handleResize);
+	}, []);
 
 	const handleGetAllUserWidgets = useCallback(async () => {
 		setIsSearchingWidgets(true);
@@ -136,14 +151,14 @@ const LandingPage = ({ params }: { params: { widgetId: string } }) => {
 
 	useEffect(() => {
 		// @ts-ignore
-		if(widgets?.[0]?.testimonials)
+		if (widgets?.[0]?.testimonials)
 			// @ts-ignore
-			setChecked(new Set(widgets[0].testimonials.map(t => t.id)))
-	}, [widgets])
+			setChecked(new Set(widgets[0].testimonials.map((t) => t.id)));
+	}, [widgets]);
 
 	const refreshData = async () => {
-		await fetchAllData()
-	}
+		await fetchAllData();
+	};
 
 	const isChecked = (id: number) => {
 		return checkedItems.has(id);
@@ -161,14 +176,19 @@ const LandingPage = ({ params }: { params: { widgetId: string } }) => {
 						setActiveSubmenu={setActiveSubmenu}
 					/>
 				</div>
-				<WidgetEditorNav />
-				{isSearchingWidgets ? (
-					<div className="mt-10">
-						<Loader />
-					</div>
-				) : (
-					<div className="mt-10">
-						{/* {activeSubmenu == "select_testimonials" && (
+				<WidgetEditorNav
+					deviceResolution={deviceResolution}
+					setDeviceResolution={setDeviceResolution}
+				/>
+				<div className="flex items-center justify-center p-4">
+					<div style={{width: `${deviceResolution.width}px`, height: `${deviceResolution.height}px`}} className={cn('p-2', (deviceResolution.width == 375 || deviceResolution.width == 768) && "border-[2px] rounded-[20px] border-black")}>
+						{isSearchingWidgets ? (
+							<div className="mt-10">
+								<Loader />
+							</div>
+						) : (
+							<div className="mt-10">
+								{/* {activeSubmenu == "select_testimonials" && (
 							<div className="bg-white w-[450px] h-[calc(100vh-100px)] pl-[80px] p-5">
 								<TestimonialsList
 									testimonials={testimonials}
@@ -179,45 +199,52 @@ const LandingPage = ({ params }: { params: { widgetId: string } }) => {
 								/>
 							</div>
 						)} */}
-						<SelectTestimonialsToShareModal 
-							isOpened={activeSubmenu == "select_testimonials"} 
-							handleClose={() => setActiveSubmenu('')} 
-							testimonials={testimonials}
-							tags={tags}
-							isChecked={isChecked}
-							setChecked={setChecked}
-							checkedItems={checkedItems}
-							// @ts-ignore
-							widgetId={widgets?.[0]?.id}
-							refreshData={refreshData}
-						/>
-						{/* @ts-ignore */}
-						{widgets?.[0] && widgets?.[0]?.testimonials && (
-							<DisplayWidget widget={widgets?.[0]} />
-						)}
-						{!widgets?.[0] && <div>An error occured</div>}
-						{/* @ts-ignore */}
-						{!widgets?.[0]?.testimonials?.length && (
-							<div className="w-full h-full flex items-center justify-center">
-								<div className="flex flex-col items-center justify-center max-w-lg text-center">
-									<h1 className="text-black font-700 text-[20px] mb-2">
-										Oops, looks like you didnt link any
-										testimonials
-									</h1>
-									<p className="text-gray-700 text-[16px] mb-2">
-										You cant share this &quot;Carousel&quot; like
-										this, so please select some testimonials
-										to include them in the carousel.
-									</p>
-									<span className="text-gray-500 text-[14px]">
-										Very important: only &quot;approved&quot;
-										testimonials will appear here.
-									</span>
-								</div>
+								<SelectTestimonialsToShareModal
+									isOpened={
+										activeSubmenu == "select_testimonials"
+									}
+									handleClose={() => setActiveSubmenu("")}
+									testimonials={testimonials}
+									tags={tags}
+									isChecked={isChecked}
+									setChecked={setChecked}
+									checkedItems={checkedItems}
+									// @ts-ignore
+									widgetId={widgets?.[0]?.id}
+									refreshData={refreshData}
+								/>
+								{/* @ts-ignore */}
+								{widgets?.[0] && widgets?.[0]?.testimonials && (
+									<DisplayWidget widget={widgets?.[0]} />
+								)}
+								{!widgets?.[0] && <div>An error occured</div>}
+								{/* @ts-ignore */}
+								{!widgets?.[0]?.testimonials?.length && (
+									<div className="w-full h-full flex items-center justify-center">
+										<div className="flex flex-col items-center justify-center max-w-lg text-center">
+											<h1 className="text-black font-700 text-[20px] mb-2">
+												Oops, looks like you didnt link
+												any testimonials
+											</h1>
+											<p className="text-gray-700 text-[16px] mb-2">
+												You cant share this
+												&quot;Carousel&quot; like this,
+												so please select some
+												testimonials to include them in
+												the carousel.
+											</p>
+											<span className="text-gray-500 text-[14px]">
+												Very important: only
+												&quot;approved&quot;
+												testimonials will appear here.
+											</span>
+										</div>
+									</div>
+								)}
 							</div>
 						)}
 					</div>
-				)}
+				</div>
 			</div>
 		</>
 	);
