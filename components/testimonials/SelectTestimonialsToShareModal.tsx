@@ -72,8 +72,9 @@ export const SelectTestimonialsToShareModal = ({
 				<DialogHeader>
 					<DialogTitle className="flex justify-between items-between flex-col gap-y-4 pb-2">
 						<div className="flex items-center gap-x-2 font-bold text-xl">
-							Select testimonials
+							Approved testimonials
 						</div>
+						<p className="text-[15px] text-gray-600 font-normal">New testimonials that you approve will automatically get added to this widget</p>
 					</DialogTitle>
 					<DialogDescription className="text-center pt-2 space-y-2 text-zinc-900 font-medium">
 						<TestimonialsList

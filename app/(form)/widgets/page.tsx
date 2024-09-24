@@ -37,7 +37,7 @@ const LandingPage = () => {
 	}, []);
 
 	const handleGoToWidget = (url: string) => {
-		router.push('/share/' + url)
+		router.push('/share/edit/' + url)
 	}
 
 	return (

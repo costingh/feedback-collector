@@ -167,7 +167,7 @@ const LandingPage = ({ params }: { params: { widgetId: string } }) => {
 						<Loader />
 					</div>
 				) : (
-					<div className="">
+					<div className="mt-10">
 						{/* {activeSubmenu == "select_testimonials" && (
 							<div className="bg-white w-[450px] h-[calc(100vh-100px)] pl-[80px] p-5">
 								<TestimonialsList
