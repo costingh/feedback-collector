@@ -27,16 +27,16 @@ import { toast } from "sonner";
 function Widget({ handleGoToWidget, t }: { t: any; handleGoToWidget: any }) {
 	const [copied, setCopied] = useState(false)
 
-	const handleCopy = (url : string) => {
-		navigator.clipboard.writeText(url).then(() => {
-			setCopied(true);
-			toast.success("Copied to clipboard!");
-			setTimeout(() => setCopied(false), 2000);
-		}).catch(err => {
-			console.error("Failed to copy: ", err);
-			toast.error("Failed to copy URL.");
-		});
-	};
+	// const handleCopy = (url : string) => {
+	// 	navigator.clipboard.writeText(url).then(() => {
+	// 		setCopied(true);
+	// 		toast.success("Copied to clipboard!");
+	// 		setTimeout(() => setCopied(false), 2000);
+	// 	}).catch(err => {
+	// 		console.error("Failed to copy: ", err);
+	// 		toast.error("Failed to copy URL.");
+	// 	});
+	// };
 
 	return (
 		<div className="border-[1px] border-gray-200 rounded-[12px] overflow-hidden">
@@ -65,7 +65,7 @@ function Widget({ handleGoToWidget, t }: { t: any; handleGoToWidget: any }) {
 
 				{t?.type == "social_star" && (
 					<div style={{ transform: "scale(0.8)" }}>
-						<SocialStar />
+						<SocialStar testimonials={testimonialsMock.slice(0,1)}/>
 					</div>
 				)}
 
@@ -79,12 +79,12 @@ function Widget({ handleGoToWidget, t }: { t: any; handleGoToWidget: any }) {
 				<div className="flex justify-between items-center">
 					<span className="text-gray-700 text-[14px]">{t?.name}</span>
 					<div className="flex items-center gap-2">
-						<div
+						{/* <div
 							className="hover:bg-gray-200 cursor-pointer rounded-[6px] p-1"
 							onClick={() => handleCopy(t?.url)}
 						>
 							<Link className="text-gray-600" size={15} />
-						</div>
+						</div> */}
 						<div
 							className="hover:bg-gray-200 cursor-pointer rounded-[6px] p-1"
 							onClick={() => handleGoToWidget(t?.url)}
