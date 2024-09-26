@@ -285,11 +285,12 @@ export default function FormsPage() {
 	};
 
 	const getResponseRate = (form: Form) => {
+		console.log(form)
 		const completions = form?.metrics?.find(m => m.actionType == 'completion')?.total|| 0;
-		const visits = form?.metrics?.find(m => m.actionType == 'views')?.total|| 0;
+		const visits = form?.metrics?.find(m => m.actionType == 'view')?.total|| 0;
 
-		if(completions) {
-			return visits/completions*100;
+		if(visits) {
+			return (completions/visits*100).toFixed(2);
 		} else {
 			return 0
 		}
