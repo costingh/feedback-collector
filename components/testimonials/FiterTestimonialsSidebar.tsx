@@ -38,13 +38,15 @@ const FiterTestimonialsSidebar: React.FC = ({
 	filters,
 	setFilters,
 	showFilterSidebar,
-	setShowFilterSidebar
+	setShowFilterSidebar,
+	withoutCloseButton
 }: {
 	testimonials: any;
 	filters: any;
 	setFilters: any;
 	showFilterSidebar: boolean;
 	setShowFilterSidebar: any;
+	withoutCloseButton?: boolean;
 }) => {
 	const { tags, setTags, isSearchingTags, groupedTags, reloadTags } =
 		useTags();
@@ -61,14 +63,14 @@ const FiterTestimonialsSidebar: React.FC = ({
 
 	return (
 		<div className={cn(
-			"border-l-[1px] border-gray-200 h-[100vh] px-6 py-6 overflow-hidden transition-all",
+			"border-l-[1px] border-gray-200 h-[100vh] px-6 py-6 overflow-hidden transition-all text-left",
 			showFilterSidebar ? 'w-[380px]' : 'w-0 p-0' 
 		)}>
 			<div className="flex items-center justify-between">
 				<h1 className="text-[18px] font-bold">Search and Filter</h1>
-				<div onClick={() => setShowFilterSidebar(false)} className="flex items-center justify-center p-2 rounded-[6px] bg-gray-200 cursor-pointer transition-all hover:bg-gray-100">
+				{!withoutCloseButton && <div onClick={() => setShowFilterSidebar(false)} className="flex items-center justify-center p-2 rounded-[6px] bg-gray-200 cursor-pointer transition-all hover:bg-gray-100">
 					<X size={14} />
-				</div>
+				</div>}
 			</div>
 
 			<Input

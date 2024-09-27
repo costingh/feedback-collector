@@ -34,7 +34,7 @@ function TestimonialsList({
 								: {}
 						}
 					>
-						<div className="avatar flex flex-col items-start max-w-full w-[350px]">
+						<div className="avatar flex flex-col items-start justify-start text-left max-w-full w-[350px]">
 							<Avatar>
 								<AvatarImage src={t?.avatar} />
 								<AvatarFallback>CN</AvatarFallback>
@@ -47,7 +47,7 @@ function TestimonialsList({
 								{t?.jobTitle || t?.email}
 							</span>
 						</div>
-						<div className="w-full">
+						<div className="w-full text-left">
 							{/* <span>{t?.logo}</span> */}
 							{/* <span>{t?.company}</span> */}
 							{/* <span>{t?.website}</span> */}
