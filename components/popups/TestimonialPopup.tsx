@@ -21,6 +21,7 @@ import options from "../form-editor/CustomerDetailsOptionList";
 import Confetti from "../Confetti";
 import Image from "next/image";
 import UploadFormEditorLogo from "../form-editor/UploadFormEditorLogo";
+import { cn } from "@/lib/utils";
 interface TestimonialPopupProps {
 	backgroundColor: string;
 	primaryColor: string;
@@ -42,6 +43,8 @@ interface TestimonialPopupProps {
 	brandName: string;
 	onSubmit: any;
 	onInteraction: any;
+	isRaw?: boolean;
+	isCentered?: boolean;
 }
 
 const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
@@ -64,7 +67,9 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 	brandLogo,
 	brandName,
 	onSubmit,
-	onInteraction
+	onInteraction,
+	isRaw,
+	isCentered
 }) => {
 	// constants
 	const BASE_PRIMARY_COLOR = "rgb(34, 197, 94)";
@@ -127,7 +132,7 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 			<div className="relative">
 				<div className="flex items-center gap-3">
 					<Image src={brandLogo || ''} alt={brandName || 'logo'} width={45} height={45}/>
-					<h1 className="text-xl font-black text-gray-900 tracking-wide ">{brandName}</h1>
+					<h1 className="text-[1.6rem] font-black text-gray-900 tracking-wide font-fredoka">{brandName}</h1>
 				</div>
 				<div
 					className="w-[80px] h-[3px] absolute bottom-[-10px] left-0"
@@ -532,8 +537,8 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 
 	return (
 		<div
-			className="relative inset-0 flex items-center justify-center w-full h-full"
-			style={{ backgroundColor: backgroundColor || "white" }}
+			className={cn(!isRaw && "relative inset-0 flex items-center justify-center w-full h-full", isCentered && "flex items-center justify-center w-full h-full")}
+			style={{ backgroundColor: !isRaw ? (backgroundColor || "white") : 'transparent' }}
 		>
 			{withAnimatedBg ? (
 				<BackgroundGradientAnimation>

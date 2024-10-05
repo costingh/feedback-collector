@@ -6,8 +6,13 @@ import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Loader } from "@/components/loader";
 import { Form } from "@/types/Form";
+import { useSearchParams } from 'next/navigation'
 
 const LandingPage = ({ params }: { params: { url: string } }) => {
+	const searchParams = useSearchParams()
+
+	const [isRaw, setIsRaw] = useState(searchParams.get('raw'))
+	const [isCentered, setIsCentered] = useState(searchParams.get('centered'))
 	const [step, setStep] = useState(-1);
 	const [isSearchingForm, setIsSearchingForm] = useState(true);
 	const [form, setForm] = useState<Form | null>(null);
@@ -125,6 +130,8 @@ const LandingPage = ({ params }: { params: { url: string } }) => {
 							brandName={form.brandName}
 							onInteraction={handleInteraction} 
 							onSubmit={handleSubmitForm} 
+							isRaw={isRaw ? true : false}
+							isCentered={isCentered ? true : false}
 						/>
 					) : (
 						<div className="flex items-center justify-center">

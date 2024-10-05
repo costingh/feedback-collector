@@ -3,17 +3,24 @@ import hljs from 'highlight.js';
 import "highlight.js/styles/monokai.css";
 import { Copy } from "lucide-react";
 
-const CodeSnippet = ({handleCopy}: {handleCopy: any}) => {
-    const codeRef = useRef(null);
-
-    const code = `<script type="text/javascript" src="https://widget.senja.io/js/iframeResizer.min.js"></script>
-<iframe id="senja-collector-iframe" src="https://senja.io/p/feedbackr/r/xp9Ecq?mode=embed&nostyle=true" allow="camera;microphone" title="Senja form" frameborder="0" scrolling="no" width="100%" height="700"></iframe>
-<script type="text/javascript">iFrameResize({log: false, checkOrigin: false}, "#senja-collector-iframe");</script>`;
+const CodeSnippet = ({handleCopy, code}: {handleCopy: any, code: string}) => {
+    const codeRef = useRef<HTMLElement | null>(null);
 
     useEffect(() => {
-        //@ts-ignore
-        hljs.highlightElement(codeRef.current);
-    }, []);
+        const codeElement = codeRef.current;
+        
+        if (codeElement) {
+            // Unset previous highlighting and reset code content
+            if (codeElement.dataset.highlighted) {
+                codeElement.textContent = code; // Reset content
+                delete codeElement.dataset.highlighted;
+            }
+            
+            // Apply highlighting
+            hljs.highlightElement(codeElement);
+            codeElement.dataset.highlighted = "yes"; // Mark as highlighted
+        }
+    }, [code]);
 
     return (
         <div className='relative'>

@@ -13,13 +13,36 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Form } from "@/types/Form";
 import CodeSnippet from "./CodeSnippet";
 
-export function ShareTestimonialModal({form, formUrl, handleCopy} : {form: Form, formUrl: string, handleCopy: (url: string) => void}) {
+export function ShareTestimonialModal({
+	form,
+	formUrl,
+	handleCopy,
+}: {
+	form: Form;
+	formUrl: string;
+	handleCopy: (url: string) => void;
+}) {
 	const [isActive, setIsActive] = useState("share");
 	const [embeddingType, setEmbeddingType] = useState(1);
+
+	const width = "100%";
+	const height = "12000";
+	const allow = "camera;microphone";
+	
+	const inlineIframeCode = `<div data-collector="feedbackz-collector" data-form-type="inline" data-form-id="${form?.url?.replace('/p/', '')}"></div>\n<script src="${process.env.NEXT_PUBLIC_APP_DOMAIN}/embed.js?formId=${form?.url?.replace('/p/', '')}}&width=${width}&height=${height}&allow=${allow}"></script>`
+	
+	const popupIframeCode = `<div data-collector="feedbackz-collector" data-form-type="popup" data-form-id="${form?.url?.replace('/p/', '')}"></div>\n<script src="${process.env.NEXT_PUBLIC_APP_DOMAIN}/embed.js?formId=${form?.url?.replace('/p/', '')}}&width=${width}&height=${height}&allow=${allow}"></script>`
+	
+	const [code, setCode] =
+		useState(embeddingType == 1 ? inlineIframeCode : popupIframeCode);
+
+	useEffect(() => {
+		setCode(embeddingType == 1 ? inlineIframeCode : popupIframeCode)
+	}, [embeddingType])
 
 	return (
 		<Dialog>
@@ -46,7 +69,7 @@ export function ShareTestimonialModal({form, formUrl, handleCopy} : {form: Form,
 									? { background: "rgb(229 231 235)" }
 									: {}
 							}
-                            onClick={() => setIsActive('share')}
+							onClick={() => setIsActive("share")}
 						>
 							<Link
 								className="text-gray-600 mt-[2px]"
@@ -69,7 +92,7 @@ export function ShareTestimonialModal({form, formUrl, handleCopy} : {form: Form,
 									? { background: "rgb(229 231 235)" }
 									: {}
 							}
-                            onClick={() => setIsActive('embed')}
+							onClick={() => setIsActive("embed")}
 						>
 							<Braces
 								className="text-gray-600 mt-[2px]"
@@ -87,8 +110,7 @@ export function ShareTestimonialModal({form, formUrl, handleCopy} : {form: Form,
 						</div>
 					</div>
 					<div className="w-[70%] pl-6">
-
-                        {/* SHARE FORM TAB */}
+						{/* SHARE FORM TAB */}
 						{isActive == "share" && (
 							<div className="border-[1px] border-gray-100 p-4 rounded-[15px]">
 								<h1 className="text-gray-800 font-[600] text-[14px]">
@@ -109,13 +131,13 @@ export function ShareTestimonialModal({form, formUrl, handleCopy} : {form: Form,
 											id="link"
 											defaultValue={formUrl}
 											readOnly
-                                            className='outline-none focus-visible:ring-0 focus-visible:ring-transparent'
+											className="outline-none focus-visible:ring-0 focus-visible:ring-transparent"
 										/>
 									</div>
 									<Button
 										size="sm"
 										className="px-3"
-                                        onClick={() => handleCopy(formUrl)}
+										onClick={() => handleCopy(formUrl)}
 									>
 										<span className="sr-only">Copy</span>
 										<Copy className="h-4 w-4" />
@@ -124,58 +146,85 @@ export function ShareTestimonialModal({form, formUrl, handleCopy} : {form: Form,
 							</div>
 						)}
 
-                        {/* EMBED FORM TAB */}
-                        {isActive == "embed" && (
-							<div className='w-full'>
+						{/* EMBED FORM TAB */}
+						{isActive == "embed" && (
+							<div className="w-full">
 								<h1 className="text-gray-800 font-[600] text-[14px]">
-                                    How would you like to embed your form?
+									How would you like to embed your form?
 								</h1>
 								<span className="text-gray-600 font-[400] text-[13px]">
-                                    You can embed your form as an inline embed or as a popup widget.
+									You can embed your form as an inline embed
+									or as a popup widget.
 								</span>
-								<div className="flex items-center space-x-2 mt-2" >
-									<div className="left w-[50%] rounded-[10px] border-[1px] border-gray-200 p-4 cursor-pointer hover:bg-gray-100 h-[234px]" onClick={() => setEmbeddingType(1)} style={embeddingType == 1 ? {background: 'rgb(243 244 246'} : {} }>
-                                        <div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
-                                        <div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
-                                        <div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
-                                        <div className="h-[100px] bg-green-400 w-[150px] mx-auto rounded w-ful my-4"></div>
-                                        <div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
-                                        <div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
-                                        <div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
-                                    </div>
-                                    <div className="right w-[50%] rounded-[10px] border-[1px] border-gray-200 p-4 cursor-pointer hover:bg-gray-100 h-[234px] relative" onClick={() => setEmbeddingType(2)} style={embeddingType == 2 ? {background: 'rgb(243 244 246'} : {} }>
-                                        <div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
-                                        <div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
-                                        <div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
-                                        <div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
-                                        <div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
-                                        <div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
-                                        <div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
-                                        <div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
-                                        <div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
-                                        <div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
-                                        <div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
-                                        <div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
-                                        <div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
-                                        <div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
-                                        <div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
-                                        <div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
-                                        <div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
+								<div className="flex items-center space-x-2 mt-2">
+									<div
+										className="left w-[50%] rounded-[10px] border-[1px] border-gray-200 p-4 cursor-pointer hover:bg-gray-100 h-[234px]"
+										onClick={() => setEmbeddingType(1)}
+										style={
+											embeddingType == 1
+												? {
+														background:
+															"rgb(243 244 246",
+												  }
+												: {}
+										}
+									>
+										<div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
+										<div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
+										<div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
+										<div className="h-[100px] bg-green-400 w-[150px] mx-auto rounded w-ful my-4"></div>
+										<div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
+										<div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
+										<div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
+									</div>
+									<div
+										className="right w-[50%] rounded-[10px] border-[1px] border-gray-200 p-4 cursor-pointer hover:bg-gray-100 h-[234px] relative"
+										onClick={() => setEmbeddingType(2)}
+										style={
+											embeddingType == 2
+												? {
+														background:
+															"rgb(243 244 246",
+												  }
+												: {}
+										}
+									>
+										<div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
+										<div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
+										<div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
+										<div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
+										<div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
+										<div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
+										<div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
+										<div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
+										<div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
+										<div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
+										<div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
+										<div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
+										<div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
+										<div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
+										<div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
+										<div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
+										<div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
 
-                                        <div className="absolute top-0 left-0 bottom-0 right-0 w-full h-full flex items-center justify-center">
-                                            <div className="h-[100px] bg-green-400 w-[150px] rounded"></div>
-                                        </div>
-                                        
-                                    </div>
+										<div className="absolute top-0 left-0 bottom-0 right-0 w-full h-full flex items-center justify-center">
+											<div className="h-[100px] bg-green-400 w-[150px] rounded"></div>
+										</div>
+									</div>
 								</div>
 
-                                <h1 className="text-gray-800 font-[600] text-[14px] mt-3">
-                                    Your Code Snippet
+								<h1 className="text-gray-800 font-[600] text-[14px] mt-3">
+									Your Code Snippet
 								</h1>
 								<span className="text-gray-600 font-[400] text-[13px]">
-                                    To embed your collection form, paste the following code snippet anywhere in the body of your website:
+									To embed your collection form, paste the
+									following code snippet anywhere in the body
+									of your website:
 								</span>
-                                <CodeSnippet handleCopy={handleCopy}/>
+								<CodeSnippet
+									handleCopy={handleCopy}
+									code={code}
+								/>
 							</div>
 						)}
 					</div>

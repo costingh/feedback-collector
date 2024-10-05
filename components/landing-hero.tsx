@@ -1,12 +1,8 @@
 "use client";
 
-import TypewriterComponent from "typewriter-effect";
 import Link from "next/link";
 import { useAuth } from "@clerk/nextjs";
-
 import { Button } from "@/components/ui/button";
-import ScriptInjector from "./injectors/ScriptInjector";
-import TestimonialPopup from "./popups/TestimonialPopup";
 import Image from "next/image";
 
 export const LandingHero = () => {
