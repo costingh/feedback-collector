@@ -7,13 +7,60 @@ import { useAuth } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import ScriptInjector from "./injectors/ScriptInjector";
 import TestimonialPopup from "./popups/TestimonialPopup";
+import Image from "next/image";
 
 export const LandingHero = () => {
 	const { isSignedIn } = useAuth();
 
 	return (
-		<div className="flex flex-col min-h-screen animate-in fade-in">
-			<div className="grow flex flex-col items-center justify-evenly">
+		<div className="flex flex-col min-h-[90vh] animate-in fade-in items-center justify-center">
+			<div className="h-full items-center justify-center flex flex-col">
+				<div className="flex flex-wrap gap-4">
+					<div className="flex-1 max-w-[50%]">
+						<h1 className='font-fredoka text-[3rem] text-[#111827] font-black leading-[48px] mb-6'>
+							Collect and manage website feedback in your existing
+							tools
+						</h1>
+						<p className='text-[18px] text-gray-500 font-[300] mb-6 leading-[30px]'>
+							A website feedback tool for agencies to collect
+							feedback during website reviews. Clients submit
+							feedback on the website, and your team manages it in
+							your project management tool.
+						</p>
+						<div className="flex items-center gap-4 relative">
+							<Link href="/sign-up">
+								<Button variant="outline" className="rounded-[17px] border-[2px] border-indigo-600 bg-indigo-600 px-[25px] !py-[22px] text-white text-[14px] font-[500] hover:text-indigo-600 w-[220px]">
+									Start Free Trial
+								</Button>
+							</Link>
+							<Link href="/sign-up">
+								<Button variant="outline" className="rounded-[17px] border-[2px] border-indigo-600 text-indigo-600 px-[25px] !py-[22px] text-[14px] font-[500] w-[220px]">
+									Sign In
+								</Button>
+							</Link>
+							<Image
+								src='/no-credit-card.png'
+								width={160}
+								height={160}
+								alt='No credit card required*'
+								className="absolute top-[-30px] right-[-15px]"
+						/>
+						</div>
+						<span className="text-gray-500 text-[12px] font-light mr-2 mt-3">No card required</span>
+					</div>
+					<div className="flex-1 flex items-center justify-center">
+						<Image
+							src='/hero-image.png'
+							alt=''
+							width={450}
+							height={450}
+							className='max-w-full max-h-full'
+					/>
+					</div>
+				</div>
+			</div>
+			
+			{/* <div className="grow flex flex-col items-center justify-evenly">
 				<section className="space-y-6 pt-10 pb-6">
 					<div className="container flex flex-col items-center gap-8 text-center">
 						<div className="inline-flex items-center rounded-full border px-2.5 py-0.5 font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 text-foreground text-sm text-white">
@@ -214,13 +261,15 @@ export const LandingHero = () => {
 							<div className="inline-flex items-center rounded-full border px-2.5 py-0.5 font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 text-green-600 text-sm">
 								$200 off
 							</div>
-							<span className="text-white ml-3">for the first 100 customers</span>
+							<span className="text-white ml-3">
+								for the first 100 customers
+							</span>
 						</div>
-						{/* <div>
+						<div>
 							<div className="inline-flex items-center rounded-full border px-2.5 py-0.5 font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80 text-xs animate-pulse">
 								70 left
 							</div>
-						</div> */}
+						</div>
 					</section>
 					<section className="flex flex-col sm:flex-row sm:flex-wrap justify-center gap-8 mt-20">
 						<div className="rounded-lg border bg-card text-card-foreground shadow-sm relative w-72 md:w-96 flex flex-col justify-between py-1 mx-auto sm:mx-0 overflow-hidden bg-transparent">
@@ -1012,7 +1061,7 @@ export const LandingHero = () => {
 						</div>
 					</section>
 				</div>
-			</div>
+			</div> */}
 		</div>
 	);
 };
