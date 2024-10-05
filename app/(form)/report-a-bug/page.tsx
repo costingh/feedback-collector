@@ -6,6 +6,7 @@ import { toast } from "sonner"; // For toast notifications
 import { Button } from "@/components/ui/button"; // Button from shadcn
 import { Textarea } from "@/components/ui/textarea"; // Textarea from shadcn
 import { Loader2 } from "lucide-react";
+import LoadingSpinnerButton from "@/components/buttons/LoadingSpinnerButton";
 
 const ReportBugPage = () => {
 	const [description, setDescription] = useState<string>(""); // Bug description
@@ -40,8 +41,8 @@ const ReportBugPage = () => {
 		<div className="max-w-2xl mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
 			<h1 className="text-[18px] font-semibold mb-4">Report a Bug</h1>
 			<p className="mb-4 text-[14px] text-gray-600">
-				If you&apos;ve encountered a bug, please provide as much detail as
-				possible so we can address it quickly.
+				If you&apos;ve encountered a bug, please provide as much detail
+				as possible so we can address it quickly.
 			</p>
 
 			<Textarea
@@ -52,21 +53,10 @@ const ReportBugPage = () => {
 				disabled={loading}
 			/>
 
-			<div className="flex justify-end">
-				{loading ? (
-					<Button disabled>
-						<Loader2 className="mr-2 h-4 w-4 animate-spin" />
-						Submitting
-					</Button>
-				) : (
-					<Button
-						onClick={handleSubmit}
-						className="w-full bg-black flex items-center gap-2 hover:bg-gray-900"
-					>
-						Submit
-					</Button>
-				)}
-			</div>
+			<LoadingSpinnerButton
+				loading={loading}
+				handleSubmit={handleSubmit}
+			/>
 		</div>
 	);
 };

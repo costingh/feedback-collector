@@ -132,6 +132,14 @@ model BugReport {
   userId      String
 }
 
+model FeatureRequest {
+  id          Int      @id @default(autoincrement())
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  userId      String
+}
+
 model WidgetAnalytics {
   id         Int      @id @default(autoincrement())
   actionType String
