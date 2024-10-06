@@ -23,6 +23,7 @@ import Image from "next/image";
 import UploadFormEditorLogo from "../form-editor/UploadFormEditorLogo";
 import { cn } from "@/lib/utils";
 import { FormHeader } from "./FormHeader";
+import { FormLoaderSkeleton } from "../skeletons/FormLoaderSkeleton";
 interface TestimonialPopupProps {
 	backgroundColor: string | undefined;
 	primaryColor: string | undefined;
@@ -30,7 +31,7 @@ interface TestimonialPopupProps {
 	published: boolean | undefined;
 	isPaused: boolean | undefined;
 	step: number | undefined;
-	setStep: React.Dispatch<React.SetStateAction<number>> | undefined;
+	setStep: React.Dispatch<React.SetStateAction<number>>;
 	availableOptions: any[] | undefined;
 	questions: any[] | undefined;
 	textareaPlaceholder: string | undefined;
@@ -46,6 +47,7 @@ interface TestimonialPopupProps {
 	onInteraction: any| undefined;
 	isRaw?: boolean| undefined;
 	isCentered?: boolean| undefined;
+	isSearchingForm: boolean
 }
 
 const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
@@ -70,7 +72,8 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 	onSubmit,
 	onInteraction,
 	isRaw,
-	isCentered
+	isCentered,
+	isSearchingForm
 }) => {
 	// constants
 	const BASE_PRIMARY_COLOR = "rgb(34, 197, 94)";
@@ -93,25 +96,37 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 		</svg>
 	);
 
-	const QuestionList = ({ questions }: { questions: Question[] }) => (
-		<ul className="my-2 md:my-4">
-			{questions?.map((question, index) => (
-				<li
-					key={index}
-					className="my-1 text-gray-600 font-normal text-[13px] md:text-[16px]"
-				>
-					• {question.text}
-				</li>
-			))}
-		</ul>
-	);
+	const QuestionList = ({ questions }: { questions: Question[] | undefined }) => {
+		return (
+			<ul className="my-2 md:my-4">
+				{!questions
+					? // Render skeletons when questions are undefined
+					  Array.from({ length: 2 }).map((_, index) => (
+						<li
+							key={index}
+							className="my-2 bg-gray-300 animate-pulse h-[25px] rounded-md w-full"
+							style={{ width: `${Math.random() * (100 - 80) + 80}%` }} // Randomize width for each skeleton
+						></li>
+					  ))
+					: // Render actual questions when loaded
+					  questions?.map((question, index) => (
+						<li
+							key={index}
+							className="my-1 text-gray-600 font-normal text-[13px] md:text-[16px]"
+						>
+							• {question.text}
+						</li>
+					  ))}
+			</ul>
+		);
+	};
 
 	const SubmitButton = ({
 		buttonLabel,
 		handleSubmit,
 		loading,
 	}: {
-		buttonLabel: string;
+		buttonLabel: string | undefined;
 		handleSubmit: any;
 		loading?: boolean;
 	}) => (
@@ -134,10 +149,10 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 		buttonLabel,
 		setFinalResponse,
 	}: {
-		questions: Question[];
-		textareaPlaceholder: string;
-		buttonLabel: string;
-		setFinalResponse: any;
+		questions: Question[] | undefined;
+		textareaPlaceholder: string| undefined;
+		buttonLabel: string| undefined;
+		setFinalResponse: any| undefined;
 	}) => {
 		const messageRef = useRef<HTMLTextAreaElement>(null);
 		const [stars, setStars] = useState<number>(0);
@@ -202,8 +217,8 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 		thankYouPageTitle,
 		thankYouPageMessage,
 	}: {
-		thankYouPageTitle: string;
-		thankYouPageMessage: string;
+		thankYouPageTitle: string | undefined;
+		thankYouPageMessage: string | undefined;
 	}) => {
 		const [showConfetti, setShowConfetti] = useState(false);
 
@@ -248,7 +263,7 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 	};
 
 	const CollectReviewerPersonalInformation = React.memo(
-		({ buttonLabel }: { buttonLabel: string }) => {
+		({ buttonLabel }: { buttonLabel: string | undefined }) => {
 			const [userInfoValue, setUserInfoValue] = useState<UserInfo>({
 				name: '',
 				email: '',
@@ -265,8 +280,8 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 			const handleSubmit = async () => {
 				setIsSubmitting(true)
 				const requiredFieldsKeys = availableOptions
-					.filter((option) => option.isRequired && option.isEnabled)
-					.map((option) => option.key);
+					?.filter((option) => option.isRequired && option.isEnabled)
+					?.map((option) => option.key) || [];
 
 				const responseToSubmit = { ...finalResponse, ...userInfoValue, ...images, formId };
 
@@ -450,16 +465,18 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 	CollectReviewerPersonalInformation.displayName = "CollectReviewerPersonalInformation";
 
 	const renderPopup = (
-		questions: Question[],
-		textareaPlaceholder: string,
-		title: string,
-		description: string,
-		buttonLabel: string,
-		thankYouPageTitle: string,
-		thankYouPageMessage: string,
-		brandName: string,
-		brandLogo: string,
+		questions: Question[] | undefined,
+		textareaPlaceholder: string | undefined,
+		title: string  | undefined,
+		description: string | undefined,
+		buttonLabel: string | undefined,
+		thankYouPageTitle: string | undefined,
+		thankYouPageMessage: string | undefined,
+		brandName: string | undefined,
+		brandLogo: string | undefined,
+		isSearchingForm: boolean
 	) => {
+
 		return (
 			<div className="px-[15px] md:px-[25px] py-[15px] md:py-[30px] bg-white shadow-lg rounded-[15px] w-full max-w-[480px] text-left border-[1px] border-gray-100 pointer-events testimonial-modal">
 				<FormHeader
@@ -472,31 +489,37 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 					onInteraction={onInteraction}
 				/>
 
-				{!published && step == -1 ? (
+				{/*loading animation skeleton*/}
+				{(!published && step == -1 && !isSearchingForm) ? (
 					<FormUnpublished />
 				) : (
 					<>
-						{step === 1 && (
-							<CollectWrittenTestimonial
-								questions={questions}
-								textareaPlaceholder={textareaPlaceholder}
-								buttonLabel={buttonLabel}
-								setFinalResponse={setFinalResponse}
-							/>
-						)}
+					{(step == -1 && isSearchingForm) ?
+						<FormLoaderSkeleton/> :
+						<>
+							{step === 1 && (
+								<CollectWrittenTestimonial
+									questions={questions}
+									textareaPlaceholder={textareaPlaceholder}
+									buttonLabel={buttonLabel}
+									setFinalResponse={setFinalResponse}
+								/>
+							)}
 
-						{step === 2 && (
-							<CollectReviewerPersonalInformation
-								buttonLabel={buttonLabel}
-							/>
-						)}
+							{step === 2 && (
+								<CollectReviewerPersonalInformation
+									buttonLabel={buttonLabel}
+								/>
+							)}
 
-						{step === 3 && (
-							<ShowThankYouScreen
-								thankYouPageTitle={thankYouPageTitle}
-								thankYouPageMessage={thankYouPageMessage}
-							/>
-						)}
+							{step === 3 && (
+								<ShowThankYouScreen
+									thankYouPageTitle={thankYouPageTitle}
+									thankYouPageMessage={thankYouPageMessage}
+								/>
+							)}
+						</>
+					}
 					</>
 				)}
 			</div>
@@ -520,6 +543,7 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 						thankYouPageMessage,
 						brandName,
 						brandLogo,
+						isSearchingForm
 					)}
 				</BackgroundGradientAnimation>
 			) : (
@@ -534,6 +558,7 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 						thankYouPageMessage,
 						brandName,
 						brandLogo,
+						isSearchingForm
 					)}
 				</>
 			)}

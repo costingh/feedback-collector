@@ -104,42 +104,31 @@ const LandingPage = ({ params }: { params: { url: string } }) => {
 
 	return (
 		<>
-			{isSearchingForm ? (
-				<Loader />
-			) : (
-				<>
-					{form ? (
-						<TestimonialPopup
-							backgroundColor={form.backgroundColor}
-							primaryColor={form.primaryColor}
-							withAnimatedBg={form.withAnimatedBg}
-							availableOptions={form.formFields}
-							published={form.published}
-							isPaused={form.isPaused}
-							step={step}
-							setStep={setStep}
-							questions={form.questions}
-							textareaPlaceholder={form.textareaPlaceholder}
-							buttonLabel={form.buttonLabel}
-							title={form.title}
-							description={form.description}
-							formId={form.id}
-							thankYouPageTitle={form.thankYouPageTitle}
-							thankYouPageMessage={form.thankYouPageMessage}
-							brandLogo={form.brandLogo}
-							brandName={form.brandName}
-							onInteraction={handleInteraction} 
-							onSubmit={handleSubmitForm} 
-							isRaw={isRaw ? true : false}
-							isCentered={isCentered ? true : false}
-						/>
-					) : (
-						<div className="flex items-center justify-center">
-							<p className="mt-10">Not found</p>
-						</div>
-					)}
-				</>
-			)}
+			<TestimonialPopup
+				backgroundColor={form?.backgroundColor}
+				primaryColor={form?.primaryColor}
+				withAnimatedBg={form?.withAnimatedBg}
+				availableOptions={form?.formFields}
+				published={form?.published}
+				isPaused={form?.isPaused}
+				step={step}
+				setStep={setStep}
+				questions={form?.questions}
+				textareaPlaceholder={form?.textareaPlaceholder}
+				buttonLabel={form?.buttonLabel}
+				title={form?.title}
+				description={form?.description}
+				formId={form?.id}
+				thankYouPageTitle={form?.thankYouPageTitle}
+				thankYouPageMessage={form?.thankYouPageMessage}
+				brandLogo={form?.brandLogo}
+				brandName={form?.brandName}
+				onInteraction={handleInteraction}
+				onSubmit={handleSubmitForm}
+				isRaw={isRaw ? true : false}
+				isCentered={isCentered ? true : false}
+				isSearchingForm={isSearchingForm}
+			/>
 		</>
 	);
 };

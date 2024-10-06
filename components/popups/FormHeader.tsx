@@ -9,28 +9,36 @@ export const FormHeader = ({
 	setStep,
 	onInteraction,
 }: {
-	brandName: string;
-	brandLogo: string;
-	primaryColor: string;
-	BASE_PRIMARY_COLOR: string;
-	step: number;
-	setStep: any;
-	onInteraction: any;
+	brandName: string | undefined;
+	brandLogo: string | undefined;
+	primaryColor: string | undefined;
+	BASE_PRIMARY_COLOR: string | undefined;
+	step: number | undefined;
+	setStep: any | undefined;
+	onInteraction: any | undefined;
 }) => (
 	<div className="flex items-center justify-between mb-4 md:mb-8">
 		<div className="relative">
-			<div className="flex items-center gap-3">
-				<Image
-					src={brandLogo || ""}
-					alt={brandName || "logo"}
-					width={45}
-					height={45}
-                    className='w-[35px] md:w-[45px] h-[35px] md:h-[45px]'
-				/>
-				<h1 className="text-[18px] md:text-[25px] font-black text-gray-900  font-fredoka">
-					{brandName}
-				</h1>
-			</div>
+				{!brandName || !brandLogo || !primaryColor ? 
+					(
+						<div className="flex items-center gap-3">
+							<div className="w-[35px] md:w-[45px] h-[35px] md:h-[45px] bg-gray-300 rounded-[10px] animate-pulse"></div>
+							<div className="h-6 md:h-8 bg-gray-300 rounded w-[150px] animate-pulse"></div>
+						</div>
+					) : (
+						<div className="flex items-center gap-3">
+							<Image
+								src={brandLogo || ""}
+								alt={brandName || "logo"}
+								width={45}
+								height={45}
+								className="w-[35px] md:w-[45px] h-[35px] md:h-[45px]"
+							/>
+							<h1 className="text-[18px] md:text-[25px] font-black text-gray-900 font-fredoka">
+								{brandName}
+							</h1>
+						</div>
+					)}
 			{/* <div
 				className="w-[80px] h-[2px] rounded-full absolute bottom-[-10px] left-0"
 				style={{
