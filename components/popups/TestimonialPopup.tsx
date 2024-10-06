@@ -22,29 +22,30 @@ import Confetti from "../Confetti";
 import Image from "next/image";
 import UploadFormEditorLogo from "../form-editor/UploadFormEditorLogo";
 import { cn } from "@/lib/utils";
+import { FormHeader } from "./FormHeader";
 interface TestimonialPopupProps {
-	backgroundColor: string;
-	primaryColor: string;
-	withAnimatedBg: boolean;
-	published: boolean;
-	isPaused: boolean;
-	step: number;
-	setStep: React.Dispatch<React.SetStateAction<number>>;
-	availableOptions: any[];
-	questions: any[];
-	textareaPlaceholder: string;
-	buttonLabel: string;
-	title: string;
-	description: string;
+	backgroundColor: string | undefined;
+	primaryColor: string | undefined;
+	withAnimatedBg: boolean | undefined;
+	published: boolean | undefined;
+	isPaused: boolean | undefined;
+	step: number | undefined;
+	setStep: React.Dispatch<React.SetStateAction<number>> | undefined;
+	availableOptions: any[] | undefined;
+	questions: any[] | undefined;
+	textareaPlaceholder: string | undefined;
+	buttonLabel: string | undefined;
+	title: string | undefined;
+	description: string | undefined;
 	formId: string | undefined;
-	thankYouPageTitle: string,
-	thankYouPageMessage: string;
-	brandLogo: string;
-	brandName: string;
-	onSubmit: any;
-	onInteraction: any;
-	isRaw?: boolean;
-	isCentered?: boolean;
+	thankYouPageTitle: string | undefined,
+	thankYouPageMessage: string | undefined;
+	brandLogo: string| undefined;
+	brandName: string| undefined;
+	onSubmit: any| undefined;
+	onInteraction: any| undefined;
+	isRaw?: boolean| undefined;
+	isCentered?: boolean| undefined;
 }
 
 const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
@@ -81,7 +82,7 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 
 	const RocketIcon = () => (
 		<svg
-			className="text-gray-50"
+			className="text-gray-50 w-[18px] h-[18px] md:w-[24px] md:h-[24px]"
 			fill="#fff"
 			xmlns="http://www.w3.org/2000/svg"
 			width="24"
@@ -93,11 +94,11 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 	);
 
 	const QuestionList = ({ questions }: { questions: Question[] }) => (
-		<ul className="my-4">
+		<ul className="my-2 md:my-4">
 			{questions?.map((question, index) => (
 				<li
 					key={index}
-					className="my-1 text-gray-600 font-normal text-[16px]"
+					className="my-1 text-gray-600 font-normal text-[13px] md:text-[16px]"
 				>
 					• {question.text}
 				</li>
@@ -125,47 +126,6 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 		>
 			{loading ? <Loader2 className="spin" /> : <><div>{buttonLabel}</div> <RocketIcon /></>}
 		</button>
-	);
-
-	const FormHeader = ({ brandName, brandLogo }: { brandName: string, brandLogo: string }) => (		
-		<div className="flex items-center justify-between mb-8">
-			<div className="relative">
-				<div className="flex items-center gap-3">
-					<Image src={brandLogo || ''} alt={brandName || 'logo'} width={45} height={45}/>
-					<h1 className="text-[1.6rem] font-black text-gray-900 tracking-wide font-fredoka">{brandName}</h1>
-				</div>
-				<div
-					className="w-[80px] h-[3px] absolute bottom-[-10px] left-0"
-					style={{
-						backgroundColor: primaryColor || BASE_PRIMARY_COLOR,
-					}}
-				></div>
-			</div>
-			{step == 2 && (
-				<div
-					className="flex items-center justify-center w-10 h-10 hover:bg-gray-200 border-[1px] border-gray-300 rounded-full cursor-pointer"
-					onClick={() => {
-						setStep((prevStep) => prevStep - 1);
-						if (onInteraction) onInteraction("prevStep");
-					}}
-				>
-					<svg
-						className="w-6 h-6 text-gray-400"
-						clipRule="evenodd"
-						fillRule="evenodd"
-						strokeLinejoin="round"
-						strokeMiterlimit="2"
-						viewBox="0 0 24 24"
-						xmlns="http://www.w3.org/2000/svg"
-					>
-						<path
-							d="m9.474 5.209s-4.501 4.505-6.254 6.259c-.147.146-.22.338-.22.53s.073.384.22.53c1.752 1.754 6.252 6.257 6.252 6.257.145.145.336.217.527.217.191-.001.383-.074.53-.221.293-.293.294-.766.004-1.057l-4.976-4.976h14.692c.414 0 .75-.336.75-.75s-.336-.75-.75-.75h-14.692l4.978-4.979c.289-.289.287-.761-.006-1.054-.147-.147-.339-.221-.53-.221-.191-.001-.38.071-.525.215z"
-							fill-rule="nonzero"
-						/>
-					</svg>
-				</div>
-			)}
-		</div>
 	);
 
 	const CollectWrittenTestimonial = ({
@@ -214,25 +174,25 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 
 		return (
 			<>
-				<p className="my-2 text-gray-900 font-bold text-[16px]">
+				<p className="my-2 text-gray-900 font-bold text-[13px] md:text-[16px]">
 					{description}
 				</p>
 				<QuestionList questions={questions} />
-				<StarsRating ratingChanged={ratingChanged} />
+				<StarsRating value={0} ratingChanged={ratingChanged} />
 				<textarea
 					ref={messageRef}
 					onChange={handleTextareaChange}
-					className="mt-4 p-2.5 rounded-lg border border-gray-300 text-gray-700 min-h-[120px] w-full font-500"
+					className="mt-2 md:mt-4 p-2.5 rounded-lg border border-gray-300 text-gray-700 min-h-[100px] md:min-h-[130px] w-full font-500 text-[13px] md:text-[15px]"
 					placeholder={textareaPlaceholder}
 				></textarea>
 				<button
 					onClick={handleGoToStepTwo}
-					className="p-2.5 rounded-lg text-gray-50 w-full mt-2.5 font-mediumtracking-wide text-[15px] flex items-center gap-4 justify-center"
+					className="p-1.5 md:p-2.5 rounded-lg text-gray-50 w-full mt-2.5 font-mediumtracking-wide text-[13px] md:text-[15px] flex items-center gap-4 justify-center"
 					style={{
 						backgroundColor: primaryColor || BASE_PRIMARY_COLOR,
 					}}
 				>
-					<div>Next</div> <RocketIcon />
+					<div>Next</div> <RocketIcon/>
 				</button>
 			</>
 		);
@@ -501,8 +461,16 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 		brandLogo: string,
 	) => {
 		return (
-			<div className="px-[25px] py-[30px] bg-white shadow-lg rounded-[15px] min-w-[500px] max-w-full w-[530px] text-left border-[1px] border-gray-100 pointer-events ">
-				<FormHeader brandName={brandName} brandLogo={brandLogo} />
+			<div className="px-[15px] md:px-[25px] py-[15px] md:py-[30px] bg-white shadow-lg rounded-[15px] w-full max-w-[480px] text-left border-[1px] border-gray-100 pointer-events testimonial-modal">
+				<FormHeader
+					brandName={brandName} 
+					brandLogo={brandLogo} 
+					primaryColor={primaryColor}
+					BASE_PRIMARY_COLOR={BASE_PRIMARY_COLOR}
+					step={step}
+					setStep={setStep}
+					onInteraction={onInteraction}
+				/>
 
 				{!published && step == -1 ? (
 					<FormUnpublished />
