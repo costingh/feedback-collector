@@ -98,7 +98,7 @@
                     } catch (err) {
                         console.error('Error accessing iframe content:', err);
                     }
-                }, 1000)
+                }, 1300)
             };
 
             // Append overlay and iframe to the body

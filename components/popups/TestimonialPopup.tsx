@@ -24,6 +24,7 @@ import UploadFormEditorLogo from "../form-editor/UploadFormEditorLogo";
 import { cn } from "@/lib/utils";
 import { FormHeader } from "./FormHeader";
 import { FormLoaderSkeleton } from "../skeletons/FormLoaderSkeleton";
+import FormPaused from "../form-editor/FormPaused";
 interface TestimonialPopupProps {
 	backgroundColor: string | undefined;
 	primaryColor: string | undefined;
@@ -489,39 +490,46 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 					onInteraction={onInteraction}
 				/>
 
-				{/*loading animation skeleton*/}
-				{(!published && step == -1 && !isSearchingForm) ? (
-					<FormUnpublished />
+				{isPaused ? (
+					<FormPaused />
 				) : (
 					<>
-					{(step == -1 && isSearchingForm) ?
-						<FormLoaderSkeleton/> :
-						<>
-							{step === 1 && (
-								<CollectWrittenTestimonial
-									questions={questions}
-									textareaPlaceholder={textareaPlaceholder}
-									buttonLabel={buttonLabel}
-									setFinalResponse={setFinalResponse}
-								/>
-							)}
+						{!published && step === -1 && !isSearchingForm ? (
+							<FormUnpublished />
+						) : (
+							<>
+								{step === -1 && isSearchingForm ? (
+									<FormLoaderSkeleton />
+								) : (
+									<>
+										{step === 1 && (
+											<CollectWrittenTestimonial
+												questions={questions}
+												textareaPlaceholder={textareaPlaceholder}
+												buttonLabel={buttonLabel}
+												setFinalResponse={setFinalResponse}
+											/>
+										)}
 
-							{step === 2 && (
-								<CollectReviewerPersonalInformation
-									buttonLabel={buttonLabel}
-								/>
-							)}
+										{step === 2 && (
+											<CollectReviewerPersonalInformation
+												buttonLabel={buttonLabel}
+											/>
+										)}
 
-							{step === 3 && (
-								<ShowThankYouScreen
-									thankYouPageTitle={thankYouPageTitle}
-									thankYouPageMessage={thankYouPageMessage}
-								/>
-							)}
-						</>
-					}
+										{step === 3 && (
+											<ShowThankYouScreen
+												thankYouPageTitle={thankYouPageTitle}
+												thankYouPageMessage={thankYouPageMessage}
+											/>
+										)}
+									</>
+								)}
+							</>
+						)}
 					</>
 				)}
+
 			</div>
 		);
 	};

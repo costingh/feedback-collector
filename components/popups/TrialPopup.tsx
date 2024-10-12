@@ -1,6 +1,7 @@
 import { Lock } from "lucide-react";
 import React from "react";
 import { Button } from "../ui/button";
+import Link from "next/link";
 
 function TrialPopup() {
 	return (
@@ -13,24 +14,31 @@ function TrialPopup() {
 				Upgrade to unlock all features and continue using the platform.
 			</p>
 
-			<div className="mt-6 space-y-2">
-				<Button className="w-full bg-indigo-600 text-white hover:bg-indigo-700">
-					Upgrade to Pro
-				</Button>
-				<Button
-					variant="outline"
-					className="w-full text-indigo-600 border-indigo-600 hover:bg-indigo-100"
-				>
-					Learn More
-				</Button>
+			<div className="mt-6 space-y-4">
+				<Link href='/feedbackz-pricing'>
+					<Button className="w-full bg-indigo-600 text-white hover:bg-indigo-700">
+						Upgrade to Pro
+					</Button>
+				</Link>
+				<div className="my-2"></div>
+				<Link href='/feedbackz-pricing'>
+					<Button
+						variant="outline"
+						className="w-full text-indigo-600 border-indigo-600 hover:bg-indigo-100"
+					>
+						Learn More
+					</Button>
+				</Link>
 			</div>
 
-			<div className="text-sm text-gray-400 mt-6">
-				Need help?{" "}
-				<a href="/support" className="text-indigo-600 hover:underline">
-					Contact Support
-				</a>
-			</div>
+			<Link href='/'>
+				<div className="text-sm text-gray-400 mt-6">
+					Need help?{" "}
+					<a href="/support" className="text-indigo-600 hover:underline">
+						Contact Support
+					</a>
+				</div>
+			</Link>
 		</div>
 	);
 }

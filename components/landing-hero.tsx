@@ -11,17 +11,13 @@ export const LandingHero = () => {
 	return (
 		<div className="flex flex-col min-h-[90vh] animate-in fade-in items-center justify-center">
 			<div className="h-full items-center justify-center flex flex-col">
-				<div className="flex flex-wrap gap-4">
+				<div className="flex flex-wrap gap-4 xs:flex-col xl:flex-row">
 					<div className="flex-1 max-w-[50%]">
 						<h1 className='font-fredoka text-[3rem] text-[#111827] font-black leading-[48px] mb-6'>
-							Collect and manage website feedback in your existing
-							tools
+							Collect and share testimonials to boost trust and conversions.
 						</h1>
 						<p className='text-[18px] text-gray-500 font-[300] mb-6 leading-[30px]'>
-							A website feedback tool for agencies to collect
-							feedback during website reviews. Clients submit
-							feedback on the website, and your team manages it in
-							your project management tool.
+						An intelligent feedback solution for agencies to capture and manage website testimonials. Clients submit testimonials through Feedbackz, while your team effortlessly tracks them within your project dashboard.
 						</p>
 						<div className="flex items-center gap-4 relative">
 							<Link href="/sign-up">
@@ -29,18 +25,18 @@ export const LandingHero = () => {
 									Start Free Trial
 								</Button>
 							</Link>
-							<Link href="/sign-up">
+							<Link href="/sign-up" className="relative">
 								<Button variant="outline" className="rounded-[17px] border-[2px] border-indigo-600 text-indigo-600 px-[25px] !py-[22px] text-[14px] font-[500] w-[220px]">
 									Sign In
 								</Button>
+								<Image
+									src='/no-credit-card.png'
+									width={160}
+									height={160}
+									alt='No credit card required*'
+									className="absolute top-[-30px] right-[-160px]"
+								/>
 							</Link>
-							<Image
-								src='/no-credit-card.png'
-								width={160}
-								height={160}
-								alt='No credit card required*'
-								className="absolute top-[-30px] right-[-15px]"
-						/>
 						</div>
 						<span className="text-gray-500 text-[12px] font-light mr-2 mt-3">No card required</span>
 					</div>

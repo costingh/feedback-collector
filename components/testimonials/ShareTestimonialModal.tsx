@@ -30,12 +30,12 @@ export function ShareTestimonialModal({
 	const [embeddingType, setEmbeddingType] = useState(1);
 
 	const width = "100%";
-	const height = "12000";
+	const height = "100%";
 	const allow = "camera;microphone";
 	
-	const inlineIframeCode = `<div data-collector="feedbackz-collector" data-form-type="inline" data-form-id="${form?.url?.replace('/p/', '')}"></div>\n<script src="${process.env.NEXT_PUBLIC_APP_DOMAIN}/embed.js?formId=${form?.url?.replace('/p/', '')}}&width=${width}&height=${height}&allow=${allow}"></script>`
+	const inlineIframeCode = `<div data-collector="feedbackz-collector" data-form-type="inline" data-form-id="${form?.url?.replace('/p/', '')}"></div>\n<script src="${process.env.NEXT_PUBLIC_APP_DOMAIN}/embed.js?formId=${form?.url?.replace('/p/', '')}&width=${width}&height=${height}&allow=${allow}"></script>`
 	
-	const popupIframeCode = `<div data-collector="feedbackz-collector" data-form-type="popup" data-form-id="${form?.url?.replace('/p/', '')}"></div>\n<script src="${process.env.NEXT_PUBLIC_APP_DOMAIN}/embed.js?formId=${form?.url?.replace('/p/', '')}}&width=${width}&height=${height}&allow=${allow}"></script>`
+	const popupIframeCode = `<div data-collector="feedbackz-collector" data-form-type="popup" data-form-id="${form?.url?.replace('/p/', '')}"></div>\n<script src="${process.env.NEXT_PUBLIC_APP_DOMAIN}/embed.js?formId=${form?.url?.replace('/p/', '')}&width=${width}&height=${height}&allow=${allow}"></script>`
 	
 	const [code, setCode] =
 		useState(embeddingType == 1 ? inlineIframeCode : popupIframeCode);

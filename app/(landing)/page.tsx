@@ -1,3 +1,5 @@
+"use client";
+
 import { LandingNavbar } from "@/components/landing-navbar";
 import { LandingHero } from "@/components/landing-hero";
 import { LandingContent } from "@/components/landing-content";
@@ -9,29 +11,29 @@ import Link from "next/link";
 import { MoveRight } from "lucide-react";
 import Image from "next/image";
 import Footer from "@/components/footer";
+import SignUpButton from '@/components/buttons/SignUpButton';
 
 const LandingPage = () => {
 	return (
-		<div className="h-full">
-			<LandingNavbar />
-			<div className="max-w-full xl:max-w-[65%] mx-auto">
+		<>
+			<div className="max-w-full md:max-w-[85%] xl:max-w-[65%] mx-auto px-5 h-gull">
+				<LandingNavbar />
 				<LandingHero />
 
 				<div className="w-full bg-indigo-600 rounded-[40px] py-[80px] px-[100px]">
 					<div className="flex-wrap flex items-center">
 						<div className="w-[80%]">
 							{/* <p className="text-gray-100 text-[18px] font-black">
-								Our Customers
-							</p> */}
+									Our Customers
+								</p> */}
 							<h1 className="text-white text-[40px] font-black">
-								Back your product decisions with real user
-								feedback
+								Back your product decisions with real user feedback
 							</h1>
 							{/* <span className="text-gray-300 text-[18px] text-bold">
-								We haveve purchased or tested the majority of tools
-								on the market for getting website feedback from our
-								clients and Feedbucket has to be the best!
-							</span> */}
+									We haveve purchased or tested the majority of tools
+									on the market for getting website feedback from our
+									clients and Feedbucket has to be the best!
+								</span> */}
 						</div>
 						<div className="w-[20%] flex flex-col gap-2 items-center justify-center">
 							<Link href="/forms">
@@ -51,38 +53,51 @@ const LandingPage = () => {
 						With Feedbackz
 					</p>
 					<h1 className="text-[42px] text-gray-900 font-black max-w-3xl text-center font-fredoka !leading-[42px] tracking-tight">
-						Empower your clients to submit feedback without leaving
-						the website
+						Empower your clients to submit feedback without leaving the
+						website
 					</h1>
 					<p className="text-gray-500 font-light text-[17px]">
 						No extensions or registrations needed by your clients.
 					</p>
-					<Link href="/sign-up">
+					<SignUpButton variant='solid' href='/sign-up' text='Start Free Trial'/>
+				</div>
+			</div>
+			<div className="divider h-[100px]"></div>
+			<div className="w-full bg-[#0B1624] py-[80px] px-[100px]">
+				<div className="flex items-center justify-center flex-col gap-4">
+					<h2 className="text-4xl max-w-2xl font-bold mb-4 text-white">Harness the capabilities of ChatGPT directly within Shopify—at scale! 🚀</h2>
+					<Image
+						src="/demo-image-1.png"
+						alt=""
+						width={400}
+						height={400}
+						className="max-w-[400px] w-full rounded-[15px]"
+					/>
+					<Link href="/forms">
 						<Button
 							variant="outline"
-							className="rounded-[14px] border-[1px] border-indigo-600 bg-indigo-600 px-[18px] py-[0px] text-white text-[13px] font-bold hover:bg-white hover:text-indigo-600"
+							className="rounded-[14px] border-[1px] border-white-900 bg-white px-[18px] py-[0px] text-gray-900 text-[13px] font-bold hover:text-gray-500"
 						>
-							Start Free Trial
+							Try Feedbackz for free
 						</Button>
 					</Link>
 				</div>
-
-				<div className="divider h-[100px]"></div>
-
+			</div>
+			<div className="divider h-[100px]"></div>
+			<div className="max-w-full md:max-w-[85%] xl:max-w-[65%] mx-auto px-5 h-gull">
 				<div className="flex">
 					<div className="w-[50%]">
 						<p className="text-indigo-600 font-bold text-[18px] mb-4">
 							Feedback capture
 						</p>
 						<h1 className="text-gray-900 font-black text-[32px] mb-4 !leading-[32px] tracking-normal">
-							Ensure all feedback comes with a screenshot,
-							recording, and essential details
+							Ensure all feedback comes with a screenshot, recording,
+							and essential details
 						</h1>
 						<span className="text-gray-500 font-normal text-[18px]">
-							Stop struggling with vague and unclear client
-							feedback, directly pinpoint what needs changing by
-							automatically capturing screenshots, recordings, and
-							key details.
+							Stop struggling with vague and unclear client feedback,
+							directly pinpoint what needs changing by automatically
+							capturing screenshots, recordings, and key details.
 						</span>
 						<Link href="/sign-up" className="block">
 							<Button
@@ -124,14 +139,13 @@ const LandingPage = () => {
 							Feedback capture
 						</p>
 						<h1 className="text-gray-900 font-black text-[32px] mb-4 !leading-[32px] tracking-normal">
-							Ensure all feedback comes with a screenshot,
-							recording, and essential details
+							Ensure all feedback comes with a screenshot, recording,
+							and essential details
 						</h1>
 						<span className="text-gray-500 font-normal text-[18px]">
-							Stop struggling with vague and unclear client
-							feedback, directly pinpoint what needs changing by
-							automatically capturing screenshots, recordings, and
-							key details.
+							Stop struggling with vague and unclear client feedback,
+							directly pinpoint what needs changing by automatically
+							capturing screenshots, recordings, and key details.
 						</span>
 						<Link href="/sign-up" className="block">
 							<Button
@@ -153,8 +167,8 @@ const LandingPage = () => {
 					<div className="absolute -bottom-28 -left-20 w-56 h-56 bg-opacity-25 rounded-full bg-indigo-500"></div>
 					<div className="absolute -top-28 -right-24 bg-opacity-75 w-64 h-64 rounded-full bg-indigo-800"></div>
 					<h1 className="text-white text-[32px] font-black text-center max-w-2xl leading-[38px]">
-						Tired of unorganized client feedback? Start you free
-						14-day trial now.
+						Tired of unorganized client feedback? Start you free 14-day
+						trial now.
 					</h1>
 					<Link href="/forms">
 						<Button
@@ -191,11 +205,10 @@ const LandingPage = () => {
 
 				<div className="divider h-[100px]"></div>
 
-				<Footer/>
+				<Footer />
+				<CrispChat />
 			</div>
-
-			<CrispChat />
-		</div>
+		</>
 	);
 };
 
