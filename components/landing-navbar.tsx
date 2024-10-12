@@ -1,17 +1,17 @@
 "use client";
 
-import { Montserrat } from "next/font/google";
-import Image from "next/image";
-import Link from "next/link";
 import { useAuth } from "@clerk/nextjs";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
 import Logo from "./logo";
+import Link from "next/link";
+import { MenuIcon, XIcon } from "lucide-react";
+import SignUpButton from "./buttons/SignUpButton";
 
 export const LandingNavbar = ({ isWaitlist }: { isWaitlist?: boolean }) => {
 	const { isSignedIn } = useAuth();
 	const [isScrolled, setIsScrolled] = useState(false);
+	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // State to handle mobile menu
 
 	const handleScroll = () => {
 		setIsScrolled(window.scrollY > 0);
@@ -26,63 +26,110 @@ export const LandingNavbar = ({ isWaitlist }: { isWaitlist?: boolean }) => {
 
 	return (
 		<nav
-			className="fixed w-full top-0 left-0 transition-all py-3 z-1000"
+			className={`fixed w-full top-0 left-0 transition-all z-50 bg-white ${
+				isScrolled ? "shadow-lg" : ""
+			}`}
 		>
-			<div className="max-w-full xl:max-w-[65%] mx-auto px-[35px] py-[12px] flex items-center justify-between bg-[#f4f4f4] rounded-[20px] shadow-lg">
-				<Logo/>
-				<div className="flex items-center gap-x-10">
-					<div className="text-[13px] font-[400] text-[#000] cursor-pointer transition-all hover:text-gray-500">
-						Features
-					</div>
-					<div className="text-[13px] font-[400] text-[#000] cursor-pointer transition-all hover:text-gray-500">
-						Pricing
-					</div>
+			<div className="max-w-full md:max-w-[85%] xl:max-w-[65%] mx-auto px-5 py-3 flex items-center justify-between">
+				<Logo />
+
+				{/* Hamburger Menu for Mobile */}
+				<div className="md:hidden">
+					<button
+						onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+						className="focus:outline-none"
+					>
+						{isMobileMenuOpen ? (
+							<XIcon className="h-6 w-6 text-black" />
+						) : (
+							<MenuIcon className="h-6 w-6 text-black" />
+						)}
+					</button>
 				</div>
 
+				{/* Desktop Menu */}
+				<div className="hidden md:flex items-center gap-x-10">
+					<div className="text-sm font-medium text-black cursor-pointer transition-all hover:text-gray-500">
+						Features
+					</div>
+					<Link href="/feedbackz-pricing">
+						<div className="text-sm font-medium text-black cursor-pointer transition-all hover:text-gray-500">
+							Pricing
+						</div>
+					</Link>
+				</div>
+
+				{/* Conditional Sign-in/Sign-up Buttons */}
 				{!isWaitlist && !isSignedIn && (
-					<div className="flex items-center gap-x-4">
-						<Link href="/sign-up">
-							<Button
-								variant="outline"
-								className="rounded-[14px] border-[1px] border-gray-900 bg-gray-900 px-[18px] py-[0px] text-white text-[13px] font-bold hover:text-gray-900"
-							>
-								Sign In
-							</Button>
-						</Link>
-						<Link href="/sign-up">
-							<Button
-								variant="outline"
-								className="rounded-[14px] border-[1px] border-gray-900 bg-gray-900 px-[18px] py-[0px] text-white text-[13px] font-bold hover:text-gray-900"
-							>
-								Start Free Trial
-							</Button>
-						</Link>
+					<div className="hidden md:flex items-center gap-x-4">
+						<SignUpButton variant='outlined' href='/sign-in' text='Sign In'/>
+						<SignUpButton variant='solid' href='/sign-up' text='Start Free Trial'/>
 					</div>
 				)}
+
 				{!isWaitlist && isSignedIn && (
-					<div className="flex items-center gap-x-2">
+					<div className="hidden md:flex items-center gap-x-2">
 						<Link href="/forms">
-							<Button
-								variant="outline"
-								className="rounded-[14px] border-[1px] border-gray-900 bg-gray-900 px-[18px] py-[0px] text-white text-[13px] font-bold hover:text-gray-900"
-							>
+							<Button className="rounded-lg border border-indigo-600 bg-indigo-600 text-white text-sm font-bold hover:text-indigo-600">
 								Dashboard
 							</Button>
 						</Link>
 					</div>
 				)}
+
 				{isWaitlist && (
-					<div className="flex items-center gap-x-2">
-						<Button
-							disabled
-							variant="outline"
-							className="rounded-full"
-						>
+					<div className="hidden md:flex items-center gap-x-2">
+						<Button disabled className="rounded-full">
 							Try it now!
 						</Button>
 					</div>
 				)}
 			</div>
+
+			{/* Mobile Menu (Visible on small screens) */}
+			{isMobileMenuOpen && (
+				<div className="md:hidden flex flex-col items-center bg-white py-3 space-y-2">
+					<div className="text-sm font-medium text-black cursor-pointer transition-all hover:text-gray-500">
+						Features
+					</div>
+					<div className="text-sm font-medium text-black cursor-pointer transition-all hover:text-gray-500">
+						Pricing
+					</div>
+
+					{!isWaitlist && !isSignedIn && (
+						<div className="flex flex-col items-center gap-y-2">
+							<Link href="/sign-up">
+								<Button className="rounded-lg border border-indigo-600 bg-indigo-600 text-white text-sm font-bold hover:text-indigo-600">
+									Sign In
+								</Button>
+							</Link>
+							<Link href="/sign-up">
+								<Button className="rounded-lg border border-indigo-600 bg-indigo-600 text-white text-sm font-bold hover:text-indigo-600">
+									Start Free Trial
+								</Button>
+							</Link>
+						</div>
+					)}
+
+					{!isWaitlist && isSignedIn && (
+						<div className="flex flex-col items-center gap-y-2">
+							<Link href="/forms">
+								<Button className="rounded-lg border border-indigo-600 bg-indigo-600 text-white text-sm font-bold hover:text-indigo-600">
+									Dashboard
+								</Button>
+							</Link>
+						</div>
+					)}
+
+					{isWaitlist && (
+						<div className="flex items-center gap-y-2">
+							<Button disabled className="rounded-full">
+								Try it now!
+							</Button>
+						</div>
+					)}
+				</div>
+			)}
 		</nav>
 	);
 };

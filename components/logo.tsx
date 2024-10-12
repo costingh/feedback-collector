@@ -5,18 +5,10 @@ import React from "react";
 
 function Logo() {
 	return (
-		<Link href="/" className="flex items-center">
-			<div className="relative h-8 w-8 mr-4">
-				<Image fill alt="Logo" src="/logo.png" />
+		<Link href="/">
+			<div>
+				<Image width={200} height={35} alt="Feedbackz." src="/logo-full.png" />
 			</div>
-			<h1
-				className={cn(
-					"fredoka text-[26px] font-[900] text-[#000] relative"
-				)}
-			>
-				Feedbackz
-				<span className="w-[6px] h-[6px] bg-green-400 rounded-full absolute right-[-10px] bottom-[5px]"></span>
-			</h1>
 		</Link>
 	);
 }
