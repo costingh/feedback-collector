@@ -48,7 +48,8 @@ export async function POST(req: Request) {
                 },
                 questions: {
                     create: formData.questions
-                }
+                },
+                projectId: formData.projectId
             },
             include: {
                 formFields: true,

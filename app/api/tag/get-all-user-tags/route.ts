@@ -9,10 +9,14 @@ export async function GET(req: Request) {
         if (!userId) {
             return new NextResponse("Unauthorized", { status: 401 });
         }
+
+        const url = new URL(req.url);
+        const projectId = url.searchParams.get('projectId') || '';
         
         const tags = await prismadb.tag.findMany({
             where: {
                 userId: userId,
+                projectId
             },
         });
 

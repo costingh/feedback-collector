@@ -21,6 +21,7 @@ export async function POST(req: Request) {
                 userId,
                 type: data.type,
                 testimonialsIds: data.testimonialsIds,
+                projectId: data.projectId
                 // widgetType: data.widgetType
             }
         });

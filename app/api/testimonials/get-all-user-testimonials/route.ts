@@ -10,10 +10,15 @@ export async function GET(req: Request) {
             return new NextResponse("Unauthorized", { status: 401 });
         }
 
+        const url = new URL(req.url);
+        const projectId = url.searchParams.get('projectId') || '';
+
+        console.log('########################3  ', projectId)
         const testimonials = await prismadb.formResponse.findMany({
             where: {
                 form: {
                     userId: userId,
+                    projectId: projectId
                 },
             },
             include: {

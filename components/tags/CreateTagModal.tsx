@@ -29,6 +29,8 @@ import { toast } from "sonner";
 import axios from "axios";
 import { Tag } from "@/types/Tag";
 import { tagCategories as categories } from "@/lib/utils";
+import { useProjectContext } from "@/context/ProjectContext";
+import { useProjects } from "@/hooks/useProjects";
 
 const Category = ({
 	category,
@@ -78,12 +80,20 @@ export function CreateTagModal({setTags}: {setTags? : (tags: Tag[]) => void}) {
 
 	const [creatingTag, setCreatingTag] = useState(false);
 
+	const { isSearchingProjects, projects, refreshProjects, setProjects } = useProjects();
+	const { activeProject, setActiveProject } = useProjectContext();
+
 	const handleCreateTag = async () => {
 		setCreatingTag(true);
 
 		if (!formValue.tagName) {
 			toast.error("Tag name is required");
 			setCreatingTag(false);
+			return;
+		}
+		
+		if (!activeProject) {
+			toast.error("Form could not be created because project is undefined!");
 			return;
 		}
 
@@ -94,6 +104,7 @@ export function CreateTagModal({setTags}: {setTags? : (tags: Tag[]) => void}) {
 					category: formValue.category,
 					tagDescription: formValue.tagDescription,
 					formResponsesIds: [],
+					projectId: activeProject.id
 				},
 			});
 

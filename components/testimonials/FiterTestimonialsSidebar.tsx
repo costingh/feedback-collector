@@ -7,6 +7,8 @@ import { Input } from "@/components/ui/input";
 import { useTags } from "@/hooks/useTags";
 import { cn, tagCategories } from "@/lib/utils";
 import axios from "axios";
+import { useProjectContext } from "@/context/ProjectContext";
+import { useProjects } from "@/hooks/useProjects";
 
 const TagComponent = ({
 	label,
@@ -39,7 +41,8 @@ const FiterTestimonialsSidebar: React.FC = ({
 	setFilters,
 	showFilterSidebar,
 	setShowFilterSidebar,
-	withoutCloseButton
+	withoutCloseButton,
+	children
 }: {
 	testimonials: any;
 	filters: any;
@@ -47,13 +50,18 @@ const FiterTestimonialsSidebar: React.FC = ({
 	showFilterSidebar: boolean;
 	setShowFilterSidebar: any;
 	withoutCloseButton?: boolean;
+	children: React.ReactNode
 }) => {
 	const { tags, setTags, isSearchingTags, groupedTags, reloadTags } =
 		useTags();
 
+	const { isSearchingProjects, projects, refreshProjects, setProjects } = useProjects();
+	const { activeProject, setActiveProject } = useProjectContext();
+
 	const [userForms, setUserForms] = useState([]);
 	const fetchAllUserForms = async () => {
-		const response = await axios.get("/api/get-all-user-forms");
+		
+		const response = await axios.get("/api/get-all-user-forms?projectId=" + activeProject?.id);
 		setUserForms(response.data.forms);
 	};
 
@@ -71,6 +79,8 @@ const FiterTestimonialsSidebar: React.FC = ({
 				{!withoutCloseButton && <div onClick={() => setShowFilterSidebar(false)} className="flex items-center justify-center p-2 rounded-[6px] bg-gray-200 cursor-pointer transition-all hover:bg-gray-100">
 					<X size={14} />
 				</div>}
+				{children && <>{children}</>}
+
 			</div>
 
 			<Input

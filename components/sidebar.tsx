@@ -9,23 +9,27 @@ import { cn } from "@/lib/utils";
 import { routes } from "@/constants/sidebar-constants";
 import { FreeCounter } from "./free-counter";
 import SidebarUserButton from "./SidebarUserButton";
+import { WorkspacesSwitch } from "./project/WorkspacesSwitch";
 
 const poppins = Montserrat({ weight: "600", subsets: ["latin"] });
 
 interface ISidebarProps {
 	apiLimitCount: number;
 	isPro: boolean;
+	projectName: string;
 }
 
 export default function Sidebar({
 	apiLimitCount = 0,
 	isPro = false,
+	projectName
 }: ISidebarProps) {
 	const pathname = usePathname();
 
 	return (
 		<div className="space-y-4 py-4 flex flex-col h-full bg-white">
 			<div className="px-3 py-2 flex-1">
+				<WorkspacesSwitch projectName={projectName}/>
 				<div>
 					{routes.map((route) => (
 						<div key={route.section}>
@@ -34,10 +38,10 @@ export default function Sidebar({
 								<div key={r.href}>
 									<Link
 										key={r.href}
-										href={r.href}
+										href={r.href == '/subscription' || r.href == '/settings' ? r.href : `/projects/${projectName}/${r.href}`}
 										className={cn(
 											"text-sm group flex w-full justify-start font-[400] cursor-pointer hover:bg-gray-100 rounded-lg transition mb-[4px] px-[6px] py-[5px]",
-											pathname === r.href
+											pathname.includes(r.href)
 												? "text-gray-700 bg-gray-100"
 												: "text-gray-700"
 										)}

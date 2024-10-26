@@ -52,6 +52,8 @@ model Form {
   thankYouPageMessage String
   thankYouCustomURL   String
   FormAnalytics       FormAnalytics[]
+  projectId           String
+  project             Project         @relation(fields: [projectId], references: [id])
 }
 
 model FormField {
@@ -111,6 +113,8 @@ model Widget {
   type            String
   testimonialsIds String[]
   WidgetAnalytics WidgetAnalytics[]
+  projectId       String
+  project         Project           @relation(fields: [projectId], references: [id])
 }
 
 model Tag {
@@ -122,6 +126,8 @@ model Tag {
   updatedAt        DateTime @updatedAt
   userId           String
   formResponsesIds String[]
+  projectId        String
+  project          Project  @relation(fields: [projectId], references: [id])
 }
 
 model BugReport {
@@ -150,4 +156,16 @@ model WidgetAnalytics {
   Widget Widget @relation(fields: [widgetId], references: [id])
 
   @@index([widgetId, createdAt])
+}
+
+model Project {
+  id          String   @id @default(cuid())
+  name        String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  userId      String
+  Tag         Tag[]
+  Widget      Widget[]
+  Form        Form[]
 }

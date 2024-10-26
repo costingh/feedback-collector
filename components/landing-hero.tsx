@@ -17,7 +17,7 @@ export const LandingHero = () => {
 							Collect and share testimonials to boost trust and conversions.
 						</h1>
 						<p className='text-[18px] text-gray-500 font-[300] mb-6 leading-[30px]'>
-						An intelligent feedback solution for agencies to capture and manage website testimonials. Clients submit testimonials through Feedbackz, while your team effortlessly tracks them within your project dashboard.
+							Feedbackz helps you effortlessly collect and manage client testimonials. Clients submit feedback directly, and your team tracks and approves it from a central dashboard—building trust and boosting conversions with ease.
 						</p>
 						<div className="flex items-center gap-4 relative">
 							<Link href="/sign-up">
@@ -38,7 +38,7 @@ export const LandingHero = () => {
 								/>
 							</Link>
 						</div>
-						<span className="text-gray-500 text-[12px] font-light mr-2 mt-3">No card required</span>
+						<span className="text-gray-500 text-[12px] font-light mr-2 mt-3">Free 14 days trial</span>
 					</div>
 					<div className="flex-1 flex items-center justify-center">
 						<Image

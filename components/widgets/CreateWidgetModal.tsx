@@ -34,6 +34,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { useProjectContext } from "@/context/ProjectContext";
 
 function generateUniqueId(length = 8) {
 	const characters =
@@ -65,6 +66,8 @@ export function CreateWidgetModal({
 	});
 	const [widgetType, setWidgetType] = useState(predefinedWidgetType || "");
 
+	const { activeProject, setActiveProject } = useProjectContext();
+
 	const handleCreateWidget = async () => {
 		setCreatingWidget(true);
 
@@ -80,6 +83,12 @@ export function CreateWidgetModal({
 			return;
 		}
 
+		if(!activeProject) {
+			toast.error('No project is selected')
+			setCreatingWidget(false)
+			return;
+		}
+
 		try {
 			const response = await axios.post("/api/widgets/create", {
 				data: {
@@ -88,6 +97,7 @@ export function CreateWidgetModal({
 					url: "/" + generateUniqueId(7),
 					type: widgetType,
 					testimonialsIds: selectedIds,
+					projectId: activeProject.id
 				},
 			});
 

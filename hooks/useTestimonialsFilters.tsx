@@ -10,7 +10,7 @@ export const useTestimonialsFilter = (): TestimonialsFilterReturn => {
 	const [filters, setFilters] = useState({
 		searchForKeywords: "",
 		rating: 0,
-		approvalStatus: "approved",
+		approvalStatus: "all",
 		tags: [],
 		forms: [],
 	});

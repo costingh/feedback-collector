@@ -14,6 +14,7 @@ export async function GET(req: Request) {
         // Parse the request URL to get query parameters
         const url = new URL(req.url);
         const widgetUrl = url.searchParams.get('url');  // The 'url' parameter can be used to identify a specific widget
+        const projectId = url.searchParams.get('projectId') || '';
 
         let widgets;
 
@@ -35,6 +36,7 @@ export async function GET(req: Request) {
             widgets = await prismadb.widget.findMany({
                 where: {
                     userId: userId,
+                    projectId: projectId
                 },
             });
         }

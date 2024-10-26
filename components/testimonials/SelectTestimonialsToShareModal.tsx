@@ -37,37 +37,8 @@ export const SelectTestimonialsToShareModal = ({
 	widgetId: string;
 	refreshData?: any;
 }) => {
-	const [isLoading, setIsLoading] = useState(false);
 	const { filters, setFilters } = useTestimonialsFilter();
 	const [filteredTestimonials, setFilteredTestimonials] = useState([]);
-
-	const handleUpdate = async () => {
-		setIsLoading(true);
-
-		try {
-			const response = await axios.post("/api/widgets/update", {
-				data: {
-					widgetId: widgetId,
-					testimonialsIds: Array.from(checkedItems),
-				},
-			});
-
-			const resp = response?.data?.updatedWidget;
-
-			if (resp) {
-				refreshData && refreshData();
-				handleClose();
-				toast.success("Success");
-			} else {
-				toast.error("Error");
-			}
-		} catch (error) {
-			console.log(error);
-			toast.error(JSON.stringify(error));
-		} finally {
-			setIsLoading(false);
-		}
-	};
 
 	useEffect(() => {
 		let _filteredTestimonials = [...testimonials];
@@ -118,36 +89,23 @@ export const SelectTestimonialsToShareModal = ({
 		<Dialog open={isOpened} onOpenChange={handleClose}>
 			<DialogContent className="max-h-[calc(100vh-200px)] w-full max-w-[1200px] overflow-y-auto overflow-x-hidden">
 				<DialogHeader>
-					<DialogTitle className="flex items-center justify-between items-between gap-y-4 pb-2">
-						<div className="inline-block">
-							<div className="flex items-center gap-x-2 font-bold text-xl">
-								Approved testimonials
-							</div>
-							<p className="text-[15px] text-gray-600 font-normal">
-								New testimonials that you approve will
-								automatically get added to this widget
-							</p>
-						</div>
-
-						<div
-							onClick={handleUpdate}
-							className="text-center py-[10px] rounded-[8px] bg-[#000] text-[#eee] w-full cursor-pointer text-[14px] font-semibold hover:opacity-80 max-w-[200px]"
-						>
-							{!isLoading ? (
-								"Update testimonials"
-							) : (
-								<div className="flex items-center justify-center">
-									<LoadingSpinner />
-								</div>
-							)}
-						</div>
-					</DialogTitle>
+					<DialogTitle className="flex items-center justify-between items-between gap-y-4 pb-2"></DialogTitle>
 					{/* <DialogDescription >
 						
 					</DialogDescription> */}
 				</DialogHeader>
 				<div className="text-center pt-2 space-y-2 text-zinc-900 font-medium flex">
 					<div className="w-[750px] mr-2">
+						<div className="inline-block mb-[20px] w-full text-left">
+							<div className="flex items-center gap-x-2 font-bold text-xl">
+								Approved testimonials
+							</div>
+							<p className="text-[15px] text-gray-600 font-normal">
+								New testimonials that you approve wont
+								automatically get added to this widget
+							</p>
+						</div>
+
 						<TestimonialsList
 							testimonials={filteredTestimonials}
 							tags={tags}
@@ -165,10 +123,75 @@ export const SelectTestimonialsToShareModal = ({
 							showFilterSidebar={true}
 							setShowFilterSidebar={() => undefined}
 							withoutCloseButton={true}
+							children={
+								<UpdateWidgetHighlightedTestimonials
+									refreshData={refreshData}
+									widgetId={widgetId}
+									handleClose={handleClose}
+									checkedItems={checkedItems}
+								/>
+							}
 						/>
 					</div>
 				</div>
 			</DialogContent>
 		</Dialog>
+	);
+};
+
+const UpdateWidgetHighlightedTestimonials = ({
+	refreshData,
+	widgetId,
+	handleClose,
+	checkedItems,
+}: {
+	refreshData: any;
+	widgetId: any;
+	handleClose: any;
+	checkedItems: any;
+}) => {
+	const [isLoading, setIsLoading] = useState(false);
+
+	const handleUpdate = async () => {
+		setIsLoading(true);
+
+		try {
+			const response = await axios.post("/api/widgets/update", {
+				data: {
+					widgetId: widgetId,
+					testimonialsIds: Array.from(checkedItems),
+				},
+			});
+
+			const resp = response?.data?.updatedWidget;
+
+			if (resp) {
+				refreshData && refreshData();
+				handleClose();
+				toast.success("Success");
+			} else {
+				toast.error("Error");
+			}
+		} catch (error) {
+			console.log(error);
+			toast.error(JSON.stringify(error));
+		} finally {
+			setIsLoading(false);
+		}
+	};
+
+	return (
+		<div
+			onClick={handleUpdate}
+			className="text-center py-[6px] rounded-[8px] bg-[#000] text-[#eee] px-3 cursor-pointer text-[13px] font-semibold hover:opacity-80"
+		>
+			{!isLoading ? (
+				"Update testimonials"
+			) : (
+				<div className="flex items-center justify-center">
+					<LoadingSpinner />
+				</div>
+			)}
+		</div>
 	);
 };

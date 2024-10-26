@@ -3,6 +3,8 @@ import axios from "axios";
 import { toast } from "sonner";
 import { Tag } from "@/types/Tag";
 import { groupTagsByCategory } from "@/lib/utils";
+import { useProjects } from "./useProjects";
+import { useProjectContext } from "@/context/ProjectContext";
 
 interface UseTagsReturn {
 	isSearchingTags: boolean;
@@ -17,10 +19,14 @@ export const useTags = (): UseTagsReturn => {
 	const [tags, setTags] = useState<Tag[]>([]);
 	const [groupedTags, setGroupedTagsTags] = useState<Record<string, Tag[]>>({});
 
+	const { isSearchingProjects, projects, refreshProjects, setProjects } = useProjects();
+	const { activeProject, setActiveProject } = useProjectContext();
+
 	const handleGetAllUserTags = useCallback(async () => {
 		setIsSearchingTags(true);
 		try {
-			const response = await axios.get("/api/tag/get-all-user-tags");
+			
+			const response = await axios.get("/api/tag/get-all-user-tags?projectId=" + activeProject?.id);
 			console.log(response?.data?.tags)
 			setTags(response?.data?.tags || []);
 			//@ts-ignore
