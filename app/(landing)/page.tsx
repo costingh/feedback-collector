@@ -27,13 +27,11 @@ const LandingPage = () => {
 									Our Customers
 								</p> */}
 							<h1 className="text-white text-[40px] font-black">
-								Back your product decisions with real user feedback
+								Boost your sales and enhance customer trust with authentic testimonials
 							</h1>
-							{/* <span className="text-gray-300 text-[18px] text-bold">
-									We haveve purchased or tested the majority of tools
-									on the market for getting website feedback from our
-									clients and Feedbucket has to be the best!
-								</span> */}
+							<span className="text-gray-300 text-[18px] text-bold">
+								Leverage genuine testimonials to showcase customer satisfaction and build credibility, driving conversions and loyalty for your business
+							</span>
 						</div>
 						<div className="w-[20%] flex flex-col gap-2 items-center justify-center">
 							<Link href="/forms">
@@ -53,7 +51,7 @@ const LandingPage = () => {
 						With Feedbackz
 					</p>
 					<h1 className="text-[42px] text-gray-900 font-black max-w-3xl text-center font-fredoka !leading-[42px] tracking-tight">
-						Empower your clients to submit feedback without leaving the
+						Empower your clients to submit testimonials without leaving the
 						website
 					</h1>
 					<p className="text-gray-500 font-light text-[17px]">
@@ -65,7 +63,7 @@ const LandingPage = () => {
 			<div className="divider h-[100px]"></div>
 			<div className="w-full bg-[#0B1624] py-[80px] px-[100px]">
 				<div className="flex items-center justify-center flex-col gap-4">
-					<h2 className="text-4xl max-w-2xl font-bold mb-4 text-white">Harness the capabilities of ChatGPT directly within Shopify—at scale! 🚀</h2>
+					<h2 className="text-4xl max-w-2xl font-bold mb-4 text-white text-center">Unlock the full potential of Feedbackz, the ultimate testimonial collector, seamlessly integrated into your website! 🚀</h2>
 					<Image
 						src="/demo-image-1.png"
 						alt=""
@@ -88,16 +86,13 @@ const LandingPage = () => {
 				<div className="flex">
 					<div className="w-[50%]">
 						<p className="text-indigo-600 font-bold text-[18px] mb-4">
-							Feedback capture
+							Seamless Testimonial Collection
 						</p>
 						<h1 className="text-gray-900 font-black text-[32px] mb-4 !leading-[32px] tracking-normal">
-							Ensure all feedback comes with a screenshot, recording,
-							and essential details
+							Easily gather authentic testimonials directly from your website with customizable forms and popups.
 						</h1>
 						<span className="text-gray-500 font-normal text-[18px]">
-							Stop struggling with vague and unclear client feedback,
-							directly pinpoint what needs changing by automatically
-							capturing screenshots, recordings, and key details.
+							Say goodbye to missed opportunities and let your customers share their positive experiences effortlessly.
 						</span>
 						<Link href="/sign-up" className="block">
 							<Button
@@ -113,7 +108,7 @@ const LandingPage = () => {
 					</div>
 					<div className="w-[50%]">
 						<Image
-							src="/demo-image-1.png"
+							src="/1.avif"
 							alt=""
 							width={400}
 							height={400}
@@ -136,16 +131,13 @@ const LandingPage = () => {
 					</div>
 					<div className="w-[50%]">
 						<p className="text-indigo-600 font-bold text-[18px] mb-4">
-							Feedback capture
+							Dynamic Showcase Options
 						</p>
 						<h1 className="text-gray-900 font-black text-[32px] mb-4 !leading-[32px] tracking-normal">
-							Ensure all feedback comes with a screenshot, recording,
-							and essential details
+							Display testimonials in style with customizable widgets and testimonial walls.
 						</h1>
 						<span className="text-gray-500 font-normal text-[18px]">
-							Stop struggling with vague and unclear client feedback,
-							directly pinpoint what needs changing by automatically
-							capturing screenshots, recordings, and key details.
+							Transform your website into a trust-building platform that highlights real customer satisfaction and boosts credibility.
 						</span>
 						<Link href="/sign-up" className="block">
 							<Button
@@ -158,6 +150,42 @@ const LandingPage = () => {
 								<MoveRight className="text-inherit" size={13} />
 							</Button>
 						</Link>
+					</div>
+				</div>
+
+				<div className="divider h-[100px]"></div>
+
+				<div className="flex">
+					<div className="w-[50%]">
+						<p className="text-indigo-600 font-bold text-[18px] mb-4">
+							Effortless Integration
+						</p>
+						<h1 className="text-gray-900 font-black text-[32px] mb-4 !leading-[32px] tracking-normal">
+							Integrate Feedbackz seamlessly into your existing website or SaaS platform.
+						</h1>
+						<span className="text-gray-500 font-normal text-[18px]">
+							Enjoy a hassle-free setup that allows you to start collecting and showcasing testimonials without any technical headaches.
+						</span>
+						<Link href="/sign-up" className="block">
+							<Button
+								variant="outline"
+								className="text-[15px] font-medium !text-indigo-600 cursor-pointer background-none border-none hover:border-indigo-600 border-transparent border-b border-[1px] hover:bg-transparent p-0"
+							>
+								<span className="hover:pr-[15px] pr-[5px] transition-all">
+									Try now for free
+								</span>
+								<MoveRight className="text-inherit" size={13} />
+							</Button>
+						</Link>
+					</div>
+					<div className="w-[50%]">
+						<Image
+							src="/demo-image-1.png"
+							alt=""
+							width={400}
+							height={400}
+							className="w-full"
+						/>
 					</div>
 				</div>
 

@@ -17,7 +17,7 @@ export const LandingHero = () => {
 							Collect and share testimonials to boost trust and conversions.
 						</h1>
 						<p className='text-[18px] text-gray-500 font-[300] mb-6 leading-[30px]'>
-							Feedbackz helps you effortlessly collect and manage client testimonials. Clients submit feedback directly, and your team tracks and approves it from a central dashboard—building trust and boosting conversions with ease.
+						Feedbackz enables you to seamlessly collect and showcase client testimonials through customizable forms and popups. Easily embed these on your website, share them with customers, and create dynamic widgets or testimonial walls to display on your SaaS platform, website, or blog. Enhance customer satisfaction and build trust effortlessly.
 						</p>
 						<div className="flex items-center gap-4 relative">
 							<Link href="/sign-up">
