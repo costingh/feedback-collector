@@ -8,13 +8,11 @@ export const PLANS = {
             interval: "yearly",
             description: "Start taking control of your website feedback process.",
             details: [
-                "Unlimited projects & feedback",
-                "Unlimited reporters",
-                "5 team members",
-                "Screenshot feedback",
-                "Video feedback",
-                "Feedback collaboration",
+                "Unlimited projects & testimonials",
+                "1 team member",
+                "Written testimonials",
                 "Integrations",
+                "Export data",
             ],
         },
         {
@@ -27,13 +25,10 @@ export const PLANS = {
             mostPopular: true,
             details: [
                 "All in Pro",
-                "25 team members",
-                "Console logs",
-                "JavaScript API",
+                "5 team members",
                 "Custom branding",
                 'Remove the "Powered By"',
-                "Custom metadata",
-                "Export data",
+                "Custom metadata"
             ],
         },
         {
@@ -45,10 +40,11 @@ export const PLANS = {
             description: "For your enterprise needs and priority support.",
             details: [
                 "All in Business",
-                "Dedicated success manager",
+                "Unlimited projects",
+                "Unlimited team members",
                 "Priority support",
                 "Pay by invoice",
-                "SSO (coming soon)",
+                "Custom features",
             ],
         },
     ],
@@ -61,13 +57,11 @@ export const PLANS = {
             interval: "monthly",
             description: "Start taking control of your website feedback process.",
             details: [
-                "Unlimited projects & feedback",
-                "Unlimited reporters",
-                "5 team members",
-                "Screenshot feedback",
-                "Video feedback",
-                "Feedback collaboration",
+                "Unlimited projects & testimonials",
+                "1 team member",
+                "Written testimonials",
                 "Integrations",
+                "Export data",
             ],
         },
         {
@@ -80,13 +74,10 @@ export const PLANS = {
             mostPopular: true,
             details: [
                 "All in Pro",
-                "25 team members",
-                "Console logs",
-                "JavaScript API",
+                "5 team members",
                 "Custom branding",
                 'Remove the "Powered By"',
-                "Custom metadata",
-                "Export data",
+                "Custom metadata"
             ],
         },
         {
@@ -98,10 +89,9 @@ export const PLANS = {
             description: "For your enterprise needs and priority support.",
             details: [
                 "All in Business",
-                "Dedicated success manager",
                 "Priority support",
                 "Pay by invoice",
-                "SSO (coming soon)",
+                "Custom features",
             ],
         },
     ],
