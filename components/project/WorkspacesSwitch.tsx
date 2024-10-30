@@ -55,7 +55,7 @@ export function WorkspacesSwitch({ projectName }: { projectName: string }) {
 					const project = projects.find((p) => p.name == value);
 					setActiveProject(project?.name);
 					router.push(
-						`/projects/${project?.name}/testimonials`,
+						`/projects/${encodeURIComponent(project?.name || '')}/forms`,
 						undefined
 					);
 					popover.handleClose();
