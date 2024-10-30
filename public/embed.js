@@ -19,10 +19,10 @@
         const formId = element.getAttribute("data-form-id");
         const type = element.getAttribute("data-form-type");
 
-        let iframeUrl = `http://localhost:3000/p/${formId}?raw=true`; // TEST URL
+        // let iframeUrl = `http://localhost:3000/p/${formId}?raw=true`; // TEST URL
 
         if (type === 'popup') iframeUrl += '&centered=true';
-        // const iframeUrl = `https://feedbackz.co/p/${formId}?raw=true`; // PROD URL
+        const iframeUrl = `https://feedbackz.co/p/${formId}?raw=true`; // PROD URL
 
         // Create the iframe element
         const iframe = document.createElement("iframe");
