@@ -181,6 +181,7 @@ const LandingPage = ({ params }: { params: { widgetId: string } }) => {
 					<WidgetEditorSidebar
 						activeSubmenu={activeSubmenu}
 						setActiveSubmenu={setActiveSubmenu}
+						widget={widgets?.[0] || null}
 					/>
 				</div>
 				<WidgetEditorNav

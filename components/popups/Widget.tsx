@@ -7,6 +7,8 @@ import {
 	Link,
 	MousePointerClick,
 	Percent,
+	Share,
+	Share2,
 	TriangleAlert,
 } from "lucide-react";
 import Image from "next/image";
@@ -23,6 +25,7 @@ import {
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { toast } from "sonner";
+import { ShareWidgetModal } from "../widgets/ShareWidgetModal";
 
 function Widget({ handleGoToWidget, t }: { t: any; handleGoToWidget: any }) {
 	const [copied, setCopied] = useState(false)
@@ -85,6 +88,11 @@ function Widget({ handleGoToWidget, t }: { t: any; handleGoToWidget: any }) {
 						>
 							<Link className="text-gray-600" size={15} />
 						</div> */}
+
+						<div className="hover:bg-gray-200 cursor-pointer rounded-[6px] p-1">
+							<ShareWidgetModal children={<Share2 className="text-gray-600" size={15} />} widgetUrl={t?.url || ''}/>
+						</div>
+
 						<div
 							className="hover:bg-gray-200 cursor-pointer rounded-[6px] p-1"
 							onClick={() => handleGoToWidget(t?.url)}

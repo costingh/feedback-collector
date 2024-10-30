@@ -15,13 +15,13 @@
     collectorElements.forEach((element) => {
         const widgetId = element.getAttribute("data-widget-id");
 
-        let iframeUrl = `http://localhost:3000/w/${widgetId}`; // TEST URL
-        // const iframeUrl = `https://feedbackz.co/w/${widgetId}`; // PROD URL
+        // const iframeUrl = `http://localhost:3000/w/${widgetId}`; // TEST URL
+        const iframeUrl = `https://feedbackz.co/w/${widgetId}`; // PROD URL
 
         // Create the iframe element
         const iframe = document.createElement("iframe");
         iframe.src = iframeUrl;
-        iframe.allow = allow;
+        // iframe.allow = allow;
         iframe.style.border = "none";
         iframe.setAttribute("scrolling", "no");
 

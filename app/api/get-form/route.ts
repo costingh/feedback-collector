@@ -1,17 +1,11 @@
-import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import prismadb from "@/lib/prismadb";
 
 export async function GET(req: Request) {
     try {
-        const { userId } = auth();
         const { searchParams } = new URL(req.url);
         const formId = searchParams.get("id");
         const formUrl = searchParams.get("url");
-
-        if (!userId) {
-            return new NextResponse("Unauthorized", { status: 401 });
-        }
 
         if (!formId && !formUrl) {
             return new NextResponse("Form or URL is required", { status: 400 });

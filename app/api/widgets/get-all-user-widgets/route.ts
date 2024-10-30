@@ -4,13 +4,6 @@ import prismadb from "@/lib/prismadb";
 
 export async function GET(req: Request) {
     try {
-        // Get the authenticated user's ID
-        const { userId } = auth();
-
-        if (!userId) {
-            return new NextResponse("Unauthorized", { status: 401 });
-        }
-
         // Parse the request URL to get query parameters
         const url = new URL(req.url);
         const widgetUrl = url.searchParams.get('url');  // The 'url' parameter can be used to identify a specific widget
@@ -32,6 +25,13 @@ export async function GET(req: Request) {
 
             widgets = [widget];  // Wrapping the single widget in an array for consistency
         } else {
+            // Get the authenticated user's ID
+            const { userId } = auth();
+
+            if (!userId) {
+                return new NextResponse("Unauthorized", { status: 401 });
+            }
+
             // Fetch all widgets for the authenticated user if no specific URL is provided
             widgets = await prismadb.widget.findMany({
                 where: {

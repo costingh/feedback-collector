@@ -9,7 +9,7 @@ import "@fontsource-variable/dm-sans";
 import Head from "next/head";
 import Script from "next/script";
 import { ProjectProvider } from "@/context/ProjectContext";
-// import { Analytics } from "@vercel/analytics/react"
+import { Analytics } from "@vercel/analytics/react"
 
 export const metadata = constructMetadata();
 
@@ -18,17 +18,17 @@ export default function RootLayout({
 }: {
 	children: React.ReactNode;
 }) {
-	const formId = "kJ3GK61u"; // Example form ID
-	const width = "100%";
-	const height = "12000";
-	const allow = "camera;microphone";
+	// const formId = "kJ3GK61u"; // Example form ID
+	// const width = "100%";
+	// const height = "12000";
+	// const allow = "camera;microphone";
 
 	return (
 		<ClerkProvider>
 			<ProjectProvider>
 				<html lang="en" suppressHydrationWarning>
 					<body>
-						{/* <Analytics/> */}
+						<Analytics/>
 						<Toaster richColors />
 						<ModalProvider />
 						{children}
@@ -37,6 +37,11 @@ export default function RootLayout({
 					{/* <Script
 						src={`http://localhost:3000/embed.js?formId=${formId}&width=${width}&height=${height}&allow=${allow}`}
 						// src={`https://feedbackz.co/embed.js?formId=${formId}&width=${width}&height=${height}&allow=${allow}`}
+						strategy="afterInteractive"
+					/> */}
+
+					{/* <Script
+						src='http://localhost:3000/widget-embed.js'
 						strategy="afterInteractive"
 					/> */}
 				</html>

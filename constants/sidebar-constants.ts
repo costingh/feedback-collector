@@ -15,7 +15,9 @@ import {
 	BrickWall,
 	CreditCard,
 	Pickaxe,
-	SquareDashedMousePointer
+	SquareDashedMousePointer,
+	Unlink,
+	Link
 } from "lucide-react";
 
 export const routes = [
@@ -159,6 +161,12 @@ export const studioSidebarButtons = [
 		key: 'select_testimonials',
 		label: "Add testimonials to this widget",
 		icon: SquareDashedMousePointer,
+		color: "text-sky-500",
+	},
+	{
+		key: 'share_widget',
+		label: "Share this widget",
+		icon: Link,
 		color: "text-sky-500",
 	},
 ];
