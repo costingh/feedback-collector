@@ -57,7 +57,7 @@ export default function Pricing() {
 							customizable forms and dynamic displays on your
 							website or SaaS platform!{" "}
 						</span>
-						<Link href="/forms">
+						<Link href="/sign-up">
 							<Button
 								variant="outline"
 								className="rounded-[14px] border-[1px] border-white-900 bg-white px-[18px] py-[0px] text-indigo-600 text-[13px] font-bold hover:text-white hover:bg-transparent"

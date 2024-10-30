@@ -34,7 +34,7 @@ const LandingPage = () => {
 							</span>
 						</div>
 						<div className="w-[20%] flex flex-col gap-2 items-center justify-center">
-							<Link href="/forms">
+							<Link href="/sign-up">
 								<Button
 									variant="outline"
 									className="rounded-[14px] border-[1px] border-white-900 bg-white px-[18px] py-[0px] text-gray-900 text-[13px] font-bold hover:text-gray-500"
@@ -71,7 +71,7 @@ const LandingPage = () => {
 						height={400}
 						className="max-w-[400px] w-full rounded-[15px]"
 					/>
-					<Link href="/forms">
+					<Link href="/sign-up">
 						<Button
 							variant="outline"
 							className="rounded-[14px] border-[1px] border-white-900 bg-white px-[18px] py-[0px] text-gray-900 text-[13px] font-bold hover:text-gray-500"
@@ -198,7 +198,7 @@ const LandingPage = () => {
 						Tired of unorganized client feedback? Start you free 14-day
 						trial now.
 					</h1>
-					<Link href="/forms">
+					<Link href="/sign-up">
 						<Button
 							variant="outline"
 							className="rounded-[14px] border-[1px] border-white-900 bg-white px-[18px] py-[0px] text-indigo-600 text-[13px] font-bold hover:text-white hover:bg-transparent"

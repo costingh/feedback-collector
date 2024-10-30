@@ -17,7 +17,6 @@ export const LandingNavbar = ({ isWaitlist }: { isWaitlist?: boolean }) => {
 	const router = useRouter();
 	const [isScrolled, setIsScrolled] = useState(false);
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // State to handle mobile menu
-	const [isRedirecting, setIsRedirecting] = useState(false)
 
 	const handleScroll = () => {
 		setIsScrolled(window.scrollY > 0);
@@ -29,62 +28,6 @@ export const LandingNavbar = ({ isWaitlist }: { isWaitlist?: boolean }) => {
 			window.removeEventListener("scroll", handleScroll);
 		};
 	}, []);
-	
-
-	const handleDashboardClick = async () => {
-		if(!isSignedIn) {
-			toast.error('You are unauthenticated!')
-			return;
-		}
-
-		// prevent multiple button click
-		if(isRedirecting) {
-			return;
-		}
-
-		try {
-			setIsRedirecting(true);
-			const response = await axios.get("/api/project/get-all-user-projects");
-			const projects = response?.data?.projects;
-		
-			if (projects.length > 0) {
-				const encodedProjectName = encodeURIComponent(projects[0].name);
-				router.push(`/projects/${encodedProjectName}/forms`);
-			} else {
-				// Try creating empty project
-				const firstProject = await createFirstUserProject();
-				if (firstProject?.name) {
-					const encodedFirstProjectName = encodeURIComponent(firstProject.name);
-					router.push(`/projects/${encodedFirstProjectName}/forms`);
-				} else {
-					toast.error('Could not redirect you beacause there was an error creating your first project :(')
-				}
-			}
-			setIsRedirecting(false);
-		} catch (error) {
-			console.error('Failed to fetch projects', error);
-			toast.error("Could not retrieve your forms");
-			setIsRedirecting(false);
-		}
-    };
-
-	const createFirstUserProject = async () => {
-		const response = await axios.post("/api/project/create", {
-			data: {
-				name: 'New Project',
-				description: 'Empty project',
-			},
-		});
-
-		const createdWorkspace = response?.data?.result;
-
-		if (!createdWorkspace) {
-			toast.error("Could not create your first workspace");
-			return null;
-		} else {
-			return createdWorkspace
-		}
-	} 
 
 	return (
 		<nav
@@ -124,24 +67,29 @@ export const LandingNavbar = ({ isWaitlist }: { isWaitlist?: boolean }) => {
 				{/* Conditional Sign-in/Sign-up Buttons */}
 				{!isWaitlist && !isSignedIn && (
 					<div className="hidden md:flex items-center gap-x-4">
-						<SignUpButton variant='outlined' href='/sign-in' text='Sign In'/>
-						<SignUpButton variant='solid' href='/sign-up' text='Start Free Trial'/>
+						<SignUpButton
+							variant="outlined"
+							href="/sign-in"
+							text="Sign In"
+						/>
+						<SignUpButton
+							variant="solid"
+							href="/sign-up"
+							text="Start Free Trial"
+						/>
 					</div>
 				)}
 
 				{!isWaitlist && isSignedIn && (
 					<div className="hidden md:flex items-center gap-x-2">
-						<Button
-							variant="outline"
-							className="rounded-[12px] border-[2px] border-indigo-600 bg-indigo-600 px-[15px] py-[10px] text-white text-[14px] font-[500] hover:text-indigo-600 w-[150px]"
-							onClick={handleDashboardClick}
-						>
-							{isRedirecting ? (
-								<Loader2 size={14} className="spin mx-auto" />
-							) : (
-								"Dashboard"
-							)} 
-						</Button>
+						<Link href='/dashboard'>
+							<Button
+								variant="outline"
+								className="rounded-[12px] border-[2px] border-indigo-600 bg-indigo-600 px-[15px] py-[10px] text-white text-[14px] font-[500] hover:text-indigo-600"
+							>
+								Dashboard
+							</Button>
+						</Link>
 					</div>
 				)}
 
@@ -181,17 +129,15 @@ export const LandingNavbar = ({ isWaitlist }: { isWaitlist?: boolean }) => {
 
 					{!isWaitlist && isSignedIn && (
 						<div className="flex flex-col items-center gap-y-2">
+						<Link href='/dashboard'>
 							<Button
 								variant="outline"
-								className="rounded-[12px] border-[2px] border-indigo-600 bg-indigo-600 px-[15px] py-[10px] text-white text-[14px] font-[500] hover:text-indigo-600 w-[150px]"
-								onClick={handleDashboardClick}
+								className="rounded-[12px] border-[2px] border-indigo-600 bg-indigo-600 px-[15px] py-[10px] text-white text-[14px] font-[500] hover:text-indigo-600"
 							>
-								{isRedirecting ? (
-									<Loader2 size={14} className="spin mx-auto" />
-								) : (
-									"Dashboard"
-								)} 
+								Dashboard
 							</Button>
+						</Link>
+
 						</div>
 					)}
 
