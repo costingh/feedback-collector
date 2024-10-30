@@ -40,7 +40,7 @@ export default function WidgetEditorSidebar({
 			isActive ? "text-gray-700 bg-gray-100" : "text-gray-700"
 		);
 
-		const ButtonContent = (
+		const ButtonContent = () => (
 			<div
 				className={buttonClasses}
 				onClick={() => setActiveSubmenu(route.key)}
@@ -51,9 +51,11 @@ export default function WidgetEditorSidebar({
 
 		// Wrap with ShareWidgetModal if applicable
 		return route.key === "share_widget" ? (
-			<ShareWidgetModal children={ButtonContent} widgetUrl={widget?.url || ''}/>
+			<ShareWidgetModal widgetUrl={widget?.url || ''}>
+				<ButtonContent/>
+			</ShareWidgetModal>
 		) : (
-			ButtonContent
+			<ButtonContent/>
 		);
 	};
 

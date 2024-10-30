@@ -115,23 +115,22 @@ export const SelectTestimonialsToShareModal = ({
 						/>
 					</div>
 					<div>
+						{/* @ts-ignore */}
 						<FiterTestimonialsSidebar
-							//@ts-ignore
 							testimonials={testimonials}
 							filters={filters}
 							setFilters={setFilters}
 							showFilterSidebar={true}
 							setShowFilterSidebar={() => undefined}
 							withoutCloseButton={true}
-							children={
-								<UpdateWidgetHighlightedTestimonials
-									refreshData={refreshData}
-									widgetId={widgetId}
-									handleClose={handleClose}
-									checkedItems={checkedItems}
-								/>
-							}
-						/>
+						>
+							<UpdateWidgetHighlightedTestimonials
+								refreshData={refreshData}
+								widgetId={widgetId}
+								handleClose={handleClose}
+								checkedItems={checkedItems}
+							/>
+						</FiterTestimonialsSidebar>
 					</div>
 				</div>
 			</DialogContent>

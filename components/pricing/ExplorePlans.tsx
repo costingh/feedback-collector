@@ -7,7 +7,7 @@ export default function ExplorePlans() {
 				Features
 			</p>
 			<p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-				Explore what's in each plan
+				Explore what&apos;s in each plan
 			</p>
 		</div>
 		<section
@@ -524,7 +524,7 @@ export default function ExplorePlans() {
 										</div>
 										<div className="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
 											<dt className="pr-4 text-gray-600 flex items-center">
-												Remove 'Powered by'
+												Remove &apos;Powered by&apos;
 											</dt>
 											<dd className="flex items-center justify-end sm:justify-center sm:px-4">
 												<svg
@@ -1615,7 +1615,7 @@ export default function ExplorePlans() {
 										</div>
 										<div className="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
 											<dt className="pr-4 text-gray-600 flex items-center">
-												Remove 'Powered by'
+												Remove &apos;Powered by&apos;
 											</dt>
 											<dd className="flex items-center justify-end sm:justify-center sm:px-4">
 												<svg
@@ -2714,7 +2714,7 @@ export default function ExplorePlans() {
 										</div>
 										<div className="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
 											<dt className="pr-4 text-gray-600 flex items-center">
-												Remove 'Powered by'
+												Remove &apos;Powered by&apos;
 											</dt>
 											<dd className="flex items-center justify-end sm:justify-center sm:px-4">
 												<svg
@@ -4647,7 +4647,7 @@ export default function ExplorePlans() {
 									>
 										<div className="v-popper v-popper--theme-tooltip">
 											<div className="flex items-center">
-												Remove 'Powered by'
+												Remove &apos;Powered by&apos;
 											</div>
 										</div>
 									</th>

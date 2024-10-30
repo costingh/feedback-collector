@@ -48,7 +48,7 @@ interface TestimonialPopupProps {
 	onInteraction: any| undefined;
 	isRaw?: boolean| undefined;
 	isCentered?: boolean| undefined;
-	isSearchingForm: boolean
+	isSearchingForm?: boolean
 }
 
 const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
@@ -475,7 +475,7 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 		thankYouPageMessage: string | undefined,
 		brandName: string | undefined,
 		brandLogo: string | undefined,
-		isSearchingForm: boolean
+		isSearchingForm?: boolean
 	) => {
 
 		return (

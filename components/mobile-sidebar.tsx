@@ -35,6 +35,7 @@ export default function MobileSidebar({
         <Sidebar
           isPro={isPro}
           apiLimitCount={apiLimitCount}
+          projectName={''}
         />
       </SheetContent>
     </Sheet>

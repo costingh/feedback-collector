@@ -90,7 +90,9 @@ function Widget({ handleGoToWidget, t }: { t: any; handleGoToWidget: any }) {
 						</div> */}
 
 						<div className="hover:bg-gray-200 cursor-pointer rounded-[6px] p-1">
-							<ShareWidgetModal children={<Share2 className="text-gray-600" size={15} />} widgetUrl={t?.url || ''}/>
+							<ShareWidgetModal widgetUrl={t?.url || ''}>
+								<Share2 className="text-gray-600" size={15} />
+							</ShareWidgetModal>
 						</div>
 
 						<div

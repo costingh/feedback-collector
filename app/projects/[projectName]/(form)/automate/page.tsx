@@ -19,14 +19,14 @@ const AutomatePage = () => {
 
 			{/* Description */}
 			<p className="text-gray-600 text-lg mb-6">
-				Our automations and integrations are coming soon. You'll soon be
+				Our automations and integrations are coming soon. You&apos;ll soon be
 				able to connect your testimonials with your favorite tools to
 				streamline your workflow effortlessly.
 			</p>
 
 			{/* Button to Request Feature */}
 			<div className="mb-8">
-				<Link href='/feature-request'>
+				<Link href="/feature-request">
 					<Button
 						variant="outline"
 						className="flex items-center gap-2 mx-auto"

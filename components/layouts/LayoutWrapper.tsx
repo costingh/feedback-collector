@@ -28,7 +28,7 @@ export default async function LayoutWrapper({
 			{isTrial || isPro ? (
 				<main className="md:pl-[255px]">{children}</main>
 			) : (
-				<TrialPopup children={children} />
+				<TrialPopup>{children}</TrialPopup>
 			)}
 		</div>
 	);
