@@ -17,10 +17,22 @@ import {
 	Pickaxe,
 	SquareDashedMousePointer,
 	Unlink,
-	Link
+	Link,
+	LayoutDashboardIcon
 } from "lucide-react";
 
 export const routes = [
+	{
+		section: 'MONITORIZE',
+		routes: [
+			{
+				label: "Dashboard",
+				icon: LayoutDashboardIcon,
+				href: "/dashboard",
+				color: "text-sky-500",
+			},
+		]
+	},
 	{
 		section: 'COLLECT',
 		routes: [

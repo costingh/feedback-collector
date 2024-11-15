@@ -20,7 +20,7 @@ export const checkTrial = async () => {
   const trialEndDate = new Date(user.createdAt).getTime() + (TRIAL_PERIOD_DAYS * DAY_IN_MS);
   const isTrialValid = trialEndDate > Date.now();
 
-  return false;
+  return true; // isTrialValid
 };
 
 export const getUserTrialData = async () => {
