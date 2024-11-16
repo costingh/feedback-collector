@@ -82,7 +82,7 @@ const LandingPage = () => {
 				</div>
 			</div>
 			<div className="divider h-[100px]"></div>
-			<div className="max-w-full md:max-w-[85%] xl:max-w-[65%] mx-auto px-5 h-gull">
+			<div id="#features" className="max-w-full md:max-w-[85%] xl:max-w-[65%] mx-auto px-5 h-gull">
 				<div className="flex">
 					<div className="w-[50%]">
 						<p className="text-indigo-600 font-bold text-[18px] mb-4">

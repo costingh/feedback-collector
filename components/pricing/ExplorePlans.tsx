@@ -3343,7 +3343,7 @@ export default function ExplorePlans() {
 					</div>
 				</div>
 			</div>
-			<div className="-mt-6 space-y-16">
+			<div className="mt-10 space-y-16">
 				<div>
 					<p className="text-sm font-semibold leading-6 text-gray-900">
 						Usage
@@ -3390,7 +3390,7 @@ export default function ExplorePlans() {
 									>
 										<div className="v-popper v-popper--theme-tooltip">
 											<div className="flex items-center">
-												Team members
+												Widgets
 											</div>
 										</div>
 										<div className="absolute inset-x-8 mt-3 h-px bg-gray-200"></div>
@@ -3398,7 +3398,7 @@ export default function ExplorePlans() {
 									<td className="relative w-1/4 px-4 py-0 text-center">
 										<span className="relative h-full w-full py-3">
 											<span className="text-gray-900 text-sm leading-6">
-												3
+												2
 											</span>
 										</span>
 									</td>
@@ -3417,14 +3417,14 @@ export default function ExplorePlans() {
 										</span>
 									</td>
 								</tr>
-								{/* <tr>
+								<tr>
 									<th
 										scope="row"
 										className="w-1/4 py-3 pr-4 text-left text-sm font-normal leading-6 text-gray-900"
 									>
 										<div className="v-popper v-popper--theme-tooltip">
 											<div className="flex items-center">
-												Shareable Widgets
+												Forms
 											</div>
 										</div>
 										<div className="absolute inset-x-8 mt-3 h-px bg-gray-200"></div>
@@ -3432,14 +3432,14 @@ export default function ExplorePlans() {
 									<td className="relative w-1/4 px-4 py-0 text-center">
 										<span className="relative h-full w-full py-3">
 											<span className="text-gray-900 text-sm leading-6">
-												15
+												2
 											</span>
 										</span>
 									</td>
 									<td className="relative w-1/4 px-4 py-0 text-center">
 										<span className="relative h-full w-full py-3">
 											<span className="font-semibold text-indigo-600 text-sm leading-6">
-												50
+												5
 											</span>
 										</span>
 									</td>
@@ -3450,7 +3450,7 @@ export default function ExplorePlans() {
 											</span>
 										</span>
 									</td>
-								</tr> */}
+								</tr>
 								<tr>
 									<th
 										scope="row"
@@ -3610,7 +3610,7 @@ export default function ExplorePlans() {
 									>
 										<div className="v-popper v-popper--theme-tooltip">
 											<div className="flex items-center">
-												All Testimonials Widgets
+												Access to all widgets
 											</div>
 										</div>
 										<div className="absolute inset-x-8 mt-3 h-px bg-gray-200"></div>
@@ -3677,7 +3677,7 @@ export default function ExplorePlans() {
 									</td>
 								</tr>
 								
-								<tr>
+								{/* <tr>
 									<th
 										scope="row"
 										className="w-1/4 py-3 pr-4 text-left text-sm font-normal leading-6 text-gray-900"
@@ -3749,7 +3749,7 @@ export default function ExplorePlans() {
 											</span>
 										</span>
 									</td>
-								</tr>
+								</tr> */}
 								<tr>
 									<th
 										scope="row"
@@ -3903,7 +3903,7 @@ export default function ExplorePlans() {
 						</div>
 					</div>
 				</div>
-				<div>
+				{/* <div>
 					<p className="text-sm font-semibold leading-6 text-gray-900">
 						Collaborate
 					</p>
@@ -4392,7 +4392,7 @@ export default function ExplorePlans() {
 							<div className="ring-1 ring-gray-900/10 rounded-lg"></div>
 						</div>
 					</div>
-				</div>
+				</div> */}
 				<div>
 					<p className="text-sm font-semibold leading-6 text-gray-900">
 						Branding
@@ -4720,7 +4720,7 @@ export default function ExplorePlans() {
 						</div>
 					</div>
 				</div>
-				<div>
+				{/* <div>
 					<p className="text-sm font-semibold leading-6 text-gray-900">
 						Integrations
 					</p>
@@ -5864,7 +5864,7 @@ export default function ExplorePlans() {
 							<div className="ring-1 ring-gray-900/10 rounded-lg"></div>
 						</div>
 					</div>
-				</div>
+				</div> */}
 				<div>
 					<p className="text-sm font-semibold leading-6 text-gray-900">
 						Services
@@ -5973,7 +5973,7 @@ export default function ExplorePlans() {
 										</span>
 									</td>
 								</tr>
-								<tr>
+								{/* <tr>
 									<th
 										scope="row"
 										className="w-1/4 py-3 pr-4 text-left text-sm font-normal leading-6 text-gray-900"
@@ -6038,7 +6038,7 @@ export default function ExplorePlans() {
 											</span>
 										</span>
 									</td>
-								</tr>
+								</tr> */}
 								<tr>
 									<th
 										scope="row"

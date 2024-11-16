@@ -9,7 +9,7 @@ export const PLANS = {
             description: "Start taking control of your website feedback process.",
             details: [
                 "Unlimited projects & testimonials",
-                "1 team member",
+                // "1 team member",
                 "Written testimonials",
                 "Integrations",
                 "Export data",
@@ -25,7 +25,7 @@ export const PLANS = {
             mostPopular: true,
             details: [
                 "All in Pro",
-                "5 team members",
+                // "5 team members",
                 "Custom branding",
                 'Remove the "Powered By"',
                 "Custom metadata"
@@ -41,7 +41,7 @@ export const PLANS = {
             details: [
                 "All in Business",
                 "Unlimited projects",
-                "Unlimited team members",
+                // "Unlimited team members",
                 "Priority support",
                 "Pay by invoice",
                 "Custom features",
@@ -58,7 +58,7 @@ export const PLANS = {
             description: "Start taking control of your website feedback process.",
             details: [
                 "Unlimited projects & testimonials",
-                "1 team member",
+                // "1 team member",
                 "Written testimonials",
                 "Integrations",
                 "Export data",
@@ -74,7 +74,7 @@ export const PLANS = {
             mostPopular: true,
             details: [
                 "All in Pro",
-                "5 team members",
+                // "5 team members",
                 "Custom branding",
                 'Remove the "Powered By"',
                 "Custom metadata"

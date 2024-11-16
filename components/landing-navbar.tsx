@@ -29,6 +29,13 @@ export const LandingNavbar = ({ isWaitlist }: { isWaitlist?: boolean }) => {
 		};
 	}, []);
 
+	const handleHashChange = (url:string) => {
+		const element = document.getElementById(url);
+		if (element) {
+		  element.scrollIntoView({ behavior: 'smooth' });
+		}
+	  };
+
 	return (
 		<nav
 			className={`fixed w-full top-0 left-0 transition-all z-50 bg-white ${
@@ -54,9 +61,12 @@ export const LandingNavbar = ({ isWaitlist }: { isWaitlist?: boolean }) => {
 
 				{/* Desktop Menu */}
 				<div className="hidden md:flex items-center gap-x-10">
-					<div className="text-sm font-medium text-black cursor-pointer transition-all hover:text-gray-500">
+					<Link href="/" className="text-sm font-medium text-black cursor-pointer transition-all hover:text-gray-500">
+						Home
+					</Link>
+					<Link onClick={() => handleHashChange('#features')} href="#features" className="text-sm font-medium text-black cursor-pointer transition-all hover:text-gray-500">
 						Features
-					</div>
+					</Link>
 					<Link href="/feedbackz-pricing">
 						<div className="text-sm font-medium text-black cursor-pointer transition-all hover:text-gray-500">
 							Pricing
@@ -105,12 +115,15 @@ export const LandingNavbar = ({ isWaitlist }: { isWaitlist?: boolean }) => {
 			{/* Mobile Menu (Visible on small screens) */}
 			{isMobileMenuOpen && (
 				<div className="md:hidden flex flex-col items-center bg-white py-3 space-y-2">
-					<div className="text-sm font-medium text-black cursor-pointer transition-all hover:text-gray-500">
+					<Link href="/" className="text-sm font-medium text-black cursor-pointer transition-all hover:text-gray-500">
+						Home
+					</Link>
+					<Link href="#features" className="text-sm font-medium text-black cursor-pointer transition-all hover:text-gray-500">
 						Features
-					</div>
-					<div className="text-sm font-medium text-black cursor-pointer transition-all hover:text-gray-500">
+					</Link>
+					<Link href="/feedbackz-pricing" className="text-sm font-medium text-black cursor-pointer transition-all hover:text-gray-500">
 						Pricing
-					</div>
+					</Link>
 
 					{!isWaitlist && !isSignedIn && (
 						<div className="flex flex-col items-center gap-y-2">
