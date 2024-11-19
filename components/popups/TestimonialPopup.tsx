@@ -8,6 +8,7 @@ import {
 	AtSign,
 	BriefcaseBusiness,
 	Building2,
+	ChevronRight,
 	Earth,
 	Loader2,
 	LucideOctagon,
@@ -49,6 +50,7 @@ interface TestimonialPopupProps {
 	isRaw?: boolean| undefined;
 	isCentered?: boolean| undefined;
 	isSearchingForm?: boolean
+	planType?: string | null
 }
 
 const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
@@ -74,7 +76,8 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 	onInteraction,
 	isRaw,
 	isCentered,
-	isSearchingForm
+	isSearchingForm,
+	planType
 }) => {
 	// constants
 	const BASE_PRIMARY_COLOR = "rgb(34, 197, 94)";
@@ -534,11 +537,20 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 		);
 	};
 
+	const hasCustomBranding = () => {
+		return !['Business', 'Enterprise'].includes(planType || '');
+	}
+
+	const displayPowerdByLabel = () => {
+		return hasCustomBranding() && <div className='absolute top-[-10px] right-[15px] px-[8px] py-[4px] rounded-[10px] bg-indigo-600 text-[12px] text-white font-[400]'>Powered by Feedbackz <ChevronRight/> </div>
+	}
+
 	return (
 		<div
 			className={cn(!isRaw && "relative inset-0 flex items-center justify-center w-full h-full", isCentered && "flex items-center justify-center w-full h-full")}
 			style={{ backgroundColor: !isRaw ? (backgroundColor || "white") : 'transparent' }}
 		>
+			{displayPowerdByLabel()}
 			{withAnimatedBg ? (
 				<BackgroundGradientAnimation>
 					{renderPopup(

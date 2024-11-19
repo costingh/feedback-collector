@@ -5,7 +5,7 @@ import { SubscriptionButton } from "@/components/subscription-button";
 import { checkSubscription } from "@/lib/subscription";
 
 const SettingsPage = async () => {
-	const isPro = await checkSubscription();
+	const { isValid: isPro, planType } = await checkSubscription();
 
 	return (
 		<div className="py-8">

@@ -34,10 +34,10 @@ export default function OverViewPage() {
 				console.log(resp.data)
 				let transformedData = null;
 				if(resp.data) {
-					transformedData = resp.data.formsWithMetrics.map(form => {
-						const viewMetric = form.metrics.find(metric => metric.actionType === 'view')?.total || 0;
-						const completionMetric = form.metrics.find(metric => metric.actionType === 'completion')?.total || 0;
-						const interactionMetric = form.metrics.find(metric => metric.actionType === 'interaction')?.total || 0;
+					transformedData = resp.data.formsWithMetrics.map((form : any) => {
+						const viewMetric = form.metrics.find((metric : any) => metric.actionType === 'view')?.total || 0;
+						const completionMetric = form.metrics.find((metric : any) => metric.actionType === 'completion')?.total || 0;
+						const interactionMetric = form.metrics.find((metric : any) => metric.actionType === 'interaction')?.total || 0;
 					  
 						return {
 						  formName: form.name,

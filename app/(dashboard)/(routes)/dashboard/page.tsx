@@ -12,61 +12,18 @@ import {
 	CartesianGrid,
 	ResponsiveContainer,
 } from "recharts";
-import { CardContent, CardTitle } from "@/components/ui/Card";
 import OverViewPage from "./_components/overview";
+import { CardContent, CardTitle } from "@/components/ui/card";
 
-// Types for dashboard data
-type DashboardData = {
-	userName: string;
-	projects: number;
-	teamUsers: number;
-	forms: number;
-	testimonials: number;
-	tags: number;
-	widgets: number;
-	viewsData: { date: string; views: number; bounceRate: number }[];
-	testimonialsByForm: { formId: string; formName: string; count: number }[];
-};
-
-// Dummy data for development
-const dummyDashboardData: DashboardData = {
-	userName: "John Doe",
-	projects: 4,
-	teamUsers: 10,
-	forms: 15,
-	testimonials: 75,
-	tags: 12,
-	widgets: 6,
-	viewsData: [
-		{ date: "2023-01-01", views: 100, bounceRate: 20 },
-		{ date: "2023-02-01", views: 150, bounceRate: 25 },
-		{ date: "2023-03-01", views: 120, bounceRate: 22 },
-	],
-	testimonialsByForm: [
-		{ formId: "form1", formName: "Customer Feedback", count: 30 },
-		{ formId: "form2", formName: "Product Review", count: 45 },
-	],
-};
 
 export default function DashboardPage() {
-	const router = useRouter();
-	const { userId } = useAuth();
-	const [dashboardData, setDashboardData] = useState<DashboardData | null>(
-		null
-	);
-
-	useEffect(() => {
-		// Set dummy data for development
-		setDashboardData(dummyDashboardData);
-	}, []);
-
 	return (
 		<div className="px-8 py-5">
 			<div className="mb-8 space-y-4">
 				<div className="flex w-full justify-between items-start">
 					<div className="flex flex-col">
 						<h2 className="text-[18px] font-bold">
-							Welcome back, {dashboardData?.userName || "User"}
+							Welcome back
 						</h2>
 						<p className="text-gray-500 font-light text-[14px]">
 							Here is the summary of your overall data.

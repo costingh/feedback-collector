@@ -6,6 +6,8 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import Image from "next/image";
 import UploadFormEditorLogo from "./UploadFormEditorLogo";
+import clsx from "clsx";
+import { PLANS } from "@/app/(pricing)/feedbackz-pricing/constants";
 
 interface EditFormAspectProps {
 	backgroundColor: string;
@@ -16,6 +18,7 @@ interface EditFormAspectProps {
 	setChecked: (checked: boolean) => void;
 	brandLogo: string;
 	brandName: string;
+	planType: string | null;
 	handleBrandNameChange: (val: string) => void;
 	setBrandLogo: (val: string) => void;
 }
@@ -31,11 +34,17 @@ const EditFormAspect: React.FC<EditFormAspectProps> = ({
 	brandName,
 	handleBrandNameChange,
 	setBrandLogo,
+	planType
 }) => {
+	const hasCustomBranding = () => {
+		return !['Business', 'Enterprise'].includes(planType || '');
+	}
+
 	return (
 		<>
 			<div className="flex w-full">
-				<div className="w-full p-2 border-[1px] border-gray-200 flex gap-3 items-center rounded-[8px] mb-2">
+				{/* <div className={clsx("w-full p-2 border-[1px] border-gray-200 flex gap-3 items-center rounded-[8px] mb-2",  !['Business', 'Enterprise'].includes(planType || '') && 'pointer-events-none cursor-not-allowed' )}> */}
+				<div className={clsx("w-full p-2 border-[1px] border-gray-200 flex gap-3 items-center rounded-[8px] mb-2")}>
 					{/* <Image src={brandLogo || ''} alt={brandName || 'logo'} width={60} height={60}/> */}
 					<UploadFormEditorLogo
 						src={brandLogo || ''}

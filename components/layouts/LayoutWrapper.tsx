@@ -13,7 +13,7 @@ export default async function LayoutWrapper({
 	children,
 	projectName,
 }: LayoutWrapperProps) {
-	const isPro = await checkSubscription();
+	const { isValid: isPro, planType } = await checkSubscription();
 	const isTrial = await checkTrial();
 	const apiLimitCount = 100; 
 
