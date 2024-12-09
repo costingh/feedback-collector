@@ -1,12 +1,12 @@
 import EditFormWrapper from "@/components/form-editor/EditFormWrapper";
-import { checkSubscription } from "@/lib/subscription";
+import { getPlanName } from "@/lib/get-plan-name";
 
 export default async function EditFormPage({
 	params,
 }: {
 	params: { id: string };
 }) {
-	const { isValid: isPro, planType } = await checkSubscription();
+	const {planType} = await getPlanName();
 
-	return <EditFormWrapper formId={params.id} isPro={isPro} planType={planType}/>;
+	return <EditFormWrapper formId={params.id} planType={planType}/>;
 }

@@ -21,7 +21,7 @@ export const checkTrial = async () => {
   const isTrialValid = trialEndDate > Date.now();
 
   // TODO
-  return true; // isTrialValid
+  return isTrialValid; // isTrialValid
 };
 
 export const getUserTrialData = async () => {

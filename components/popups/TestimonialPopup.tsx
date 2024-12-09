@@ -26,6 +26,7 @@ import { cn } from "@/lib/utils";
 import { FormHeader } from "./FormHeader";
 import { FormLoaderSkeleton } from "../skeletons/FormLoaderSkeleton";
 import FormPaused from "../form-editor/FormPaused";
+import Link from "next/link";
 interface TestimonialPopupProps {
 	backgroundColor: string | undefined;
 	primaryColor: string | undefined;
@@ -482,7 +483,9 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 	) => {
 
 		return (
-			<div className="px-[15px] md:px-[25px] py-[15px] md:py-[30px] bg-white shadow-lg rounded-[15px] w-full max-w-[480px] text-left border-[1px] border-gray-100 pointer-events testimonial-modal">
+			<div className="px-[15px] md:px-[25px] py-[15px] md:py-[30px] bg-white shadow-lg rounded-[15px] w-full max-w-[480px] text-left border-[1px] border-gray-100 pointer-events testimonial-modal relative">
+				{displayPowerdByLabel()}
+
 				<FormHeader
 					brandName={brandName} 
 					brandLogo={brandLogo} 
@@ -538,11 +541,12 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 	};
 
 	const hasCustomBranding = () => {
-		return !['Business', 'Enterprise'].includes(planType || '');
+		console.log(planType)
+		return !['Business', 'Enterprise', 'trial'].includes(planType || '');
 	}
 
 	const displayPowerdByLabel = () => {
-		return hasCustomBranding() && <div className='absolute top-[-10px] right-[15px] px-[8px] py-[4px] rounded-[10px] bg-indigo-600 text-[12px] text-white font-[400]'>Powered by Feedbackz <ChevronRight/> </div>
+		return hasCustomBranding() && <Link href='https://feedbackz.co' className='absolute top-[-10px] right-[15px] px-[10px] py-[2px] rounded-[10px] bg-indigo-600 text-[11px] text-white font-[400] transition-all hover:bg-indigo-500'>Powered by Feedbackz </Link>
 	}
 
 	return (
@@ -550,7 +554,6 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 			className={cn(!isRaw && "relative inset-0 flex items-center justify-center w-full h-full", isCentered && "flex items-center justify-center w-full h-full")}
 			style={{ backgroundColor: !isRaw ? (backgroundColor || "white") : 'transparent' }}
 		>
-			{displayPowerdByLabel()}
 			{withAnimatedBg ? (
 				<BackgroundGradientAnimation>
 					{renderPopup(

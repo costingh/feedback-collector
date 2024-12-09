@@ -68,7 +68,7 @@ const submenus = [
 	},
 ];
 
-export default function EditFormWrapper({ formId, isPro, planType }: {formId: string, isPro: string | null, planType: string | null }) {
+export default function EditFormWrapper({ formId, planType }: {formId: string, planType: string | null }) {
 	const [openIndex, setOpenIndex] = useState<number>(-1);
 
 	const [step, setStep] = useState<number>(1);

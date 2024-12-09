@@ -38,7 +38,7 @@ export default function Sidebar({
 								<div key={r.href}>
 									<Link
 										key={r.href}
-										href={r.href == '/subscription' || r.href == '/settings' || r.href == '/dashboard' ? r.href : `/projects/${projectName}/${r.href}`}
+										href={r.href == '/subscription' || r.href == '/settings' || r.href == '/dashboard' || r.href == '/feature-request' || r.href == '/report-a-bug' ? r.href : `/projects/${projectName}/${r.href}`}
 										className={cn(
 											"text-sm group flex w-full justify-start font-[400] cursor-pointer hover:bg-gray-100 rounded-lg transition mb-[4px] px-[6px] py-[5px]",
 											pathname.includes(r.href)

@@ -3,6 +3,7 @@ import { checkSubscription } from "@/lib/subscription";
 import { checkTrial } from "@/lib/trial";
 import Sidebar from "@/components/sidebar";
 import TrialPopup from "@/components/popups/TrialPopup";
+import { getPlanName } from "@/lib/get-plan-name";
 
 interface LayoutWrapperProps {
 	children: ReactNode;
@@ -13,7 +14,8 @@ export default async function LayoutWrapper({
 	children,
 	projectName,
 }: LayoutWrapperProps) {
-	const { isValid: isPro, planType } = await checkSubscription();
+	const { isValid: isPro } = await checkSubscription();
+
 	const isTrial = await checkTrial();
 	const apiLimitCount = 100; 
 

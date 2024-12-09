@@ -8,7 +8,8 @@ export const PLANS = {
             interval: "yearly",
             description: "Start taking control of your website feedback process.",
             details: [
-                "Unlimited projects & testimonials",
+                // "Unlimited projects & testimonials",
+                "1 project",
                 // "1 team member",
                 "Written testimonials",
                 "Integrations",
@@ -25,10 +26,11 @@ export const PLANS = {
             mostPopular: true,
             details: [
                 "All in Pro",
+                "Unlimited projects & testimonials",
                 // "5 team members",
                 "Custom branding",
                 'Remove the "Powered By"',
-                "Custom metadata"
+                // "Custom metadata"
             ],
         },
         {
@@ -77,7 +79,7 @@ export const PLANS = {
                 // "5 team members",
                 "Custom branding",
                 'Remove the "Powered By"',
-                "Custom metadata"
+                // "Custom metadata"
             ],
         },
         {

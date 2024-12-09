@@ -3,10 +3,13 @@ import { auth, currentUser } from "@clerk/nextjs/server";
 import { checkSubscription } from "@/lib/subscription";
 import { getUserTrialData } from "@/lib/trial";
 import { Button } from "@/components/ui/button";
+import { getPlanName } from "@/lib/get-plan-name";
 
 const SettingsPage = async () => {
 	const { userId } = auth();
-	const { isValid: isPro, planType } = await checkSubscription();
+	const { isValid: isPro } = await checkSubscription();
+	const { planType } = await getPlanName();
+
 	const trialData = await getUserTrialData();
 
 	// Assume currentUser returns user object with displayName and other details
@@ -44,7 +47,7 @@ const SettingsPage = async () => {
 							isPro ? "text-green-600" : "text-red-600"
 						}`}
 					>
-						{isPro ? "Pro User" : "Free User"}
+						{planType}
 					</p>
 				</div>
 
