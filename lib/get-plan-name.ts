@@ -36,7 +36,7 @@ export const getPlanName = async () => {
 		const trialEndDate = new Date(user.createdAt).getTime() + (TRIAL_PERIOD_DAYS * DAY_IN_MS);
 		const isTrialValid = trialEndDate > Date.now();
 
-		if (isTrialValid) {
+		if (!isTrialValid) {
 			return { planType: null };
 		} else {
 			return { planType: 'trial' };
