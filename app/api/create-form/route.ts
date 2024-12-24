@@ -1,6 +1,7 @@
 import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import prismadb from "@/lib/prismadb";
+import { checkLimits } from "@/lib/get-plan-name";
 
 function generateUniqueId(length = 8) {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -17,9 +18,16 @@ export async function POST(req: Request) {
         const { userId } = auth();
         const body = await req.json();
         const { formData } = body;
-
+        
         if (!userId) {
             return new NextResponse("Unauthorized", { status: 401 });
+        }
+
+        const numberOfCurrentProjects =  await prismadb.form.count();
+        const hasNotReachedLimits = await checkLimits('forms', numberOfCurrentProjects);
+
+        if(!hasNotReachedLimits) {
+            return new NextResponse("Plan limits reached", { status: 500 });
         }
 
         const form = await prismadb.form.create({

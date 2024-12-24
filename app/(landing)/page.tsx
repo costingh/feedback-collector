@@ -16,7 +16,7 @@ import SignUpButton from '@/components/buttons/SignUpButton';
 const LandingPage = () => {
 	return (
 		<>
-			<div className="max-w-full md:max-w-[85%] xl:max-w-[65%] mx-auto px-5 h-gull">
+			<div className="max-w-full md:max-w-[85%] xl:max-w-[65%] mx-auto px-5 h-full">
 				<LandingNavbar />
 				<LandingHero />
 

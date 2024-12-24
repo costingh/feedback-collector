@@ -64,5 +64,22 @@ export const getPlanName = async () => {
 
 	return {
 		planType,
+		plan
 	};
 };
+
+export const checkLimits = async (featureName: 'forms' | 'workspaces', count: number)=> {
+	try {
+		const {planType, plan} = await getPlanName();
+		console.log(planType)
+		console.log(plan)
+		if(!planType) return false;
+		if(planType == 'Unknown' || planType == 'Expired') return false;
+		if(!plan) return false;
+
+		return plan[featureName] > count;
+	} catch(error) {
+		console.error(error)
+		return false;
+	}
+}

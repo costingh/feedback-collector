@@ -18,13 +18,17 @@ const SettingsPage = async () => {
 	return (
 		<div className="py-10 px-6 w-full">
 			{/* Page Heading */}
-			<div className="mb-8">
-				<h1 className="text-3xl font-bold text-gray-800">
-					Account Settings
-				</h1>
-				<p className="text-gray-600">
-					Manage your account details and preferences
-				</p>
+			<div className="mb-8 space-y-4">
+				<div className="flex w-full justify-between items-start">
+					<div className="flex flex-col">
+						<h2 className="text-[18px] font-bold">
+							Account Settings
+						</h2>
+						<p className="text-gray-500 font-light text-[14px]">
+							Manage your account details and preferences
+						</p>
+					</div>
+				</div>
 			</div>
 
 			{/* User Details */}
@@ -47,7 +51,7 @@ const SettingsPage = async () => {
 							isPro ? "text-green-600" : "text-red-600"
 						}`}
 					>
-						{planType}
+						{planType || 'Expired'}
 					</p>
 				</div>
 
@@ -99,7 +103,7 @@ const SettingsPage = async () => {
 				</div>
 
 				{/* Subscription Settings */}
-				<div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50">
+				{/* <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50">
 					<div className="flex items-center space-x-4">
 						<CreditCard className="text-gray-500" />
 						<span className="text-lg font-medium text-gray-700">
@@ -112,7 +116,7 @@ const SettingsPage = async () => {
 					>
 						<Settings className="h-5 w-5" />
 					</Button>
-				</div>
+				</div> */}
 
 				{/* Trial Information */}
 				<div className="p-4 border border-gray-200 rounded-lg bg-gray-50">
@@ -135,7 +139,7 @@ const SettingsPage = async () => {
 				</div>
 
 				{/* Logout Button */}
-				<div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50">
+				{/* <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50">
 					<div className="flex items-center space-x-4">
 						<LogOut className="text-gray-500" />
 						<span className="text-lg font-medium text-gray-700">
@@ -148,7 +152,7 @@ const SettingsPage = async () => {
 					>
 						<Settings className="h-5 w-5" />
 					</Button>
-				</div>
+				</div> */}
 			</div>
 		</div>
 	);

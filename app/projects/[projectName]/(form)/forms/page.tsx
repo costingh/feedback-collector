@@ -158,7 +158,8 @@ export default function FormsPage() {
 
 		} catch (err) {
 			console.error(err);
-			toast.error("Form could not be created!");
+			// @ts-ignore
+			toast.error(err?.response?.data || "Form could not be created!");
 			setIsLoading(false);
 		}
 	};

@@ -81,7 +81,8 @@ export function CreateProjectModal({
 			setStep(1);
 		} catch (e) {
 			console.error(e);
-			toast.error("Could not create workspace");
+			// @ts-ignore
+			toast.error(e?.response?.data || "Could not create workspace");
 		} finally {
 			setCreatingWorkspace(false);
 		}
