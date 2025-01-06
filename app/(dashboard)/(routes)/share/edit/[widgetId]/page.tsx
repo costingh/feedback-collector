@@ -15,6 +15,7 @@ import TestimonialsList from "@/components/testimonials/TestimonialsList";
 import { SelectTestimonialsToShareModal } from "@/components/testimonials/SelectTestimonialsToShareModal";
 import { useProjectContext } from "@/context/ProjectContext";
 import { useProjects } from "@/hooks/useProjects";
+import { ShareWidgetModal } from "@/components/widgets/ShareWidgetModal";
 
 interface Testimonial {
 	// Define the shape of your testimonial here
@@ -43,7 +44,8 @@ const LandingPage = ({ params }: { params: { widgetId: string } }) => {
 		height: window.innerHeight, // Get current height in pixels
 	});
 
-	const { isSearchingProjects, projects, refreshProjects, setProjects } = useProjects();
+	const { isSearchingProjects, projects, refreshProjects, setProjects } =
+		useProjects();
 	const { activeProject, setActiveProject } = useProjectContext();
 
 	useEffect(() => {
@@ -60,14 +62,17 @@ const LandingPage = ({ params }: { params: { widgetId: string } }) => {
 	const handleGetAllUserWidgets = useCallback(async () => {
 		setIsSearchingWidgets(true);
 		try {
-			
 			const response = await axios.get(
-				"/api/widgets/get-all-user-widgets?url=" + params.widgetId + "&projectId=" + activeProject?.id
+				"/api/widgets/get-all-user-widgets?url=" +
+					params.widgetId +
+					"&projectId=" +
+					activeProject?.id
 			);
 			console.log(response.data.widgets);
 			setWidgets(response.data.widgets);
 
 			if (response?.data?.widgets?.[0]?.id)
+				setActiveProject({id: response?.data?.widgets?.[0]?.projectId})
 				trackMetric("view", 1, response?.data?.widgets?.[0]?.id);
 		} catch (err) {
 			toast.error("An error occurred while retrieving the widget!");
@@ -133,17 +138,21 @@ const LandingPage = ({ params }: { params: { widgetId: string } }) => {
 	};
 
 	useEffect(() => {
-		fetchAllData();
-	}, []);
+		if(activeProject) fetchAllData();
+	}, [activeProject]);
 
 	const fetchAllData = async () => {
 		try {
 			// setIsSearchingTestimonials(true);
-			
 
 			const [tagsResponse, testimonialsResponse] = await Promise.all([
-				axios.get("/api/tag/get-all-user-tags?projectId=" + activeProject?.id),
-				axios.get("/api/testimonials/get-all-user-testimonials?projectId=" + activeProject?.id),
+				axios.get(
+					"/api/tag/get-all-user-tags?projectId=" + activeProject?.id
+				),
+				axios.get(
+					"/api/testimonials/get-all-user-testimonials?projectId=" +
+						activeProject?.id
+				),
 			]);
 
 			console.log(testimonialsResponse?.data?.testimonials);
@@ -189,7 +198,18 @@ const LandingPage = ({ params }: { params: { widgetId: string } }) => {
 					setDeviceResolution={setDeviceResolution}
 				/>
 				<div className="flex items-center justify-center p-4">
-					<div style={{width: `${deviceResolution.width}px`, height: `${deviceResolution.height}px`}} className={cn('p-2', (deviceResolution.width == 375 || deviceResolution.width == 768) && "border-[2px] rounded-[20px] border-black")}>
+					<div
+						style={{
+							width: `${deviceResolution.width}px`,
+							height: `${deviceResolution.height}px`,
+						}}
+						className={cn(
+							"p-2",
+							(deviceResolution.width == 375 ||
+								deviceResolution.width == 768) &&
+								"border-[2px] rounded-[20px] border-black"
+						)}
+					>
 						{isSearchingWidgets ? (
 							<div className="mt-10">
 								<Loader />
@@ -207,6 +227,13 @@ const LandingPage = ({ params }: { params: { widgetId: string } }) => {
 								/>
 							</div>
 						)} */}
+								<ShareWidgetModal
+									//@ts-ignore
+									widgetUrl={widgets?.[0]?.url || ""}
+									isOpened={activeSubmenu == "share_widget"}
+									handleClose={() => setActiveSubmenu("")}
+								/>
+
 								<SelectTestimonialsToShareModal
 									isOpened={
 										activeSubmenu == "select_testimonials"
@@ -222,10 +249,11 @@ const LandingPage = ({ params }: { params: { widgetId: string } }) => {
 									refreshData={refreshData}
 								/>
 								{/* @ts-ignore */}
-								{widgets?.[0] && widgets?.[0]?.testimonials?.length && (
+								{widgets?.[0]?.testimonials?.length != 0 && (
 									<DisplayWidget widget={widgets?.[0]} />
 								)}
 								{!widgets?.[0] && <div>An error occured</div>}
+
 								{/* @ts-ignore */}
 								{!widgets?.[0]?.testimonials?.length && (
 									<div className="w-full h-full flex items-center justify-center">

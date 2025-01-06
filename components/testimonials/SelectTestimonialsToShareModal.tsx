@@ -81,6 +81,10 @@ export const SelectTestimonialsToShareModal = ({
 			);
 		}
 
+		console.log('--------------------')
+		console.log(testimonials)
+		console.log(filters)
+
 		// @ts-ignore
 		setFilteredTestimonials(_filteredTestimonials);
 	}, [filters, testimonials]);

@@ -15,7 +15,7 @@ import { useState } from "react";
 import CodeSnippet from "../testimonials/CodeSnippet";
 import useCopy from "@/hooks/useCopy";
 
-export function ShareWidgetModal({ children, widgetUrl }: { children: React.ReactNode; widgetUrl: string }) {
+export function ShareWidgetModal({ children, isOpened, widgetUrl, handleClose }: { isOpened?: boolean; widgetUrl?: string, handleClose?: any, children?: React.ReactNode }) {
 	const [isActive, setIsActive] = useState("share");
 	const [embeddingType, setEmbeddingType] = useState(1);
 	const embedCode = `<div data-widget="feedbackz-widget" data-widget-id="${widgetUrl}"></div>\n<script src="${process.env.NEXT_PUBLIC_APP_DOMAIN}/widget-embed.js"></script>`
@@ -75,8 +75,8 @@ export function ShareWidgetModal({ children, widgetUrl }: { children: React.Reac
 	};
 
 	return (
-		<Dialog>
-			<DialogTrigger asChild>{children}</DialogTrigger>
+		<Dialog open={isOpened || undefined} onOpenChange={handleClose || undefined}>
+			{children && <DialogTrigger asChild>{children}</DialogTrigger>}
 			<DialogContent className="max-w-[1200px]">
 				<DialogHeader>
 					<DialogTitle>Share your testimonials</DialogTitle>

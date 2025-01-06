@@ -49,14 +49,16 @@ export default function WidgetEditorSidebar({
 			</div>
 		);
 
+		return <ButtonContent/>;
+
 		// Wrap with ShareWidgetModal if applicable
-		return route.key === "share_widget" ? (
-			<ShareWidgetModal widgetUrl={widget?.url || ''}>
-				<ButtonContent/>
-			</ShareWidgetModal>
-		) : (
-			<ButtonContent/>
-		);
+		// return route.key === "share_widget" ? (
+		// 	<ShareWidgetModal widgetUrl={widget?.url || ''}>
+		// 		<ButtonContent/>
+		// 	</ShareWidgetModal>
+		// ) : (
+		// 	<ButtonContent/>
+		// );
 	};
 
 	return (

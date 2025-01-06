@@ -6,6 +6,7 @@ import BasicWall from "../popups/BasicWall";
 import { testimonials } from "./../../app/(landing)/constants";
 import RatingBadge from "../popups/RatingBadge";
 import SocialStar from "../popups/SocialStar";
+import Avatars from "../popups/Avatars";
 
 function DisplayWidget({ widget }: { widget: any }) {
 	return (
@@ -27,6 +28,10 @@ function DisplayWidget({ widget }: { widget: any }) {
 
 			{widget.type == "social_star" && (
 				<SocialStar testimonials={widget?.testimonials} />
+			)}
+
+			{widget.type == "avatars" && (
+				<Avatars testimonials={widget?.testimonials} />
 			)}
 		</div>
 	);

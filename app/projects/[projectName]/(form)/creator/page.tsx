@@ -66,6 +66,7 @@ const LandingPage = () => {
 					<ShareableElement type='basic_wall'/>
 					<ShareableElement type='rolling_wall'/>
 					<ShareableElement type='rating_badge'/>
+					<ShareableElement type='avatars'/>
 					<ShareableElement type='social_star'/>
 				</div>
 

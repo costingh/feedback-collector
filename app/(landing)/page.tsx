@@ -108,11 +108,11 @@ const LandingPage = () => {
 					</div>
 					<div className="w-[50%]">
 						<Image
-							src="/1.avif"
+							src="/image-1.png"
 							alt=""
 							width={400}
 							height={400}
-							className="w-full"
+							// className="w-full"
 						/>
 					</div>
 				</div>

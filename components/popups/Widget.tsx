@@ -26,6 +26,7 @@ import {
 } from "@/components/ui/tooltip";
 import { toast } from "sonner";
 import { ShareWidgetModal } from "../widgets/ShareWidgetModal";
+import Avatars from "./Avatars";
 
 function Widget({ handleGoToWidget, t }: { t: any; handleGoToWidget: any }) {
 	const [copied, setCopied] = useState(false)
@@ -66,6 +67,13 @@ function Widget({ handleGoToWidget, t }: { t: any; handleGoToWidget: any }) {
 					</div>
 				)}
 
+
+				{t?.type == "avatars" && (
+					<div>
+						<Avatars testimonials={testimonialsMock}/>
+					</div>
+				)}
+
 				{t?.type == "social_star" && (
 					<div style={{ transform: "scale(0.8)" }}>
 						<SocialStar testimonials={testimonialsMock.slice(0,1)}/>
@@ -89,16 +97,18 @@ function Widget({ handleGoToWidget, t }: { t: any; handleGoToWidget: any }) {
 							<Link className="text-gray-600" size={15} />
 						</div> */}
 
-						<div className="hover:bg-gray-200 cursor-pointer rounded-[6px] p-1">
-							<ShareWidgetModal widgetUrl={t?.url || ''}>
-								<Share2 className="text-gray-600" size={15} />
-							</ShareWidgetModal>
+						<div className="hover:bg-gray-200 cursor-pointer rounded-[6px] p-1 flex gap-2 items-center">
+								<span className="text-[12px] text-[#9f9f9f]">Share</span>
+								<ShareWidgetModal widgetUrl={t?.url || ''}>
+									<Share2 className="text-gray-600" size={15} />
+								</ShareWidgetModal>
 						</div>
 
 						<div
-							className="hover:bg-gray-200 cursor-pointer rounded-[6px] p-1"
+							className="hover:bg-gray-200 cursor-pointer rounded-[6px] p-1 flex gap-2 items-center"
 							onClick={() => handleGoToWidget(t?.url)}
 						>
+							<span className="text-[12px] text-[#9f9f9f]">Edit</span>
 							<ExternalLink className="text-gray-600" size={15} />
 						</div>
 						{t?.type == "rolling_wall" && t.testimonials?.length < 10 && (
@@ -120,6 +130,7 @@ function Widget({ handleGoToWidget, t }: { t: any; handleGoToWidget: any }) {
 							{t?.type == "rolling_wall" && "Carousel"}
 							{t?.type == "social_star" && "Social Star"}
 							{t?.type == "rating_badge" && "Rating Badge"}
+							{t?.type == "avatars" && "Avatars"}
 						</span>
 					</div>
 				</div>
