@@ -189,7 +189,7 @@ const UpdateWidgetHighlightedTestimonials = ({
 			className="text-center py-[6px] rounded-[8px] bg-[#000] text-[#eee] px-3 cursor-pointer text-[13px] font-semibold hover:opacity-80"
 		>
 			{!isLoading ? (
-				"Update testimonials"
+				"Save changes"
 			) : (
 				<div className="flex items-center justify-center">
 					<LoadingSpinner />

@@ -1,6 +1,7 @@
 import { Monitor, Smartphone, Tablet } from "lucide-react";
 import React, { useState } from "react";
 import { Input } from "../ui/input";
+import Link from "next/link";
 
 type WidgetEditorNavProps = {
 	deviceResolution: { width: number; height: number };
@@ -37,7 +38,8 @@ function WidgetEditorNav({ deviceResolution, setDeviceResolution }: WidgetEditor
 	};
 
 	return (
-		<div className="bg-white p-6 border-b-[1px] border-gray-200 flex items-center justify-center gap-4">
+		<div className="bg-white p-6 border-b-[1px] border-gray-200 flex items-center justify-between gap-4">
+			<div className="ml-[60px]"><Link href='/dashboard'>Go Back</Link></div>
 			<div className="flex items-center gap-5">
 				<div className="flex items-center gap-2 bg-gray-100 rounded-[15px] px-[13px] py-[5px]">
 					<div
@@ -82,6 +84,7 @@ function WidgetEditorNav({ deviceResolution, setDeviceResolution }: WidgetEditor
 					<span>px</span>
 				</div>
 			</div>
+			<div></div>
 		</div>
 	);
 }
