@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "target": "esnext", // Use a modern target
     "lib": [
       "dom",
       "dom.iterable",
@@ -8,25 +7,25 @@
     ],
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": true, // Set to true for better type checking
-    "noEmit": true, // No output files; Rollup will handle that
+    "strict": true,
+    "noEmit": true,
     "esModuleInterop": true,
-    "module": "esnext", // Use ES modules
-    "moduleResolution": "node", // Use Node-style module resolution
+    "module": "esnext",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve", // Use the new JSX transform
+    "jsx": "preserve",
     "incremental": true,
-    "paths": {
-      "@/*": [
-        "./*"
-      ]
-    },
     "plugins": [
       {
         "name": "next"
       }
-    ]
+    ],
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    }
   },
   "include": [
     "next-env.d.ts",

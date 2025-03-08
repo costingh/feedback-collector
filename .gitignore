@@ -35,10 +35,3 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-
-# MacOs local files
-.DS_Store
-
-# Rollup cache
-.rollup/
-.rollup.cache/

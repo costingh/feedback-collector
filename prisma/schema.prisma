@@ -3,9 +3,9 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  // directUrl = env("DIRECT_URL")
 }
 
 model UserApiLimit {
@@ -14,6 +14,70 @@ model UserApiLimit {
   count     Int      @default(0)
   createdAt DateTime @default(now())
   updateAt  DateTime @updatedAt
+}
+
+model User {
+  id           String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email        String         @unique
+  firstname    String?
+  lastname     String?
+  createdAt    DateTime       @default(now())
+  clerkid      String         @unique
+  image        String?
+  workspace    WorkSpace[]
+  subscription Subscription?
+  trial        Boolean        @default(false)
+  firstView    Boolean        @default(false)
+  sender       Invite[]       @relation("sender")
+  reciever     Invite[]       @relation("reciever")
+  members      Member[]
+  notification Notification[]
+}
+
+model Subscription {
+  id         String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  User       User?             @relation(fields: [userId], references: [id])
+  userId     String?           @unique @db.Uuid
+  createdAt  DateTime          @default(now())
+  plan       SUBSCRIPTION_PLAN @default(FREE)
+  updatedAt  DateTime          @default(now())
+  customerId String?           @unique
+}
+
+model WorkSpace {
+  id        String   @id @default(cuid())
+  type      Type
+  name      String
+  User      User?    @relation(fields: [userId], references: [id])
+  userId    String?  @db.Uuid
+  createdAt DateTime @default(now())
+  members   Member[]
+  invite    Invite[]
+  Form      Form[]
+  Widget    Widget[]
+  Tag       Tag[]
+}
+
+model Invite {
+  id          String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  sender      User?      @relation("sender", fields: [senderId], references: [id])
+  senderId    String?    @db.Uuid
+  reciever    User?      @relation("reciever", fields: [recieverId], references: [id])
+  recieverId  String?    @db.Uuid
+  content     String
+  WorkSpace   WorkSpace? @relation(fields: [workSpaceId], references: [id])
+  workSpaceId String?
+  accepted    Boolean    @default(false)
+}
+
+model Member {
+  id          String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  User        User?      @relation(fields: [userId], references: [id])
+  userId      String?    @db.Uuid
+  createdAt   DateTime   @default(now())
+  member      Boolean    @default(true)
+  WorkSpace   WorkSpace? @relation(fields: [workSpaceId], references: [id])
+  workSpaceId String?
 }
 
 model UserSubscription {
@@ -52,8 +116,8 @@ model Form {
   thankYouPageMessage String
   thankYouCustomURL   String
   FormAnalytics       FormAnalytics[]
-  projectId           String
-  project             Project         @relation(fields: [projectId], references: [id])
+  workspaceId         String
+  workspace           WorkSpace       @relation(fields: [workspaceId], references: [id])
 }
 
 model FormField {
@@ -100,6 +164,8 @@ model FormResponse {
   form      Form     @relation(fields: [formId], references: [id])
   createdAt DateTime @default(now())
   tagId     String?
+  widgetId  String?
+  Widget    Widget?  @relation(fields: [widgetId], references: [id])
 }
 
 model Widget {
@@ -111,23 +177,23 @@ model Widget {
   updatedAt       DateTime          @updatedAt
   userId          String
   type            String
-  testimonialsIds String[]
   WidgetAnalytics WidgetAnalytics[]
-  projectId       String
-  project         Project           @relation(fields: [projectId], references: [id])
+  workspaceId     String
+  workspace       WorkSpace         @relation(fields: [workspaceId], references: [id])
+  testimonials    FormResponse[]
 }
 
 model Tag {
-  id               String   @id @default(cuid())
+  id               String    @id @default(cuid())
   tagName          String
   category         String
   tagDescription   String
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
   userId           String
   formResponsesIds String[]
-  projectId        String
-  project          Project  @relation(fields: [projectId], references: [id])
+  workspaceId      String
+  workspace        WorkSpace @relation(fields: [workspaceId], references: [id])
 }
 
 model BugReport {
@@ -158,14 +224,20 @@ model WidgetAnalytics {
   @@index([widgetId, createdAt])
 }
 
-model Project {
-  id          String   @id @default(cuid())
-  name        String
-  description String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  userId      String
-  Tag         Tag[]
-  Widget      Widget[]
-  Form        Form[]
+model Notification {
+  id      String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  User    User?   @relation(fields: [userId], references: [id])
+  userId  String? @db.Uuid
+  content String
+}
+
+enum SUBSCRIPTION_PLAN {
+  FREE
+  PRO
+  BUSSINESS
+}
+
+enum Type {
+  PERSONAL
+  PUBLIC
 }
