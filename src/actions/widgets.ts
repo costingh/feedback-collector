@@ -48,9 +48,9 @@ export const getUserWidget = async (widgetUrl: string | undefined) => {
 
 export const updateWidget = async (widgetId: string, testimonialsIds: string[]) => {
     try {
-        const user = await currentUser()
+        const user = await currentUser();
 
-        if (!user || !widgetId) return { status: 404 }
+        if (!user || !widgetId) return { status: 404 };
 
         const testimonials = await client.formResponse.findMany({
             where: {
@@ -60,6 +60,30 @@ export const updateWidget = async (widgetId: string, testimonialsIds: string[]) 
             },
         });
 
+        const currentTestimonials = await client.widget.findUnique({
+            where: {
+                id: widgetId,
+                userId: user.id,
+            },
+            select: {
+                testimonials: {
+                    select: {
+                        id: true,
+                    },
+                },
+            },
+        });
+
+        if (!currentTestimonials) {
+            return { status: 404, data: 'Widget not found' };
+        }
+
+        const currentTestimonialsIds = currentTestimonials.testimonials.map((testimonial) => testimonial.id);
+
+        const disconnectTestimonials = currentTestimonialsIds.filter(
+            (id) => !testimonialsIds.includes(id)
+        );
+
         const updatedWidget = await client.widget.update({
             where: {
                 id: widgetId,
@@ -67,6 +91,7 @@ export const updateWidget = async (widgetId: string, testimonialsIds: string[]) 
             },
             data: {
                 testimonials: {
+                    disconnect: disconnectTestimonials.map((id) => ({ id })),
                     connect: testimonials.map((testimonial) => ({
                         id: testimonial.id,
                     })),
@@ -74,8 +99,8 @@ export const updateWidget = async (widgetId: string, testimonialsIds: string[]) 
             },
         });
 
-        return { status: 200, data: 'Widget updated successfully', updatedWidget }
+        return { status: 200, data: 'Widget updated successfully', updatedWidget };
     } catch (error) {
-        return { status: 400 }
+        return { status: 400 };
     }
-}
+};

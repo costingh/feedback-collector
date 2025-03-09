@@ -1,22 +1,18 @@
 "use client";
 
 import axios from "axios";
-import { useCallback, useEffect, useState } from "react";
-import { toast } from "sonner";
+import { useEffect, useState } from "react";
 import WidgetEditorNav from "@/components/widgets/WidgetEditorNav";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { cn, timeAgo } from "@/lib/utils";
-import DisplayTestimonialTags from "@/components/tags/DisplayTestimonialTags";
-import TestimonialsList from "@/components/testimonials/TestimonialsList";
+import { cn } from "@/lib/utils";
 import { ShareWidgetModal } from "@/components/widgets/ShareWidgetModal";
 import { useQueryData } from "@/hooks/useQueryData";
-import { getUserWidget, getUserWidgets } from "@/actions/widgets";
-import { QueryClient } from "@tanstack/react-query";
+import { getUserWidget } from "@/actions/widgets";
 import { SelectTestimonialsToShareModal } from "@/components/testimonials/SelectTestimonialsToShareModal";
 import DisplayWidget from "@/components/widgets/DisplayWidget";
 import Loader from "@/components/global/loader";
-import WidgetEditorSidebar from "@/components/widgets/WidgetEditorSidebar";
 import { getUserTestimonials } from "@/actions/workspace";
+import { useTags } from "@/hooks/useTags";
+import { getUserForms } from "@/actions/form";
 
 interface Testimonial {
 	// Define the shape of your testimonial here
@@ -36,12 +32,12 @@ const LandingPage = ({ params }: { params: { widgetId: string, workspaceId: stri
 	const [hasInteracted, setHasInteracted] = useState(false); // Track user interaction
 	const [activeSubmenu, setActiveSubmenu] = useState<string>("");
 	const [checkedItems, setChecked] = useState(new Set());
-	const [tags, setTags] = useState([]);
 	const [deviceResolution, setDeviceResolution] = useState({
 		width: window?.innerWidth, // Get current width in pixels
 		height: window?.innerHeight, 
 	});
 
+	const { tags, groupedTags } = useTags(params.workspaceId);
 
 	useEffect(() => {
 		const handleResize = () => {
@@ -64,15 +60,18 @@ const LandingPage = ({ params }: { params: { widgetId: string, workspaceId: stri
 		() => getUserTestimonials(params.workspaceId)
 	);
 
+	const { data: formsData, isFetching: fetchingForms } = useQueryData(
+		["user-forms", params.workspaceId],
+		() => getUserForms(params.workspaceId)
+	);
+
+	const userForms = (formsData as any)?.data?.forms || [];
+
 	const widget = (widgetResponse as any)?.widget || [];
 
 	const userTestimonials = (testimonialsResponse as any)?.data || [];
 
 	const [testimonials, setTestimonials] = useState<Testimonial[]>(userTestimonials);
-
-
-	console.log(widget)
-
 
 	useEffect(() => {
 		setTestimonials(userTestimonials);
@@ -132,16 +131,10 @@ const LandingPage = ({ params }: { params: { widgetId: string, workspaceId: stri
 		}
 	};
 
-	// useEffect(() => {
-	// 	// @ts-ignore
-	// 	if (widget?.testimonials)
-	// 		// @ts-ignore
-	// 		setChecked(new Set(widgets[0].testimonials.map((t) => t.id)));
-	// }, [widgets]);
-
-	const refreshData = async () => {
-		// await fetchAllData();
-	};
+	useEffect(() => {
+		if (userTestimonials)
+			setChecked(new Set(userTestimonials.map((t: any) => t.id)));
+	}, [userTestimonials]);
 
 	const isChecked = (id: number) => {
 		return checkedItems.has(id);
@@ -178,7 +171,6 @@ const LandingPage = ({ params }: { params: { widgetId: string, workspaceId: stri
 						) : (
 							<div className="mt-10">
 								<ShareWidgetModal
-									//@ts-ignore
 									widgetUrl={widget?.url || ""}
 									isOpened={activeSubmenu == "share_widget"}
 									handleClose={() => setActiveSubmenu("")}
@@ -194,17 +186,15 @@ const LandingPage = ({ params }: { params: { widgetId: string, workspaceId: stri
 									isChecked={isChecked}
 									setChecked={setChecked}
 									checkedItems={checkedItems}
-									// @ts-ignore
+									groupedTags={groupedTags}
 									widgetId={widget?.id}
-									refreshData={refreshData}
+									userForms={userForms}
 								/>
-								{/* @ts-ignore */}
 								{widget?.testimonials?.length != 0 && (
 									<DisplayWidget widget={widget} />
 								)}
 								{!widget && <div>An error occured</div>}
 
-								{/* @ts-ignore */}
 								{!widget?.testimonials?.length && (
 									<div className="w-full h-full flex items-center justify-center">
 										<div className="flex flex-col items-center justify-center max-w-lg text-center">

@@ -15,6 +15,7 @@ import { useTestimonialsFilter } from "@/hooks/useTestimonialsFilters";
 import { LoadingSpinner } from "../animations/loading-spinner";
 import { useMutationData } from "@/hooks/useMutationData";
 import { updateWidget } from "@/actions/widgets";
+import { Form } from "@/types/Form";
 
 export const SelectTestimonialsToShareModal = ({
 	isOpened,
@@ -25,7 +26,8 @@ export const SelectTestimonialsToShareModal = ({
 	tags,
 	checkedItems,
 	widgetId,
-	refreshData,
+	groupedTags,
+	userForms
 }: {
 	isOpened: boolean;
 	handleClose: any;
@@ -35,7 +37,8 @@ export const SelectTestimonialsToShareModal = ({
 	tags: any;
 	checkedItems: any;
 	widgetId: string;
-	refreshData?: any;
+	groupedTags: any;
+	userForms: Form[];
 }) => {
 	const { filters, setFilters } = useTestimonialsFilter();
 	const [filteredTestimonials, setFilteredTestimonials] = useState([]);
@@ -123,9 +126,10 @@ export const SelectTestimonialsToShareModal = ({
 							showFilterSidebar={true}
 							setShowFilterSidebar={() => undefined}
 							withoutCloseButton={true}
+							groupedTags={groupedTags}
+							userForms={userForms}
 						>
 							<UpdateWidgetHighlightedTestimonials
-								refreshData={refreshData}
 								widgetId={widgetId}
 								handleClose={handleClose}
 								checkedItems={checkedItems}
@@ -139,12 +143,10 @@ export const SelectTestimonialsToShareModal = ({
 };
 
 const UpdateWidgetHighlightedTestimonials = ({
-	refreshData,
 	widgetId,
 	handleClose,
 	checkedItems,
 }: {
-	refreshData: any;
 	widgetId: any;
 	handleClose: any;
 	checkedItems: any;
@@ -153,9 +155,8 @@ const UpdateWidgetHighlightedTestimonials = ({
 		useMutationData(
 			["add-testimonials-for-widget"],
 			() => updateWidget(widgetId, Array.from(checkedItems)),
-			["user-widgets"],
+			["shared-widget"],
 			() => {
-				if (refreshData) refreshData();
 				handleClose();
 			}	
 		);
