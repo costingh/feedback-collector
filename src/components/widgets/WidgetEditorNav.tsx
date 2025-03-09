@@ -1,5 +1,5 @@
 import { Monitor, Smartphone, Tablet } from "lucide-react";
-import React, { useState } from "react";
+import React, { Dispatch, useState, SetStateAction } from "react";
 import { Input } from "../ui/input";
 import {
 	Tooltip,
@@ -13,9 +13,10 @@ import { cn } from "@/lib/utils";
 type WidgetEditorNavProps = {
 	deviceResolution: { width: number; height: number };
 	setDeviceResolution: (res: { width: number; height: number }) => void;
+	setActiveSubmenu: Dispatch<SetStateAction<string>>;
 };
 
-function WidgetEditorNav({ deviceResolution, setDeviceResolution }: WidgetEditorNavProps) {
+function WidgetEditorNav({ deviceResolution, setDeviceResolution, setActiveSubmenu }: WidgetEditorNavProps) {
 	// State to track the selected device (smartphone, tablet, monitor)
 	const [selectedDevice, setSelectedDevice] = useState<string>("monitor"); // Default is 'monitor'
 
@@ -54,7 +55,7 @@ function WidgetEditorNav({ deviceResolution, setDeviceResolution }: WidgetEditor
 		const ButtonContent = () => (
 			<div
 				className={buttonClasses}
-				// onClick={() => setActiveSubmenu(route.key)}
+				onClick={() => setActiveSubmenu(route.key)}
 			>
 				<route.icon className={cn("h-5 w-5", route.color)} />
 			</div>

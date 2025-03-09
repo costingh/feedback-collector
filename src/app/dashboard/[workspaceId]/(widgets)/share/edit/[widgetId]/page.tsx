@@ -153,9 +153,10 @@ const LandingPage = ({ params }: { params: { widgetId: string, workspaceId: stri
 				onClick={handleInteraction}
 				className="relative bg-gray-100 min-h-[100vh]"
 			>
-			<WidgetEditorNav
+				<WidgetEditorNav
 					deviceResolution={deviceResolution}
 					setDeviceResolution={setDeviceResolution}
+					setActiveSubmenu={setActiveSubmenu}
 				/>
 				<div className="flex items-center justify-center p-4">
 					<div
@@ -176,17 +177,6 @@ const LandingPage = ({ params }: { params: { widgetId: string, workspaceId: stri
 							</div>
 						) : (
 							<div className="mt-10">
-								{/* {activeSubmenu == "select_testimonials" && (
-									<div className="bg-white w-[450px] h-[calc(100vh-100px)] pl-[80px] p-5">
-										<TestimonialsList
-											testimonials={testimonials}
-											tags={tags}
-											isChecked={isChecked}
-											setChecked={setChecked}
-											checkedItems={checkedItems}
-										/>
-									</div>
-								)} */}
 								<ShareWidgetModal
 									//@ts-ignore
 									widgetUrl={widget?.url || ""}

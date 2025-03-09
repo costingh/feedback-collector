@@ -29,7 +29,7 @@ function BasicWall({ testimonials }: { testimonials: any }) {
 						</div>
 						<p className="text-[#374151] mt-3 mb-4">{t.message}</p>
 						<span className="text-gray-400 text-[14px] font-[500]">
-							{t.createdAt}
+							{new Date(t.createdAt).toLocaleDateString()}
 						</span>
 					</div>
 				))}
