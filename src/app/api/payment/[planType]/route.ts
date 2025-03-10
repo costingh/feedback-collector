@@ -17,7 +17,7 @@ export async function GET(
 		mode: 'subscription',
 		line_items: [
 			{
-				price: PLANS.find(p => p.planName == planType)?.priceId || '',
+				price: PLANS.find(p => p.planName.toLocaleLowerCase() == planType.toLocaleLowerCase())?.priceId || '',
 				quantity: 1,
 			},
 		],
