@@ -91,6 +91,14 @@ const Sidebar = ({ activeWorkspaceId }: Props) => {
 			<Separator className="w-4/5" />
 			{workspace.subscription?.plan === "FREE" && (
 				<GlobalCard
+					title="Upgrade to PRO"
+					description="Complete your trial and unlock premium features with the Pro version."
+					footer={<PaymentButton planType='PRO' />}
+				/>
+			)}
+
+			{workspace.subscription?.plan === "PRO" && (
+				<GlobalCard
 					title="Upgrade to BUSSINESS"
 					description="Unlock workspaces and team collaboration."
 					footer={<PaymentButton planType='BUSSINESS' />}
