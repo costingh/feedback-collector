@@ -48,7 +48,7 @@ function WidgetEditorNav({ deviceResolution, setDeviceResolution, setActiveSubme
 	const renderSidebarButton = (route: any) => {
 		// const isActive = activeSubmenu === route.key;
 		const buttonClasses = cn(
-			"flex w-full justify-center items-center cursor-pointer hover:bg-gray-100 rounded-lg transition mb-2 px-1 py-2",
+			"flex justify-center items-center cursor-pointer hover:bg-gray-100 rounded-lg transition px-4 py-2 no-wrap gap-[4px]",
 			// isActive ? "text-gray-600 bg-gray-100" : "text-gray-600"
 		);
 
@@ -57,7 +57,8 @@ function WidgetEditorNav({ deviceResolution, setDeviceResolution, setActiveSubme
 				className={buttonClasses}
 				onClick={() => setActiveSubmenu(route.key)}
 			>
-				<route.icon className={cn("h-5 w-5", route.color)} />
+				<route.icon className={cn("h-4 w-4", route.color)} />
+				<span className='text-[13px] text-gray-700'>{route.label}</span>
 			</div>
 		);
 

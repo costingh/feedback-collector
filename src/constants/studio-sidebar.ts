@@ -6,14 +6,14 @@ import {
 export const _STUDIO_SIDEBAR_BUTTONS = [
 	{
 		key: 'select_testimonials',
-		label: "Add testimonials to this widget",
+		label: "Add testimonials",
 		icon: SquareDashedMousePointer,
-		color: "text-sky-500",
+		color: "text-gray-700",
 	},
 	{
 		key: 'share_widget',
-		label: "Share this widget",
+		label: "Share widget",
 		icon: Link,
-		color: "text-sky-500",
+		color: "text-gray-700",
 	},
 ];
