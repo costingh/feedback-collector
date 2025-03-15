@@ -17,7 +17,6 @@ interface EditFormAspectProps {
 	setChecked: (checked: boolean) => void;
 	brandLogo: string;
 	brandName: string;
-	planType: string | undefined;
 	handleBrandNameChange: (val: string) => void;
 	setBrandLogo: (val: string) => void;
 }
@@ -33,11 +32,7 @@ const EditFormAspect: React.FC<EditFormAspectProps> = ({
 	brandName,
 	handleBrandNameChange,
 	setBrandLogo,
-	planType
 }) => {
-	const hasCustomBranding = () => {
-		return !['Business', 'Enterprise'].includes(planType || '');
-	}
 
 	return (
 		<>

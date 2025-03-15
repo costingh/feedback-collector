@@ -48,4 +48,5 @@ export type Form = {
     thankYouPageTitle: string;
     thankYouPageMessage: string;
     thankYouCustomURL: string;
+    hasCustomBranding?: boolean;
 };

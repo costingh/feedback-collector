@@ -234,7 +234,7 @@ model Notification {
 enum SUBSCRIPTION_PLAN {
   FREE
   PRO
-  BUSSINESS
+  BUSINESS
 }
 
 enum Type {

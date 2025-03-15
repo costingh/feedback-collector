@@ -65,11 +65,9 @@ const submenus = [
 
 export default function EditFormWrapper({
 	formId,
-	planType,
 	formData
 }: {
 	formId: string;
-	planType: string | undefined;
 	formData: Form
 }) {
 	const [openIndex, setOpenIndex] = useState<number>(-1);
@@ -100,6 +98,7 @@ export default function EditFormWrapper({
 		thankYouPageTitle: "",
 		thankYouPageMessage: "",
 		thankYouCustomURL: "",
+		hasCustomBranding: false,
 		// FormAnalytics: {
 		// 	visits: 0,
 		// 	testimonials: 0,
@@ -159,7 +158,6 @@ export default function EditFormWrapper({
 					setBrandLogo={(val) =>
 						setForm((prev) => ({ ...prev, brandLogo: val }))
 					}
-					planType={planType}
 				/>
 			);
 		} else if (submenu == submenus[1].name) {
@@ -267,7 +265,7 @@ export default function EditFormWrapper({
 									brandName={form.brandName}
 									onInteraction={() => {}}
 									onSubmit={() => {}}
-									planType={planType}
+									hasCustomBranding={form.hasCustomBranding}
 								/>
 							</div>
 							<div className="right w-[600px] border-l-[1px] border-gray-200 px-[40px] h-[100vh] relative pt-6">

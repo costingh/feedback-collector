@@ -82,7 +82,7 @@ WorkspacesPopoverProps) {
 				<div className="w-full mt-[-10px]">
 					<p className="text-[#707070] font-medium text-sm">
 						{currentWorkspace.subscription?.plan === "FREE"
-							? "Upgrade to BUSSINESS plan to create workspaces"
+							? "Upgrade to BUSINESS plan to create workspaces"
 							: "No Workspaces"}
 					</p>
 				</div>

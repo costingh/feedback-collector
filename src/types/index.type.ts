@@ -1,7 +1,7 @@
 export type WorkspaceProps = {
 	data: {
 		subscription: {
-			plan: 'FREE' | 'PRO' | 'BUSSINESS'
+			plan: 'FREE' | 'PRO' | 'BUSINESS'
 		} | null
 		workspace: {
 			id: string

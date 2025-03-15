@@ -187,6 +187,46 @@ export const getPaymentInfo = async () => {
 	}
 }
 
+export const getUserPlanType = async () => {
+	try {
+		const user = await currentUser()
+		if (!user) return { status: 404 }
+
+		const payment = await client.user.findUnique({
+			where: {
+				clerkid: user.id,
+			},
+			select: {
+				createdAt: true,
+				subscription: {
+					select: { plan: true },
+				},
+			},
+		})
+
+		if(!payment) {
+			return { status: 400 }
+		}
+
+		const currentUserPlan = payment?.subscription?.plan;
+		const trialStart = payment?.createdAt;
+
+		const trialDuration = 14 * 24 * 60 * 60 * 1000;
+		const now = Date.now();
+		const trialStartTimestamp = new Date(trialStart).getTime();
+
+		if (now - trialStartTimestamp > trialDuration && currentUserPlan === 'FREE') {
+			return { status: 200, data: 'TRIAL_EXPIRED' };
+		} else if (currentUserPlan === 'FREE' && now - trialStartTimestamp <= trialDuration) {
+			return { status: 200, data: 'TRIAL' };
+		} else {
+			return { status: 200, data: currentUserPlan };
+		}
+	} catch (error) {
+		return { status: 400 }
+	}
+}
+
 export const enableFirstView = async (state: boolean) => {
 	try {
 		const user = await currentUser()

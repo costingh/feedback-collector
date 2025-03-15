@@ -14,7 +14,7 @@ export const PLANS = [
         buttonCaption: 'Subscribe'
     },
     {
-        planName: 'Bussiness',
+        planName: 'business',
         oldPrice: '$15',
         price: '$10',
         description: 'Subscription billed monthly.',

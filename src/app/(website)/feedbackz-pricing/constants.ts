@@ -9,10 +9,10 @@ export const PLANS = {
             description: "Start taking control of your website feedback process.",
             forms: 1,
             workspaces: 1,
+            members: 1,
             details: [
-                // "Unlimited projects & testimonials",
                 "1 workspace",
-                // "1 team member",
+                "1 team member",
                 "Written testimonials",
                 "Unlimited tags",
                 "Integrations",
@@ -29,12 +29,11 @@ export const PLANS = {
             mostPopular: true,
             forms: 3,
             workspaces: 3,
+            members: 5,
             details: [
                 "All in Pro",
                 "3 workspaces",
-                "3 projects",
-                // "Unlimited projects & testimonials",
-                // "5 team members",
+                "5 team members",
                 "Custom branding",
                 'Remove the "Powered By"',
                 // "Custom metadata"
@@ -49,6 +48,7 @@ export const PLANS = {
             description: "For your enterprise needs and priority support.",
             forms: Infinity,
             workspaces: Infinity,
+            members: Infinity,
             details: [
                 "All in Business & Pro",
                 "Everything Unlimited",
@@ -68,10 +68,12 @@ export const PLANS = {
             description: "Start taking control of your website feedback process.",
             forms: 1,
             workspaces: 1,
+            members: 1,
             details: [
-                "Unlimited projects & testimonials",
-                // "1 team member",
+                "1 workspace",
+                "1 team member",
                 "Written testimonials",
+                "Unlimited tags",
                 "Integrations",
                 "Export data",
             ],
@@ -86,12 +88,11 @@ export const PLANS = {
             mostPopular: true,
             forms: 3,
             workspaces: 3,
+            members: 5,
             details: [
                 "All in Pro",
                 "3 workspaces",
-                "3 projects",
-                // "Unlimited projects & testimonials",
-                // "5 team members",
+                "5 team members",
                 "Custom branding",
                 'Remove the "Powered By"',
                 // "Custom metadata"
@@ -106,6 +107,7 @@ export const PLANS = {
             description: "For your enterprise needs and priority support.",
             forms: Infinity,
             workspaces: Infinity,
+            members: Infinity,
             details: [
                 "All in Business & Pro",
                 "Everything Unlimited",

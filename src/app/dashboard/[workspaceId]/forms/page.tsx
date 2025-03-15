@@ -4,18 +4,14 @@ import {
 	Copy,
 	CopyPlus,
 	Edit2,
-	FilePlus2,
 	Loader2,
 	OctagonPause,
 	PlusSquare,
-	Share2,
 	SquareArrowOutUpRight,
 	Trash2,
 } from "lucide-react";
-import { useEffect, useState } from "react";
+import {useState } from "react";
 import { toast } from "sonner";
-import axios from "axios";
-import { useAuth } from "@clerk/nextjs";
 import Link from "next/link";
 import { Form } from "@/types/Form";
 import FormSkeleton from "@/components/global/skeletons/FormSkeleton";
@@ -23,8 +19,7 @@ import { useQueryData } from "@/hooks/useQueryData";
 import { createNewForm, deleteForm, duplicateForm, getUserForms, pauseForm } from "@/actions/form";
 import { useMutationData, useMutationDataState } from "@/hooks/useMutationData";
 import ShareFormModal from "@/components/testimonials-form/share-form-modal";
-// import { redirect } from 'next/navigation'
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 type Props = {
 	params: { workspaceId: string }

@@ -29,26 +29,30 @@ export const getFormById = async (id: string) => {
 
 export const getFormByUrl = async (url: string) => {
     try {
+        const formattedUrl = url.includes('/p/') ? url : '/p/' + url;
+        
         const form = await client.form.findFirst({
-            where: {
-                url: url?.includes('/p/') ? url : '/p/' + url,
-            },
-            include: {
-                formFields: true,
-                questions: true,
-            },
+            where: { url: formattedUrl },
+            include: { formFields: true, questions: true },
         });
-        console.log(form)
+
+        if (!form) throw new Error('Form not found');
+
+        const user = await client.user.findFirst({ where: { clerkid: form.userId } });
+        const payment = await client.subscription.findFirst({ where: { userId: user?.id } });
 
         return {
             status: 200,
-            data: { form },
+            data: { 
+                form: {
+                    ...form,
+                    hasCustomBranding: payment?.plan === 'BUSINESS' || payment?.plan === 'PRO',
+                },
+            },
         };
     } catch (error) {
-        return {
-            status: 500,
-            data: { form: null },
-        };
+        console.error("[getFormByUrl ERROR]", error);
+        return { status: 500, data: { form: null } };
     }
 };
 

@@ -99,9 +99,9 @@ const Sidebar = ({ activeWorkspaceId }: Props) => {
 
 			{workspace.subscription?.plan === "PRO" && (
 				<GlobalCard
-					title="Upgrade to BUSSINESS"
+					title="Upgrade to BUSINESS"
 					description="Unlock workspaces and team collaboration."
-					footer={<PaymentButton planType='BUSSINESS' />}
+					footer={<PaymentButton planType='BUSINESS' />}
 				/>
 			)}
 

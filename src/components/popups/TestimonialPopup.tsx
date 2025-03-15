@@ -43,7 +43,7 @@ interface TestimonialPopupProps {
 	isRaw?: boolean| undefined;
 	isCentered?: boolean| undefined;
 	isSearchingForm?: boolean
-	planType?: string | null
+	hasCustomBranding?: boolean
 }
 
 const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
@@ -70,7 +70,7 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 	isRaw,
 	isCentered,
 	isSearchingForm,
-	planType
+	hasCustomBranding
 }) => {
 	const [finalResponse, setFinalResponse] = useState({
 		stars: 0,
@@ -308,7 +308,6 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 		return (
 			<div className="px-[15px] md:px-[25px] py-[15px] md:py-[30px] bg-white shadow-lg rounded-[15px] w-full max-w-[480px] text-left border-[1px] border-gray-100 pointer-events testimonial-modal relative">
 				{displayPowerdByLabel()}
-
 				<FormHeader
 					brandName={brandName} 
 					brandLogo={brandLogo} 
@@ -366,13 +365,8 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 		);
 	};
 
-	const hasCustomBranding = () => {
-		console.log(planType)
-		return !['Business', 'Enterprise', 'trial'].includes(planType || '');
-	}
-
 	const displayPowerdByLabel = () => {
-		return hasCustomBranding() && <Link href='https://feedbackz.co' className='absolute top-[-10px] right-[15px] px-[10px] py-[2px] rounded-[10px] bg-indigo-600 text-[11px] text-white font-[400] transition-all hover:bg-indigo-500'>Powered by Feedbackz </Link>
+		return !hasCustomBranding && <Link href={process.env.NEXT_PUBLIC_HOST_URL!} className='absolute top-[-10px] right-[15px] px-[10px] py-[2px] rounded-[10px] bg-indigo-600 text-[11px] text-white font-[400] transition-all hover:bg-indigo-500'>Powered by Feedbackz </Link>
 	}
 
 	return (

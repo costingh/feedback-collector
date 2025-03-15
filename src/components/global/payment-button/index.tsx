@@ -12,10 +12,10 @@ const PaymentButton = ({ planType }: Props) => {
 
 	return (
 		<Button
-			className="text-sm w-full "
+			className="text-sm w-full bg-indigo-600 text-white hover:bg-indigo-700"
 			onClick={() => onSubscribe(planType)}
 		>
-			<Loader color="#000" state={isProcessing}>
+			<Loader className='w-4' color="#000" state={isProcessing}>
 				Upgrade
 			</Loader>
 		</Button>

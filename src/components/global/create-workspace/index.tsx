@@ -8,6 +8,7 @@ import { useQueryData } from "@/hooks/useQueryData";
 import FolderPlusDuotine from "@/components/icons/folder-plus-duotone";
 import WorkspaceForm from "@/components/forms/workspace-form";
 import { PlusSquare } from "lucide-react";
+import { PLANS } from "./../../../app/(website)/feedbackz-pricing/constants";
 
 type Props = {};
 
@@ -18,8 +19,9 @@ const CreateWorkspace = (props: Props) => {
 		status: number;
 		data: {
 			subscription: {
-				plan: "PRO" | "FREE" | "BUSSINESS";
+				plan: "PRO" | "FREE" | "BUSINESS";
 			} | null;
+			workspace: any[];
 		};
 	};
 
@@ -32,24 +34,38 @@ const CreateWorkspace = (props: Props) => {
 	}
 
 	if (
-		plan.subscription?.plan === "BUSSINESS" ||
+		plan.subscription?.plan === "BUSINESS" ||
 		plan.subscription?.plan === "PRO"
 	)
 		return (
-			<Modal
-				title="Create a Workspace"
-				description=" Workspaces helps you collaborate with team members. You are assigned a default personal workspace where you can share videos in private with yourself."
-				trigger={
-					<div className="rounded-[7px] bg-gray-200 text-gray-500 px-[10px] py-[4px] cursor-pointer hover:bg-gray-300 flex items-center gap-[4px]">
-						<PlusSquare size={14} className="text-gray-800" />
-						<span className="text-[13px] font-[500] whitespace-nowrap">
-							Add new workspace
-						</span>
-					</div>
-				}
-			>
-				<WorkspaceForm />
-			</Modal>
+			<>
+				{/* @ts-ignore */}
+				{PLANS?.monthly?.find(
+					(p) =>
+						p?.name?.toLocaleLowerCase() ==
+						plan?.subscription?.plan?.toLocaleLowerCase()
+				)?.workspaces > plan?.workspace?.length ? (
+					<Modal
+						title="Create a Workspace"
+						description=" Workspaces helps you collaborate with team members. You are assigned a default personal workspace where you can share videos in private with yourself."
+						trigger={
+							<div className="rounded-[7px] bg-gray-200 text-gray-500 px-[10px] py-[4px] cursor-pointer hover:bg-gray-300 flex items-center gap-[4px]">
+								<PlusSquare
+									size={14}
+									className="text-gray-800"
+								/>
+								<span className="text-[13px] font-[500] whitespace-nowrap">
+									Add new workspace
+								</span>
+							</div>
+						}
+					>
+						<WorkspaceForm />
+					</Modal>
+				) : (
+					<span>Plan limits reached</span>
+				)}
+			</>
 		);
 };
 
