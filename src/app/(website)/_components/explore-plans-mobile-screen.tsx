@@ -173,9 +173,9 @@ function ExplorePlansMobileScreen() {
                                                     Customize widget colors
 												</dt>
 												<dd className="flex items-center justify-end sm:justify-center sm:px-4">
-													<XIcon/>
+													<CheckIcon/>
 													<span className="sr-only">
-														No
+														Yes
 													</span>
 												</dd>
 											</div>
@@ -184,9 +184,9 @@ function ExplorePlansMobileScreen() {
 													Custom Text
 												</dt>
 												<dd className="flex items-center justify-end sm:justify-center sm:px-4">
-													<XIcon/>
+													<CheckIcon/>
 													<span className="sr-only">
-														No
+														Yes
 													</span>
 												</dd>
 											</div>
@@ -312,7 +312,7 @@ function ExplorePlansMobileScreen() {
 												</dt>
 												<dd className="flex items-center justify-end sm:justify-center sm:px-4">
 													<span className="font-semibold text-indigo-600">
-														3
+														Unlimited
 													</span>
 												</dd>
 											</div>

@@ -13,7 +13,6 @@ export async function GET(
 	if (!user) return NextResponse.json({ status: 404, message: 'User is not logged in!' })
 	if (!planType) return NextResponse.json({ status: 404, message: 'Unknown plan specified!' })
 
-	console.log('############	planType: ', getPriceIdFromPlanType(planType))
 	const session = await stripe.checkout.sessions.create({
 		mode: 'subscription',
 		line_items: [

@@ -153,7 +153,7 @@ export default function ExplorePlans() {
 											<td className="relative w-1/4 px-4 py-0 text-center">
 												<span className="relative h-full w-full py-3">
 													<span className="font-semibold text-indigo-600 text-sm leading-6">
-														3
+														Unlimited
 													</span>
 												</span>
 											</td>
@@ -493,9 +493,9 @@ export default function ExplorePlans() {
 											</th>
 											<td className="relative w-1/4 px-4 py-0 text-center">
 												<span className="relative h-full w-full py-3">
-													<XIcon />
+													<CheckIcon />
 													<span className="sr-only">
-														No
+														Yes
 													</span>
 												</span>
 											</td>
@@ -530,9 +530,9 @@ export default function ExplorePlans() {
 											</th>
 											<td className="relative w-1/4 px-4 py-0 text-center">
 												<span className="relative h-full w-full py-3">
-													<XIcon />
+													<CheckIcon />
 													<span className="sr-only">
-														No
+														Yes
 													</span>
 												</span>
 											</td>
@@ -567,9 +567,9 @@ export default function ExplorePlans() {
 											</th>
 											<td className="relative w-1/4 px-4 py-0 text-center">
 												<span className="relative h-full w-full py-3">
-													<XIcon />
+													<CheckIcon />
 													<span className="sr-only">
-														No
+														Yes
 													</span>
 												</span>
 											</td>
@@ -604,9 +604,9 @@ export default function ExplorePlans() {
 											</th>
 											<td className="relative w-1/4 px-4 py-0 text-center">
 												<span className="relative h-full w-full py-3">
-													<XIcon />
+													<CheckIcon />
 													<span className="sr-only">
-														No
+														Yes
 													</span>
 												</span>
 											</td>
