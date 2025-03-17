@@ -2,22 +2,33 @@ import { Button } from "@/components/ui/button";
 import React from "react";
 import Loader from "../loader";
 import { useSubscription } from "@/hooks/useSubscription";
+import clsx from "clsx";
+import { Loader2 } from "lucide-react";
 
 type Props = {
 	planType: string;
+	styles?: string;
 };
 
-const PaymentButton = ({ planType }: Props) => {
+const PaymentButton = ({ planType, styles }: Props) => {
 	const { onSubscribe, isProcessing } = useSubscription();
 
 	return (
 		<Button
-			className="text-sm w-full bg-indigo-600 text-white hover:bg-indigo-700"
+			className={clsx("text-sm w-full bg-indigo-600 text-white hover:bg-indigo-700", styles)}
 			onClick={() => onSubscribe(planType)}
 		>
-			<Loader className='w-4' color="#000" state={isProcessing}>
+			{isProcessing ? (
+					<>
+						<Loader2 className="h-4 w-4 animate-spin" />
+						Processing...
+					</>
+				) : (
+					"Subscribe"
+				)}
+			{/* <Loader className='w-4' color="#000" state={isProcessing}>
 				Upgrade
-			</Loader>
+			</Loader> */}
 		</Button>
 	);
 };

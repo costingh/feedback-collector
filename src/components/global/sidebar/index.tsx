@@ -93,7 +93,7 @@ const Sidebar = ({ activeWorkspaceId }: Props) => {
 				<GlobalCard
 					title="Upgrade to PRO"
 					description="Complete your trial and unlock premium features with the Pro version."
-					footer={<PaymentButton planType='PRO' />}
+					footer={<PaymentButton planType='PRO_MONTHLY' />}
 				/>
 			)}
 
@@ -101,7 +101,7 @@ const Sidebar = ({ activeWorkspaceId }: Props) => {
 				<GlobalCard
 					title="Upgrade to BUSINESS"
 					description="Unlock workspaces and team collaboration."
-					footer={<PaymentButton planType='BUSINESS' />}
+					footer={<PaymentButton planType='BUSINESS_MONTHLY' />}
 				/>
 			)}
 

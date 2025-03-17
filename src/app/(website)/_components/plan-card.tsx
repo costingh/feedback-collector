@@ -3,25 +3,10 @@ import { toast } from "sonner";
 import { ArrowLeft, Loader2 } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import PaymentButton from "@/components/global/payment-button";
+import { PLANS } from "../feedbackz-pricing/constants";
 
 export default function PlanCard({ plan }: { plan: any }) {
-	const [loading, setLoading] = useState(false);
-
-	const onSubscribe = async (plan: any) => {
-		try {
-			setLoading(true); // Start loading
-			const response = await axios.get(
-				`/api/stripe?priceId=${plan.stripePriceId}`
-			);
-
-			window.location.href = response.data.url;
-		} catch (error) {
-			toast.error("Something went wrong");
-		} finally {
-			setLoading(false); // Stop loading
-		}
-	};
-
 	return (
 		<div
 			className={`bg-white border p-8 rounded-lg shadow-lg ${
@@ -39,7 +24,14 @@ export default function PlanCard({ plan }: { plan: any }) {
 			<p className="text-gray-500 text-sm mb-4">
 				/month billed {plan.interval}
 			</p>
-			<Button
+			{/* @ts-ignore */}
+			<PaymentButton planType={plan.planType} styles={`w-full ${
+					plan.mostPopular
+						? "bg-indigo-600 text-white"
+						: "bg-white text-indigo-600 border-indigo-600"
+				} hover:bg-indigo-600 hover:text-white transition border-[1px] border-indigo-600 flex items-center justify-center gap-2 rounded-[17px]`} />
+
+			{/* <Button
 				className={`w-full ${
 					plan.mostPopular
 						? "bg-indigo-600 text-white"
@@ -56,7 +48,7 @@ export default function PlanCard({ plan }: { plan: any }) {
 				) : (
 					"Subscribe"
 				)}
-			</Button>
+			</Button> */}
 
 			<ul className="mt-6 space-y-2 text-left text-gray-600">
 				{plan.details.map((detail: string, idx: number) => (

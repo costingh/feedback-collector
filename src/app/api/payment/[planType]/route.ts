@@ -1,4 +1,4 @@
-import { PLANS } from '@/constants/plans'
+import { PLANS } from '@/app/(website)/feedbackz-pricing/constants'
 import { currentUser } from '@clerk/nextjs/server'
 import { NextRequest, NextResponse } from 'next/server'
 import Stripe from 'stripe'
@@ -13,16 +13,17 @@ export async function GET(
 	if (!user) return NextResponse.json({ status: 404, message: 'User is not logged in!' })
 	if (!planType) return NextResponse.json({ status: 404, message: 'Unknown plan specified!' })
 
+	console.log('############	planType: ', getPriceIdFromPlanType(planType))
 	const session = await stripe.checkout.sessions.create({
 		mode: 'subscription',
 		line_items: [
 			{
-				price: PLANS.find(p => p.planName.toLocaleLowerCase() == planType.toLocaleLowerCase())?.priceId || '',
+				price: getPriceIdFromPlanType(planType),
 				quantity: 1,
 			},
 		],
-		success_url: `${process.env.NEXT_PUBLIC_HOST_URL}/payment?session_id={CHECKOUT_SESSION_ID}&planType=${planType}`,
-		cancel_url: `${process.env.NEXT_PUBLIC_HOST_URL}/payment?cancel=true`,
+		success_url: `${process.env.NEXT_PUBLIC_HOST_URL}/payment?session_id={CHECKOUT_SESSION_ID}&planType=${planType.includes('BUSINESS') ? 'Business' : 'Pro'}`,
+		cancel_url: `${process.env.NEXT_PUBLIC_HOST_URL}/dashboard`,
 	})
 
 	if (session) {
@@ -34,4 +35,12 @@ export async function GET(
 	}
 
 	return NextResponse.json({ status: 400 })
+}
+
+const getPriceIdFromPlanType = (planType: string) => {
+	if(planType == 'PRO_MONTHLY') return PLANS.monthly.find(p => p.planType == planType)?.stripePriceId || '';
+	else if(planType == 'PRO_YEARLY') return PLANS.yearly.find(p => p.planType == planType)?.stripePriceId || '';
+	else if(planType == 'BUSINESS_MONTHLY') return PLANS.monthly.find(p => p.planType == planType)?.stripePriceId || '';
+	else if(planType == 'BUSINESS_YEARLY') return PLANS.yearly.find(p => p.planType == planType)?.stripePriceId || '';
+	return ''; 
 }

@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import axios from 'axios'
+import { toast } from 'sonner'
 
 export const useSubscription = () => {
 	const [isProcessing, setIsProcessing] = useState(false)
@@ -11,9 +12,13 @@ export const useSubscription = () => {
 			const response = await axios.get(`/api/payment/${planType}`)
 			if (response.data.status === 200) {
 				return (window.location.href = `${response.data.session_url}`)
+			} else {
+				toast('Invalid plan type!')
 			}
 			setIsProcessing(false)
 		} catch (error) {
+			toast('Invalid plan type!')
+			setIsProcessing(false)
 			console.log(error, '🔴')
 		}
 	}
