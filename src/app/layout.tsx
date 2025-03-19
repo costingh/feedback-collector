@@ -63,6 +63,11 @@ export default function RootLayout({
 						src='http://localhost:3000/widget-embed.js'
 						strategy="afterInteractive"
 					/> */}
+
+					<Script
+						src='https://feedbackz.co/widget-embed.js'
+						strategy="afterInteractive"
+					/>
 			</html>
 		</ClerkProvider>
 	);

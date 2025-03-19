@@ -19,6 +19,8 @@ export const HeroSection = () => {
 						<p className='text-[18px] text-gray-500 font-[300] mb-6 leading-[30px]'>
 						Feedbackz enables you to seamlessly collect and showcase client testimonials through customizable forms and popups. Easily embed these on your website, share them with customers, and create dynamic widgets or testimonial walls to display on your SaaS platform, website, or blog. Enhance customer satisfaction and build trust effortlessly.
 						</p>
+						<div data-widget="feedbackz-widget" data-widget-id="vhGo8wU"></div>
+
 						<div className="flex items-center gap-4 relative">
 							<Link href="/auth/sign-up">
 								<Button variant="outline" className="rounded-[17px] border-[2px] border-indigo-600 bg-indigo-600 px-[25px] !py-[22px] text-white text-[14px] font-[500] hover:text-indigo-600 w-[220px]">
