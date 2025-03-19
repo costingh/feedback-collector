@@ -24,7 +24,7 @@ function Avatars({
 			{testimonials?.length ? (
 				<div
 					className={clsx(
-						"flex flex-col md:flex-row justify-center items-center md:items-start gap-3 w-[464px]",
+						"w-full flex flex-row items-start gap-3",
 						transition &&
 							"transition-transform duration-300 ease-in-out group-hover:scale-110"
 					)}
@@ -46,7 +46,7 @@ function Avatars({
 							</div>
 						))}
 					</div>
-					<div className="flex flex-col justify-center items-center md:items-start">
+					<div className="flex flex-col justify-center items-start">
 						<div className="block">
 							<StarsRating
 								value={computeAverageRating() || 0}

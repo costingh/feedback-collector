@@ -23,6 +23,7 @@
         iframe.src = iframeUrl;
         // iframe.allow = allow;
         iframe.style.border = "none";
+        iframe.style.width = "100%";
         iframe.setAttribute("scrolling", "no");
 
         // iframe.width = width;
