@@ -15,7 +15,7 @@ function BasicWall({ testimonials }: { testimonials: any }) {
 						<div className="flex items-center gap-2">
 							<Avatar>
 								<AvatarImage src={t?.avatar} />
-								<AvatarFallback>CN</AvatarFallback>
+								<AvatarFallback>{t?.name?.slice(0,2) || 'N/A'}</AvatarFallback>
 							</Avatar>
 							<div>
 								<p className="text-zinc-700 text-[14px] font-[600] m-0 p-0">

@@ -77,9 +77,9 @@ const LandingPage = () => {
 					<Image
 						src="/images/demo-image-1.png"
 						alt=""
-						width={400}
+						width={1800}
 						height={400}
-						className="max-w-[400px] w-full rounded-[15px]"
+						className="max-w-[1800px] w-full rounded-[15px]"
 					/>
 					<Link href="/sign-up">
 						<Button

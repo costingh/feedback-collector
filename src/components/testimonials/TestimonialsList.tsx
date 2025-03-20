@@ -37,7 +37,7 @@ function TestimonialsList({
 						<div className="avatar flex flex-col items-start justify-start text-left max-w-full w-[350px]">
 							<Avatar>
 								<AvatarImage src={t?.avatar} />
-								<AvatarFallback>CN</AvatarFallback>
+								<AvatarFallback>{t?.name?.slice(0,2) || 'N/A'}</AvatarFallback>
 							</Avatar>
 							<p className="text-zinc-700 text-[14px] font-[600] mb-1 mt-2">
 								{t?.name}

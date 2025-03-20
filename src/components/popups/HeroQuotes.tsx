@@ -14,7 +14,7 @@ function HeroQuotes({ transition }: { transition?: boolean }) {
 		>
 			<Avatar>
 				<AvatarImage src={"/images/avatar-placeholder.jpg"} />
-				<AvatarFallback>CN</AvatarFallback>
+				<AvatarFallback>N/A</AvatarFallback>
 			</Avatar>
 			<p className="text-gray-900 font-bold text-[15px]">
 				&quot;I&apos;ve already seen an increase in conversion rate and

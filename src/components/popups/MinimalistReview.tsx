@@ -12,7 +12,7 @@ function MinimalistReview({review} : {review: any}) {
 				<div className="flex items-center gap-2">
 					<Avatar>
 						<AvatarImage src="/company-placeholder-img.png" />
-						<AvatarFallback>CN</AvatarFallback>
+						<AvatarFallback>{review?.name?.slice(0,2) || 'N/A'}</AvatarFallback>
 					</Avatar>
 					<p className="text-zinc-700 text-[14px] font-[600] mb-1 mt-2">
 						{review?.name}
