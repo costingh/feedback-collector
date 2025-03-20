@@ -9,11 +9,11 @@ function PrivacyPolicyPage() {
 				<Button>Back to Website</Button>
 			</Link>
 
-			<h1 className="text-gray-100 font-[900] text-[35px] my-4">
+			<h1 className="text-gray-900 font-[900] text-[35px] my-4">
 				Privacy Policy for Feedbackz
 			</h1>
 
-			<p className="text-gray-300 font-[500] text-[18px]">
+			<p className="text-gray-700 font-[500] text-[18px]">
 				Privacy Policy
 				<br />
 				<br />
@@ -25,7 +25,7 @@ function PrivacyPolicyPage() {
 				<br />
 				Welcome to Feedbackz! This Privacy Policy outlines how we collect,
 				use, and protect your data when you use our website at
-				https://Feedbackz.pro and our services.
+				https://feedbackz.co and our services.
 				<br />
 				<br />
 				Data Collection
@@ -78,11 +78,10 @@ function PrivacyPolicyPage() {
 				<br />
 				If you have any questions or concerns regarding this Privacy
 				Policy or our data practices, please contact us at
-				gheorghecostin221@gmail.com.
+				gheorghe.costin2001@yahoo.com.
 				<br />
 				<br />
-				Thank you for using Feedbackz, your partner in sharing screen
-				recordings.
+				Thank you for using Feedbackz, your partner in collecting testimonials.
 			</p>
 		</div>
 	);

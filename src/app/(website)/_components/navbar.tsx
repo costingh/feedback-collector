@@ -69,6 +69,16 @@ const LandingPageNavBar = () => {
 							Pricing
 						</div>
 					</Link>
+					<Link href="/tos">
+						<div className="text-sm font-medium text-black cursor-pointer transition-all hover:text-gray-500">
+							Terms of Service
+						</div>
+					</Link>
+					<Link href="/privacy-policy">
+						<div className="text-sm font-medium text-black cursor-pointer transition-all hover:text-gray-500">
+							Privacy Policy
+						</div>
+					</Link>
 				</div>
 
 				{/* Conditional Sign-in/auth/sign-up Buttons */}

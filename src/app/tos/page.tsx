@@ -9,11 +9,11 @@ function TermsOfServicePage() {
 				<Button>Back to Website</Button>
 			</Link>
 
-			<h1 className="text-gray-100 font-[900] text-[35px] my-4">
+			<h1 className="text-gray-900 font-[900] text-[35px] my-4">
 				Terms and Conditions for Feedbackz
 			</h1>
 
-			<p className="text-gray-300 font-[500] text-[18px]">
+			<p className="text-gray-700 font-[500] text-[18px]">
 				Effective Date: February 10, 2025
 				<br />
 				<br />
@@ -69,7 +69,7 @@ function TermsOfServicePage() {
 				<br />
 				<br />
 				If you have any questions or concerns about these Terms or our
-				services, please contact us at gheorghecostin221@gmail.com.
+				services, please contact us at gheorghe.costin2001@yahoo.com.
 				<br />
 				<br />
 				Thank you for using Feedbackz, your partner in colecting and sharing testimonials.

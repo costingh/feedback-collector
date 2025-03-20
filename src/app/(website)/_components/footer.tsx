@@ -16,48 +16,48 @@ function Footer() {
 							Product
 						</h3>
 						<Link
-							href="#"
+							href="/auth/sign-in"
 							className="text-[15px] text-gray-500 cursor-pointer transition-all hover:pl-2 hover:text-gray-900 font-[300]"
 						>
 							Sign In
 						</Link>
 						<Link
-							href="#"
+							href="/auth/sign-up"
 							className="text-[15px] text-gray-500 cursor-pointer transition-all hover:pl-2 hover:text-gray-900 font-[300]"
 						>
 							Register
 						</Link>
 						<Link
-							href="#"
+							href="/#features"
 							className="text-[15px] text-gray-500 cursor-pointer transition-all hover:pl-2 hover:text-gray-900 font-[300]"
 						>
 							Features
 						</Link>
 						<Link
-							href="#"
+							href="/feedbackz-pricing"
 							className="text-[15px] text-gray-500 cursor-pointer transition-all hover:pl-2 hover:text-gray-900 font-[300]"
 						>
-							Integrations
+							Pricing
 						</Link>
 					</div>
 
 					<div className="w-[25%] flex flex-col gap-3">
 						<h3 className="text-[15px] font-semibold text-gray-900">
-							Product
+							Legal
 						</h3>
 						<Link
-							href="#"
+							href="/tos"
 							className="text-[15px] text-gray-500 cursor-pointer transition-all hover:pl-2 hover:text-gray-900 font-[300]"
 						>
-							Sign In
+							Terms of Service
 						</Link>
 						<Link
-							href="#"
+							href="/privacy-policy"
 							className="text-[15px] text-gray-500 cursor-pointer transition-all hover:pl-2 hover:text-gray-900 font-[300]"
 						>
-							Register
+							Privacy Policy
 						</Link>
-						<Link
+						{/* <Link
 							href="#"
 							className="text-[15px] text-gray-500 cursor-pointer transition-all hover:pl-2 hover:text-gray-900 font-[300]"
 						>
@@ -68,72 +68,60 @@ function Footer() {
 							className="text-[15px] text-gray-500 cursor-pointer transition-all hover:pl-2 hover:text-gray-900 font-[300]"
 						>
 							Integrations
+						</Link> */}
+					</div>
+
+					<div className="w-[25%] flex flex-col gap-3">
+						<h3 className="text-[15px] font-semibold text-gray-900">
+							Blog
+						</h3>
+						<Link
+							href="#"
+							className="text-[15px] text-gray-500 cursor-pointer transition-all hover:pl-2 hover:text-gray-900 font-[300]"
+						>
+							How to use Feedbackz
+						</Link>
+						<Link
+							href="#"
+							className="text-[15px] text-gray-500 cursor-pointer transition-all hover:pl-2 hover:text-gray-900 font-[300]"
+						>
+							How to get more reviews
+						</Link>
+						<Link
+							href="#"
+							className="text-[15px] text-gray-500 cursor-pointer transition-all hover:pl-2 hover:text-gray-900 font-[300]"
+						>
+							How to get more testimonials
 						</Link>
 					</div>
 
 					<div className="w-[25%] flex flex-col gap-3">
 						<h3 className="text-[15px] font-semibold text-gray-900">
-							Product
+							More
 						</h3>
 						<Link
 							href="#"
 							className="text-[15px] text-gray-500 cursor-pointer transition-all hover:pl-2 hover:text-gray-900 font-[300]"
 						>
-							Sign In
+							Support
 						</Link>
 						<Link
-							href="#"
+							href="mailto:gheorghe.costin2001@yahoo.com"
 							className="text-[15px] text-gray-500 cursor-pointer transition-all hover:pl-2 hover:text-gray-900 font-[300]"
 						>
-							Register
+							Contact
 						</Link>
-						<Link
-							href="#"
-							className="text-[15px] text-gray-500 cursor-pointer transition-all hover:pl-2 hover:text-gray-900 font-[300]"
-						>
-							Features
-						</Link>
-						<Link
+						{/* <Link
 							href="#"
 							className="text-[15px] text-gray-500 cursor-pointer transition-all hover:pl-2 hover:text-gray-900 font-[300]"
 						>
 							Integrations
-						</Link>
-					</div>
-
-					<div className="w-[25%] flex flex-col gap-3">
-						<h3 className="text-[15px] font-semibold text-gray-900">
-							Product
-						</h3>
-						<Link
-							href="#"
-							className="text-[15px] text-gray-500 cursor-pointer transition-all hover:pl-2 hover:text-gray-900 font-[300]"
-						>
-							Sign In
-						</Link>
-						<Link
-							href="#"
-							className="text-[15px] text-gray-500 cursor-pointer transition-all hover:pl-2 hover:text-gray-900 font-[300]"
-						>
-							Register
-						</Link>
-						<Link
-							href="#"
-							className="text-[15px] text-gray-500 cursor-pointer transition-all hover:pl-2 hover:text-gray-900 font-[300]"
-						>
-							Features
-						</Link>
-						<Link
-							href="#"
-							className="text-[15px] text-gray-500 cursor-pointer transition-all hover:pl-2 hover:text-gray-900 font-[300]"
-						>
-							Integrations
-						</Link>
+						</Link> */}
 					</div>
 				</div>
 			</div>
 			<div className="w-full text-center py-5 text-[15px] text-gray-500 font-[300] border-t-[1px] border-gray-200">
-				© 2024 Feedbackz. All rights reserved.
+				© 2025 Feedbackz. All rights reserved.
 			</div>
 		</>
 	);
