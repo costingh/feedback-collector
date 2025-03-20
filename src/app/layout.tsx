@@ -6,7 +6,7 @@ import { ReduxProvider } from "@/redux/provider";
 import { Toaster } from "sonner";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react"
-
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 export const metadata: Metadata = {
 	title: "Feedbackz",
@@ -45,6 +45,7 @@ export default function RootLayout({
 				</Script>
 				<body >
 					<Analytics/>
+					<SpeedInsights/>
 					<ReduxProvider>
 						<ReactQueryProvider>
 							{children}
