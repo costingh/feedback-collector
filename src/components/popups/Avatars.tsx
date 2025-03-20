@@ -21,7 +21,7 @@ function Avatars({
 
 	return (
 		<>
-			{testimonials?.length ? (
+			{testimonials?.length > 0 ? (
 				<div
 					className={clsx(
 						"w-full flex flex-row items-start gap-3",
