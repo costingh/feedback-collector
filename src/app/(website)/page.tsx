@@ -138,7 +138,7 @@ const LandingPage = () => {
 				<div className="flex">
 					<div className="w-[50%]">
 						<Image
-							src="/images/demo-image-1.png"
+							src="/images/demo-showcase-options.png"
 							alt=""
 							width={400}
 							height={400}
@@ -202,7 +202,7 @@ const LandingPage = () => {
 					</div>
 					<div className="w-[50%]">
 						<Image
-							src="/images/demo-image-1.png"
+							src="/images/demo-website-integration.png"
 							alt=""
 							width={400}
 							height={400}
