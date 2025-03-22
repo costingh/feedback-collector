@@ -24,7 +24,7 @@ type Props = {
 const Layout = async ({ params: { workspaceId }, children }: Props) => {
 	const auth = await onAuthenticateUser();
 	if (!auth.user?.workspace) redirect("/auth/sign-in");
-	if (!auth.user.workspace.length) redirect("/auth/sign-in");
+	if (!auth.user?.workspace?.length) redirect("/auth/sign-in");
 	const hasAccess = await verifyAccessToWorkspace(workspaceId);
 	
 	if (hasAccess.status !== 200) {

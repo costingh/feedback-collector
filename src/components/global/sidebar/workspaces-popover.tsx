@@ -42,7 +42,7 @@ WorkspacesPopoverProps) {
 				transform: "translateX(-100%)",
 			}}
 		>
-			{workspace.workspace.map((wk: any) => (
+			{workspace?.workspace?.map((wk: any) => (
 				<div
 					key={wk.id}
 					className="flex items-center p-2 hover:bg-gray-100 cursor-pointer rounded-lg"
@@ -56,7 +56,7 @@ WorkspacesPopoverProps) {
 					</span>
 				</div>
 			))}
-			{workspace.workspace.length > 0 &&
+			{workspace?.workspace?.length > 0 &&
 				members.map(
 					(wk: any) =>
 						wk.WorkSpace && (

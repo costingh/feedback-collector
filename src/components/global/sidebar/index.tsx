@@ -43,7 +43,7 @@ const Sidebar = ({ activeWorkspaceId }: Props) => {
 	const { data: workspace } = data as WorkspaceProps;
 	const { data: count } = notifications as NotificationProps;
 
-	const currentWorkspace = workspace.workspace.find(
+	const currentWorkspace = workspace?.workspace?.find(
 		(s) => s.id === activeWorkspaceId
 	);
 
