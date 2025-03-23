@@ -59,7 +59,7 @@ function Avatars({
 							<span className="font-semibold text-base-content">
 								Trusted
 							</span>{" "}
-							by hundreds of growing brands and creators
+							by hundreds of businesses
 						</div>
 					</div>
 				</div>

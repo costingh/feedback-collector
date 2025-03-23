@@ -206,7 +206,7 @@ const LandingPage = () => {
 							alt=""
 							width={400}
 							height={400}
-							className="w-full"
+							className="mx-auto w-[400px]"
 						/>
 					</div>
 				</div>
