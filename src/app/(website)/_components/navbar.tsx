@@ -35,11 +35,11 @@ const LandingPageNavBar = () => {
 
 	return (
 		<nav
-			className={`fixed w-full top-0 left-0 transition-all z-50 bg-white ${
-				isScrolled ? "shadow-lg" : ""
-			}`}
+			className={`fixed w-full top-0 left-0 transition-all z-50`}
 		>
-			<div className="max-w-full md:max-w-[85%] xl:max-w-[65%] mx-auto px-5 py-3 flex items-center justify-between">
+			<div className={`max-w-full md:max-w-[85%] xl:max-w-[65%] mx-auto px-3 py-3 mt-[20px] flex items-center justify-between border-gray-200 border-[1px] rounded-[30px] bg-white  ${
+				isScrolled ? "shadow-lg" : ""
+			}`}>
 				<Logo />
 
 				{/* Hamburger Menu for Mobile */}

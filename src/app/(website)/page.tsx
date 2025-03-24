@@ -14,11 +14,12 @@ import { CrispChat } from "./_components/crisp-chat";
 const LandingPage = () => {
 	return (
 		<>
-			<div className="max-w-full md:max-w-[85%] xl:max-w-[65%] mx-auto px-5 h-full">
+			<div className="max-w-full mx-auto px-5 h-full"> 
+			{/* md:max-w-[85%] xl:max-w-[65%]  */}
 				<LandingPageNavBar />
 				<HeroSection />
 
-				<div className="w-full bg-indigo-600 rounded-[40px] py-[80px] px-[100px]">
+				<div className=" md:max-w-[85%] xl:max-w-[65%] bg-indigo-600 rounded-[40px] py-[80px] px-[100px] mx-auto">
 					<div className="flex-wrap flex items-center">
 						<div className="w-[80%]">
 							{/* <p className="text-gray-100 text-[18px] font-black">
