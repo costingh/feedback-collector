@@ -59,6 +59,14 @@ export const HeroSection = () => {
 							height={500}
 							className="max-w-full max-h-full absolute bottom-[-300px] left-[-300px] z-[-2] object-contain"
 						/>
+
+						<Image
+							src="/images/hero-image-5.png"
+							alt=""
+							width={500}
+							height={500}
+							className="max-w-full max-h-full absolute bottom-[-450px] right-[-400px] z-[-2] object-contain"
+						/>
 					</div>
 
 					<div className="flex items-center justify-center gap-4 relative">

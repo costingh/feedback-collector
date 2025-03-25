@@ -95,7 +95,7 @@ const LandingPage = () => {
 			<div className="divider h-[100px]"></div>
 			<div
 				id="#features"
-				className="max-w-full md:max-w-[85%] xl:max-w-[65%] mx-auto px-5 h-gull"
+				className="max-w-full md:max-w-[85%] xl:max-w-[65%] mx-auto px-5 h-full"
 			>
 				<div className="flex">
 					<div className="w-[50%]">
@@ -111,7 +111,7 @@ const LandingPage = () => {
 							customers share their positive experiences
 							effortlessly.
 						</span>
-						<Link href="/sign-up" className="block">
+						<Link href="/sign-up" className="block mt-4">
 							<Button
 								variant="outline"
 								className="text-[15px] font-medium !text-indigo-600 cursor-pointer background-none border-none hover:border-indigo-600 border-transparent border-b border-[1px] hover:bg-transparent p-0"
@@ -159,7 +159,7 @@ const LandingPage = () => {
 							platform that highlights real customer satisfaction
 							and boosts credibility.
 						</span>
-						<Link href="/sign-up" className="block">
+						<Link href="/sign-up" className="block mt-4">
 							<Button
 								variant="outline"
 								className="text-[15px] font-medium !text-indigo-600 cursor-pointer background-none border-none hover:border-indigo-600 border-transparent border-b border-[1px] hover:bg-transparent p-0"
@@ -189,7 +189,7 @@ const LandingPage = () => {
 							collecting and showcasing testimonials without any
 							technical headaches.
 						</span>
-						<Link href="/sign-up" className="block">
+						<Link href="/sign-up" className="block mt-4">
 							<Button
 								variant="outline"
 								className="text-[15px] font-medium !text-indigo-600 cursor-pointer background-none border-none hover:border-indigo-600 border-transparent border-b border-[1px] hover:bg-transparent p-0"
