@@ -53,22 +53,15 @@ export default function RootLayout({
 						</ReactQueryProvider>
 					</ReduxProvider>
 				</body>
-
-				{/* <Script
-						src={`http://localhost:3000/embed.js?formId=${formId}&width=${width}&height=${height}&allow=${allow}`}
-						// src={`https://feedbackz.co/embed.js?formId=${formId}&width=${width}&height=${height}&allow=${allow}`}
-						strategy="afterInteractive"
-					/> */}
-
-					{/* <Script
-						src='http://localhost:3000/widget-embed.js'
-						strategy="afterInteractive"
-					/> */}
-
 					<Script
 						src='https://feedbackz.co/widget-embed.js'
 						strategy="afterInteractive"
 					/>
+
+					{/* <Script
+						src='https://feedbackz.co/embed.js?formId=YWByDh4R&width=100%&height=100%&allow=camera;microphone'
+						strategy="afterInteractive"
+					/> */}
 			</html>
 		</ClerkProvider>
 	);

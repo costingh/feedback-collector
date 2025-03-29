@@ -13,6 +13,7 @@ import Loader from "@/components/global/loader";
 import { getUserTestimonials } from "@/actions/workspace";
 import { useTags } from "@/hooks/useTags";
 import { getUserForms } from "@/actions/form";
+import { LoadingSpinner } from "@/components/animations/loading-spinner";
 
 interface Testimonial {
 	// Define the shape of your testimonial here
@@ -165,8 +166,10 @@ const LandingPage = ({ params }: { params: { widgetId: string, workspaceId: stri
 						)}
 					>
 						{isSearchingWidgets ? (
-							<div className="mt-10">
-								<Loader state={true} />
+							<div className="w-full h-full flex items-center justify-center">
+								<span className="inline-block">
+									<LoadingSpinner size={40} />
+								</span>
 							</div>
 						) : (
 							<div className="mt-10">

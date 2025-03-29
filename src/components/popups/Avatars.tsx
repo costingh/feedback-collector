@@ -69,6 +69,8 @@ function Avatars({
 						<h1 className="text-black font-700 text-[20px] mb-2">
 							Oops, looks like you didnt link any testimonials to
 							this widget
+							<br/><br/>
+							Please go to the "Creator" sidebar menu and link some
 						</h1>
 					</div>
 				</div>

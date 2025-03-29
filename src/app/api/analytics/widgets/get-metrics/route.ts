@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import prismadb from "@/lib/prismadb";
+import { client } from '@/lib/prisma';
 
 export async function GET(req: Request) {
     try {
@@ -17,7 +17,7 @@ export async function GET(req: Request) {
         }
 
         // Query the database to sum the value for the specific widgetId and actionType
-        const sumResult = await prismadb.widgetAnalytics.aggregate({
+        const sumResult = await client.widgetAnalytics.aggregate({
             _sum: {
                 value: true, // Sum the 'value' column
             },

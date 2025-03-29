@@ -7,6 +7,7 @@ import { EditTag } from "@/components/tags/EditTag";
 import { useTags } from "@/hooks/useTags";
 import Loader from "@/components/global/loader";
 import { CreateTagModal } from '@/components/tags/CreateTagModal';
+import { LoadingSpinner } from "@/components/animations/loading-spinner";
 
 type Props = {
 	params: { workspaceId: string };
@@ -31,8 +32,10 @@ const Page = ({ params: { workspaceId } }: Props) => {
 			</div>
 
 			{isSearchingTags ? (
-				<div className="mt-10">
-					<Loader state={true} />
+				<div className="w-full h-full flex items-center justify-center">
+					<span className="inline-block">
+						<LoadingSpinner size={40} />
+					</span>
 				</div>
 			) : (
 				<>

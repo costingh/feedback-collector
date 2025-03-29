@@ -100,7 +100,7 @@ export const HeroSection = () => {
 					<div className="flex  items-center justify-center">
 						<div
 							data-widget="feedbackz-widget"
-							data-widget-id="vhGo8wU"
+							data-widget-id="MKR3po8"
 						></div>
 					</div>
 				</div>

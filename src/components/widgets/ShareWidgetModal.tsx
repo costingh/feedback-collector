@@ -28,7 +28,7 @@ export function ShareWidgetModal({
 }) {
 	const [isActive, setIsActive] = useState("share");
 	const [embeddingType, setEmbeddingType] = useState(1);
-	const embedCode = `<div data-widget="feedbackz-widget" data-widget-id="${widgetUrl}"></div>\n<script src="${process.env.NEXT_PUBLIC_HOST_URL}/widget-embed.js"></script>`;
+	const embedCode = `<div data-widget="feedbackz-widget" data-widget-id="${widgetUrl?.replace('/', '')}"></div>\n<script src="${process.env.NEXT_PUBLIC_HOST_URL}/widget-embed.js"></script>`;
 	const { copied, handleCopy } = useCopy();
 
 	// Helper to render tab content for Share and Embed sections

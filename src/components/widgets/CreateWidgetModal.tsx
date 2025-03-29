@@ -97,7 +97,7 @@ export function CreateWidgetModal({
 				name: "",
 				target: "",
 			});
-			router.push(`/dashboard/${workspaceId}/share/${createdWidget.url}`);
+			router.push(`/dashboard/${workspaceId}/share/edit/${createdWidget.url}`);
 		} catch (e) {
 			console.error(e);
 			toast.error("Could not create widget");

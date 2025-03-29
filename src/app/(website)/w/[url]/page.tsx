@@ -1,10 +1,9 @@
 "use client";
 
-import { useState } from "react";
 import DisplayWidget from "@/components/widgets/DisplayWidget";
 import { getUserWidget } from "@/actions/widgets";
 import { useQueryData } from "@/hooks/useQueryData";
-import Loader from "@/components/global/loader";
+import { LoadingSpinner } from "@/components/animations/loading-spinner";
 
 const LandingPage = ({ params }: { params: { url: string } }) => {
     const { data: widgetResponse, isFetching: isSearchingWidget } = useQueryData(
@@ -17,7 +16,11 @@ const LandingPage = ({ params }: { params: { url: string } }) => {
 	return (
 		<>
 			{isSearchingWidget ? (
-				<Loader state={true} />
+				<div className="w-full h-full flex items-center justify-center">
+					<span className="inline-block">
+						<LoadingSpinner size={40} />
+					</span>
+				</div>
 			) : (
 				<>
 					{widget?.testimonials?.length && (
@@ -33,7 +36,7 @@ const LandingPage = ({ params }: { params: { url: string } }) => {
 									testimonials
 								</h1>
 								<p className="text-gray-700 text-[16px] mb-2">
-									You cant share this &quot;Carousel&quot;
+									You cant share this widget
 									like this, so please select some
 									testimonials to include them in the
 									carousel.

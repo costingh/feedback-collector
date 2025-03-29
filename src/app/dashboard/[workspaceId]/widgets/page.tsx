@@ -6,6 +6,7 @@ import Loader from "@/components/global/loader";
 import { useQueryData } from "@/hooks/useQueryData";
 import Widget from "@/components/popups/Widget";
 import { useRouter } from "next/navigation";
+import { LoadingSpinner } from "@/components/animations/loading-spinner";
 
 type Props = {
 	params: { workspaceId: string };
@@ -36,8 +37,10 @@ const WidgetsPage = ({ params: { workspaceId } }: Props) => {
 				</div>
 
 				{isFetching ? (
-					<div className="mt-10">
-						<Loader state={isFetching} />
+					<div className="w-full h-full flex items-center justify-center">
+						<span className="inline-block">
+							<LoadingSpinner size={40} />
+						</span>
 					</div>
 				) : (
 					<>

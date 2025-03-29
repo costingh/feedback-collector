@@ -6,6 +6,7 @@ import WidgetEditorNav from "@/components/widgets/WidgetEditorNav";
 import { getUserWidget, getUserWidgets } from "@/actions/widgets";
 import Loader from "@/components/global/loader";
 import { useQueryData } from "@/hooks/useQueryData";
+import { LoadingSpinner } from "@/components/animations/loading-spinner";
 
 // TODO
 const ShareWidgetPage = ({ params }: { params: { widgetId: string } }) => {
@@ -102,8 +103,10 @@ const ShareWidgetPage = ({ params }: { params: { widgetId: string } }) => {
 				className="py-8 relative bg-gray-100 min-h-[100vh]"
 			>
 				{isFetching ? (
-					<div className="mt-10">
-						<Loader state={true} />
+					<div className="w-full h-full flex items-center justify-center">
+						<span className="inline-block">
+							<LoadingSpinner size={40} />
+						</span>
 					</div>
 				) : <DisplayWidget widget={widget} />}
 			</div>

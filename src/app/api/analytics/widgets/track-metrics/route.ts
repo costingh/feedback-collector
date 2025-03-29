@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import prismadb from "@/lib/prismadb";
+import { client } from '@/lib/prisma';
 
 export async function POST(req: Request) {
     try {
@@ -22,7 +22,7 @@ export async function POST(req: Request) {
                 return NextResponse.json({ success: false, message: "Invalid eventType" });
         }
 
-        await prismadb.widgetAnalytics.create({
+        await client.widgetAnalytics.create({
             data: {
                 widgetId,
                 actionType: eventType,
