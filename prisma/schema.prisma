@@ -141,6 +141,10 @@ model FormAnalytics {
   actionType String
   value      Float
   formId     String
+  country    String   @default("")
+  userAgent  String   @default("")
+  platform   String   @default("")
+  deviceType String   @default("")
   createdAt  DateTime @default(now())
 
   Form Form @relation(fields: [formId], references: [id])

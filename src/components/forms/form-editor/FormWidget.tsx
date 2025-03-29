@@ -23,19 +23,22 @@ const FormWidget = ({
 	const [step, setStep] = useState(1);
 	// const [isSearchingForm, setIsSearchingForm] = useState(true);
 	// const [form, setForm] = useState<Form | null>(null);
-	const [startTime, setStartTime] = useState<number | null>(null); // Start time for time spent
+	const [startTime, setStartTime] = useState<number>(0); // Start time for time spent
 	const [hasInteracted, setHasInteracted] = useState(false); // Track user interaction
 
 	// Get device/browser data
 	const getDeviceInfo = () => {
 		const userAgent = navigator.userAgent;
 		const platform = navigator.platform;
-		return `${platform}, ${userAgent}`;
+		const width = window.innerWidth;
+		const deviceType = width <= 768 ? "Mobile" : "Desktop";
+
+		return { userAgent, platform, deviceType };
 	};
 
 	const trackMetric = async (
 		eventType: string,
-		timeSpent?: number,
+		timeSpent: number,
 		_form?: any
 	) => {
 		try {
@@ -43,39 +46,22 @@ const FormWidget = ({
 			await axios.post("/api/analytics/track-metrics", {
 				formId: _form?.id,
 				eventType,
-				timeSpent,
+				timeSpent: timeSpent / 100,
 				deviceInfo: getDeviceInfo(),
+				countryData: getUserCountry(),
 			});
 		} catch (error) {
 			console.error("Error tracking metric:", error);
 		}
 	};
 
-	// const handleGetFormByUrl = useCallback(async (formUrl: string) => {
-	// 	setIsSearchingForm(true);
-	// 	try {
-	// 		const response = await axios.get(`/api/get-form?url=${formUrl}`);
-	// 		const formResponse = response?.data?.form;
-
-	// 		if (!formResponse) {
-	// 			toast.error("Form not found!");
-	// 			return;
-	// 		}
-
-	// 		setForm(formResponse);
-	// 		if (formResponse.published) setStep(1);
-
-	// 		// Track view
-	// 		trackMetric("view", 0, formResponse);
-
-	// 		// Start time tracking
-	// 		setStartTime(Date.now());
-	// 	} catch (err) {
-	// 		toast.error("An error occurred while retrieving the form!");
-	// 	} finally {
-	// 		setIsSearchingForm(false);
-	// 	}
-	// }, []);
+	const getUserCountry = () => {
+		if (typeof window !== "undefined" && window.navigator) {
+			const language = navigator.language;
+			const countryCode = language.split("-")[1] || "Unknown";
+			return countryCode;
+		} else return null;
+	};
 
 	const handleInteraction = () => {
 		if (!hasInteracted) {
@@ -85,7 +71,7 @@ const FormWidget = ({
 	};
 
 	const handleSubmitForm = async () => {
-		const timeSpent = (Date.now() - (startTime ?? 0)) / 1000; // Calculate time spent in seconds
+		const timeSpent = performance.now() - startTime; // Calculate time spent in seconds
 
 		// Track form completion and time spent
 		trackMetric("completion", timeSpent, form);
@@ -94,24 +80,27 @@ const FormWidget = ({
 	// Handle bounce (user exits without interacting)
 	const handleBounce = () => {
 		if (!hasInteracted && form) {
-			trackMetric("bounce", 0, form);
+			const timeSpent = performance.now() - startTime;
+			trackMetric("bounce", timeSpent, form);
 		}
 	};
 
-	// useEffect(() => {
-	// 	handleGetFormByUrl("/p/" + formUrl);
+	const handleUnload = (startTime: number) => {
+		const timeSpent = performance.now() - startTime;
+		trackMetric("time", timeSpent, form);
+	};
 
-	// 	window.addEventListener("beforeunload", handleBounce);
+	useEffect(() => {
+		const localStartTime = performance.now(); // More precise timing
 
-	// 	// Cleanup on component unmount
-	// 	return () => {
-	// 		if (startTime) {
-	// 			const timeSpent = (Date.now() - startTime) / 1000;
-	// 			trackMetric("time", timeSpent, form);
-	// 		}
-	// 		window.removeEventListener("beforeunload", handleBounce);
-	// 	};
-	// }, []);
+		setStartTime(localStartTime);
+		trackMetric("view", 0, form);
+
+		return () => {
+			handleUnload(performance.now() - localStartTime);
+			handleBounce();
+		};
+	}, []);
 
 	return (
 		<>
