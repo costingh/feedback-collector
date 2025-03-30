@@ -26,7 +26,7 @@ export const MENU_ITEMS = (
 ): { title: string; href: string; icon: React.ReactNode }[] => [
 	{
 		title: "Home",
-		href: `/dashboard/${workspaceId}/home`,
+		href: `/dashboard/${workspaceId}`,
 		icon: <LayoutDashboardIcon />,
 	},
 	{

@@ -121,7 +121,7 @@ const Page = ({ params: { workspaceId } }: Props) => {
 
 			<div className="grid gap-4 sm:grid-cols-12 md:grid-cols-9 lg:grid-cols-8">
 				<div className="col-span-12 md:col-span-6 lg:col-span-5">
-					<AreaGraph chartData={dashboardData.data.visitsEvolutionChart} />
+					<AreaGraph chartData={dashboardData?.data?.visitsEvolutionChart} />
 				</div>
 
 				<div className="col-span-12 md:col-span-3 lg:col-span-3">
