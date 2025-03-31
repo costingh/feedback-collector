@@ -42,7 +42,6 @@ const FormWidget = ({
 		_form?: any
 	) => {
 		try {
-			console.log(_form);
 			await axios.post("/api/analytics/track-metrics", {
 				formId: _form?.id,
 				eventType,
@@ -63,10 +62,10 @@ const FormWidget = ({
 		} else return null;
 	};
 
-	const handleInteraction = () => {
+	const handleInteraction = async () => {
 		if (!hasInteracted) {
 			setHasInteracted(true);
-			trackMetric("interaction", 0, form);
+			await trackMetric("interaction", 0, form);
 		}
 	};
 
@@ -74,7 +73,7 @@ const FormWidget = ({
 		const timeSpent = performance.now() - startTime; // Calculate time spent in seconds
 
 		// Track form completion and time spent
-		trackMetric("completion", timeSpent, form);
+		await trackMetric("completion", timeSpent, form);
 	};
 
 	// Handle bounce (user exits without interacting)

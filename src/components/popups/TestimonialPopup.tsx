@@ -105,6 +105,9 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 			})
 			const handleSubmit = async () => {
 				setIsSubmitting(true)
+
+				await onInteraction("submitButton")
+
 				const requiredFieldsKeys = availableOptions
 					?.filter((option) => option.isRequired && option.isEnabled)
 					?.map((option) => option.key) || [];
@@ -146,6 +149,7 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 
 				if (!isCompletedForm) {
 					toast.error("Please complete all required fields");
+					setIsSubmitting(false)
 					return;
 				}
 
@@ -167,7 +171,7 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 					// maybe redirect to thank you page
 					toast.success('Response submitted successfully!')
 					setStep(3)
-					onSubmit && onSubmit()
+					onSubmit && await onSubmit()
 
 					// TODO - maybe set a cookie here to not let user submit the form another time, maybe save its IP addres to db to prevend fraud
 				}
@@ -282,7 +286,6 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 						buttonLabel={buttonLabel}
 						handleSubmit={handleSubmit}
 						loading={isSubmitting}
-						onInteraction={onInteraction}
 						primaryColor={primaryColor || BASE_PRIMARY_COLOR}
 					/>
 				</>

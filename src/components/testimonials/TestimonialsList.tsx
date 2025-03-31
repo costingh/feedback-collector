@@ -5,6 +5,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import DisplayTestimonialTags from "@/components/tags/DisplayTestimonialTags";
 import { timeAgo } from "@/lib/utils";
 import StarsRating from "@/components/stars/stars-rating";
+import Link from "next/link";
 
 function TestimonialsList({
 	testimonials,
@@ -12,12 +13,14 @@ function TestimonialsList({
 	setChecked,
 	tags,
 	checkedItems,
+	workspaceId
 }: {
 	testimonials: any;
 	isChecked: any;
 	setChecked: any;
 	tags: any;
 	checkedItems: any;
+	workspaceId?: string;
 }) {
 	return (
 		<>
@@ -72,32 +75,40 @@ function TestimonialsList({
 							</div>
 						</div>
 
-						<div className="w-[350px] flex items-center gap-4 justify-end">
-							{t?.approved ? (
-								<span className="px-2 py-1 rounded-[10px] bg-[#4dff0769] text-[#0d7d01e6] text-[12px] font-semibold cursor-pointer">
-									Approved
-								</span>
-							) : (
-								<span className="px-2 py-1 rounded-[10px] bg-[#ffc10769] text-[#7d5e01e6] text-[12px] font-semibold cursor-pointer">
-									Not Approved
-								</span>
-							)}
+						<div className="w-[350px] gap-4 flex flex-col items-center">
+							<div className="flex items-center gap-4 justify-center">
+								{t?.approved ? (
+									<span className="px-2 py-1 rounded-[10px] bg-[#4dff0769] text-[#0d7d01e6] text-[12px] font-semibold cursor-pointer">
+										Approved
+									</span>
+								) : (
+									<span className="px-2 py-1 rounded-[10px] bg-[#ffc10769] text-[#7d5e01e6] text-[12px] font-semibold cursor-pointer">
+										Not Approved
+									</span>
+								)}
 
-							<Checkbox
-								id={`check-${t.id}`}
-								checked={checkedItems.has(t.id)}
-								onClick={() =>
-									setChecked((prev: any) => {
-										const newCheckedItems = new Set(prev);
-										if (newCheckedItems.has(t.id)) {
-											newCheckedItems.delete(t.id); // Uncheck by removing the item from the set
-										} else {
-											newCheckedItems.add(t.id); // Check by adding the item to the set
-										}
-										return newCheckedItems;
-									})
-								}
-							/>
+								<Checkbox
+									id={`check-${t.id}`}
+									checked={checkedItems.has(t.id)}
+									onClick={() =>
+										setChecked((prev: any) => {
+											const newCheckedItems = new Set(prev);
+											if (newCheckedItems.has(t.id)) {
+												newCheckedItems.delete(t.id); // Uncheck by removing the item from the set
+											} else {
+												newCheckedItems.add(t.id); // Check by adding the item to the set
+											}
+											return newCheckedItems;
+										})
+									}
+								/>
+							</div>
+							
+							<div>
+								<Link target='_blank' href={`${process.env.NEXT_PUBLIC_HOST_URL}/dashboard/${workspaceId}/forms/edit/${t?.form?.url?.replace('/p/', '')}`} className="text-gray-400 font-semibold text-[12px] rounded-lg border border-indigo-600 bg-indigo-600 text-white text-sm font-bold hover:text-indigo-600">
+									Edit associated form
+								</Link>
+							</div>
 						</div>
 					</div>
 					<div className="w-full bg-gray-100 h-[1px]"></div>
