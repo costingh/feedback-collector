@@ -26,7 +26,7 @@ import FiterTestimonialsSidebar from "./FiterTestimonialsSidebar";
 import { LoadingSpinner } from "../animations/loading-spinner";
 import { getUserForms } from "@/actions/form";
 import { Form } from "@/types/Form";
-import { groupTagsByCategory } from '@/lib/utils';
+import { groupTagsByCategory } from "@/lib/utils";
 import { useTags } from "@/hooks/useTags";
 
 type Props = {
@@ -34,12 +34,12 @@ type Props = {
 };
 
 const TestimonialsPage = ({ workspaceId }: Props) => {
-	const {tags, groupedTags, setTags} = useTags(workspaceId);
-	
+	const { tags, groupedTags, setTags } = useTags(workspaceId);
+
 	const { data: testimonialsResponse, isFetched } = useQuery({
 		queryKey: ["user-testimonials", workspaceId],
 		queryFn: () => getUserTestimonials(workspaceId),
-		refetchOnWindowFocus: false
+		refetchOnWindowFocus: false,
 	});
 
 	const { data: formsResponse } = useQuery({
@@ -49,8 +49,6 @@ const TestimonialsPage = ({ workspaceId }: Props) => {
 
 	const userTestimonials = testimonialsResponse?.data || [];
 	const userForms: any = formsResponse?.data?.forms || [];
-
-	
 
 	const [testimonials, setTestimonials] = useState<any>(userTestimonials);
 
@@ -62,6 +60,19 @@ const TestimonialsPage = ({ workspaceId }: Props) => {
 		loading: false,
 	});
 	const [showFilterSidebar, setShowFilterSidebar] = useState(true);
+
+	useEffect(() => {
+		const handleKeyDown = (event: KeyboardEvent) => {
+			if (event.key === "Escape") {
+				setChecked(new Set());
+			}
+		};
+
+		document.addEventListener("keydown", handleKeyDown);
+		return () => {
+			document.removeEventListener("keydown", handleKeyDown);
+		};
+	}, []);
 
 	useEffect(() => {
 		let _filteredTestimonials = [...testimonials];
@@ -173,11 +184,11 @@ const TestimonialsPage = ({ workspaceId }: Props) => {
 			});
 
 			const response = await rawResponse.json();
-			console.log(response);
+
 			if (!response?.success) {
 				toast.error("Could not delete testimonials");
 			} else {
-				setTestimonials((prevT : any) =>
+				setTestimonials((prevT: any) =>
 					//@ts-ignore
 					prevT.filter((t) => !checkedItems.has(t.id))
 				);
@@ -273,6 +284,10 @@ const TestimonialsPage = ({ workspaceId }: Props) => {
 		}
 	};
 
+	const handleCheckAll = () => {
+		setChecked(new Set(testimonials.map((t: any) => t.id)))
+	}
+
 	return (
 		<div className="flex">
 			<div className="px-8 py-5 relative w-full">
@@ -314,7 +329,7 @@ const TestimonialsPage = ({ workspaceId }: Props) => {
 							loading={loading}
 							//@ts-ignore
 							selectedIds={Array.from(checkedItems)}
-                            workspaceId={workspaceId}
+							workspaceId={workspaceId}
 						/>
 
 						<div
@@ -382,14 +397,25 @@ const TestimonialsPage = ({ workspaceId }: Props) => {
 								from each of your forms.
 							</p>
 						</div>
-						<div
-							onClick={() => setShowFilterSidebar(true)}
-							className="flex items-center gap-3 cursor-pointer px-4 py-2 transition-all hover:bg-gray-200 bg-gray-100 rounded-[6px]"
-						>
-							<span className="text-[16px] text-gray-500">
-								Filter
-							</span>
-							<Filter size={16} className="text-gray-500" />
+						<div className="flex items-center gap-4">
+							<div
+								onClick={handleCheckAll}
+								className="flex items-center gap-3 cursor-pointer px-4 py-2 transition-all hover:bg-gray-200 bg-gray-100 rounded-[6px]"
+							>
+								<span className="text-[16px] text-gray-500">
+									Select All
+								</span>
+								{/* <Check size={16} className="text-gray-500" /> */}
+							</div>
+							<div
+								onClick={() => setShowFilterSidebar(true)}
+								className="flex items-center gap-3 cursor-pointer px-4 py-2 transition-all hover:bg-gray-200 bg-gray-100 rounded-[6px]"
+							>
+								<span className="text-[16px] text-gray-500">
+									Filter
+								</span>
+								<Filter size={16} className="text-gray-500" />
+							</div>
 						</div>
 					</div>
 				</div>
@@ -427,7 +453,7 @@ const TestimonialsPage = ({ workspaceId }: Props) => {
 					</>
 				)}
 			</div>
-			
+
 			<FiterTestimonialsSidebar
 				// @ts-ignore
 				testimonials={testimonials}

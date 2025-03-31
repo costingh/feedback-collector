@@ -210,7 +210,7 @@ const FiterTestimonialsSidebar: React.FC = ({
 				{userForms?.map((form:any) => (
 					<TagComponent
 						key={form.id}
-						label={process.env.NEXT_PUBLIC_HOST_URL + form.url}
+						label={`${form.name} - ${form.url}`}
 						isActive={filters.forms.find(
 							(testimonial:any) => testimonial.id == form.id
 						)}

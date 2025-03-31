@@ -6,6 +6,7 @@ import DisplayTestimonialTags from "@/components/tags/DisplayTestimonialTags";
 import { timeAgo } from "@/lib/utils";
 import StarsRating from "@/components/stars/stars-rating";
 import Link from "next/link";
+import { Eye } from "lucide-react";
 
 function TestimonialsList({
 	testimonials,
@@ -75,7 +76,7 @@ function TestimonialsList({
 							</div>
 						</div>
 
-						<div className="w-[350px] gap-4 flex flex-col items-center">
+						<div className="w-[350px] gap-4 flex flex-col items-start">
 							<div className="flex items-center gap-4 justify-center">
 								{t?.approved ? (
 									<span className="px-2 py-1 rounded-[10px] bg-[#4dff0769] text-[#0d7d01e6] text-[12px] font-semibold cursor-pointer">
@@ -105,8 +106,13 @@ function TestimonialsList({
 							</div>
 							
 							<div>
-								<Link target='_blank' href={`${process.env.NEXT_PUBLIC_HOST_URL}/dashboard/${workspaceId}/forms/edit/${t?.form?.url?.replace('/p/', '')}`} className="text-gray-400 font-semibold text-[12px] rounded-lg border border-indigo-600 bg-indigo-600 text-white text-sm font-bold hover:text-indigo-600">
-									Edit associated form
+								<Link target='_blank' href={`${process.env.NEXT_PUBLIC_HOST_URL}/dashboard/${workspaceId}/forms/edit/${t?.form?.url?.replace('/p/', '')}`}>
+									<div className="flex items-center border border-indigo-600 cursor-pointer px-2 py-1 rounded-[10px] gap-3">
+										<Eye className='text-indigo-600' size={14}/>
+										<span className="text-[12px] font-normal text-indigo-600">
+											See Form
+										</span>
+									</div>
 								</Link>
 							</div>
 						</div>
