@@ -34,7 +34,7 @@ const Page = ({ params: { workspaceId } }: Props) => {
 			{isSearchingTags ? (
 				<div className="w-full h-full flex items-center justify-center">
 					<span className="inline-block">
-						<LoadingSpinner size={40} />
+						<LoadingSpinner size={30} />
 					</span>
 				</div>
 			) : (

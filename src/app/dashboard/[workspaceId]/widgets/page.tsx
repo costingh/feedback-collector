@@ -39,7 +39,7 @@ const WidgetsPage = ({ params: { workspaceId } }: Props) => {
 				{isFetching ? (
 					<div className="w-full h-full flex items-center justify-center">
 						<span className="inline-block">
-							<LoadingSpinner size={40} />
+							<LoadingSpinner size={30} />
 						</span>
 					</div>
 				) : (

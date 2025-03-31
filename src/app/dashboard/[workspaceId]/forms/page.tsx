@@ -30,7 +30,9 @@ const FormsPage = ({ params: { workspaceId } }: Props) => {
 
 	const { data: formsData, isFetching: fetchingForms } = useQueryData(
 		["user-forms", workspaceId],
-		() => getUserForms(workspaceId)
+		() => getUserForms(workspaceId),
+		undefined,
+		false // refetchOnWindowFocus
 	);
 
 	const userForms = (formsData as any)?.data?.forms || [];

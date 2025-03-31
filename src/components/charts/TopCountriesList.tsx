@@ -33,7 +33,7 @@ export default function TopCountriesList({ topCountries }: { topCountries: any[]
 								</div>
 
 								{/* Visit Count */}
-								<span className="text-gray-600">{country.visits.toLocaleString()}M</span>
+								<span className="text-gray-600">{country?.visits?.toLocaleString() || '-'}</span>
 							</div>
 						) : (
 							<div key={index} className="h-[40px] flex items-center justify-center text-gray-400">
