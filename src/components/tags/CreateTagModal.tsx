@@ -97,6 +97,7 @@ export function CreateTagModal({
 			category: "",
 			tagName: "",
 			tagDescription: "",
+			workspaceId
 		});
 		setStep(1);
 	};
