@@ -36,9 +36,10 @@ type Props = {
 const TestimonialsPage = ({ workspaceId }: Props) => {
 	const {tags, groupedTags, setTags} = useTags(workspaceId);
 	
-	const { data: testimonialsResponse } = useQuery({
+	const { data: testimonialsResponse, isFetched } = useQuery({
 		queryKey: ["user-testimonials", workspaceId],
 		queryFn: () => getUserTestimonials(workspaceId),
+		refetchOnWindowFocus: false
 	});
 
 	const { data: formsResponse } = useQuery({
@@ -49,8 +50,7 @@ const TestimonialsPage = ({ workspaceId }: Props) => {
 	const userTestimonials = testimonialsResponse?.data || [];
 	const userForms: any = formsResponse?.data?.forms || [];
 
-	const [isSearchingTestimonials, setIsSearchingTestimonials] =
-		useState(false);
+	
 
 	const [testimonials, setTestimonials] = useState<any>(userTestimonials);
 
@@ -394,9 +394,11 @@ const TestimonialsPage = ({ workspaceId }: Props) => {
 					</div>
 				</div>
 
-				{isSearchingTestimonials ? (
-					<div className="mt-10 w-full d-flex items-center justify-center">
-						<LoadingSpinner/>
+				{!isFetched ? (
+					<div className="w-full h-full flex items-center justify-center">
+						<span className="inline-block">
+							<LoadingSpinner size={30} />
+						</span>
 					</div>
 				) : (
 					<>
@@ -407,6 +409,7 @@ const TestimonialsPage = ({ workspaceId }: Props) => {
 								isChecked={isChecked}
 								setChecked={setChecked}
 								checkedItems={checkedItems}
+								workspaceId={workspaceId}
 							/>
 						) : (
 							<div className="flex items-center justify-center mt-[100px]">

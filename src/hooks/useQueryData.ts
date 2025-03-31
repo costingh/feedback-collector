@@ -8,11 +8,13 @@ import {
 export const useQueryData = (
   queryKey: QueryKey,
   queryFn: QueryFunction,
-  enabled?: Enabled
+  enabled?: Enabled,
+  refetchOnWindowFocus: boolean = true
 ) => {
   const { data, isPending, isFetched, refetch, isFetching } = useQuery({
     queryKey,
     queryFn,
+    refetchOnWindowFocus
   })
   return { data, isPending, isFetched, refetch, isFetching }
 }
