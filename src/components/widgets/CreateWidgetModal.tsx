@@ -215,6 +215,18 @@ export function CreateWidgetModal({
 										<SelectItem value="rolling_wall">
 											Carousel
 										</SelectItem>
+										<SelectItem value="rating_badge">
+											Rating Badge
+										</SelectItem>
+										<SelectItem value="social_star">
+											Social Star
+										</SelectItem>
+										<SelectItem value="hero_quotes">
+											Hero Quotes
+										</SelectItem>
+										<SelectItem value="avatars">
+											Avatars
+										</SelectItem>
 									</SelectGroup>
 								</SelectContent>
 							</Select>

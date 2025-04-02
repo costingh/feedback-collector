@@ -20,7 +20,10 @@ export async function POST(req: Request) {
                 url: data.url,
                 userId,
                 type: data.type,
-                workspaceId: data.workspaceId
+                workspaceId: data.workspaceId,
+                testimonials: {
+                    connect: data?.testimonialsIds?.map(i => ({id: i})) || [],
+                },
             }
         });
 
