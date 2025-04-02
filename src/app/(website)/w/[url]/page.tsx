@@ -23,12 +23,12 @@ const LandingPage = ({ params }: { params: { url: string } }) => {
 				</div>
 			) : (
 				<>
-					{widget?.testimonials?.length && (
+					{widget?.testimonials?.length > 0 && (
 						<DisplayWidget widget={widget} />
 					)}
 					{!widget && <div>An error occured</div>}
 					{/* @ts-ignore */}
-					{!widget?.testimonials?.length && (
+					{!widget?.testimonials?.length > 0 && (
 						<div className="w-full h-full flex items-center justify-center">
 							<div className="flex flex-col items-center justify-center max-w-lg text-center">
 								<h1 className="text-black font-700 text-[20px] mb-2">

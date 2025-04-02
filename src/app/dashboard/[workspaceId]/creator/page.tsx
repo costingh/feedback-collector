@@ -37,7 +37,7 @@ const CreatorPage = ({ params: { workspaceId } }: Props) => {
 					</div>
 				</div>
 
-				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+				<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
 					<ShareableElement workspaceId={workspaceId} type='basic_wall'/>
 					<ShareableElement workspaceId={workspaceId} type='rolling_wall'/>
 					<ShareableElement workspaceId={workspaceId} type='rating_badge'/>

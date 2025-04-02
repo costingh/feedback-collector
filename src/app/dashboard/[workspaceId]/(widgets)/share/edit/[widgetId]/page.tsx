@@ -198,7 +198,8 @@ const LandingPage = ({ params }: { params: { widgetId: string, workspaceId: stri
 								)}
 								{!widget && <div>An error occured</div>}
 
-								{!widget?.testimonials?.length && (
+								{/* @ts-ignore */}
+								{!widget?.testimonials?.length > 0 && (
 									<div className="w-full h-full flex items-center justify-center">
 										<div className="flex flex-col items-center justify-center max-w-lg text-center">
 											<h1 className="text-black font-700 text-[20px] mb-2">
