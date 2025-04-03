@@ -28,6 +28,5 @@ export default defineConfig({
 	},
 	define: {
 		"process.env": {}, // Add this line to define `process.env` for the browser - polyfill
-        "process.env.NEXT_PUBLIC_HOST_URL": JSON.stringify(process.env.NEXT_PUBLIC_HOST_URL || "http://localhost:3000"),
 	},
 });
