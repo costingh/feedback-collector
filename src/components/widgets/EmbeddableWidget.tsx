@@ -12,7 +12,7 @@ const EmbeddableWidget = ({ params }: { params: { url: string } }) => {
 		const fetchData = async () => {
 			try {
 				const response = await fetch(
-					`https://feedbackz.co/api/widgets/get/${params.url}`
+					`https://www.feedbackz.co/api/widgets/get/${params.url}`
 				);
 				const data = await response.json();
 				setWidget(data.widget || []);
