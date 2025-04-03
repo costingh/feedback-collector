@@ -22,7 +22,7 @@ export async function POST(req: Request) {
                 type: data.type,
                 workspaceId: data.workspaceId,
                 testimonials: {
-                    connect: data?.testimonialsIds?.map(i => ({id: i})) || [],
+                    connect: data?.testimonialsIds?.map((i: any) => ({id: i})) || [],
                 },
             }
         });

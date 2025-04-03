@@ -97,11 +97,21 @@ export const HeroSection = () => {
 					<span className="text-gray-500 text-[12px] font-light mr-2 mt-3">
 						Free 14 days trial
 					</span>
-					<div className="flex  items-center justify-center">
-						<div
+					
+					<div className="flex flex-col items-center justify-center mt-[80px]">
+						{/* <div
 							data-widget="feedbackz-widget"
-							data-widget-id="MKR3po8"
-						></div>
+							data-widget-id="3xznjqW"
+						></div> */}
+						{/* @ts-ignore */}
+						<feedbackz-widget data-widget-id="3xznjqW"></feedbackz-widget>
+						<Image
+							src={"/images/made-with-feedbackz.png"}
+							alt="Made with Feedbackz"
+							width={200}
+							height={200}
+
+						/>
 					</div>
 				</div>
 			</div>

@@ -34,7 +34,7 @@ function Avatars({
 							<div className="avatar w-12 h-12" key={t.id}>
 								<img
 									alt="User"
-									fetchPriority="high"
+									// fetchPriority="high"
 									width="50"
 									height="50"
 									decoding="async"
