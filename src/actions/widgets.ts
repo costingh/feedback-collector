@@ -33,7 +33,11 @@ export const getUserWidget = async (widgetUrl: string | undefined) => {
                 url: widgetUrl,
             },
             include: {
-                testimonials: true
+                testimonials: {
+                    select: {
+                        id: true
+                    }
+                }
             },
         });
 
