@@ -136,6 +136,7 @@ export const getDashboardStats = async (workspaceId: string) => {
                 createdAt: {
                     gte: new Date(new Date().setMonth(new Date().getMonth() - 1)),
                 },
+                formId: { in: formIds },
             },
             _count: { country: true },
             orderBy: { _count: { country: 'desc' } },
