@@ -11,7 +11,7 @@ function SidebarUserButton({ withoutUsername }: { withoutUsername?: boolean }) {
 			{!withoutUsername && (
 				<div className="flex flex-col gap-2">
 					<p className="text-gray-900 font-[600] text-[14px]">
-						{user?.firstName}
+						{user?.firstName || user?.fullName || user?.primaryEmailAddress?.emailAddress}
 					</p>
 				</div>
 			)}
