@@ -59,10 +59,10 @@ const Search = ({ workspaceId }: Props) => {
 							</Avatar>
 							<div className="flex flex-col items-start">
 								<h3 className="text-bold text-lg capitalize">
-									{user.firstname} {user.lastname}
+									{(user?.firstname || user?.lastname) ? `${user?.firstname || ''} ${user?.lastname || ''}` : 'Unknown'}
 								</h3>
-								<p className="lowercase text-xs bg-white px-2 rounded-lg text-[#1e1e1e]">
-									{user.subscription?.plan}
+								<p className="lowercase text-xs bg-white rounded-lg text-[#1e1e1e]">
+									{user?.email} | {user?.subscription?.plan}
 								</p>
 							</div>
 							<div className="flex-1 flex justify-end items-center">
@@ -74,7 +74,7 @@ const Search = ({ workspaceId }: Props) => {
 										})
 									}
 									variant={"default"}
-									className="w-5/12 font-bold"
+									className="text-sm bg-indigo-600 text-white hover:bg-indigo-700 w-[100px] text-[13px]"
 								>
 									<Loader state={isPending} color="#000">
 										Invite

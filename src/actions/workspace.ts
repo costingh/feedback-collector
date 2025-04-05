@@ -51,7 +51,7 @@ export const getWorkSpaces = async () => {
 
 		if (!user) return { status: 404 }
 
-		const workspaces = await client.user.findUnique({
+		let data = await client.user.findUnique({
 			where: {
 				clerkid: user.id,
 			},
@@ -82,8 +82,19 @@ export const getWorkSpaces = async () => {
 			},
 		})
 
-		if (workspaces) {
-			return { status: 200, data: workspaces }
+		if(!data) 
+			return { status: 400 }
+
+		data.workspace = [...data?.workspace, ...data?.members?.map(
+			(wk: any, index: number) => ({
+				id: wk?.WorkSpace?.id,
+				name: wk?.WorkSpace?.name,
+				type: wk?.WorkSpace?.type
+			})
+		)]
+
+		if (data) {
+			return { status: 200, data: data }
 		}
 	} catch (error) {
 		return { status: 400 }

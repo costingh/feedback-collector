@@ -56,12 +56,13 @@ WorkspacesPopoverProps) {
 					</span>
 				</div>
 			))}
-			{workspace?.workspace?.length > 0 &&
+
+			{/* {workspace?.workspace?.length > 0 &&
 				members.map(
-					(wk: any) =>
+					(wk: any, index: number) =>
 						wk.WorkSpace && (
 							<div
-								key={workspace.WorkSpace.id}
+								key={workspace?.WorkSpace?.id || index}
 								className="flex items-center p-2 hover:bg-gray-100 cursor-pointer rounded-lg"
 								onClick={() => {
 									onChange?.(wk.WorkSpace.id);
@@ -69,11 +70,11 @@ WorkspacesPopoverProps) {
 								}}
 							>
 								<span className="ml-3 text-gray-700 font-medium">
-									{wk.WorkSpace.name}
+									{wk.WorkSpace.name} - invited
 								</span>
 							</div>
 						)
-				)}
+				)} */}
 
 			{/* <Separator className="w-4/5" />
 			<p className="w-full text-[#9D9D9D] font-bold mt-4 ">Workspaces</p>

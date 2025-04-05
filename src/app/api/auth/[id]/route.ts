@@ -32,7 +32,7 @@ export async function GET(
 				lastname: clerkUserInstance.lastName,
 				workspace: {
 					create: {
-						name: `${clerkUserInstance.firstName || 'Unknown'}'s Workspace`,
+						name: `${clerkUserInstance.firstName || clerkUserInstance.fullName || clerkUserInstance?.emailAddresses?.[0]?.emailAddress?.split('@')?.[0] || 'Unknown'}'s Workspace`,
 						type: 'PERSONAL',
 					},
 				},

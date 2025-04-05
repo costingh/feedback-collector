@@ -58,7 +58,7 @@ const Page = ({ params: { workspaceId } }: Props) => {
 	return (
 		<div className="space-y-4 py-[40px] px-[20px]">
 			<h1 className="text-2xl font-semibold">
-				Welcome back, {user?.firstName || (user as any)?.email}
+				Welcome back, {user?.firstName || user?.fullName || user?.emailAddresses?.[0]?.emailAddress}
 			</h1>
 			<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
 				<Card>

@@ -70,7 +70,7 @@ export const onAuthenticateUser = async () => {
 				},
 				workspace: {
 					create: {
-						name: `${user.firstName || 'Unknown'}'s Workspace`,
+						name: `${user.firstName || user.fullName || user?.emailAddresses?.[0]?.emailAddress?.split('@')?.[0] || 'Unknown'}'s Workspace`,
 						type: 'PERSONAL',
 					},
 				},
@@ -104,24 +104,55 @@ export const getNotifications = async () => {
 	try {
 		const user = await currentUser()
 		if (!user) return { status: 404 }
-		const notifications = await client.user.findUnique({
-			where: {
-				clerkid: user.id,
-			},
-			select: {
-				notification: true,
-				_count: {
-					select: {
-						notification: true,
+
+		// Fetch everything in parallel
+		const [userData, invites] = await Promise.all([
+			client.user.findUnique({
+				where: { clerkid: user.id },
+				select: {
+					id: true,
+					notification: true,
+					_count: {
+						select: { notification: true },
 					},
 				},
-			},
-		})
+			}),
+			client.invite.findMany({
+				where: {
+					reciever: {
+						clerkid: user.id
+					}
+				},
+				select: {
+					id: true,
+					content: true,
+					accepted: true,
+					sender: {
+						select: {
+							id: true,
+							firstname: true,
+							lastname: true,
+							email: true,
+							image: true
+						}
+					},
+					WorkSpace: {
+						select: {
+							id: true,
+							name: true,
+							type: true,
+							createdAt: true
+						}
+					}
+				}
+			})
+		])
 
-		if (notifications && notifications.notification.length > 0)
-			return { status: 200, data: notifications }
-		return { status: 404, data: [] }
+		if (!userData) return { status: 404 }
+
+		return { status: 200, data: { notifications: userData, invites } }
 	} catch (error) {
+		console.error("Error in getNotifications:", error)
 		return { status: 400, data: [] }
 	}
 }
@@ -338,29 +369,31 @@ export const inviteMembers = async (
 					data: {
 						notification: {
 							create: {
-								content: `${user.firstName} ${user.lastName} invited ${senderInfo.firstname} into ${workspace.name}`,
+								content: `${user.primaryEmailAddress || user.fullName} ${user.lastName} invited ${senderInfo.firstname} into ${workspace.name}`,
 							},
 						},
 					},
 				})
-				if (invitation) {
-					const { transporter, mailOptions } = await sendEmail(
-						email,
-						'You got an invitation',
-						'You are invited to join ${workspace.name} Workspace, click accept to confirm',
-						`<a href="${process.env.NEXT_PUBLIC_HOST_URL}/invite/${invitation.id}" style="background-color: #000; padding: 5px 10px; border-radius: 10px;">Accept Invite</a>`
-					)
 
-					transporter.sendMail(mailOptions, (error, info) => {
-						if (error) {
-							console.log('🔴', error.message)
-						} else {
-							console.log('✅ Email send')
-						}
-					})
-					return { status: 200, data: 'Invite sent' }
-				}
-				return { status: 400, data: 'invitation failed' }
+				return { status: 200, data: 'Invite sent' }
+				// if (invitation) {
+				// 	const { transporter, mailOptions } = await sendEmail(
+				// 		email,
+				// 		'You got an invitation',
+				// 		`You are invited to join ${workspace.name} Workspace, click accept to confirm`,
+				// 		`<a href="${process.env.NEXT_PUBLIC_HOST_URL}/invite/${invitation.id}" style="background-color: #000; padding: 5px 10px; border-radius: 10px;">Accept Invite</a>`
+				// 	)
+
+				// 	transporter.sendMail(mailOptions, (error, info) => {
+				// 		if (error) {
+				// 			console.log('🔴', error.message)
+				// 		} else {
+				// 			console.log('✅ Email send')
+				// 		}
+				// 	})
+				// 	return { status: 200, data: 'Invite sent' }
+				// }
+				// return { status: 400, data: 'invitation failed' }
 			}
 			return { status: 404, data: 'workspace not found' }
 		}

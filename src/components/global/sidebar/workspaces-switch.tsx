@@ -5,8 +5,28 @@ import { ChevronDown, ChevronUp } from "lucide-react";
 import { usePopover } from "@/hooks/use-popover";
 import { WorkspacesPopover } from "./workspaces-popover";
 
-export function WorkspacesSwitch({ activeWorkspaceId, onChangeActiveWorkspace, workspace, currentWorkspace }: { activeWorkspaceId: string, onChangeActiveWorkspace: any, workspace: any, currentWorkspace: any }) {
+export function WorkspacesSwitch({
+	activeWorkspaceId,
+	onChangeActiveWorkspace,
+	workspace,
+	currentWorkspace,
+}: {
+	activeWorkspaceId: string;
+	onChangeActiveWorkspace: any;
+	workspace: any;
+	currentWorkspace: any;
+}) {
 	const popover = usePopover();
+
+	const [mounted, setMounted] = React.useState(false);
+
+	React.useEffect(() => {
+		setMounted(true);
+	}, []);
+
+	const activeName = workspace?.workspace?.find(
+		(w: any) => w.id == activeWorkspaceId
+	)?.name;
 
 	return (
 		<div className="w-full">
@@ -20,7 +40,9 @@ export function WorkspacesSwitch({ activeWorkspaceId, onChangeActiveWorkspace, w
 						Workspace
 					</p>
 					<p className="text-gray-900 text-sm font-semibold">
-						{workspace?.workspace?.find((w: any) => w.id == activeWorkspaceId)?.name || "Select a Workspace"}
+						{mounted
+							? activeName || "Select a Workspace"
+							: "Select a Workspace"}
 					</p>
 				</div>
 				<div className="flex flex-col gap-[2px] items-center justify-center">
@@ -31,15 +53,15 @@ export function WorkspacesSwitch({ activeWorkspaceId, onChangeActiveWorkspace, w
 			<WorkspacesPopover
 				anchorEl={popover.anchorRef.current}
 				onChange={(value) => {
-					onChangeActiveWorkspace(value)
+					onChangeActiveWorkspace(value);
 					popover.handleClose();
 				}}
 				onClose={popover.handleClose}
 				open={popover.open}
-                workspace={workspace}
-                members={workspace?.members || []}
-                currentWorkspace={currentWorkspace}
-                activeWorkspaceId={activeWorkspaceId}
+				workspace={workspace}
+				members={workspace?.members || []}
+				currentWorkspace={currentWorkspace}
+				activeWorkspaceId={activeWorkspaceId}
 				// isSearchingProjects={isSearchingProjects}
 			/>
 		</div>
