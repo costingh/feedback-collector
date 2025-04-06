@@ -1,6 +1,7 @@
 import { clsx, type ClassValue } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 import { Tag } from "@/types/Tag";
+import { Metadata } from 'next';
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs))
@@ -255,3 +256,110 @@ export const tagCategories = [
 		suggestions: ["Web", "Mobile", "Desktop", "Cloud", "On-premises"],
 	},
 ]
+
+export function constructMetadata({
+	title = "Feedbackz - Collect and share testimonials | Free testimonial collection tool | Feedbackz",
+	description = "",
+	image = "/images/app-preview.png",
+	icons = "/favicon.ico",
+	noIndex = false,
+	keywords = [
+		// Core & mid-difficulty
+		"collect testimonials",
+		"testimonial software",
+		"free testimonial tool",
+		"video testimonials",
+		"customer testimonials",
+		"user feedback platform",
+		"testimonial collection tool",
+		"testimonial request tool",
+		"automated testimonials",
+		"testimonials for websites",
+		"social proof generator",
+		"testimonial landing page",
+		"testimonial widget",
+		"testimonial SaaS",
+		"share testimonials online",
+		"testimonial platform free",
+		"testimonial marketing",
+		"testimonial automation",
+		"testimonial builder",
+		"feedback to testimonials",
+		"get customer testimonials",
+		"free tool to collect reviews",
+		"showcase testimonials",
+		"embed testimonials",
+		"video review collection",
+		"review collection software",
+		"social proof for businesses",
+	  
+		// Low-hanging fruits
+		"how to collect testimonials for free",
+		"best way to get customer testimonials",
+		"tool to collect client reviews",
+		"collect testimonials from clients easily",
+		"testimonial collection form",
+		"create testimonial page free",
+		"best testimonial tool for freelancers",
+		"testimonial tool for small business",
+		"add testimonials to my website",
+		"collect reviews without asking",
+		"free review collection form",
+		"simple testimonial tool",
+		"no code testimonial app",
+		"testimonial collection for solopreneurs",
+		"how to collect video testimonials easily",
+		"gather testimonials from customers",
+		"freelancer testimonial showcase tool",
+		"free feedback to testimonial converter",
+		"tools like Senja",
+		"alternatives to Senja.io",
+		"free tool to get social proof",
+		"freemium testimonial app",
+		"turn customer feedback into testimonials",
+		"free testimonial embed tool",
+		"how to ask clients for testimonials",
+		"testimonial platform for coaches",
+		"easy testimonial builder",
+		"freelancer feedback collection tool",
+		"automate testimonial requests",
+		"send testimonial request link"
+	]
+}: {
+	title?: string
+	description?: string
+	image?: string
+	icons?: string
+	noIndex?: boolean,
+	keywords?: string[]
+} = {}): Metadata {
+	return {
+		title,
+		description,
+		openGraph: {
+			title,
+			description,
+			images: [
+				{
+					url: image
+				}
+			]
+		},
+		twitter: {
+			card: "summary_large_image",
+			title,
+			description,
+			images: [image],
+			creator: ""
+		},
+		icons,
+		metadataBase: new URL('https://feedbackz.co'),
+		...(noIndex && {
+			robots: {
+				index: false,
+				follow: false
+			}
+		}),
+		keywords
+	}
+}
