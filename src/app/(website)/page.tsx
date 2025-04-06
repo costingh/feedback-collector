@@ -14,7 +14,7 @@ import { CrispChat } from "./_components/crisp-chat";
 const LandingPage = () => {
 	return (
 		<>
-			<div className="max-w-full mx-auto px-5 h-full"> 
+			<div className="max-w-full h-full"> 
 			{/* md:max-w-[85%] xl:max-w-[65%]  */}
 				<LandingPageNavBar />
 				<HeroSection />
