@@ -1,10 +1,8 @@
 "use client";
 
 import axios from "axios";
-import { useCallback, useEffect, useState } from "react";
-import { toast } from "sonner";
+import { useEffect, useState } from "react";
 import { Form } from "@/types/Form";
-import { SUBSCRIPTION_PLAN } from "@prisma/client";
 import TestimonialPopup from "@/components/popups/TestimonialPopup";
 
 const FormWidget = ({
@@ -13,7 +11,6 @@ const FormWidget = ({
 	form,
 	isSearchingForm,
 }: {
-	planType: SUBSCRIPTION_PLAN | undefined;
 	formUrl: string;
 	isRaw: string | undefined;
 	isCentered: string | undefined;
@@ -124,8 +121,8 @@ const FormWidget = ({
 				brandName={form?.brandName}
 				onInteraction={handleInteraction}
 				onSubmit={handleSubmitForm}
-				isRaw={isRaw ? true : false}
-				isCentered={isCentered ? true : false}
+				isRaw={isRaw == 'true' ? true : false}
+				isCentered={isCentered == 'true' ? true : false}
 				isSearchingForm={isSearchingForm}
 				hasCustomBranding={form?.hasCustomBranding}
 			/>

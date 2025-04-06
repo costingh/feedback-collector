@@ -15,7 +15,7 @@ const EmbeddableWidget = ({ params }: { params: { url: string } }) => {
 					`https://www.feedbackz.co/api/widgets/get/${params.url}`
 				);
 				const data = await response.json();
-				setWidget(data.widget || []);
+				setWidget(data.widget || null);
 			} catch (error) {
 				console.error("Error fetching widget:", error);
 				setWidget(null);

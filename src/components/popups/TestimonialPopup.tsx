@@ -369,7 +369,7 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 	};
 
 	const displayPowerdByLabel = () => {
-		return !hasCustomBranding && <Link href={process.env.NEXT_PUBLIC_HOST_URL!} className='absolute top-[-10px] right-[15px] px-[10px] py-[2px] rounded-[10px] bg-indigo-600 text-[11px] text-white font-[400] transition-all hover:bg-indigo-500'>Powered by Feedbackz </Link>
+		return !hasCustomBranding && <Link href={process.env.NEXT_PUBLIC_HOST_URL || 'https://feedbackz.co'} className='absolute top-[-10px] right-[15px] px-[10px] py-[2px] rounded-[10px] bg-indigo-600 text-[11px] text-white font-[400] transition-all hover:bg-indigo-500'>Powered by Feedbackz </Link>
 	}
 
 	return (

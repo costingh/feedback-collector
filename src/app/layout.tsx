@@ -7,11 +7,9 @@ import { Toaster } from "sonner";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import { constructMetadata } from "@/lib/utils";
 
-export const metadata: Metadata = {
-	title: "Feedbackz",
-	description: "Collect and share testimonials",
-};
+export const metadata = constructMetadata()
 
 export default function RootLayout({
 	children,
@@ -54,12 +52,17 @@ export default function RootLayout({
 					</ReduxProvider>
 				</body>
 				{/* <Script
-					src='https://feedbackz.co/embed.js?formId=YWByDh4R&width=100%&height=100%&allow=camera;microphone'
+					src='http://localhost:3000/embed.js?formId=YWByDh4R&width=100%&height=100%&allow=camera;microphone'
 					strategy="afterInteractive"
 				/> */}
 
 				<Script
 					src={`${process.env.NEXT_PUBLIC_HOST_URL}/widget-embed.iife.js`}
+					strategy="afterInteractive"
+				/>
+
+				<Script
+					src={`${process.env.NEXT_PUBLIC_HOST_URL}/form-embed.iife.js`}
 					strategy="afterInteractive"
 				/>
 			</html>

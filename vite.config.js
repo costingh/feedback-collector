@@ -6,19 +6,41 @@ export default defineConfig({
 	plugins: [react()],
 	build: {
 		lib: {
-			entry: "./src/components/widgets/WidgetContainer.tsx", // Entry file for the widget
-			name: "FeedbackzWidget", // Global variable name for the widget (used when it's included in the browser)
-			fileName: "widget-embed", // Output file name (you can change it to "widget.js" if you prefer)
-			formats: ["umd", "iife"], // Output formats (UMD and IIFE are suitable for embedding on websites)
+			// Required but will be overridden by rollupOptions.input
+			entry: "./src/components/widgets/WidgetContainer.tsx",
+			formats: ["iife", "umd"],
 		},
 		rollupOptions: {
-			// external: ["react", "react-dom"], // Externalize React and ReactDOM (they must be available globally in the embedding website)
-			output: {
-				globals: {
-					react: "React", // Global variable for React when the script is included on the website
-					"react-dom": "ReactDOM", // Global variable for ReactDOM
-				},
+			input: {
+				// widget: path.resolve(
+				// 	__dirname,
+				// 	"src/components/widgets/WidgetContainer.tsx"
+				// ),
+				form: path.resolve(
+					__dirname,
+					"src/components/embeddables/FeedbackzFormEmbed.tsx"
+				),
 			},
+			output: [
+				// {
+				// 	entryFileNames: "widget-embed.iife.js",
+				// 	format: "iife",
+				// 	name: "FeedbackzWidget",
+				// 	globals: {
+				// 		react: "React",
+				// 		"react-dom": "ReactDOM",
+				// 	},
+				// },
+				{
+					entryFileNames: "form-embed.iife.js",
+					format: "iife",
+					name: "FeedbackzForm",
+					globals: {
+						react: "React",
+						"react-dom": "ReactDOM",
+					},
+				},
+			],
 		},
 	},
 	resolve: {
@@ -27,6 +49,8 @@ export default defineConfig({
 		},
 	},
 	define: {
-		"process.env": {}, // Add this line to define `process.env` for the browser - polyfill
-	},
+		'process.env': {
+			NEXT_PUBLIC_HOST_URL: JSON.stringify(process.env.VITE_HOST_URL),
+		}
+	}
 });
