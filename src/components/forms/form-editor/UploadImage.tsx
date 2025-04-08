@@ -54,7 +54,7 @@ const UploadImage: React.FC<UploadImageProps> = ({
                     if (reader.result) {
                         setSelectedImage(reader.result as string);
 						// @ts-ignore
-						setImages(prev => ({...prev, [inputType]: reader.result}))
+						setImages(prev => ({...prev, [inputType]: file}))
                     }
                 };
                 reader.readAsDataURL(compressedFile);

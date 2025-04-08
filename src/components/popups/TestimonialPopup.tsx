@@ -99,84 +99,68 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 			});
 			const [isSubmitting, setIsSubmitting] = useState(false)
 			const [focusedKey, setFocusedKey] = useState<string | null>(null);
-			const [images, setImages] = useState({
+			const [images, setImages] = useState<any>({
 				avatar: '',
 				logo: ''
 			})
 			const handleSubmit = async () => {
-				setIsSubmitting(true)
-
-				await onInteraction("submitButton")
-
+				setIsSubmitting(true);
+			
+				await onInteraction("submitButton");
+			
 				const requiredFieldsKeys = availableOptions
 					?.filter((option) => option.isRequired && option.isEnabled)
 					?.map((option) => option.key) || [];
-
-				const responseToSubmit = { ...finalResponse, ...userInfoValue, ...images, formId };
-
+			
+				const responseToSubmit = { ...finalResponse, ...userInfoValue, formId };
+			
 				let isCompletedForm = true;
 				requiredFieldsKeys.forEach((optionKey) => {
-					if (optionKey == "avatar") {
-						if (!responseToSubmit["avatar"]) {
-							isCompletedForm = false;
-						}
-					} else if (optionKey == "logo") {
-						if (!responseToSubmit["logo"]) {
-							isCompletedForm = false;
-						}
-					} else if (optionKey == "name") {
-						if (!responseToSubmit["name"]) {
-							isCompletedForm = false;
-						}
-					} else if (optionKey == "customer_email") {
-						if (!responseToSubmit["email"]) {
-							isCompletedForm = false;
-						}
-					} else if (optionKey == "collect_company") {
-						if (!responseToSubmit["company"]) {
-							isCompletedForm = false;
-						}
-					} else if (optionKey == "job_title") {
-						if (!responseToSubmit["jobTitle"]) {
-							isCompletedForm = false;
-						}
-					} else if (optionKey == "website_url") {
-						if (!responseToSubmit["website"]) {
-							isCompletedForm = false;
-						}
-					}
+					if (optionKey === "avatar" && !images.avatar) isCompletedForm = false;
+					else if (optionKey === "logo" && !images.logo) isCompletedForm = false;
+					else if (optionKey === "name" && !responseToSubmit.name) isCompletedForm = false;
+					else if (optionKey === "customer_email" && !responseToSubmit.email) isCompletedForm = false;
+					else if (optionKey === "collect_company" && !responseToSubmit.company) isCompletedForm = false;
+					else if (optionKey === "job_title" && !responseToSubmit.jobTitle) isCompletedForm = false;
+					else if (optionKey === "website_url" && !responseToSubmit.website) isCompletedForm = false;
 				});
-
+			
 				if (!isCompletedForm) {
 					toast.error("Please complete all required fields");
-					setIsSubmitting(false)
+					setIsSubmitting(false);
 					return;
 				}
-
-				const URL = "/api/testimonials/create";
-				const rawResponse = await fetch(URL, {
-					method: "POST",
-					headers: {
-						Accept: "application/json",
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({ data: responseToSubmit }),
-				});
-
-				const response = await rawResponse.json();
-
-				if(response?.error) {
-					toast.error(response.error)
-				} else {
-					// maybe redirect to thank you page
-					toast.success('Response submitted successfully!')
-					setStep(3)
-					onSubmit && await onSubmit()
-
-					// TODO - maybe set a cookie here to not let user submit the form another time, maybe save its IP addres to db to prevend fraud
+			
+				const formData = new FormData();
+				formData.append("data", JSON.stringify(responseToSubmit));
+			
+				// Add files if they exist
+				if (images.avatar instanceof File) {
+					formData.append("avatar", images.avatar);
 				}
-				setIsSubmitting(false)
+			
+				if (images.logo instanceof File) {
+					formData.append("logo", images.logo);
+				}
+			
+				const res = await fetch("/api/testimonials/create", {
+					method: "POST",
+					body: formData,
+				});
+			
+				const response = await res.json();
+			
+				if (response?.error) {
+					toast.error(response.error);
+				} else {
+					toast.success("Response submitted successfully!");
+					setStep(3);
+					onSubmit && (await onSubmit());
+				}
+			
+				setIsSubmitting(false);
 			};
+			
 
 			const handleInputChange = useCallback(
 				(key: string, value: string) => {

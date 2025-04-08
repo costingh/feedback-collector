@@ -12,8 +12,8 @@ const TestimonialFormPage = async ({
 	const form = formResponse?.data?.form;
 
 	return (
-		<main className="w-screen bg-cover bg-center">
-			<div className="h-full w-full py-4">
+		<main className="w-screen h-screen bg-cover bg-center">
+			<div className="h-full w-full">
 				{form && (
 					<FormWidget
 						formUrl={params.formUrl}
