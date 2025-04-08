@@ -33,9 +33,9 @@ const ShareFormModal = ({
 	const height = "100%";
 	const allow = "camera;microphone";
 	
-	const inlineIframeCode = `<div data-collector="feedbackz-collector" data-form-type="inline" data-form-id="${form?.url?.replace('/p/', '')}"></div>\n<script src="${process.env.NEXT_PUBLIC_HOST_URL}/embed.js?formId=${form?.url?.replace('/p/', '')}&width=${width}&height=${height}&allow=${allow}"></script>`
+	const inlineIframeCode = `<feedbackz-form data-form-type="inline" data-form-id="${form?.url?.replace('/p/', '')}"></feedbackz-form>\n<script src="${process.env.NEXT_PUBLIC_HOST_URL}/form-embed.iife.js?formId=${form?.url?.replace('/p/', '')}"></script>`
 	
-	const popupIframeCode = `<div data-collector="feedbackz-collector" data-form-type="popup" data-form-id="${form?.url?.replace('/p/', '')}"></div>\n<script src="${process.env.NEXT_PUBLIC_HOST_URL}/embed.js?formId=${form?.url?.replace('/p/', '')}&width=${width}&height=${height}&allow=${allow}"></script>`
+	const popupIframeCode = `<feedbackz-form data-form-type="popup" data-form-id="${form?.url?.replace('/p/', '')}"></feedbackz-form>\n<script src="${process.env.NEXT_PUBLIC_HOST_URL}/form-embed.iife.js?formId=${form?.url?.replace('/p/', '')}"></script>`
 	
 	const [code, setCode] =
 		useState(embeddingType == 1 ? inlineIframeCode : popupIframeCode);
