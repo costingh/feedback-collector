@@ -79,9 +79,9 @@ export const MENU_ITEMS = (
 		href: `/dashboard/${workspaceId}/billing`,
 		icon: <CreditCardIcon className="w-6 h-6" />,
 	},
-	{
-		title: "Settings",
-		href: `/dashboard/${workspaceId}/settings`,
-		icon: <Settings2Icon className="w-6 h-6" />,
-	},
+	// {
+	// 	title: "Settings",
+	// 	href: `/dashboard/${workspaceId}/settings`,
+	// 	icon: <Settings2Icon className="w-6 h-6" />,
+	// },
 ];
