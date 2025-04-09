@@ -37,7 +37,7 @@ const LandingPage = () => {
 							</span>
 						</div>
 						<div className="w-[20%] flex flex-col gap-2 items-center justify-center">
-							<Link href="/sign-up">
+							<Link href="/auth/sign-up">
 								<Button
 									variant="outline"
 									className="rounded-[14px] border-[1px] border-white-900 bg-white px-[18px] py-[0px] text-gray-900 text-[13px] font-bold hover:text-gray-500"
@@ -62,7 +62,7 @@ const LandingPage = () => {
 					</p>
 					<SignUpButton
 						variant="solid"
-						href="/sign-up"
+						href="/auth/sign-up"
 						text="Start Free Trial"
 					/>
 				</div>
@@ -82,7 +82,7 @@ const LandingPage = () => {
 						height={400}
 						className="max-w-[1800px] w-full rounded-[15px]"
 					/>
-					<Link href="/sign-up">
+					<Link href="/auth/sign-up">
 						<Button
 							variant="outline"
 							className="rounded-[14px] border-[1px] border-white-900 bg-white px-[18px] py-[0px] text-gray-900 text-[13px] font-bold hover:text-gray-500"
@@ -111,7 +111,7 @@ const LandingPage = () => {
 							customers share their positive experiences
 							effortlessly.
 						</span>
-						<Link href="/sign-up" className="block mt-4">
+						<Link href="/auth/sign-up" className="block mt-4">
 							<Button
 								variant="outline"
 								className="text-[15px] font-medium !text-indigo-600 cursor-pointer background-none border-none hover:border-indigo-600 border-transparent border-b border-[1px] hover:bg-transparent p-0"
@@ -159,7 +159,7 @@ const LandingPage = () => {
 							platform that highlights real customer satisfaction
 							and boosts credibility.
 						</span>
-						<Link href="/sign-up" className="block mt-4">
+						<Link href="/auth/sign-up" className="block mt-4">
 							<Button
 								variant="outline"
 								className="text-[15px] font-medium !text-indigo-600 cursor-pointer background-none border-none hover:border-indigo-600 border-transparent border-b border-[1px] hover:bg-transparent p-0"
@@ -189,7 +189,7 @@ const LandingPage = () => {
 							collecting and showcasing testimonials without any
 							technical headaches.
 						</span>
-						<Link href="/sign-up" className="block mt-4">
+						<Link href="/auth/sign-up" className="block mt-4">
 							<Button
 								variant="outline"
 								className="text-[15px] font-medium !text-indigo-600 cursor-pointer background-none border-none hover:border-indigo-600 border-transparent border-b border-[1px] hover:bg-transparent p-0"
@@ -221,7 +221,7 @@ const LandingPage = () => {
 						Tired of unorganized client feedback? Start you free
 						14-day trial now.
 					</h1>
-					<Link href="/sign-up">
+					<Link href="/auth/sign-up">
 						<Button
 							variant="outline"
 							className="rounded-[14px] border-[1px] border-white-900 bg-white px-[18px] py-[0px] text-indigo-600 text-[13px] font-bold hover:text-white hover:bg-transparent"

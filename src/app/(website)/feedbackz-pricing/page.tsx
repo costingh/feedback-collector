@@ -26,7 +26,7 @@ export default function Pricing() {
 					start.
 				</p>
 
-				<Link href="/sign-up">
+				<Link href="/auth/sign-up">
 					<Button
 						variant="outline"
 						className="rounded-[17px] border-[2px] border-indigo-600 bg-indigo-600 px-[25px] !py-[22px] text-white text-[14px] font-[500] hover:text-indigo-600 w-[220px]"
@@ -57,7 +57,7 @@ export default function Pricing() {
 							customizable forms and dynamic displays on your
 							website or SaaS platform!{" "}
 						</span>
-						<Link href="/sign-up">
+						<Link href="/auth/sign-up">
 							<Button
 								variant="outline"
 								className="rounded-[14px] border-[1px] border-white-900 bg-white px-[18px] py-[0px] text-indigo-600 text-[13px] font-bold hover:text-white hover:bg-transparent"
