@@ -12,7 +12,7 @@ export const getUserTags = async (workspaceId: string | undefined) => {
 
         const tags = await client.tag.findMany({
             where: {
-                userId: user.id,
+                // userId: user.id,
                 workspaceId
             },
         })
@@ -57,7 +57,6 @@ export const deleteTag = async (tagId : string) => {
 
         if (!user || !tagId) return { status: 404, data: 'User or tag was not found'}
 
-        console.log(tagId)
         const response = await client.tag.delete({
             where: {
                 id: tagId,
@@ -65,10 +64,9 @@ export const deleteTag = async (tagId : string) => {
             },
         })
 
-        console.log(response)
         if (response?.id) {
             return { status: 200, data: 'Tag deleted successfully', tagId: response.id}
-        } else return { status: 400, data: 'Tag could not been deleted' }
+        } else return { status: 400, data: 'Tag could not been deleted. Maybe it was created by another user in the same workspace you work.' }
     } catch (error) {
         console.log('Error creating tag ', error)
         return { status: 400, data: 'Tag could not been deleted'}

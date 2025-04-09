@@ -11,7 +11,7 @@ export const getUserWidgets = async (workspaceId: string | undefined) => {
 
         const widgets = await client.widget.findMany({
             where: {
-                userId: user.id,
+                // userId: user.id,
                 workspaceId
             },
         })
@@ -52,9 +52,7 @@ export const getUserWidget = async (widgetUrl: string | undefined) => {
 
 export const updateWidget = async (widgetId: string, testimonialsIds: string[]) => {
     try {
-        const user = await currentUser();
-
-        if (!user || !widgetId) return { status: 404 };
+        if (!widgetId) return { status: 404 };
 
         const testimonials = await client.formResponse.findMany({
             where: {
@@ -67,7 +65,6 @@ export const updateWidget = async (widgetId: string, testimonialsIds: string[]) 
         const currentTestimonials = await client.widget.findUnique({
             where: {
                 id: widgetId,
-                userId: user.id,
             },
             select: {
                 testimonials: {
@@ -91,7 +88,6 @@ export const updateWidget = async (widgetId: string, testimonialsIds: string[]) 
         const updatedWidget = await client.widget.update({
             where: {
                 id: widgetId,
-                userId: user.id,
             },
             data: {
                 testimonials: {

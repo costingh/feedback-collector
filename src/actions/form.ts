@@ -64,7 +64,7 @@ export const getUserForms = async (workspaceId: string) => {
         const forms = await client.form.findMany({
             where: {
                 workspaceId,
-                userId: user.id,
+                // userId: user.id, // FIX for shared workspaces
             },
             include: {
                 formFields: true,
