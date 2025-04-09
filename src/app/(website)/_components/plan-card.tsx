@@ -9,7 +9,7 @@ import { PLANS } from "../feedbackz-pricing/constants";
 export default function PlanCard({ plan }: { plan: any }) {
 	return (
 		<div
-			className={`bg-white border p-8 rounded-lg shadow-lg ${
+			className={`bg-white border p-8 rounded-lg shadow-lg relative ${
 				plan.mostPopular ? "border-indigo-600" : "border-gray-200"
 			}`}
 		>

@@ -106,6 +106,7 @@ export const PLANS = {
             forms: Infinity,
             workspaces: Infinity,
             members: Infinity,
+            planType: "CUSTOM_ENTERPRISE",
             details: [
                 "All in Business & Pro",
                 "Everything Unlimited",
@@ -172,6 +173,7 @@ export const PLANS = {
             forms: Infinity,
             workspaces: Infinity,
             members: Infinity,
+            planType: "CUSTOM_ENTERPRISE",
             details: [
                 "All in Business & Pro",
                 "Everything Unlimited",
