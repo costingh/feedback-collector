@@ -50,11 +50,12 @@ export function EditTag({
 		tagDescription: tag.tagDescription,
 	});
 
-	const handleEdit = async (tag: Tag) => {
-		console.log('111111111111')
-		await handleEditTag(tag)
+	const handleEdit = async (t: Tag) => {
+		await handleEditTag({
+			...tag,
+			...t
+		})
 		document.getElementById("close-dialog")?.click();
-		console.log('222222222')
 	};
 
 	return (
@@ -161,7 +162,7 @@ export function EditTag({
 
 				<DialogFooter className="sm:justify-start">
 					<div
-						onClick={() => handleEdit(tag)}
+						onClick={() => handleEdit(formValue)}
 						className="text-center py-[10px] rounded-[8px] bg-[#000] text-[#eee] w-full cursor-pointer text-[14px] font-semibold mt-3 hover:opacity-80"
 					>
 						Save changes

@@ -85,7 +85,6 @@ export const editTag = async (tag : Tag) => {
                 tagName: tag.tagName,
                 category: tag.category,
                 tagDescription: tag.tagDescription,
-                userId: user.id,
                 formResponsesIds: tag.formResponsesIds
             },
         });
