@@ -24,6 +24,8 @@ import AdvancedSettings from "./AdvancedSettings";
 import ThankYouPage from "./ThankYouPage";
 import Loader from "@/components/global/loader";
 import { LoadingSpinner } from "@/components/animations/loading-spinner";
+import { Alert } from "@material-tailwind/react";
+import FormPublishedAlert from "./FormPublishedAlert";
 
 const submenus = [
 	{
@@ -110,7 +112,7 @@ export default function EditFormWrapper({
 		formData && setForm(formData);
 	}, [formData]);
 
-	const router = useRouter();
+	// const router = useRouter();
 
 	const toggleAccordion = (index: number) => {
 		// FOR  customize labels
@@ -182,7 +184,7 @@ export default function EditFormWrapper({
 				return;
 			}
 
-			console.log("Got form: ", formResponse);
+			// console.log("Got form: ", formResponse);
 			setForm(formResponse);
 		} catch (err) {
 			console.error("An error occurred while retrieving the form!", err);
@@ -239,7 +241,10 @@ export default function EditFormWrapper({
 						<div>Form not found</div>
 					) : (
 						<div className="flex h-full">
-							<div className="left w-full h-[100vh]">
+							<div className="left w-full h-[100vh] relative">
+
+								<FormPublishedAlert show={!form?.published}/>
+
 								<TestimonialPopup
 									step={step}
 									setStep={setStep}
@@ -247,7 +252,7 @@ export default function EditFormWrapper({
 									primaryColor={form.primaryColor}
 									withAnimatedBg={form.withAnimatedBg}
 									availableOptions={form.formFields}
-									published={form.published}
+									published={true}
 									isPaused={form.isPaused}
 									questions={form.questions}
 									textareaPlaceholder={
