@@ -10,12 +10,11 @@ import { MoveRight } from "lucide-react";
 import Footer from "./_components/footer";
 import { CrispChat } from "./_components/crisp-chat";
 
-
 const LandingPage = () => {
 	return (
 		<>
-			<div className="max-w-full h-full"> 
-			{/* md:max-w-[85%] xl:max-w-[65%]  */}
+			<div className="max-w-full h-full">
+				{/* md:max-w-[85%] xl:max-w-[65%]  */}
 				<LandingPageNavBar />
 				<HeroSection />
 
@@ -76,11 +75,15 @@ const LandingPage = () => {
 						website! 🚀
 					</h2>
 					<Image
-						src="/images/demo-image-1.png"
-						alt=""
+						src="/images/webp-optimized/demo-image-1.webp" // Converted to WebP
+						alt="Demo of Feedbackz testimonial UI"
 						width={1800}
 						height={400}
-						className="max-w-[1800px] w-full rounded-[15px]"
+						// priority // above the fold
+						sizes="(max-width: 768px) 100vw, (max-width: 1280px) 80vw, 65vw"
+						placeholder="blur"
+						blurDataURL="/images/webp-blured/demo-image-1.webp"
+						className="w-full max-w-[1800px] rounded-[15px]"
 					/>
 					<Link href="/auth/sign-up">
 						<Button
@@ -125,11 +128,14 @@ const LandingPage = () => {
 					</div>
 					<div className="w-[50%]">
 						<Image
-							src="/images/image-1.png"
-							alt=""
+							src="/images/webp-optimized/image-1.webp"
+							alt="Feedbackz form embedded on site"
 							width={400}
 							height={400}
-							// className="w-full"
+							sizes="(max-width: 768px) 100vw, 50vw"
+							placeholder="blur"
+							blurDataURL="/images/webp-blured/image-1.webp"
+							className="mx-auto max-w-[400px]"
 						/>
 					</div>
 				</div>
@@ -139,11 +145,14 @@ const LandingPage = () => {
 				<div className="flex">
 					<div className="w-[50%]">
 						<Image
-							src="/images/demo-showcase-options.png"
-							alt=""
+							src="/images/webp-optimized/demo-showcase-options.webp"
+							alt="Testimonial wall and widgets"
 							width={400}
 							height={400}
-							className="w-full"
+							sizes="(max-width: 768px) 100vw, 50vw"
+							placeholder="blur"
+							blurDataURL="/images/webp-blured/demo-showcase-options.webp"
+							className="w-full max-w-[400px]"
 						/>
 					</div>
 					<div className="w-[50%]">
@@ -203,10 +212,13 @@ const LandingPage = () => {
 					</div>
 					<div className="w-[50%]">
 						<Image
-							src="/images/demo-website-integration.png"
-							alt=""
+							src="/images/webp-optimized/demo-website-integration.webp"
+							alt="Integrate Feedbackz with your SaaS"
 							width={400}
 							height={400}
+							sizes="(max-width: 768px) 100vw, 50vw"
+							placeholder="blur"
+							blurDataURL="/images/webp-blured/demo-website-integration.webp"
 							className="mx-auto w-[400px]"
 						/>
 					</div>

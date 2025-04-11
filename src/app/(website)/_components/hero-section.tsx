@@ -37,7 +37,7 @@ export const HeroSection = () => {
 						</p>
 
 						<Image
-							src="/images/hero-image.png"
+							src="/images/webp-optimized/hero-image.webp"
 							alt=""
 							width={500}
 							height={500}
@@ -45,7 +45,7 @@ export const HeroSection = () => {
 						/>
 
 						<Image
-							src="/images/demo-image-2.png"
+							src="/images/webp-optimized/demo-image-2.webp"
 							alt=""
 							width={500}
 							height={500}
@@ -53,7 +53,7 @@ export const HeroSection = () => {
 						/>
 
 						<Image
-							src="/images/demo-image-3.png"
+							src="/images/webp-optimized/demo-image-3.webp"
 							alt=""
 							width={500}
 							height={500}
@@ -61,7 +61,7 @@ export const HeroSection = () => {
 						/>
 
 						<Image
-							src="/images/hero-image-5.png"
+							src="/images/webp-optimized/hero-image-5.webp"
 							alt=""
 							width={500}
 							height={500}
@@ -86,7 +86,7 @@ export const HeroSection = () => {
 								Sign In
 							</Button>
 							<Image
-								src="/images/no-credit-card.png"
+								src="/images/webp-optimized/no-credit-card.webp"
 								width={160}
 								height={160}
 								alt="No credit card required*"
@@ -106,7 +106,7 @@ export const HeroSection = () => {
 						{/* @ts-ignore */}
 						<feedbackz-widget data-widget-id="3xznjqW"></feedbackz-widget>
 						<Image
-							src={"/images/made-with-feedbackz.png"}
+							src={"/images/webp-optimized/made-with-feedbackz.webp"}
 							alt="Made with Feedbackz"
 							width={200}
 							height={200}

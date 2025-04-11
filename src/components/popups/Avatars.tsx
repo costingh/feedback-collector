@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import StarsRating from "@/components/stars/stars-rating";
+import Image from "next/image";
 
 function Avatars({
 	transition,
@@ -32,16 +33,14 @@ function Avatars({
 					<div className="-space-x-5 avatar-group justy-start">
 						{testimonials.slice(0, 4).map((t: any) => (
 							<div className="avatar w-12 h-12" key={t.id}>
-								<img
+								<Image
 									alt="User"
-									// fetchPriority="high"
-									width="50"
-									height="50"
-									decoding="async"
-									data-nimg="1"
-									style={{ color: "transparent" }}
 									src={t.avatar}
+									width={50}
+									height={50}
+									priority // 👈 this replaces fetchPriority="high"
 									className="w-full"
+									style={{ color: 'transparent' }}
 								/>
 							</div>
 						))}
