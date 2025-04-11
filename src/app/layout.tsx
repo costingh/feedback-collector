@@ -1,13 +1,25 @@
-import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
-import "./globals.css";
 import ReactQueryProvider from "@/react-query";
 import { ReduxProvider } from "@/redux/provider";
 import { Toaster } from "sonner";
 import Script from "next/script";
+
+// vercel analytics
 import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/next"
+
+// seo
 import { constructMetadata } from "@/lib/utils";
+
+// styles
+import "./globals.css";
+import { Fredoka } from 'next/font/google';
+const fredoka = Fredoka({
+	subsets: ['latin'],
+	weight: ['300', '400', '500', '600', '700'],
+	variable: '--font-fredoka',
+	display: 'swap',
+});
 
 export const metadata = constructMetadata()
 
@@ -23,7 +35,7 @@ export default function RootLayout({
 
 	return (
 		<ClerkProvider>
-			<html lang="en">
+			<html lang="en" className={fredoka.className}>
 				{/* <!-- Google tag (gtag.js) --> */}
 				<Script
 					id="gtm-script-1"
