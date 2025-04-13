@@ -155,7 +155,7 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 				} else {
 					toast.success("Response submitted successfully!");
 					setStep(3);
-					onSubmit && (await onSubmit());
+					onSubmit && onSubmit();
 				}
 			
 				setIsSubmitting(false);
