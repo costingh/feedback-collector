@@ -9,11 +9,11 @@ export const HeroSection = () => {
 	const { isSignedIn } = useAuth();
 
 	return (
-		<div className="px-5 py-3 flex flex-col min-h-[100vh] animate-in fade-in items-center justify-center overflow-x-hidden">
+		<div className="px-5 py-3 flex flex-col min-h-[120vh] animate-in fade-in items-center justify-center overflow-x-hidden">
 			<div className="h-full items-center justify-center flex flex-col">
 				<div className="flex flex-wrap gap-4 flex-col items-center justify-center">
 					<div className="max-w-3xl text-center relative">
-						<h1 className="font-fredoka text-[4rem] text-[#111827] font-[900] leading-[60px] mb-6 line-">
+						<h1 className=" text-[3.5rem] text-[#111827] font-[900] leading-[60px] mb-6">
 							<span className="text-[#4f46e5] relative">
 								Collect and share
 								<Image
@@ -26,7 +26,7 @@ export const HeroSection = () => {
 							</span> 
 							<br/>testimonials to boost trust and conversions.
 						</h1>
-						<p className="text-[18px] text-gray-500 font-[300] mb-6 leading-[30px]">
+						<p className="text-[16px] text-gray-500 font-[300] mb-6 leading-[30px]">
 							Feedbackz enables you to seamlessly collect and
 							showcase client testimonials through customizable
 							forms and popups. Easily embed these on your
