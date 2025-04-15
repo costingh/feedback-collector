@@ -1,11 +1,8 @@
 'use client'
 
 import { getUserWidgets } from "@/actions/widgets";
-import { redirect } from 'next/navigation'
-import Loader from "@/components/global/loader";
 import { useQueryData } from "@/hooks/useQueryData";
 import Widget from "@/components/popups/Widget";
-import { useRouter } from "next/navigation";
 import { LoadingSpinner } from "@/components/animations/loading-spinner";
 
 type Props = {
@@ -13,9 +10,8 @@ type Props = {
 };
 
 const WidgetsPage = ({ params: { workspaceId } }: Props) => {
-	const router = useRouter()
 	const { data: widgetsResponse, isFetching } = useQueryData(['user-widgets'], () =>
-		getUserWidgets(workspaceId)
+		getUserWidgets(workspaceId), true, false
 	)
 
     const widgets = (widgetsResponse as any)?.data || [];
