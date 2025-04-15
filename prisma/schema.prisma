@@ -104,7 +104,7 @@ model Form {
   published           Boolean
   isPaused            Boolean
   pausedUntil         DateTime?
-  url                 String
+  url                 String          @unique
   customUrl           String
   title               String
   description         String
@@ -176,7 +176,7 @@ model Widget {
   id              String            @id @default(cuid())
   name            String
   target          String
-  url             String
+  url             String            @unique
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
   userId          String
