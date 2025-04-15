@@ -104,3 +104,22 @@ export const updateWidget = async (widgetId: string, testimonialsIds: string[]) 
         return { status: 400 };
     }
 };
+
+export const customizeWidget = async (widgetId: string, description: string) => {
+    try {
+        if (!widgetId) return { status: 404 };
+
+        const updatedWidget = await client.widget.update({
+            where: {
+                id: widgetId,
+            },
+            data: {
+                widgetDescription: description
+            },
+        });
+
+        return { status: 200, data: 'Widget updated successfully', updatedWidget };
+    } catch (error) {
+        return { status: 400 };
+    }
+};

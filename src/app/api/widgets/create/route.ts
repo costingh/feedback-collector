@@ -21,6 +21,7 @@ export async function POST(req: Request) {
                 userId,
                 type: data.type,
                 workspaceId: data.workspaceId,
+                widgetDescription: 'Trusted by thousands of customers',
                 testimonials: {
                     connect: data?.testimonialsIds?.map((i: any) => ({id: i})) || [],
                 },

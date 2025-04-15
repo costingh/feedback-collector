@@ -56,7 +56,7 @@ function Widget({ t, workspaceId }: { t: any; workspaceId: string }) {
 
 				{t?.type == "avatars" && (
 					<div>
-						<Avatars testimonials={testimonialsMock} />
+						<Avatars testimonials={testimonialsMock} widget={t}/>
 					</div>
 				)}
 

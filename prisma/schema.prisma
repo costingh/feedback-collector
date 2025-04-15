@@ -173,18 +173,19 @@ model FormResponse {
 }
 
 model Widget {
-  id              String            @id @default(cuid())
-  name            String
-  target          String
-  url             String            @unique
-  createdAt       DateTime          @default(now())
-  updatedAt       DateTime          @updatedAt
-  userId          String
-  type            String
-  WidgetAnalytics WidgetAnalytics[]
-  workspaceId     String
-  workspace       WorkSpace         @relation(fields: [workspaceId], references: [id])
-  testimonials    FormResponse[]
+  id                String            @id @default(cuid())
+  name              String
+  target            String
+  url               String            @unique
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+  userId            String
+  type              String
+  widgetDescription String            @default("")
+  WidgetAnalytics   WidgetAnalytics[]
+  workspaceId       String
+  workspace         WorkSpace         @relation(fields: [workspaceId], references: [id])
+  testimonials      FormResponse[]
 }
 
 model Tag {

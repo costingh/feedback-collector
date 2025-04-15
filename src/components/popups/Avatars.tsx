@@ -1,13 +1,16 @@
 import clsx from "clsx";
 import StarsRating from "@/components/stars/stars-rating";
 import Image from "next/image";
+import { Widget } from "@prisma/client";
 
 function Avatars({
 	transition,
 	testimonials,
+	widget
 }: {
 	transition?: boolean;
 	testimonials: any;
+	widget: Widget | null | undefined;
 }) {
 	const computeAverageRating = () => {
 		if (!testimonials) return 0;
@@ -55,10 +58,11 @@ function Avatars({
 							/>
 						</div>
 						<div className="text-base text-base-content/80 !text-[13px]">
-							<span className="font-semibold text-base-content">
+							{/* <span className="font-semibold text-base-content">
 								Trusted
 							</span>{" "}
-							by thousands of customers
+							by thousands of customers */}
+							{widget?.widgetDescription || 'Trusted by thousands of customers'}
 						</div>
 					</div>
 				</div>

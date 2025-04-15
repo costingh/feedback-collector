@@ -43,7 +43,7 @@ function ShareableElement({type, workspaceId}: {type: string, workspaceId: strin
                 </div>}
 
                 {type == 'avatars' && <div style={{transform: 'scale(0.8)'}}>
-                    <Avatars transition={true} testimonials={testimonialsMock}/>
+                    <Avatars transition={true} testimonials={testimonialsMock} widget={null}/>
                 </div>}
 			</div>
 			<div className="bottom w-full py-4 px-5">

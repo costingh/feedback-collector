@@ -30,7 +30,7 @@ function DisplayWidget({ widget }: { widget: any }) {
 					)}
 
 					{widget.type == "avatars" && (
-						<Avatars testimonials={widget?.testimonials} />
+						<Avatars testimonials={widget?.testimonials} widget={widget}/>
 					)}
 				</div>
 			)}

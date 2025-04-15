@@ -15,15 +15,16 @@ import { getUserWidget } from "@/actions/widgets";
 import { useTags } from "@/hooks/useTags";
 import axios from "axios";
 import { LoadingSpinner } from "../animations/loading-spinner";
+import WidgetEditorSidebar from "./WidgetEditorSidebar";
 
 const EditWidget = ({ widgetId, workspaceId }: any) => {
 	const [currentWidget, setCurrentWidget] = useState<any>(null);
 	const [isLoading, setIsLoading] = useState(true);
-    const [deviceResolution, setDeviceResolution] = useState({
+	const [deviceResolution, setDeviceResolution] = useState({
 		width: window.innerWidth,
 		height: window.innerHeight,
 	});
-    const [hasInteracted, setHasInteracted] = useState(false);
+	const [hasInteracted, setHasInteracted] = useState(false);
 	const [activeSubmenu, setActiveSubmenu] = useState<string>("");
 
 	const { data: widgetData } = useQueryData(
@@ -126,61 +127,68 @@ const EditWidget = ({ widgetId, workspaceId }: any) => {
 				setActiveSubmenu={setActiveSubmenu}
 			/>
 
-			<div className="flex items-center justify-center p-4">
-				<div
-					style={{
-						width: `${deviceResolution.width}px`,
-						height: `${deviceResolution.height}px`,
-					}}
-					className={cn(
-						"p-2",
-						[375, 768].includes(deviceResolution.width) &&
-							"border-2 rounded-2xl border-black"
-					)}
-				>
-					<ShareWidgetModal
-						widgetUrl={widgetResponse?.widget?.url || ""}
-						isOpened={activeSubmenu === "share_widget"}
-						handleClose={() => setActiveSubmenu("")}
-					/>
+			<div className="flex h-[calc(100vh-100px)] overflow-hidden">
+				<WidgetEditorSidebar
+					widget={currentWidget}
+					setWidget={setCurrentWidget}
+				/>
+				<div className="flex items-center justify-center p-4 w-[calc(100%-300px)] overflow-auto">
+					<div
+						style={{
+							width: `${deviceResolution.width}px`,
+							height: `${deviceResolution.height}px`,
+						}}
+						className={cn(
+							"p-2 max-w-full max-h-full",
+							[375, 768].includes(deviceResolution.width) &&
+								"border-2 rounded-2xl border-black"
+						)}
+					>
+						<ShareWidgetModal
+							widgetUrl={widgetResponse?.widget?.url || ""}
+							isOpened={activeSubmenu === "share_widget"}
+							handleClose={() => setActiveSubmenu("")}
+						/>
 
-					<SelectTestimonialsToShareModal
-						isOpened={activeSubmenu === "select_testimonials"}
-						handleClose={() => setActiveSubmenu("")}
-						testimonials={testimonialsResponse?.data || []}
-						isChecked={(id: string) => checkedItems.has(id)}
-						tags={tags}
-						groupedTags={groupedTags}
-						setChecked={setChecked}
-						checkedItems={checkedItems}
-						widgetId={widgetResponse?.widget?.id}
-						userForms={formsData?.data?.forms || []}
-					/>
+						<SelectTestimonialsToShareModal
+							isOpened={activeSubmenu === "select_testimonials"}
+							handleClose={() => setActiveSubmenu("")}
+							testimonials={testimonialsResponse?.data || []}
+							isChecked={(id: string) => checkedItems.has(id)}
+							tags={tags}
+							groupedTags={groupedTags}
+							setChecked={setChecked}
+							checkedItems={checkedItems}
+							widgetId={widgetResponse?.widget?.id}
+							userForms={formsData?.data?.forms || []}
+						/>
 
-					{isLoading ? (
-						<div className="w-full h-full flex items-center justify-center">
-							<span className="inline-block">
-								<LoadingSpinner size={30} />
-							</span>
-						</div>
-					) : currentWidget?.testimonials?.length > 0 ? (
-						<DisplayWidget widget={currentWidget} />
-					) : (
-						<div className="w-full h-full flex items-center justify-center">
-							<div className="flex flex-col items-center justify-center max-w-lg text-center">
-								<h1 className="text-black font-bold text-xl mb-2">
-									Oops, no testimonials linked
-								</h1>
-								<p className="text-gray-700 text-lg mb-2">
-									Select testimonials to display them in the
-									widget.
-								</p>
-								<span className="text-gray-500 text-sm">
-									Only "approved" testimonials will appear.
+						{isLoading ? (
+							<div className="w-full h-full flex items-center justify-center">
+								<span className="inline-block">
+									<LoadingSpinner size={30} />
 								</span>
 							</div>
-						</div>
-					)}
+						) : currentWidget?.testimonials?.length > 0 ? (
+							<DisplayWidget widget={currentWidget} />
+						) : (
+							<div className="w-full h-full flex items-center justify-center">
+								<div className="flex flex-col items-center justify-center max-w-lg text-center">
+									<h1 className="text-black font-bold text-xl mb-2">
+										Oops, no testimonials linked
+									</h1>
+									<p className="text-gray-700 text-lg mb-2">
+										Select testimonials to display them in
+										the widget.
+									</p>
+									<span className="text-gray-500 text-sm">
+										Only "approved" testimonials will
+										appear.
+									</span>
+								</div>
+							</div>
+						)}
+					</div>
 				</div>
 			</div>
 		</div>
