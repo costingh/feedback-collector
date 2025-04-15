@@ -259,7 +259,7 @@ export const tagCategories = [
 
 export function constructMetadata({
 	title = "Feedbackz - Collect and share testimonials | Free testimonial collection tool | Feedbackz",
-	description = "Feedbackz is a free testimonial collection tool that helps freelancers, small businesses, and startups effortlessly collect, manage, and showcase text and video testimonials. Turn customer feedback into powerful social proof with customizable forms, shareable pages, and embeddable widgets — no code needed.",
+	description = "Feedbackz helps freelancers and businesses collect and showcase text and video testimonials with shareable pages, forms, and widgets.",
 	image = "/images/app-preview.png",
 	icons = "/favicon.ico",
 	noIndex = false,
