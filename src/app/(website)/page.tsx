@@ -24,7 +24,7 @@ const LandingPage = () => {
 							{/* <p className="text-gray-100 text-[18px] font-black">
 									Our Customers
 								</p> */}
-							<h1 className="text-white text-[40px] font-black">
+							<h1 className="text-white text-[30px] font-black">
 								Boost your sales and enhance customer trust with
 								authentic testimonials
 							</h1>

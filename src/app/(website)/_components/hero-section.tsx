@@ -4,16 +4,18 @@ import Link from "next/link";
 import { useAuth } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import { ArrowRight } from "lucide-react";
 
 export const HeroSection = () => {
 	const { isSignedIn } = useAuth();
 
 	return (
-		<div className="px-5 py-3 flex flex-col min-h-[120vh] animate-in fade-in items-center justify-center overflow-x-hidden">
+		<div className="px-5 py-3 flex flex-col min-h-[120vh] animate-in fade-in items-center justify-center overflow-x-hidden bg-[#4e46e50b] mb-5">
 			<div className="h-full items-center justify-center flex flex-col">
 				<div className="flex flex-wrap gap-4 flex-col items-center justify-center">
 					<div className="max-w-3xl text-center relative">
-						<h1 className=" text-[3.5rem] text-[#111827] font-[900] leading-[60px] mb-6">
+						<span className="text-[14px] text-gray-500 bg-gray-200 border-[1px] border-gray-300 px-[10px] py-[4px] rounded-full">All-In-One platform to grow your business</span>
+						<h1 className=" text-[3.5rem] text-[#111827] font-[900] leading-[60px] mb-6 mt-4">
 							<span className="text-[#4f46e5] relative">
 								Collect and share
 								<Image
@@ -70,20 +72,12 @@ export const HeroSection = () => {
 					</div>
 
 					<div className="flex items-center justify-center gap-4 relative">
-						<Link href="/auth/sign-up">
-							<Button
-								variant="outline"
-								className="rounded-[17px] border-[2px] border-indigo-600 bg-indigo-600 px-[25px] !py-[22px] text-white text-[14px] font-[500] hover:text-indigo-600 w-[220px]"
-							>
-								Start Free Trial
-							</Button>
-						</Link>
 						<Link href="/auth/sign-up" className="relative">
 							<Button
 								variant="outline"
-								className="rounded-[17px] border-[2px] border-indigo-600 text-indigo-600 px-[25px] !py-[22px] text-[14px] font-[500] w-[220px]"
+								className="rounded-full border-[1px] border-indigo-600 bg-indigo-600 !py-[20px] text-white text-[14px] font-[500] hover:text-indigo-600 w-[200px]"
 							>
-								Sign In
+								Get Started For Free <ArrowRight size={18} className="ml-2" />
 							</Button>
 							<Image
 								src="/images/webp-optimized/no-credit-card.webp"

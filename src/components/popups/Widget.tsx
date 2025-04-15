@@ -44,7 +44,7 @@ function Widget({t, workspaceId}: {t: any, workspaceId: string}) {
 
 	return (
 		<div className="border-[1px] border-gray-200 rounded-[12px] overflow-hidden">
-			<div className="top w-full h-[250px] bg-gray-100 flex items-center justify-center">
+			<div className="top w-full h-[200px] bg-gray-100 flex items-center justify-center">
 				{t?.type == "basic_wall" && (
 					<Image
 						src="/images/widgets/basic-wall.png"
@@ -87,8 +87,20 @@ function Widget({t, workspaceId}: {t: any, workspaceId: string}) {
 				)}
 			</div>
 			<div className="bottom w-full py-4 px-5">
-				<div className="flex justify-between items-center">
-					<span className="text-gray-700 text-[14px]">{t?.name}</span>
+				<div className="flex justify-between items-center mb-[10px]">
+					<div className="flex flex-col gap-[3px]">
+						<span className="text-gray-700 text-[13px]">{t?.name}</span>
+						<span className="text-[11px] text-gray-400 font-[400]">
+							Edited {timeAgo(t?.updatedAt)}
+						</span>
+					</div>
+
+					{/* {t?.target && (
+								<span className="px-2 py-1 rounded-[6px] bg-[#dcdcdc34] text-gray-400 text-[12px] font-normal cursor-pointer">
+									{t?.target}
+								</span>
+							)} */}
+
 					<div className="flex items-center gap-2">
 						{/* <div
 							className="hover:bg-gray-200 cursor-pointer rounded-[6px] p-1"
@@ -103,7 +115,6 @@ function Widget({t, workspaceId}: {t: any, workspaceId: string}) {
 									<Share2 className="text-gray-600" size={15} />
 							</div>
 						</ShareWidgetModal>
-
 						
 						<Link
 							target="_blank"
@@ -117,9 +128,9 @@ function Widget({t, workspaceId}: {t: any, workspaceId: string}) {
 							<TooltipProvider>
 							<Tooltip delayDuration={0}>
 								<TooltipTrigger asChild>
-								<div className='rounded-[6px] p-1 bg-yellow-200 cursor-pointer'>
-								<TriangleAlert className="text-yellow-600" size={15}/>
-							</div>
+									<div className='rounded-[6px] p-1 bg-yellow-200 cursor-pointer'>
+										<TriangleAlert className="text-yellow-600" size={15}/>
+									</div>
 								</TooltipTrigger>
 								<TooltipContent>
 									<p>You must have at least 10 testimonials selected for the rolling wall. <br/> We suggest you to add more testimonials for this to look more appealing.</p>
@@ -136,7 +147,7 @@ function Widget({t, workspaceId}: {t: any, workspaceId: string}) {
 						</span>
 					</div>
 				</div>
-				<div className="flex items-center justify-between gap-2 my-4 flex-wrap">
+				{/* <div className="flex items-center justify-between gap-2 my-4 flex-wrap">
 					<span className="px-2 py-1 rounded-[6px] bg-[#dcdcdc34] text-gray-400 text-[12px] font-normal cursor-pointer">
 						{process.env.NEXT_PUBLIC_HOST_URL + "/share" + t?.url}
 					</span>
@@ -150,7 +161,7 @@ function Widget({t, workspaceId}: {t: any, workspaceId: string}) {
 							Edited {timeAgo(t?.updatedAt)}
 						</span>
 					</div>
-				</div>
+				</div> */}
 				<div className="bg-[#dcdcdc34] rounded-[10px] px-3 py-[5px] flex items-center gap-2">
 					<div className="flex-[0.33] flex flex-col gap-1">
 						<span className="text-gray-400 text-[12px]">Views</span>
