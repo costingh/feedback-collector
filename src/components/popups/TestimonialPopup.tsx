@@ -17,7 +17,9 @@ import options from "../forms/form-editor/CustomerDetailsOptionList";
 import { ThankYouScreen } from "./ThankYouScreen";
 import { BASE_PRIMARY_COLOR } from "@/constants/colors";
 import { SubmitTestimonialButton } from "./SubmitTestimonialButton";
-import { CollectWrittenTestimonial } from "./CollectWrittenTestimonial";
+import { CollectWrittenTestimonial } from "../forms/collector/CollectWrittenTestimonial";
+import { IntroTestimonialCollector } from "../forms/collector/IntroTestimonialCollector";
+import { CollectVideoTestimonial } from "../forms/collector/CollectVideoTestimonial";
 
 interface TestimonialPopupProps {
 	backgroundColor: string | undefined;
@@ -77,6 +79,9 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 		message: "",
 	});
 
+	const [video, setVideo] = useState<File | null>(null);
+
+
 	const getAllOptions = () => {
 		const allOptions = options
 			.map((option) => ({
@@ -99,10 +104,12 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 			});
 			const [isSubmitting, setIsSubmitting] = useState(false)
 			const [focusedKey, setFocusedKey] = useState<string | null>(null);
+
 			const [images, setImages] = useState<any>({
 				avatar: '',
-				logo: ''
+				logo: '',
 			})
+
 			const handleSubmit = async () => {
 				setIsSubmitting(true);
 			
@@ -142,6 +149,10 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 				if (images.logo instanceof File) {
 					formData.append("logo", images.logo);
 				}
+
+				if (video instanceof File) {
+					formData.append("video", video);
+				}
 			
 				const res = await fetch("/api/testimonials/create", {
 					method: "POST",
@@ -154,7 +165,7 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 					toast.error(response.error);
 				} else {
 					toast.success("Response submitted successfully!");
-					setStep(3);
+					setStep(4);
 					onSubmit && onSubmit();
 				}
 			
@@ -317,6 +328,18 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 									<FormLoaderSkeleton />
 								) : (
 									<>
+										{step === 0 && (
+											<IntroTestimonialCollector
+												questions={questions}
+												textareaPlaceholder={textareaPlaceholder}
+												buttonLabel={buttonLabel}
+												setFinalResponse={setFinalResponse}
+												setStep={setStep}
+												description={description}
+												primaryColor={primaryColor || BASE_PRIMARY_COLOR}
+											/>
+										)}
+
 										{step === 1 && (
 											<CollectWrittenTestimonial
 												questions={questions}
@@ -330,12 +353,22 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 										)}
 
 										{step === 2 && (
+											<CollectVideoTestimonial
+												questions={questions}
+												setStep={setStep}
+												setVideo={setVideo}
+												description={description}
+												primaryColor={primaryColor || BASE_PRIMARY_COLOR}
+											/>
+										)}
+
+										{step === 3 && (
 											<CollectReviewerPersonalInformation
 												buttonLabel={buttonLabel}
 											/>
 										)}
 
-										{step === 3 && (
+										{step === 4 && (
 											<ThankYouScreen
 												thankYouPageTitle={thankYouPageTitle}
 												thankYouPageMessage={thankYouPageMessage}

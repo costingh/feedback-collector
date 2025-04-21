@@ -3,7 +3,7 @@
 import { Question } from "@/types/Question";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
-import { QuestionList } from "./QuestionsList";
+import { QuestionList } from "../../popups/QuestionsList";
 import StarsRating from "@/components/stars/stars-rating";
 import { RocketIcon } from "@/app/(website)/_components/icons/rocket-icon";
 

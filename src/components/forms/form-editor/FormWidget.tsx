@@ -17,7 +17,7 @@ const FormWidget = ({
 	form: Form;
 	isSearchingForm: boolean;
 }) => {
-	const [step, setStep] = useState(1);
+	const [step, setStep] = useState(0);
 	// const [isSearchingForm, setIsSearchingForm] = useState(true);
 	// const [form, setForm] = useState<Form | null>(null);
 	const [startTime, setStartTime] = useState<number>(0); // Start time for time spent

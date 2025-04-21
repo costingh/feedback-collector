@@ -12,12 +12,11 @@ import {
 import { Widget } from "@prisma/client";
 import { useMutationData } from "@/hooks/useMutationData";
 import { customizeWidget } from "@/actions/widgets";
-import { toast } from "sonner";
 import { LoadingSpinner } from "../animations/loading-spinner";
 
 interface CustomizeLabelsProps {
 	widget: Widget;
-    setWidget: (widget: Widget) => void;
+	setWidget: (widget: Widget) => void;
 }
 
 type FormLabelsType = {
@@ -27,13 +26,15 @@ type FormLabelsType = {
 	questions?: { text: string }[];
 };
 
-const CustomizeWidget: React.FC<CustomizeLabelsProps> = ({ widget, setWidget }) => {
+const CustomizeWidget: React.FC<CustomizeLabelsProps> = ({
+	widget,
+	setWidget,
+}) => {
 	const { mutate: handleUpdate, isPending: isLoading } = useMutationData(
 		["add-testimonials-for-widget"],
-		() => customizeWidget(widget?.id, widget?.widgetDescription || ''),
+		() => customizeWidget(widget?.id, widget?.widgetDescription || ""),
 		["shared-widget"],
-		() => {
-		}
+		() => {}
 	);
 
 	const [formLabels, setFormLabels] = useState<FormLabelsType[]>([
@@ -63,27 +64,35 @@ const CustomizeWidget: React.FC<CustomizeLabelsProps> = ({ widget, setWidget }) 
 
 	const handleInputChange = (value: string, key: string) => {
 		if (key == "widgetDescription") {
-            // @ts-ignore
-            setWidget((prevWidget) => ({...prevWidget, widgetDescription: value})); // Update the widget state with the new description
+			// @ts-ignore
+			setWidget((prevWidget) => ({
+				...prevWidget,
+				widgetDescription: value,
+			})); // Update the widget state with the new description
 		}
 	};
 
 	return (
-		<div className="w-full">
-			{formLabels.map((label) => (
-				<LabelEdit
-					labelKey={label.key}
-					key={label.key}
-					title={label.title}
-                    // @ts-ignore
-                    textareaValue={widget?.[label.key] || ""}
-					tooltipDescription={label.tooltipDescription}
-					handleInputChange={handleInputChange}
-				/>
-			))}
+		<div className="w-full h-full flex flex-col justify-between">
+			<div>
+				{widget?.type == 'avatars' && <>
+                    {formLabels.map((label) => (
+                        <LabelEdit
+                            labelKey={label.key}
+                            key={label.key}
+                            title={label.title}
+                            // @ts-ignore
+                            textareaValue={widget?.[label.key] || ""}
+                            tooltipDescription={label.tooltipDescription}
+                            handleInputChange={handleInputChange}
+                        />
+                    ))}
+                </>}
+			</div>
+
 			<div
 				onClick={handleUpdate}
-				className="text-center py-[10px] rounded-[8px] bg-[#000] text-[#eee] w-full cursor-pointer text-[14px] font-semibold mt-10 hover:opacity-80"
+				className="text-center py-[10px] rounded-[8px] bg-[#000] text-[#eee] w-full cursor-pointer text-[14px] font-semibold hover:opacity-80"
 			>
 				{!isLoading ? (
 					"Apply changes"

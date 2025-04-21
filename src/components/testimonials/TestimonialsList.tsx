@@ -52,6 +52,19 @@ function TestimonialsList({
 							</span>
 						</div>
 						<div className="w-full text-left">
+							{t.video && (
+								<div className="w-[200px] h-[150px] rounded-lg overflow-hidden mb-5">
+									<video 
+										className="w-full h-full object-cover"
+										controls
+										preload="metadata"
+									>
+										<source src={t.video} type="video/mp4" />
+										Your browser does not support the video tag.
+									</video>
+								</div>
+							)}
+
 							{/* <span>{t?.logo}</span> */}
 							{/* <span>{t?.company}</span> */}
 							{/* <span>{t?.website}</span> */}
@@ -74,6 +87,8 @@ function TestimonialsList({
 									readonly={true}
 								/>
 							</div>
+
+							
 						</div>
 
 						<div className="w-[350px] gap-4 flex flex-col items-start">

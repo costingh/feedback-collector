@@ -124,11 +124,15 @@ export default function EditFormWrapper({
 			setOpenIndex(openIndex === index ? -1 : index);
 		} else if (index == 4) {
 			// FOR thank you page
-			setStep(3);
+			setStep(4);
+			setOpenIndex(openIndex === index ? -1 : index);
+		} else if (index == 0) {
+			// FOR ASPECT
+			setStep(0);
 			setOpenIndex(openIndex === index ? -1 : index);
 		} else {
-			// For ASPECT, CUSTOMER DETAILS
-			setStep(index + 1);
+			// For CUSTOMER DETAILS
+			setStep(3);
 			setOpenIndex(openIndex === index ? -1 : index);
 		}
 	};

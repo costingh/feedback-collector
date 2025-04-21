@@ -57,9 +57,11 @@ export async function POST(request: NextRequest) {
 
         let avatarUrl = "";
         let logoUrl = "";
+        let videoUrl = "";
 
         const avatar = formData.get("avatar");
         const logo = formData.get("logo");
+        const video = formData.get("video");
 
         if (avatar instanceof File && avatar.size > 0) {
             avatarUrl = await uploadToS3(avatar, "avatars");
@@ -67,6 +69,10 @@ export async function POST(request: NextRequest) {
 
         if (logo instanceof File && logo.size > 0) {
             logoUrl = await uploadToS3(logo, "logos");
+        }
+
+        if (video instanceof File && video.size > 0) {
+            videoUrl = await uploadToS3(video, "videos");
         }
 
         const result = await client.formResponse.create({
@@ -81,6 +87,7 @@ export async function POST(request: NextRequest) {
                 formId: data.formId || "",
                 avatar: avatarUrl,
                 logo: logoUrl,
+                video: videoUrl,
                 approved: false,
             },
         });

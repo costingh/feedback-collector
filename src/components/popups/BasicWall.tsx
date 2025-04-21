@@ -4,7 +4,7 @@ import StarsRating from "../stars/stars-rating";
 
 function BasicWall({ testimonials }: { testimonials: any }) {
 	return (
-		<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-[70%] mx-auto">
+		<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 container mx-auto">
 			{testimonials
 				?.filter((t: any) => t.approved)
 				?.map((t: any) => (
@@ -21,7 +21,7 @@ function BasicWall({ testimonials }: { testimonials: any }) {
 								<p className="text-zinc-700 text-[14px] font-[600] m-0 p-0">
 									{t?.name}
 								</p>
-								<span className="text-gray-600 text-[12px] font-[400] m-0 p-0"></span>
+								<span className="text-gray-600 text-[12px] font-[400] mt-[-7px] p-0">{t?.jobTitle || t?.email}</span>
 							</div>
 						</div>
 						<div className="flex items-center mt-3">

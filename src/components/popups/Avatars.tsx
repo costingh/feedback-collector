@@ -49,7 +49,7 @@ function Avatars({
 						))}
 					</div>
 					<div className="flex flex-col justify-center items-start">
-						<div className="block">
+						<div className="block h-[22px]">
 							<StarsRating
 								value={computeAverageRating() || 0}
 								readonly
@@ -57,7 +57,7 @@ function Avatars({
 								marginLeft="-15"
 							/>
 						</div>
-						<div className="text-base text-base-content/80 !text-[13px]">
+						<div className="text-base text-base-content/80 !text-[14px]">
 							{/* <span className="font-semibold text-base-content">
 								Trusted
 							</span>{" "}

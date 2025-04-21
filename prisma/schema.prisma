@@ -164,12 +164,13 @@ model FormResponse {
   formId    String
   avatar    String
   logo      String
+  video     String   @default("")
   approved  Boolean
   form      Form     @relation(fields: [formId], references: [id])
   createdAt DateTime @default(now())
   tagId     String?
   widgetId  String?
-  Widget    Widget?  @relation(fields: [widgetId], references: [id])
+  widgets   Widget[] @relation("TestimonialWidgets")
 }
 
 model Widget {
@@ -185,7 +186,7 @@ model Widget {
   WidgetAnalytics   WidgetAnalytics[]
   workspaceId       String
   workspace         WorkSpace         @relation(fields: [workspaceId], references: [id])
-  testimonials      FormResponse[]
+  testimonials      FormResponse[]    @relation("TestimonialWidgets")
 }
 
 model Tag {

@@ -30,10 +30,6 @@ const UploadImage: React.FC<UploadImageProps> = ({
 }) => {
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
-	useEffect(() => {
-		console.log(selectedImage)
-	}, [selectedImage])
-
     const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
         if (file) {
