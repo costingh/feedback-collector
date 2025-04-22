@@ -330,12 +330,7 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 									<>
 										{step === 0 && (
 											<IntroTestimonialCollector
-												questions={questions}
-												textareaPlaceholder={textareaPlaceholder}
-												buttonLabel={buttonLabel}
-												setFinalResponse={setFinalResponse}
 												setStep={setStep}
-												description={description}
 												primaryColor={primaryColor || BASE_PRIMARY_COLOR}
 											/>
 										)}
