@@ -14,6 +14,9 @@ export const getUserWidgets = async (workspaceId: string | undefined) => {
                 // userId: user.id,
                 workspaceId
             },
+            include: {
+                testimonials: true,
+            }
         })
 
         if (widgets) {

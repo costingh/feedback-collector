@@ -42,10 +42,10 @@ const WidgetsPage = ({ params: { workspaceId } }: Props) => {
 					<>
 						{widgets?.length ? (
 							<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-								{widgets.map((t: any, index: number) => (
+								{widgets.map((widget: any, index: number) => (
 									<div
-										key={t.id}>
-										<Widget t={t} workspaceId={workspaceId}/>
+										key={widget.id}>
+										<Widget widget={widget} workspaceId={workspaceId}/>
 									</div>
 								))}
 							</div>
