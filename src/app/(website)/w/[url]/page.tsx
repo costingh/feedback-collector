@@ -4,6 +4,7 @@ import DisplayWidget from "@/components/widgets/DisplayWidget";
 import { getUserWidget } from "@/actions/widgets";
 import { useQueryData } from "@/hooks/useQueryData";
 import { LoadingSpinner } from "@/components/animations/loading-spinner";
+import { formatNumberOfReviews } from "@/lib/utils";
 
 const LandingPage = ({ params }: { params: { url: string } }) => {
     const { data: widgetResponse, isFetching: isSearchingWidget } = useQueryData(
@@ -24,7 +25,7 @@ const LandingPage = ({ params }: { params: { url: string } }) => {
 			) : (
 				<>
 					{widget?.testimonials?.length > 0 && (
-						<DisplayWidget widget={widget} />
+						<DisplayWidget widget={widget} numberOfReviews={formatNumberOfReviews(widget?.totalCount)}/>
 					)}
 					{!widget && <div>An error occured</div>}
 					{/* @ts-ignore */}

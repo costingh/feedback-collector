@@ -81,6 +81,7 @@ export function CreateWidgetModal({
 					type: widgetType,
 					testimonialsIds: selectedIds,
 					workspaceId,
+					variant: 'elite'
 				},
 			});
 

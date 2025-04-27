@@ -5,7 +5,7 @@ const config = {
 	darkMode: ["class"],
 	content: [
 		"./pages/**/*.{ts,tsx}",
-		"./components/**/*.{ts,tsx}",
+		"./src/components/**/*.{ts,tsx}",
 		"./app/**/*.{ts,tsx}",
 		"./src/**/*.{ts,tsx}",
 	],
@@ -17,6 +17,14 @@ const config = {
 			screens: {
 				"2xl": "1400px",
 			},
+		},
+		screens: {
+			'xs': '480px',
+			'sm': '640px',
+			'md': '768px',
+			'lg': '1024px',
+			'xl': '1280px',
+			'2xl': '1400px',
 		},
 		extend: {
 			colors: {

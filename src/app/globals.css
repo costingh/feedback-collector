@@ -3,6 +3,10 @@
 @tailwind components;
 @tailwind utilities;
 
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+/* @import './base.css'; */
+@import 'tailwindcss/utilities';
 
 @layer base {
 	:root {
@@ -150,17 +154,13 @@
 	-ms-overflow-style: none; /* Hides the scrollbar */
 }
 
+.hide-scrollbar {
+	-ms-overflow-style: none;  /* IE and Edge */
+	scrollbar-width: none;  /* Firefox */
+}
+
 .hide-scrollbar::-webkit-scrollbar {
-	width: 0;
-	background: transparent;
-}
-
-.hide-scrollbar {
-	scrollbar-width: none;
-}
-
-.hide-scrollbar {
-	-ms-overflow-style: none;
+	display: none;  /* Chrome, Safari and Opera */
 }
 
 .smooth-scrollbar::-webkit-scrollbar {

@@ -6,7 +6,7 @@ import Script from "next/script";
 
 // vercel analytics
 import { Analytics } from "@vercel/analytics/react"
-import { SpeedInsights } from "@vercel/speed-insights/next"
+// import { SpeedInsights } from "@vercel/speed-insights/next"
 
 // seo
 import { constructMetadata } from "@/lib/utils";
@@ -55,7 +55,7 @@ export default function RootLayout({
 				</Script>
 				<body >
 					<Analytics/>
-					<SpeedInsights/>
+					{/* <SpeedInsights/> */}
 					<ReduxProvider>
 						<ReactQueryProvider>
 							{children}

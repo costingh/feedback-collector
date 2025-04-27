@@ -103,7 +103,7 @@ function ColorPicker({inputValue, setInputValue} : {inputValue: string, setInput
 			{isOpen && (
 				<div
 					ref={pickerRef}
-					className="absolute z-100 mt-2 bg-white rounded-lg shadow-lg border-[1px] border-gray-200"
+					className="absolute z-[99999] mt-2 bg-white rounded-lg shadow-lg border-[1px] border-gray-200"
 				>
 					<RgbaColorPicker
 						color={color}

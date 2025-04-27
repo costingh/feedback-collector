@@ -27,26 +27,66 @@ export const getUserWidgets = async (workspaceId: string | undefined) => {
     }
 }
 
-export const getUserWidget = async (widgetUrl: string | undefined) => {
+export const getUserWidget = async (widgetUrl: string | undefined, page: number = 1, limit: number = 6) => {
     try {
         if (!widgetUrl) return { status: 404 }
 
-        const widget = await client.widget.findFirst({
-            where: {
-                url: widgetUrl,
-            },
-            include: {
-                testimonials: {
-                    select: {
-                        id: true
+        const skip = (page - 1) * limit;
+
+        const [widget, totalCount, allTestimonials] = await Promise.all([
+            client.widget.findFirst({
+                where: {
+                    url: widgetUrl,
+                },
+                include: {
+                    testimonials: {
+                        skip,
+                        take: limit,
+                        orderBy: {
+                            createdAt: 'desc'
+                        }
+                    }
+                },
+            }),
+            client.widget.findFirst({
+                where: {
+                    url: widgetUrl,
+                },
+                select: {
+                    _count: {
+                        select: {
+                            testimonials: true
+                        }
                     }
                 }
-            },
-        });
-
+            }),
+            client.formResponse.findMany({
+                where: {
+                    widgets: {
+                        some: {
+                            url: widgetUrl
+                        }
+                    }
+                },
+                select: {
+                    id: true
+                }
+            })
+        ]);
 
         if (widget) {
-            return { status: 200, data: 'Widget fetched successfully', widget }
+            return { 
+                status: 200, 
+                data: 'Widget fetched successfully', 
+                widget,
+                allTestimonialsIds: allTestimonials.map((t: { id: string }) => t.id),
+                pagination: {
+                    total: totalCount?._count?.testimonials || 0,
+                    page,
+                    limit,
+                    hasMore: skip + limit < (totalCount?._count?.testimonials || 0)
+                }
+            }
         }
     } catch (error) {
         return { status: 400 }
@@ -108,7 +148,7 @@ export const updateWidget = async (widgetId: string, testimonialsIds: string[]) 
     }
 };
 
-export const customizeWidget = async (widgetId: string, description: string) => {
+export const customizeWidget = async (widgetId: string, description: string, cardBackground: string, primaryTextColor: string, secondaryTextColor: string, thirdTextColor: string, cardBorderColor: string) => {
     try {
         if (!widgetId) return { status: 404 };
 
@@ -117,7 +157,12 @@ export const customizeWidget = async (widgetId: string, description: string) => 
                 id: widgetId,
             },
             data: {
-                widgetDescription: description
+                widgetDescription: description,
+                cardBackground: cardBackground,
+                primaryTextColor: primaryTextColor,
+                secondaryTextColor: secondaryTextColor,
+                thirdTextColor: thirdTextColor,
+                cardBorderColor: cardBorderColor,
             },
         });
 

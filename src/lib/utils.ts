@@ -53,6 +53,31 @@ export const formatNumber = (num: number): string => {
 	}
 };
 
+export const formatNumberOfReviews = (no: number) => {
+	if (no < 100) {
+		return no.toString();
+	}
+	if (no >= 100 && no < 1000) {
+		return `${Math.floor(no / 100) * 100}+`;
+	}
+	if (no >= 1000 && no < 3000) {
+		return "1000+";
+	}
+	if (no >= 3000 && no < 5000) {
+		return "3000+";
+	}
+	if (no >= 5000 && no < 10000) {
+		return "5000+";
+	}
+	if (no >= 10000 && no < 100000) {
+		return "10k+";
+	}
+	if (no >= 100000 && no < 1000000) {
+		return "100k+";
+	}
+	return "1m+";
+}
+
 export const groupTagsByCategory = (tags: Tag[]) => {
 	return tags.reduce((acc, tag) => {
 		if (!acc[tag.category]) {

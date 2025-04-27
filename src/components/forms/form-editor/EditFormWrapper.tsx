@@ -74,7 +74,7 @@ export default function EditFormWrapper({
 }) {
 	const [openIndex, setOpenIndex] = useState<number>(-1);
 
-	const [step, setStep] = useState<number>(1);
+	const [step, setStep] = useState<number>(0);
 	const [isSearchingForm, setIsSearchingForm] = useState<boolean>(true);
 	const [applyingChanges, setApplyingChanges] = useState<boolean>(false);
 

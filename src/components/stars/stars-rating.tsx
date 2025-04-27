@@ -8,7 +8,7 @@ type StarsRatingProps = {
 	value?: number;
 	style?: any;
 	scale?: any;
-	marginLeft?: any;
+	marginLeft?: number;
 };
 
 const StarsRating: React.FC<StarsRatingProps> = ({ ratingChanged, readonly, value, style, scale, marginLeft }) => {

@@ -31,7 +31,7 @@ export const CollectWrittenTestimonial = ({
 		setStars(newRating);
 	};
 
-	const handleGoToStepTwo = async () => {
+	const handleGoToNextStep = async () => {
 		if (!messageRef?.current?.value) {
 			toast.error("Please write a message!");
 			return;
@@ -48,7 +48,7 @@ export const CollectWrittenTestimonial = ({
 			stars,
 			message: messageRef?.current?.value,
 		}));
-		setStep(2);
+		setStep(3);
 	};
 
 	const handleTextareaChange = () => {
@@ -71,7 +71,7 @@ export const CollectWrittenTestimonial = ({
 				placeholder={textareaPlaceholder}
 			></textarea>
 			<button
-				onClick={handleGoToStepTwo}
+				onClick={handleGoToNextStep}
 				className="p-1.5 md:p-2.5 rounded-lg text-gray-50 w-full mt-2.5 font-mediumtracking-wide text-[13px] md:text-[15px] flex items-center gap-4 justify-center"
 				style={{
 					backgroundColor: primaryColor,

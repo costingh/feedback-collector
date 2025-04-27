@@ -22,6 +22,7 @@ export async function POST(req: Request) {
                 type: data.type,
                 workspaceId: data.workspaceId,
                 widgetDescription: 'Trusted by thousands of customers',
+                variant: data.variant,
                 testimonials: {
                     connect: data?.testimonialsIds?.map((i: any) => ({id: i})) || [],
                 },

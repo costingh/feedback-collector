@@ -13,6 +13,9 @@ import { Widget } from "@prisma/client";
 import { useMutationData } from "@/hooks/useMutationData";
 import { customizeWidget } from "@/actions/widgets";
 import { LoadingSpinner } from "../animations/loading-spinner";
+import ColorPicker from "../forms/form-editor/ColorPicker";
+import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "../ui/select";
 
 interface CustomizeLabelsProps {
 	widget: Widget;
@@ -32,7 +35,7 @@ const CustomizeWidget: React.FC<CustomizeLabelsProps> = ({
 }) => {
 	const { mutate: handleUpdate, isPending: isLoading } = useMutationData(
 		["add-testimonials-for-widget"],
-		() => customizeWidget(widget?.id, widget?.widgetDescription || ""),
+		() => customizeWidget(widget?.id, widget?.widgetDescription || "", widget?.cardBackground || "", widget?.primaryTextColor || "", widget?.secondaryTextColor || "", widget?.thirdTextColor || "", widget?.cardBorderColor || ""	),
 		["shared-widget"],
 		() => {}
 	);
@@ -75,6 +78,130 @@ const CustomizeWidget: React.FC<CustomizeLabelsProps> = ({
 	return (
 		<div className="w-full h-full flex flex-col justify-between">
 			<div>
+				<div className="flex items-center justify-between">
+					<p className="text-[14px] font-[600] text-[#000]">Widget Type:</p>
+
+					<span className="px-2 py-1 rounded-[6px] bg-[#4dff073e] text-[#0d7d019a] text-[12px] font-normal cursor-pointer">
+						{widget?.type == "basic_wall" && "Wall of Love"}
+						{widget?.type == "rolling_wall" && "Carousel"}
+						{widget?.type == "social_star" && "Social Star"}
+						{widget?.type == "rating_badge" && "Rating Badge"}
+						{widget?.type == "avatars" && "Avatars"}
+					</span>
+				</div>
+				{widget?.type == "avatars" && (
+					<>
+						<p className="text-[14px] font-[600] text-[#000] mt-5">Customize colors:</p>
+						<div className='mt-3'>
+							<span className="text-[13px] font-normal text-gray-400 leading-[17px]">
+								Choose primary text color
+							</span>
+							<ColorPicker
+								inputValue={widget?.primaryTextColor}
+								// @ts-ignore
+								setInputValue={(color: string) => setWidget((prevWidget) => ({...prevWidget, primaryTextColor: color}))}
+							/>
+						</div>
+
+
+						<Label className="text-[13px] font-[500] text-gray-600">
+							Choose a Variant
+						</Label>
+						<Select
+							value={widget?.variant || 'simple'}
+							// @ts-ignore
+							onValueChange={(value) =>
+								setWidget({
+									...widget,
+									variant: value,
+								})
+							}
+						>
+							<SelectTrigger className="w-full outline-none focus-visible:ring-0 focus-visible:ring-transparent mt-2">
+								<SelectValue placeholder="Select category" />
+							</SelectTrigger>
+							<SelectContent>
+								<SelectGroup>
+									<SelectLabel>Categories</SelectLabel>
+									{[{label: "Elite", emoji: "👑", value: "elite"}, {label: "Simple", emoji: "👤", value: "simple"}].map((c) => (
+										<SelectItem value={c.value} key={c.value}>
+											{c.emoji} {c.label}
+										</SelectItem>
+									))}
+								</SelectGroup>
+							</SelectContent>
+						</Select>
+
+						<p className="text-[14px] font-[600] text-[#000] mt-5">Customize colors:</p>
+						<div className='mt-3'>
+							<span className="text-[13px] font-normal text-gray-400 leading-[17px]">
+								Choose primary text color
+							</span>
+							<ColorPicker
+								inputValue={widget?.primaryTextColor}
+								// @ts-ignore
+								setInputValue={(color: string) => setWidget((prevWidget) => ({...prevWidget, primaryTextColor: color}))}
+							/>
+						</div>
+					</>
+				)}
+
+				{widget?.type == "basic_wall" && (
+					<>
+						<p className="text-[14px] font-[600] text-[#000] mt-5">Customize colors:</p>
+						<div className='mt-3'>
+							<span className="text-[13px] font-normal text-gray-400 leading-[17px]">
+								Choose background color for cards
+							</span>
+							<ColorPicker
+								inputValue={widget?.cardBackground}
+								// @ts-ignore
+								setInputValue={(color: string) => setWidget((prevWidget) => ({...prevWidget, cardBackground: color}))}
+							/>
+						</div>
+						<div className='mt-3'>
+							<span className="text-[13px] font-normal text-gray-400 leading-[17px]">
+								Choose primary text color
+							</span>
+							<ColorPicker
+								inputValue={widget?.primaryTextColor}
+								// @ts-ignore
+								setInputValue={(color: string) => setWidget((prevWidget) => ({...prevWidget, primaryTextColor: color}))}
+							/>
+						</div>
+						<div className='mt-3'>
+							<span className="text-[13px] font-normal text-gray-400 leading-[17px]">
+								Choose secondary text color
+							</span>
+							<ColorPicker
+								inputValue={widget?.secondaryTextColor}
+								// @ts-ignore
+								setInputValue={(color: string) => setWidget((prevWidget) => ({...prevWidget, secondaryTextColor: color}))}
+							/>
+						</div>
+						<div className='mt-3'>
+							<span className="text-[13px] font-normal text-gray-400 leading-[17px]">
+								Choose third text color
+							</span>
+							<ColorPicker
+								inputValue={widget?.thirdTextColor}
+								// @ts-ignore
+								setInputValue={(color: string) => setWidget((prevWidget) => ({...prevWidget, thirdTextColor: color}))}
+							/>
+						</div>
+						<div className='mt-3'>
+							<span className="text-[13px] font-normal text-gray-400 leading-[17px]">
+								Choose card border color
+							</span>
+							<ColorPicker
+								inputValue={widget?.cardBorderColor}
+								// @ts-ignore
+								setInputValue={(color: string) => setWidget((prevWidget) => ({...prevWidget, cardBorderColor: color}))}
+							/>
+						</div>
+					</>
+				)}
+
 				{widget?.type == 'avatars' && <>
                     {formLabels.map((label) => (
                         <LabelEdit
@@ -124,7 +251,7 @@ const LabelEdit: React.FC<LabelEditProps> = ({
 	handleInputChange,
 }) => {
 	return (
-		<div className="flex flex-col items-start gap-2 mb-3 w-full">
+		<div className="flex flex-col items-start gap-2 mt-3 w-full">
 			<div className="flex items-center justify-between w-full">
 				<p className="text-[14px] font-[600] text-[#000]">{title}</p>
 				<TooltipProvider>

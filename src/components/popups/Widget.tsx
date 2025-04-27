@@ -19,14 +19,15 @@ import { testimonialsMock } from "@/constants/testimonials-mock";
 import Link from "next/link";
 import BasicWall from "./BasicWall";
 import { WidgetValidationTooltip } from "../tooltips/WidgetValidationTooltip";
+import MinimalistReview from "./MinimalistReview";
 
-function Widget({ widget, workspaceId }: { widget: any; workspaceId: string }) {
+function Widget({ widget, workspaceId, numberOfReviews }: { widget: any; workspaceId: string, numberOfReviews: string }) {
 	return (
 		<div className="border-[1px] border-gray-200 rounded-[12px] overflow-hidden">
 			<div className="top w-full h-[200px] bg-gray-100 flex items-center justify-center relative overflow-hidden">
 				{widget?.type == "basic_wall" && (
 					<div style={{transform: 'scale(0.5)', width: '600px'}}>
-						<BasicWall testimonials={widget?.testimonials || testimonialsMock} />
+						<BasicWall widget={widget} />
 					</div>
 				)}
 
@@ -44,7 +45,7 @@ function Widget({ widget, workspaceId }: { widget: any; workspaceId: string }) {
 
 				{widget?.type == "avatars" && (
 					<div>
-						<Avatars testimonials={widget?.testimonials || testimonialsMock} widget={widget}/>
+						<Avatars testimonials={widget?.testimonials || testimonialsMock} widget={widget} numberOfReviews={numberOfReviews}/>
 					</div>
 				)}
 
@@ -59,6 +60,12 @@ function Widget({ widget, workspaceId }: { widget: any; workspaceId: string }) {
 				{widget?.type == "hero_quotes" && (
 					<div style={{ transform: "scale(0.8)" }}>
 						<HeroQuotes />
+					</div>
+				)}
+
+				{widget?.type == "minimalist_review" && (
+					<div style={{ transform: "scale(0.8)" }}>
+						<MinimalistReview review={widget?.testimonials[0]} />
 					</div>
 				)}
 

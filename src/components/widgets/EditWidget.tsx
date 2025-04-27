@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useQuery, useMutation } from "@tanstack/react-query";
 import { getUserTestimonials } from "@/actions/workspace";
 import { getUserForms } from "@/actions/form";
 
@@ -16,6 +15,8 @@ import { useTags } from "@/hooks/useTags";
 import axios from "axios";
 import { LoadingSpinner } from "../animations/loading-spinner";
 import WidgetEditorSidebar from "./WidgetEditorSidebar";
+import { formatNumberOfReviews } from "@/lib/utils";
+import clsx from "clsx";
 
 const EditWidget = ({ widgetId, workspaceId }: any) => {
 	const [currentWidget, setCurrentWidget] = useState<any>(null);
@@ -39,8 +40,8 @@ const EditWidget = ({ widgetId, workspaceId }: any) => {
 	const allTestimonialsIds = testimonialsResponse?.data?.map(
 		(t: any) => t.id
 	);
-	const currentWidgetTestimonialsIds =
-		widgetResponse?.widget?.testimonials?.map((t: any) => t.id);
+	const currentWidgetTestimonialsIds = widgetResponse?.allTestimonialsIds
+
 
 	const testimonialsIdsToCheck = new Set(
 		allTestimonialsIds?.filter((id: string) =>
@@ -119,8 +120,9 @@ const EditWidget = ({ widgetId, workspaceId }: any) => {
 	return (
 		<div
 			onClick={() => setHasInteracted(true)}
-			className="relative bg-gray-100 min-h-screen"
+			className={clsx("relative min-h-screen", currentWidget?.variant != 'elite' && currentWidget?.type == 'avatars' ? "bg-gray-100" : "bg-[#101010]")}
 		>
+			{currentWidget?.variant != 'elite' && currentWidget?.type == 'avatars'}
 			<WidgetEditorNav
 				deviceResolution={deviceResolution}
 				setDeviceResolution={setDeviceResolution}
@@ -139,9 +141,9 @@ const EditWidget = ({ widgetId, workspaceId }: any) => {
 							height: `${deviceResolution.height}px`,
 						}}
 						className={cn(
-							"p-2 max-w-full max-h-full",
+							"p-2 max-w-full max-h-full hide-scrollbar",
 							[375, 768].includes(deviceResolution.width) &&
-								"border-2 rounded-2xl border-black"
+								"border-2 rounded-2xl border-black overflow-y-auto overflow-x-hidden"
 						)}
 					>
 						<ShareWidgetModal
@@ -170,7 +172,7 @@ const EditWidget = ({ widgetId, workspaceId }: any) => {
 								</span>
 							</div>
 						) : currentWidget?.testimonials?.length > 0 ? (
-							<DisplayWidget widget={currentWidget} />
+							<DisplayWidget widget={{...currentWidget, deviceWidth: deviceResolution.width}} numberOfReviews={formatNumberOfReviews(widgetResponse?.widget?.totalCount)} />
 						) : (
 							<div className="w-full h-full flex items-center justify-center">
 								<div className="flex flex-col items-center justify-center max-w-lg text-center">

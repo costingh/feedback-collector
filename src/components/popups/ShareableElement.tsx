@@ -7,6 +7,8 @@ import SocialStar from "./SocialStar";
 import HeroQuotes from "./HeroQuotes";
 import { testimonialsMock } from "@/constants/testimonials-mock";
 import Avatars from "./Avatars";
+import MinimalistReview from "./MinimalistReview";
+import { formatNumberOfReviews } from "@/lib/utils";
 
 function ShareableElement({type, workspaceId}: {type: string, workspaceId: string}) {
     const [loading, setLoading] = useState({
@@ -43,7 +45,11 @@ function ShareableElement({type, workspaceId}: {type: string, workspaceId: strin
                 </div>}
 
                 {type == 'avatars' && <div style={{transform: 'scale(0.8)'}}>
-                    <Avatars transition={true} testimonials={testimonialsMock} widget={null}/>
+                    <Avatars transition={true} testimonials={testimonialsMock} widget={null} numberOfReviews={formatNumberOfReviews(1023)}/>
+                </div>}
+
+                {type == 'minimalist_review' && <div style={{transform: 'scale(0.8)'}}>
+                    <MinimalistReview review={testimonialsMock[0]}/>
                 </div>}
 			</div>
 			<div className="bottom w-full py-4 px-5">
@@ -55,7 +61,7 @@ function ShareableElement({type, workspaceId}: {type: string, workspaceId: strin
 						{type == 'social_star' && 'Social Star'}
 						{type == 'hero_quotes' && 'Hero Quotes'}
 						{type == 'avatars' && 'Avatars'}
-
+						{type == 'minimalist_review' && 'Minimalist Review'}
 					</span>
 
 					<CreateWidgetModal loading={loading} selectedIds={[]} section='creator' predefinedWidgetType={type} workspaceId={workspaceId}/>

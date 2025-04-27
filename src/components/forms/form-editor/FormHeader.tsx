@@ -51,7 +51,7 @@ export const FormHeader = ({
 				className="flex items-center justify-center w-10 h-10 hover:bg-gray-200 border-[1px] border-gray-300 rounded-full cursor-pointer"
 				onClick={() => {
 					// @ts-ignore
-					setStep((prevStep) => prevStep == 1 || prevStep == 2 ? 0 : prevStep == 3 ? 2 : 0);
+					setStep((prevStep) => prevStep == 1 || prevStep == 2 ? 0 : prevStep == 3 ? 0 : 0);
 					if (onInteraction) onInteraction("prevStep");
 				}}
 			>
