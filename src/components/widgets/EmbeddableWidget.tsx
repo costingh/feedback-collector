@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import DisplayWidget from "@/components/widgets/DisplayWidget";
 import { LoadingSpinner } from "@/components/animations/loading-spinner";
+import { formatNumberOfReviews } from "@/lib/utils";
 
 const EmbeddableWidget = ({ params }: { params: { url: string } }) => {
 	const [widget, setWidget] = useState<any>(null);
@@ -52,7 +53,7 @@ const EmbeddableWidget = ({ params }: { params: { url: string } }) => {
 		);
 	}
 
-	return <DisplayWidget widget={widget} />;
+	return <DisplayWidget widget={widget} numberOfReviews={formatNumberOfReviews(widget?.totalCount)}/>;
 };
 
 export default EmbeddableWidget;
