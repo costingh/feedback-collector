@@ -4,6 +4,7 @@ import { getUserWidgets } from "@/actions/widgets";
 import { useQueryData } from "@/hooks/useQueryData";
 import Widget from "@/components/popups/Widget";
 import { LoadingSpinner } from "@/components/animations/loading-spinner";
+import { formatNumberOfReviews } from "@/lib/utils";
 
 type Props = {
 	params: { workspaceId: string };
@@ -45,7 +46,7 @@ const WidgetsPage = ({ params: { workspaceId } }: Props) => {
 								{widgets.map((widget: any, index: number) => (
 									<div
 										key={widget.id}>
-										<Widget widget={widget} workspaceId={workspaceId}/>
+										<Widget widget={widget} workspaceId={workspaceId} numberOfReviews={formatNumberOfReviews(widget?.totalCount)}/>
 									</div>
 								))}
 							</div>
