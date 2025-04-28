@@ -1,12 +1,10 @@
 'use client'
 
-import axios from "axios";
 import DisplayWidget from "@/components/widgets/DisplayWidget";
-import WidgetEditorNav from "@/components/widgets/WidgetEditorNav";
 import { getUserWidget, getUserWidgets } from "@/actions/widgets";
-import Loader from "@/components/global/loader";
 import { useQueryData } from "@/hooks/useQueryData";
 import { LoadingSpinner } from "@/components/animations/loading-spinner";
+import { formatNumberOfReviews } from "@/lib/utils";
 
 // TODO
 const ShareWidgetPage = ({ params }: { params: { widgetId: string } }) => {
@@ -108,7 +106,7 @@ const ShareWidgetPage = ({ params }: { params: { widgetId: string } }) => {
 							<LoadingSpinner size={30} />
 						</span>
 					</div>
-				) : <DisplayWidget widget={widget} />}
+				) : <DisplayWidget widget={widget} numberOfReviews={formatNumberOfReviews(widget?.totalCount)}/>}
 			</div>
 		</>
 	);
