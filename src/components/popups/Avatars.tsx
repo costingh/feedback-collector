@@ -1,21 +1,22 @@
 import { Widget } from "@prisma/client";
 import SimpleAvatarsVariant from "../widgets/SimpleAvatarsVariant";
 import EliteAvatarsVariant from "../widgets/EliteAvatarsVariant";
+import { needsDarkBackground } from "@/lib/utils";
 
 function Avatars({
 	transition,
 	testimonials,
 	widget,
-	numberOfReviews
+	numberOfReviews,
 }: {
 	transition?: boolean;
 	testimonials: any;
-	widget: Widget | null | undefined;
+	widget: Widget & { _count: { testimonials: number } } | null | undefined;
 	numberOfReviews: string;
 }) {
 	return (
 		<>
-			{widget?.variant == "elite" ? (
+			{needsDarkBackground(widget) ? (
 				<EliteAvatarsVariant
 					transition={transition}
 					testimonials={testimonials}

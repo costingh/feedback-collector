@@ -53,7 +53,7 @@ const EmbeddableWidget = ({ params }: { params: { url: string } }) => {
 		);
 	}
 
-	return <DisplayWidget widget={widget} numberOfReviews={formatNumberOfReviews(widget?.totalCount)}/>;
+	return <DisplayWidget widget={widget} numberOfReviews={formatNumberOfReviews(widget?._count?.testimonials)}/>;
 };
 
 export default EmbeddableWidget;

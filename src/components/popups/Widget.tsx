@@ -1,6 +1,6 @@
 "use client";
 
-import { timeAgo } from "@/lib/utils";
+import { needsDarkBackground, timeAgo } from "@/lib/utils";
 import {
 	ExternalLink,
 	Eye,
@@ -15,16 +15,16 @@ import SocialStar from "./SocialStar";
 import { ShareWidgetModal } from "../widgets/ShareWidgetModal";
 import Avatars from "./Avatars";
 import HeroQuotes from "./HeroQuotes";
-import { testimonialsMock } from "@/constants/testimonials-mock";
 import Link from "next/link";
 import BasicWall from "./BasicWall";
 import { WidgetValidationTooltip } from "../tooltips/WidgetValidationTooltip";
 import MinimalistReview from "./MinimalistReview";
+import clsx from "clsx";
 
 function Widget({ widget, workspaceId, numberOfReviews }: { widget: any; workspaceId: string, numberOfReviews: string }) {
 	return (
 		<div className="border-[1px] border-gray-200 rounded-[12px] overflow-hidden">
-			<div className="top w-full h-[200px] bg-gray-100 flex items-center justify-center relative overflow-hidden">
+			<div className={clsx("top w-full h-[200px] flex items-center justify-center relative overflow-hidden", needsDarkBackground(widget) ? "bg-gray-900" : "bg-gray-100")}>
 				{widget?.type == "basic_wall" && (
 					<div style={{transform: 'scale(0.5)', width: '600px'}}>
 						<BasicWall widget={widget} />
@@ -33,26 +33,27 @@ function Widget({ widget, workspaceId, numberOfReviews }: { widget: any; workspa
 
 				{widget?.type == "rolling_wall" && (
 					<div style={{ transform: "scale(0.4)" }}>
-						<RollingWall testimonials={widget?.testimonials || testimonialsMock} />
+						<RollingWall testimonials={widget?.testimonials} />
 					</div>
 				)}
 
 				{widget?.type == "rating_badge" && (
 					<div>
-						<RatingBadge testimonials={widget?.testimonials || testimonialsMock} />
+						<RatingBadge testimonials={widget?.testimonials} numberOfReviews={widget?._count?.testimonials}/>
 					</div>
 				)}
 
 				{widget?.type == "avatars" && (
 					<div>
-						<Avatars testimonials={widget?.testimonials || testimonialsMock} widget={widget} numberOfReviews={numberOfReviews}/>
+						<Avatars testimonials={widget?.testimonials} widget={widget} numberOfReviews={numberOfReviews}/>
 					</div>
 				)}
 
 				{widget?.type == "social_star" && (
 					<div style={{ transform: "scale(0.8)" }}>
 						<SocialStar
-							testimonials={widget?.testimonials || testimonialsMock.slice(0, 1)}
+							testimonials={widget?.testimonials.slice(0, 1)}
+							numberOfReviews={widget?._count?.testimonials}
 						/>
 					</div>
 				)}
@@ -78,7 +79,7 @@ function Widget({ widget, workspaceId, numberOfReviews }: { widget: any; workspa
 				)}
 
 				<div className="absolute bottom-0 right-0">
-					<span className="px-2 py-1 rounded-tl-[6px] bg-[#4dff073e] text-[#0d7d019a] text-[12px] font-normal cursor-pointer">
+					<span className={clsx("px-2 py-1 rounded-tl-[6px] text-[12px] font-normal cursor-pointer", needsDarkBackground(widget) ? "bg-[#4dff076f] text-white" : "bg-[#4dff073e] text-[#0d7d019a]")}>
 						{widget?.type == "basic_wall" && "Wall of Love"}
 						{widget?.type == "rolling_wall" && "Carousel"}
 						{widget?.type == "social_star" && "Social Star"}
@@ -119,7 +120,7 @@ function Widget({ widget, workspaceId, numberOfReviews }: { widget: any; workspa
 						</Link>
 						<WidgetValidationTooltip 
 							widgetType={widget?.type} 
-							testimonialsCount={widget?.testimonials?.length || 0} 
+							testimonialsCount={widget?._count?.testimonials || 0} 
 						/>
 					</div>
 				</div>

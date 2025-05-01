@@ -106,7 +106,7 @@ const ShareWidgetPage = ({ params }: { params: { widgetId: string } }) => {
 							<LoadingSpinner size={30} />
 						</span>
 					</div>
-				) : <DisplayWidget widget={widget} numberOfReviews={formatNumberOfReviews(widget?.totalCount)}/>}
+				) : <DisplayWidget widget={widget} numberOfReviews={formatNumberOfReviews(widget?._count?.testimonials)}/>}
 			</div>
 		</>
 	);

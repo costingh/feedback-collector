@@ -33,11 +33,11 @@ function ShareableElement({type, workspaceId}: {type: string, workspaceId: strin
                 </div>}
 
                 {type == 'rating_badge' && <div>
-                    <RatingBadge transition={true} testimonials={testimonialsMock}/>
+                    <RatingBadge transition={true} testimonials={testimonialsMock} numberOfReviews={1041}/>
                 </div>}
 
 				{type == 'social_star' && <div style={{transform: 'scale(0.8)'}}>
-                    <SocialStar transition={true} testimonials={testimonialsMock.slice(0,1)}/>
+                    <SocialStar transition={true} testimonials={testimonialsMock.slice(0,1)} numberOfReviews={1041}/>
                 </div>}
 
 				{type == 'hero_quotes' && <div style={{transform: 'scale(0.8)'}}>
@@ -45,7 +45,7 @@ function ShareableElement({type, workspaceId}: {type: string, workspaceId: strin
                 </div>}
 
                 {type == 'avatars' && <div style={{transform: 'scale(0.8)'}}>
-                    <Avatars transition={true} testimonials={testimonialsMock} widget={null} numberOfReviews={formatNumberOfReviews(1023)}/>
+                    <Avatars transition={true} testimonials={testimonialsMock} widget={null} numberOfReviews={formatNumberOfReviews(1023 - 3)}/>
                 </div>}
 
                 {type == 'minimalist_review' && <div style={{transform: 'scale(0.8)'}}>

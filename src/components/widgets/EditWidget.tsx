@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { getUserTestimonials } from "@/actions/workspace";
 import { getUserForms } from "@/actions/form";
 
-import { cn } from "@/lib/utils";
+import { cn, needsDarkBackground } from "@/lib/utils";
 import WidgetEditorNav from "@/components/widgets/WidgetEditorNav";
 import { ShareWidgetModal } from "@/components/widgets/ShareWidgetModal";
 import { SelectTestimonialsToShareModal } from "@/components/testimonials/SelectTestimonialsToShareModal";
@@ -40,8 +40,7 @@ const EditWidget = ({ widgetId, workspaceId }: any) => {
 	const allTestimonialsIds = testimonialsResponse?.data?.map(
 		(t: any) => t.id
 	);
-	const currentWidgetTestimonialsIds = widgetResponse?.allTestimonialsIds
-
+	const currentWidgetTestimonialsIds = widgetResponse?.allTestimonialsIds;
 
 	const testimonialsIdsToCheck = new Set(
 		allTestimonialsIds?.filter((id: string) =>
@@ -120,9 +119,13 @@ const EditWidget = ({ widgetId, workspaceId }: any) => {
 	return (
 		<div
 			onClick={() => setHasInteracted(true)}
-			className={clsx("relative min-h-screen", currentWidget?.variant != 'elite' && currentWidget?.type == 'avatars' ? "bg-gray-100" : "bg-[#101010]")}
+			className={clsx(
+				"relative min-h-screen",
+				needsDarkBackground(currentWidget)
+					? "bg-[#101010]"
+					: "bg-gray-100"
+			)}
 		>
-			{currentWidget?.variant != 'elite' && currentWidget?.type == 'avatars'}
 			<WidgetEditorNav
 				deviceResolution={deviceResolution}
 				setDeviceResolution={setDeviceResolution}
@@ -143,7 +146,10 @@ const EditWidget = ({ widgetId, workspaceId }: any) => {
 						className={cn(
 							"p-2 max-w-full max-h-full hide-scrollbar",
 							[375, 768].includes(deviceResolution.width) &&
-								"border-2 rounded-2xl border-black overflow-y-auto overflow-x-hidden"
+								"border-2 rounded-2xl overflow-y-auto overflow-x-hidden",
+							needsDarkBackground(currentWidget)
+								? "border-white"
+								: "border-black"
 						)}
 					>
 						<ShareWidgetModal
@@ -171,25 +177,15 @@ const EditWidget = ({ widgetId, workspaceId }: any) => {
 									<LoadingSpinner size={30} />
 								</span>
 							</div>
-						) : currentWidget?.testimonials?.length > 0 ? (
-							<DisplayWidget widget={{...currentWidget, deviceWidth: deviceResolution.width}} numberOfReviews={formatNumberOfReviews(widgetResponse?.widget?.totalCount)} />
-						) : (
-							<div className="w-full h-full flex items-center justify-center">
-								<div className="flex flex-col items-center justify-center max-w-lg text-center">
-									<h1 className="text-black font-bold text-xl mb-2">
-										Oops, no testimonials linked
-									</h1>
-									<p className="text-gray-700 text-lg mb-2">
-										Select testimonials to display them in
-										the widget.
-									</p>
-									<span className="text-gray-500 text-sm">
-										Only "approved" testimonials will
-										appear.
-									</span>
-								</div>
-							</div>
-						)}
+						) : <DisplayWidget
+							widget={{
+								...currentWidget,
+								deviceWidth: deviceResolution.width,
+							}}
+							numberOfReviews={formatNumberOfReviews(
+								currentWidget?._count?.testimonials
+							)}
+						/>}
 					</div>
 				</div>
 			</div>

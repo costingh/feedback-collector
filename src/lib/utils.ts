@@ -2,6 +2,7 @@ import { clsx, type ClassValue } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 import { Tag } from "@/types/Tag";
 import { Metadata } from 'next';
+import { Widget } from '@prisma/client';
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs))
@@ -55,7 +56,7 @@ export const formatNumber = (num: number): string => {
 
 export const formatNumberOfReviews = (no: number) => {
 	if (no < 100) {
-		return no.toString();
+		return '+' + no.toString();
 	}
 	if (no >= 100 && no < 1000) {
 		return `${Math.floor(no / 100) * 100}+`;
@@ -87,6 +88,10 @@ export const groupTagsByCategory = (tags: Tag[]) => {
 		return acc;
 	}, {} as { [category: string]: Tag[] });
 };
+
+export const needsDarkBackground = (widget: any) => {
+	return widget?.type == "avatars" && widget?.variant == "elite";
+}
 
 export const tagCategories = [
 	{

@@ -35,7 +35,7 @@ const CustomizeWidget: React.FC<CustomizeLabelsProps> = ({
 }) => {
 	const { mutate: handleUpdate, isPending: isLoading } = useMutationData(
 		["add-testimonials-for-widget"],
-		() => customizeWidget(widget?.id, widget?.widgetDescription || "", widget?.cardBackground || "", widget?.primaryTextColor || "", widget?.secondaryTextColor || "", widget?.thirdTextColor || "", widget?.cardBorderColor || ""	),
+		() => customizeWidget(widget?.id, widget?.widgetDescription || "", widget?.cardBackground || "", widget?.primaryTextColor || "", widget?.secondaryTextColor || "", widget?.thirdTextColor || "", widget?.cardBorderColor || "", widget?.variant || ""),
 		["shared-widget"],
 		() => {}
 	);
@@ -44,7 +44,7 @@ const CustomizeWidget: React.FC<CustomizeLabelsProps> = ({
 		{
 			key: "widgetDescription",
 			title: "Description",
-			tooltipDescription: "Choose a nice description here",
+			tooltipDescription: "Choose a nice description here or leave it blank",
 		},
 		// {
 		// 	key: "questions",
@@ -91,19 +91,6 @@ const CustomizeWidget: React.FC<CustomizeLabelsProps> = ({
 				</div>
 				{widget?.type == "avatars" && (
 					<>
-						<p className="text-[14px] font-[600] text-[#000] mt-5">Customize colors:</p>
-						<div className='mt-3'>
-							<span className="text-[13px] font-normal text-gray-400 leading-[17px]">
-								Choose primary text color
-							</span>
-							<ColorPicker
-								inputValue={widget?.primaryTextColor}
-								// @ts-ignore
-								setInputValue={(color: string) => setWidget((prevWidget) => ({...prevWidget, primaryTextColor: color}))}
-							/>
-						</div>
-
-
 						<Label className="text-[13px] font-[500] text-gray-600">
 							Choose a Variant
 						</Label>

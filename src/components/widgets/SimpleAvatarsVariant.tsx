@@ -1,16 +1,17 @@
 import clsx from "clsx";
 import StarsRating from "@/components/stars/stars-rating";
-import Image from "next/image";
 import { Widget } from "@prisma/client";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { needsDarkBackground } from "@/lib/utils";
 
 function SimpleAvatarsVariant({
 	transition,
 	testimonials,
-	widget
+	widget,
 }: {
 	transition?: boolean;
 	testimonials: any;
-	widget: Widget | null | undefined;
+	widget: (Widget & { _count: { testimonials: number } }) | null | undefined;
 }) {
 	const computeAverageRating = () => {
 		if (!testimonials) return 0;
@@ -34,46 +35,57 @@ function SimpleAvatarsVariant({
 					)}
 				>
 					<div className="flex sm:-space-x-5 avatar-group justify-center sm:justify-start">
-						{testimonials.slice(0, 4).map((t: any) => (
-							<div className="avatar w-10 h-10 sm:w-12 sm:h-12" key={t.id}>
-								<Image
-									alt="User"
-									src={t.avatar}
-									width={50}
-									height={50}
-									priority
-									className="w-full"
-									style={{ color: 'transparent' }}
-								/>
-							</div>
+						{testimonials.slice(0, 3).map((t: any) => (
+							<Avatar key={t.id}>
+								<AvatarImage src={t.avatar} />
+								<AvatarFallback>
+									{t?.name?.slice(0, 2) || "N/A"}
+								</AvatarFallback>
+							</Avatar>
 						))}
 					</div>
 					<div className="flex flex-col justify-center items-center sm:items-start">
 						<div className="block h-[18px] sm:h-[22px]">
 							<StarsRating
-								value={computeAverageRating() || 0}
+								value={Math.floor(computeAverageRating() || 0)}
 								readonly
 								scale={0.7}
 								marginLeft={-15}
 							/>
 						</div>
-						<div className="text-base text-[12px] sm:text-[14px] text-center sm:text-left" style={{ color: widget?.primaryTextColor }}>
-							{/* <span className="font-semibold text-base-content">
-								Trusted
-							</span>{" "}
-							by thousands of customers */}
-							{widget?.widgetDescription || 'Trusted by thousands of customers'}
+						<div
+							className="text-base text-[12px] sm:text-[14px] text-center sm:text-left"
+							style={{ color: widget?.primaryTextColor }}
+						>
+							{widget?.widgetDescription ||
+								"Trusted by thousands of customers"}
 						</div>
 					</div>
 				</div>
 			) : (
 				<div className="w-full h-full flex items-center justify-center p-4">
 					<div className="flex flex-col items-center justify-center max-w-[280px] sm:max-w-lg text-center">
-						<h1 className="text-black font-700 text-[15px] sm:text-[20px] mb-2">
-							Oops, looks like you didnt link any testimonials to this widget
+						<h1
+							className={clsx(
+								"font-700 text-[15px] sm:text-[20px] mb-2",
+								needsDarkBackground(widget)
+									? "text-gray-300"
+									: "text-black"
+							)}
+						>
+							Oops, looks like you didnt link any testimonials to
+							this widget
 						</h1>
-						<p className="text-gray-600 text-[14px] sm:text-[16px]">
-							Please go to the "Creator" sidebar menu and link some
+						<p
+							className={clsx(
+								"text-gray-600 text-[14px] sm:text-[16px]",
+								needsDarkBackground(widget)
+									? "text-gray-400"
+									: "text-black"
+							)}
+						>
+							Please go to the "Creator" sidebar menu and link
+							some
 						</p>
 					</div>
 				</div>

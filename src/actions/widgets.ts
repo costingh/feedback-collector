@@ -15,7 +15,17 @@ export const getUserWidgets = async (workspaceId: string | undefined) => {
                 workspaceId
             },
             include: {
-                testimonials: true,
+                testimonials: {
+                    take: 3,
+                    orderBy: {
+                        createdAt: 'desc'
+                    }
+                },
+                _count: {
+                    select: {
+                        testimonials: true
+                    }
+                }
             }
         })
 
@@ -33,7 +43,7 @@ export const getUserWidget = async (widgetUrl: string | undefined, page: number 
 
         const skip = (page - 1) * limit;
 
-        const [widget, totalCount, allTestimonials] = await Promise.all([
+        const [widget, allTestimonials] = await Promise.all([
             client.widget.findFirst({
                 where: {
                     url: widgetUrl,
@@ -45,20 +55,13 @@ export const getUserWidget = async (widgetUrl: string | undefined, page: number 
                         orderBy: {
                             createdAt: 'desc'
                         }
-                    }
-                },
-            }),
-            client.widget.findFirst({
-                where: {
-                    url: widgetUrl,
-                },
-                select: {
+                    },
                     _count: {
                         select: {
                             testimonials: true
                         }
                     }
-                }
+                },
             }),
             client.formResponse.findMany({
                 where: {
@@ -81,10 +84,10 @@ export const getUserWidget = async (widgetUrl: string | undefined, page: number 
                 widget,
                 allTestimonialsIds: allTestimonials.map((t: { id: string }) => t.id),
                 pagination: {
-                    total: totalCount?._count?.testimonials || 0,
+                    total: widget?._count?.testimonials || 0,
                     page,
                     limit,
-                    hasMore: skip + limit < (totalCount?._count?.testimonials || 0)
+                    hasMore: skip + limit < (widget?._count?.testimonials || 0)
                 }
             }
         }
@@ -148,7 +151,7 @@ export const updateWidget = async (widgetId: string, testimonialsIds: string[]) 
     }
 };
 
-export const customizeWidget = async (widgetId: string, description: string, cardBackground: string, primaryTextColor: string, secondaryTextColor: string, thirdTextColor: string, cardBorderColor: string) => {
+export const customizeWidget = async (widgetId: string, description: string, cardBackground: string, primaryTextColor: string, secondaryTextColor: string, thirdTextColor: string, cardBorderColor: string, variant: string) => {
     try {
         if (!widgetId) return { status: 404 };
 
@@ -163,6 +166,7 @@ export const customizeWidget = async (widgetId: string, description: string, car
                 secondaryTextColor: secondaryTextColor,
                 thirdTextColor: thirdTextColor,
                 cardBorderColor: cardBorderColor,
+                variant: variant
             },
         });
 

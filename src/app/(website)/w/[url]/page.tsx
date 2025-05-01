@@ -25,7 +25,7 @@ const LandingPage = ({ params }: { params: { url: string } }) => {
 			) : (
 				<>
 					{widget?.testimonials?.length > 0 && (
-						<DisplayWidget widget={widget} numberOfReviews={formatNumberOfReviews(widget?.totalCount)}/>
+						<DisplayWidget widget={widget} numberOfReviews={formatNumberOfReviews(widget?._count?.testimonials)}/>
 					)}
 					{!widget && <div>An error occured</div>}
 					{/* @ts-ignore */}

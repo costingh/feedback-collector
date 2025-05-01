@@ -46,7 +46,7 @@ const WidgetsPage = ({ params: { workspaceId } }: Props) => {
 								{widgets.map((widget: any, index: number) => (
 									<div
 										key={widget.id}>
-										<Widget widget={widget} workspaceId={workspaceId} numberOfReviews={formatNumberOfReviews(widget?.totalCount)}/>
+										<Widget widget={widget} workspaceId={workspaceId} numberOfReviews={formatNumberOfReviews(widget?._count?.testimonials - 3)}/>
 									</div>
 								))}
 							</div>

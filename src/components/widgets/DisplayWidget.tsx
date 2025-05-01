@@ -23,11 +23,11 @@ function DisplayWidget({ widget, numberOfReviews }: { widget: any, numberOfRevie
 						))}
 
 					{widget.type == "rating_badge" && (
-						<RatingBadge testimonials={widget?.testimonials} />
+						<RatingBadge testimonials={widget?.testimonials} numberOfReviews={widget?._count?.testimonials} />
 					)}
 
 					{widget.type == "social_star" && (
-						<SocialStar testimonials={widget?.testimonials} />
+						<SocialStar testimonials={widget?.testimonials} numberOfReviews={widget?._count?.testimonials} />
 					)}
 
 					{widget.type == "avatars" && (
