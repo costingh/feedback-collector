@@ -39,7 +39,7 @@ function Widget({ widget, workspaceId, numberOfReviews }: { widget: any; workspa
 
 				{widget?.type == "rating_badge" && (
 					<div>
-						<RatingBadge testimonials={widget?.testimonials} numberOfReviews={widget?._count?.testimonials}/>
+						<RatingBadge testimonials={widget?.testimonials} numberOfReviews={widget?._count?.testimonials} widget={widget}/>
 					</div>
 				)}
 
@@ -54,6 +54,7 @@ function Widget({ widget, workspaceId, numberOfReviews }: { widget: any; workspa
 						<SocialStar
 							testimonials={widget?.testimonials.slice(0, 1)}
 							numberOfReviews={widget?._count?.testimonials}
+							widget={widget}
 						/>
 					</div>
 				)}

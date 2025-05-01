@@ -18,7 +18,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "../ui/select";
 
 interface CustomizeLabelsProps {
-	widget: Widget;
+	widget: Widget & {_count: {testimonials: number}};
 	setWidget: (widget: Widget) => void;
 }
 
@@ -89,9 +89,18 @@ const CustomizeWidget: React.FC<CustomizeLabelsProps> = ({
 						{widget?.type == "avatars" && "Avatars"}
 					</span>
 				</div>
+
+				<div className="flex flex-col items-start my-3">
+					<p className="text-[14px] font-[600] text-[#000]">Linked Testimonials:</p>
+
+					<span className="text-[13px] font-normal text-gray-400 leading-[17px]">
+						You have linked {widget?._count?.testimonials} testimonials
+					</span>
+				</div>
+
 				{widget?.type == "avatars" && (
 					<>
-						<Label className="text-[13px] font-[500] text-gray-600">
+						<Label className="text-[14px] font-[600] text-[#000]">
 							Choose a Variant
 						</Label>
 						<Select

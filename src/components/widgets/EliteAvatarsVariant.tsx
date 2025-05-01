@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Widget } from "@prisma/client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { formatNumberOfReviews, needsDarkBackground } from "@/lib/utils";
+import NoTestimonialsLinkedMessage from "./NoTestimonialsLinkedMessage";
 
 function EliteAvatarsVariant({
 	transition,
@@ -99,32 +100,7 @@ function EliteAvatarsVariant({
 					/>
 				</div>
 			) : (
-				<div className="w-full h-full flex items-center justify-center p-4">
-					<div className="flex flex-col items-center justify-center max-w-[280px] sm:max-w-lg text-center">
-						<h1
-							className={clsx(
-								"font-700 text-[15px] sm:text-[20px] mb-2",
-								needsDarkBackground(widget)
-									? "text-gray-300"
-									: "text-black"
-							)}
-						>
-							Oops, looks like you didnt link any testimonials to
-							this widget
-						</h1>
-						<p
-							className={clsx(
-								"text-gray-600 text-[14px] sm:text-[16px]",
-								needsDarkBackground(widget)
-									? "text-gray-400"
-									: "text-black"
-							)}
-						>
-							Please go to the "Creator" sidebar menu and link
-							some
-						</p>
-					</div>
-				</div>
+				<NoTestimonialsLinkedMessage widget={widget} />
 			)}
 		</>
 	);

@@ -7,11 +7,13 @@ import NoTestimonialsLinkedMessage from "../widgets/NoTestimonialsLinkedMessage"
 function RatingBadge({
 	transition,
 	testimonials,
-	numberOfReviews
+	numberOfReviews,
+	widget
 }: {
 	transition?: boolean;
 	testimonials: any;
 	numberOfReviews: number;
+	widget: any;
 }) {
 	const computeAverageRating = () => {
 		if (!testimonials) return 0;
@@ -51,7 +53,7 @@ function RatingBadge({
 					</div>
 				</div>
 			) : (
-				<NoTestimonialsLinkedMessage />
+				<NoTestimonialsLinkedMessage widget={widget}/>
 			)}
 		</div>
 	);

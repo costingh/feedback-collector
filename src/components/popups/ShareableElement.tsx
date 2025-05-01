@@ -33,11 +33,11 @@ function ShareableElement({type, workspaceId}: {type: string, workspaceId: strin
                 </div>}
 
                 {type == 'rating_badge' && <div>
-                    <RatingBadge transition={true} testimonials={testimonialsMock} numberOfReviews={1041}/>
+                    <RatingBadge transition={true} testimonials={testimonialsMock} numberOfReviews={1041} widget={null}/>
                 </div>}
 
 				{type == 'social_star' && <div style={{transform: 'scale(0.8)'}}>
-                    <SocialStar transition={true} testimonials={testimonialsMock.slice(0,1)} numberOfReviews={1041}/>
+                    <SocialStar transition={true} testimonials={testimonialsMock.slice(0,1)} numberOfReviews={1041} widget={null}/>
                 </div>}
 
 				{type == 'hero_quotes' && <div style={{transform: 'scale(0.8)'}}>

@@ -8,10 +8,12 @@ function SocialStar({
 	transition,
 	testimonials,
 	numberOfReviews,
+	widget
 }: {
 	transition?: boolean;
 	testimonials: any;
 	numberOfReviews: number;
+	widget: any;
 }) {
 	return (
 		<>
@@ -58,7 +60,7 @@ function SocialStar({
 					))}
 				</div>
 			) : (
-				<NoTestimonialsLinkedMessage />
+				<NoTestimonialsLinkedMessage widget={widget}/>
 			)}
 		</>
 	);
