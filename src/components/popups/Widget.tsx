@@ -21,12 +21,25 @@ import { WidgetValidationTooltip } from "../tooltips/WidgetValidationTooltip";
 import MinimalistReview from "./MinimalistReview";
 import clsx from "clsx";
 
-function Widget({ widget, workspaceId, numberOfReviews }: { widget: any; workspaceId: string, numberOfReviews: string }) {
+function Widget({
+	widget,
+	workspaceId,
+	numberOfReviews,
+}: {
+	widget: any;
+	workspaceId: string;
+	numberOfReviews: string;
+}) {
 	return (
 		<div className="border-[1px] border-gray-200 rounded-[12px] overflow-hidden">
-			<div className={clsx("top w-full h-[200px] flex items-center justify-center relative overflow-hidden", needsDarkBackground(widget) ? "bg-gray-900" : "bg-gray-100")}>
+			<div
+				className={clsx(
+					"top w-full h-[200px] flex items-center justify-center relative overflow-hidden",
+					needsDarkBackground(widget) ? "bg-gray-900" : "bg-gray-100"
+				)}
+			>
 				{widget?.type == "basic_wall" && (
-					<div style={{transform: 'scale(0.4)', width: '600px'}}>
+					<div style={{ transform: "scale(0.4)", width: "600px" }}>
 						<BasicWall widget={widget} />
 					</div>
 				)}
@@ -39,13 +52,21 @@ function Widget({ widget, workspaceId, numberOfReviews }: { widget: any; workspa
 
 				{widget?.type == "rating_badge" && (
 					<div>
-						<RatingBadge testimonials={widget?.testimonials} numberOfReviews={widget?._count?.testimonials} widget={widget}/>
+						<RatingBadge
+							testimonials={widget?.testimonials}
+							numberOfReviews={widget?._count?.testimonials}
+							widget={widget}
+						/>
 					</div>
 				)}
 
 				{widget?.type == "avatars" && (
 					<div>
-						<Avatars testimonials={widget?.testimonials} widget={widget} numberOfReviews={numberOfReviews}/>
+						<Avatars
+							testimonials={widget?.testimonials}
+							widget={widget}
+							numberOfReviews={numberOfReviews}
+						/>
 					</div>
 				)}
 
@@ -80,7 +101,14 @@ function Widget({ widget, workspaceId, numberOfReviews }: { widget: any; workspa
 				)}
 
 				<div className="absolute bottom-0 right-0">
-					<span className={clsx("px-2 py-1 rounded-tl-[6px] text-[12px] font-normal cursor-pointer", needsDarkBackground(widget) ? "bg-[#4dff076f] text-white" : "bg-[#4dff073e] text-[#0d7d019a]")}>
+					<span
+						className={clsx(
+							"px-2 py-1 rounded-tl-[6px] text-[12px] font-normal cursor-pointer",
+							needsDarkBackground(widget)
+								? "bg-[#4dff076f] text-white"
+								: "bg-[#4dff073e] text-[#0d7d019a]"
+						)}
+					>
 						{widget?.type == "basic_wall" && "Wall of Love"}
 						{widget?.type == "rolling_wall" && "Carousel"}
 						{widget?.type == "social_star" && "Social Star"}
@@ -99,30 +127,45 @@ function Widget({ widget, workspaceId, numberOfReviews }: { widget: any; workspa
 							Edited {timeAgo(widget?.updatedAt)}
 						</span>
 					</div>
-					<div className="flex items-center gap-2">
-						<ShareWidgetModal widgetUrl={widget?.url || ""}>
-							<div className="hover:bg-gray-200 cursor-pointer rounded-[6px] p-1 flex gap-2 items-center">
-								<span className="text-[12px] text-[#9f9f9f]">
-									Share
-								</span>
-								<Share2 className="text-gray-600" size={15} />
-							</div>
-						</ShareWidgetModal>
+					<div className="flex flex-col items-end">
+						<div className="flex items-center gap-2">
+							<ShareWidgetModal widgetUrl={widget?.url || ""}>
+								<div className="hover:bg-gray-200 cursor-pointer rounded-[6px] p-1 flex gap-2 items-center">
+									<span className="text-[12px] text-[#9f9f9f]">
+										Share
+									</span>
+									<Share2
+										className="text-gray-600"
+										size={15}
+									/>
+								</div>
+							</ShareWidgetModal>
 
-						<Link
-							target="_blank"
-							className="hover:bg-gray-200 cursor-pointer rounded-[6px] p-1 flex gap-2 items-center"
-							href={`/dashboard/${workspaceId}/share/edit/${widget?.url}`}
-						>
-							<span className="text-[12px] text-[#9f9f9f]">
-								Edit
-							</span>
-							<ExternalLink className="text-gray-600" size={15} />
-						</Link>
-						<WidgetValidationTooltip 
-							widgetType={widget?.type} 
-							testimonialsCount={widget?._count?.testimonials || 0} 
-						/>
+							<Link
+								target="_blank"
+								className="hover:bg-gray-200 cursor-pointer rounded-[6px] p-1 flex gap-2 items-center"
+								href={`/dashboard/${workspaceId}/share/edit/${widget?.url}`}
+							>
+								<span className="text-[12px] text-[#9f9f9f]">
+									Edit
+								</span>
+								<ExternalLink
+									className="text-gray-600"
+									size={15}
+								/>
+							</Link>
+							<WidgetValidationTooltip
+								widgetType={widget?.type}
+								testimonialsCount={
+									widget?._count?.testimonials || 0
+								}
+							/>
+						</div>
+
+						<span className="text-[11px] text-gray-400 font-[400]">
+							{widget?._count?.testimonials} testimonials
+							connected
+						</span>
 					</div>
 				</div>
 				<div className="bg-[#dcdcdc34] rounded-[10px] px-3 py-[5px] flex items-center gap-2">
