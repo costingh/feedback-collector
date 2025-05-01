@@ -14,21 +14,9 @@ function EliteAvatarsVariant({
 }: {
 	transition?: boolean;
 	testimonials: any;
-	widget: (Widget & { _count: { testimonials: number } }) | null | undefined;
+	widget: (Widget & { _count: { testimonials: number } } & { avgStars: number }) | null | undefined;
 	numberOfReviews: string;
 }) {
-	// TODO: compute in backend
-	const computeAverageRating = () => {
-		if (!testimonials) return 0;
-
-		return Math.floor(
-			testimonials?.reduce(
-				(acc: number, cur: any) => acc + cur.stars,
-				0
-			) / (testimonials?.length || 1)
-		);
-	};
-
 	return (
 		<>
 			{testimonials?.length >= 3 ? (
@@ -48,7 +36,7 @@ function EliteAvatarsVariant({
 					<div className="flex flex-col justify-center items-center sm:items-start">
 						<div className="block h-[18px] sm:h-[22px] self-center mb-[10px]">
 							<StarsRating
-								value={Math.floor(computeAverageRating() || 0)}
+								value={Math.floor(widget?.avgStars || 0)}
 								readonly
 								scale={0.7}
 							/>
@@ -66,7 +54,7 @@ function EliteAvatarsVariant({
 							style={{ color: widget?.primaryTextColor }}
 						>
 							{widget?.widgetDescription ||
-								`${computeAverageRating()?.toFixed(
+								`${widget?.avgStars?.toFixed(
 									1
 								)} rating based on ${
 									widget?._count?.testimonials

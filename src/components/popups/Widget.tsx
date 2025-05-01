@@ -26,7 +26,7 @@ function Widget({ widget, workspaceId, numberOfReviews }: { widget: any; workspa
 		<div className="border-[1px] border-gray-200 rounded-[12px] overflow-hidden">
 			<div className={clsx("top w-full h-[200px] flex items-center justify-center relative overflow-hidden", needsDarkBackground(widget) ? "bg-gray-900" : "bg-gray-100")}>
 				{widget?.type == "basic_wall" && (
-					<div style={{transform: 'scale(0.5)', width: '600px'}}>
+					<div style={{transform: 'scale(0.4)', width: '600px'}}>
 						<BasicWall widget={widget} />
 					</div>
 				)}

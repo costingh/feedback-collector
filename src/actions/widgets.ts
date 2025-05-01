@@ -19,7 +19,7 @@ export const getUserWidgets = async (workspaceId: string | undefined) => {
                     take: 3,
                     orderBy: {
                         createdAt: 'desc'
-                    }
+                    },
                 },
                 _count: {
                     select: {
@@ -29,8 +29,30 @@ export const getUserWidgets = async (workspaceId: string | undefined) => {
             }
         })
 
-        if (widgets) {
-            return { status: 200, data: widgets }
+        const promises = widgets.map(async w => {
+            const avg = await client.formResponse.aggregate({
+                where: {
+                    widgets: {
+                        some: {
+                            id: w.id
+                        }
+                    }
+                },
+                _avg: {
+                    stars: true,
+                },
+            });
+
+            return {
+                ...w,
+                avgStars: avg?._avg?.stars ?? 0,
+            }
+        })
+
+        const results = await Promise.all(promises)
+
+        if (results) {
+            return { status: 200, data: results }
         }
     } catch (error) {
         return { status: 400 }
@@ -43,7 +65,7 @@ export const getUserWidget = async (widgetUrl: string | undefined, page: number 
 
         const skip = (page - 1) * limit;
 
-        const [widget, allTestimonials] = await Promise.all([
+        const [widget, allTestimonials, avg] = await Promise.all([
             client.widget.findFirst({
                 where: {
                     url: widgetUrl,
@@ -74,14 +96,29 @@ export const getUserWidget = async (widgetUrl: string | undefined, page: number 
                 select: {
                     id: true
                 }
+            }),
+            client.formResponse.aggregate({
+                where: {
+                    widgets: {
+                        some: {
+                            url: widgetUrl
+                        }
+                    }
+                },
+                _avg: {
+                    stars: true,
+                },
             })
         ]);
 
         if (widget) {
-            return { 
-                status: 200, 
-                data: 'Widget fetched successfully', 
-                widget,
+            return {
+                status: 200,
+                data: 'Widget fetched successfully',
+                widget: {
+                    ...widget,
+                    avgStars: avg?._avg?.stars ?? 0,
+                },
                 allTestimonialsIds: allTestimonials.map((t: { id: string }) => t.id),
                 pagination: {
                     total: widget?._count?.testimonials || 0,
@@ -92,6 +129,7 @@ export const getUserWidget = async (widgetUrl: string | undefined, page: number 
             }
         }
     } catch (error) {
+        console.log(error)
         return { status: 400 }
     }
 }
