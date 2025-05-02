@@ -11,7 +11,7 @@ function Avatars({
 }: {
 	transition?: boolean;
 	testimonials: any;
-	widget: Widget & { _count: { testimonials: number } } | null | undefined;
+	widget: Widget & { _count: { testimonials: number } } & { avgStars: number } | null | undefined;
 	numberOfReviews: string;
 }) {
 	return (

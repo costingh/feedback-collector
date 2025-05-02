@@ -99,6 +99,7 @@ export const HeroSection = () => {
 						></div> */}
 						{/* @ts-ignore */}
 						<feedbackz-widget data-widget-id="3xznjqW"></feedbackz-widget>
+
 						<Image
 							src={"/images/webp-optimized/made-with-feedbackz.webp"}
 							alt="Made with Feedbackz"
