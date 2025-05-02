@@ -5,7 +5,7 @@ import { Widget } from "@prisma/client";
 import { _STUDIO_SIDEBAR_BUTTONS } from "@/constants/studio-sidebar";
 import CustomizeWidget from "./CustomizeWidget";
 interface ISidebarProps {
-	widget: Widget,
+	widget: Widget & { _count: { testimonials: number } } & { avgStars: number } | null | undefined,
 	setWidget:  Dispatch<SetStateAction<Widget | null>>;
 }
 

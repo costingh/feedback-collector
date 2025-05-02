@@ -18,7 +18,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "../ui/select";
 
 interface CustomizeLabelsProps {
-	widget: Widget & {_count: {testimonials: number}};
+	widget: Widget & {_count: {testimonials: number}} & {avgStars: number} | null | undefined;
 	setWidget: (widget: Widget) => void;
 }
 
@@ -33,6 +33,8 @@ const CustomizeWidget: React.FC<CustomizeLabelsProps> = ({
 	widget,
 	setWidget,
 }) => {
+	if(!widget?.id) return null;
+	
 	const { mutate: handleUpdate, isPending: isLoading } = useMutationData(
 		["add-testimonials-for-widget"],
 		() => customizeWidget(widget?.id, widget?.widgetDescription || "", widget?.cardBackground || "", widget?.primaryTextColor || "", widget?.secondaryTextColor || "", widget?.thirdTextColor || "", widget?.cardBorderColor || "", widget?.variant || ""),
