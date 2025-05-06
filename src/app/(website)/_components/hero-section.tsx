@@ -16,7 +16,7 @@ export const HeroSection = () => {
 					<div className="max-w-3xl text-center relative">
 						<div className="flex flex-col items-center justify-center">
 							{/* @ts-ignore */}
-							<feedbackz-widget data-widget-id="3xznjqW"></feedbackz-widget>
+							<feedbackz-widget data-widget-id="uOQcCM3"></feedbackz-widget>
 
 							<Image
 								src={
