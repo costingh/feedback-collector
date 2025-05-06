@@ -25,10 +25,14 @@ function Widget({
 	widget,
 	workspaceId,
 	numberOfReviews,
+	setPage,
+	isFetching,
 }: {
 	widget: any;
 	workspaceId: string;
 	numberOfReviews: string;
+	setPage: (page: number) => void;
+	isFetching: boolean;
 }) {
 	return (
 		<div className="border-[1px] border-gray-200 rounded-[12px] overflow-hidden">
@@ -40,7 +44,7 @@ function Widget({
 			>
 				{widget?.type == "basic_wall" && (
 					<div style={{ transform: "scale(0.4)", width: "600px" }}>
-						<BasicWall widget={widget} />
+						<BasicWall widget={widget} setPage={setPage} isFetching={isFetching} />
 					</div>
 				)}
 

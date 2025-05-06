@@ -1,12 +1,10 @@
-import React, { useState, useRef } from "react";
+"use client";
+
+import React, { useState, useRef, useEffect } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import StarsRating from "../stars/stars-rating";
 import { Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { getUserWidget } from "@/actions/widgets";
-import { useQueryData } from "@/hooks/useQueryData";
-import clsx from "clsx";
-
 interface Widget {
 	url: string;
 	testimonials: any[];
@@ -17,50 +15,41 @@ interface Widget {
 	cardBorderColor: string;
 	deviceWidth?: number;
 }
-
-interface WidgetResponse {
-	widget: Widget;
-	pagination: {
-		total: number;
-		page: number;
-		limit: number;
-		hasMore: boolean;
-	};
+interface PaginationData {
+	total: number;
+	page: number;
+	limit: number;
+	hasMore: boolean;
 }
 
-function BasicWall({ widget }: { widget: Widget }) {
-	const [page, setPage] = useState(1);
+function BasicWall({ widget, setPage, isFetching, paginationData }: { widget: Widget, setPage: any, isFetching: boolean, paginationData?: PaginationData }) {
 	const [allTestimonials, setAllTestimonials] = useState<any[]>([]);
 	const videoRefs = useRef<{ [key: string]: HTMLVideoElement | null }>({});
-	const limit = 6;
 
 	// Determine columns based on device width
 	const getColumnsClass = () => {
-		if (!widget.deviceWidth) return "columns-1 sm:columns-2 lg:columns-3";
-		if (widget.deviceWidth < 640) return "columns-1";
-		if (widget.deviceWidth < 1024) return "columns-2";
+		if (!widget?.deviceWidth) return "columns-1 sm:columns-2 lg:columns-3";
+		if (widget?.deviceWidth < 640) return "columns-1";
+		if (widget?.deviceWidth < 1024) return "columns-2";
 		return "columns-3";
 	};
 
-	const { data: widgetData, isFetching } = useQueryData(
-		["widget-testimonials", widget?.url, page],
-		() => getUserWidget(widget?.url, page, limit),
-		true,
-		false
-	);
-
 	React.useEffect(() => {
-		if (widgetData) {
-			const newTestimonials =
-				(widgetData as WidgetResponse)?.widget?.testimonials || [];
-			setAllTestimonials((prev) => [...prev, ...newTestimonials]);
+		if (widget) {
+			const newTestimonials = widget?.testimonials || [];
+			setAllTestimonials((prev) => {
+				const uniqueTestimonials = newTestimonials.filter(
+					(newT) => !prev.some((p) => p.id === newT.id)
+				);
+				return [...prev, ...uniqueTestimonials];
+			});
 		}
-	}, [widgetData]);
+	}, [widget]);
 
-	const hasMore = (widgetData as WidgetResponse)?.pagination?.hasMore;
+	const hasMore = paginationData?.hasMore;
 
 	const loadMore = () => {
-		setPage((prev) => prev + 1);
+		setPage((prev: number) => prev + 1);
 	};
 
 	return (
@@ -180,8 +169,9 @@ function BasicWall({ widget }: { widget: Widget }) {
 					</div>
 				))}
 			</div>
-			<div className="flex flex-col gap-6">
+			<div className="flex flex-col gap-6 pb-4">
 				<div className="flex justify-center">
+
 					<Button
 						onClick={loadMore}
 						disabled={isFetching || !hasMore}

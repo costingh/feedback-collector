@@ -6,20 +6,20 @@ import SocialStar from "../popups/SocialStar";
 import Avatars from "../popups/Avatars";
 import MinimalistReview from "../popups/MinimalistReview";
 
-function DisplayWidget({ widget, numberOfReviews }: { widget: any, numberOfReviews: string }) {
+function DisplayWidget({ widget, setPage, isFetching, paginationData }: { widget: any, setPage: any, isFetching: boolean, paginationData?: any }) {
 	return (
 		<>
 			{widget && (
 				<div className="w-full h-full">
 					{widget.type == "basic_wall" && (
-						<BasicWall widget={{...widget, deviceWidth: widget.deviceWidth}} />
+						<BasicWall widget={{...widget, deviceWidth: widget.deviceWidth}} setPage={setPage} isFetching={isFetching} paginationData={paginationData} />
 					)}
 
 					{widget.type == "rolling_wall" &&
 						(widget?.testimonials?.length > 10 ? (
 							<RollingWall testimonials={widget?.testimonials} />
 						) : (
-							<BasicWall widget={{...widget, deviceWidth: widget.deviceWidth}} />
+							<BasicWall widget={{...widget, deviceWidth: widget.deviceWidth}} setPage={setPage} isFetching={isFetching} paginationData={paginationData} />
 						))}
 
 					{widget.type == "rating_badge" && (
@@ -31,7 +31,7 @@ function DisplayWidget({ widget, numberOfReviews }: { widget: any, numberOfRevie
 					)}
 
 					{widget.type == "avatars" && (
-						<Avatars testimonials={widget?.testimonials} widget={widget} numberOfReviews={numberOfReviews} />
+						<Avatars testimonials={widget?.testimonials} widget={widget} numberOfReviews={widget?._count?.testimonials} />
 					)}
 
 					{widget.type == "minimalist_review" && (

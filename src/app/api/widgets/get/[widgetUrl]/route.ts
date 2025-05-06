@@ -3,23 +3,95 @@ import { client } from "@/lib/prisma";
 
 export async function GET(
     req: NextRequest,
-    { params: { widgetUrl } }: { params: { widgetUrl: string } }) {
+    { params: { widgetUrl } }: { params: { widgetUrl: string } }
+) {
     try {
         if (!widgetUrl) {
             return NextResponse.json({ status: 404 });
         }
 
-        const widget = await client.widget.findFirst({
-            where: {
-                url: '/' + widgetUrl,
-            },
-            include: {
-                testimonials: true
-            },
-        });
+        const searchParams = new URL(req.url).searchParams;
+
+        // Destructure and validate page and limit
+        const pageParam = searchParams.get('page');
+        const limitParam = searchParams.get('limit');
+
+        const page = pageParam ? parseInt(pageParam, 10) : 1;
+        const limit = limitParam ? parseInt(limitParam, 10) : 10;
+
+        // If either page or limit is NaN, set them to default values (1 and 10)
+        if (isNaN(page) || page < 1) {
+            return NextResponse.json({ error: 'Invalid page number', status: 400 });
+        }
+
+        if (isNaN(limit) || limit < 1) {
+            return NextResponse.json({ error: 'Invalid limit value', status: 400 });
+        }
+
+        const [widget, allTestimonials, avg] = await Promise.all([
+            client.widget.findFirst({
+                where: {
+                    url: '/' + widgetUrl,
+                },
+                include: {
+                    testimonials: {
+                        skip: (page - 1) * limit,
+                        take: limit,
+                        orderBy: {
+                            createdAt: 'desc',
+                        },
+                    },
+                    _count: {
+                        select: {
+                            testimonials: true,
+                        },
+                    },
+                },
+            }),
+            client.formResponse.findMany({
+                where: {
+                    widgets: {
+                        some: {
+                            url: '/' + widgetUrl,
+                        },
+                    },
+                },
+                select: {
+                    id: true,
+                },
+            }),
+            client.formResponse.aggregate({
+                where: {
+                    widgets: {
+                        some: {
+                            url: '/' + widgetUrl,
+                        },
+                    },
+                },
+                _avg: {
+                    stars: true,
+                },
+            }),
+        ]);
 
         if (widget) {
-            return NextResponse.json({ widget, error: null });
+            const data = {
+                status: 200,
+                data: 'Widget fetched successfully',
+                widget: {
+                    ...widget,
+                    avgStars: avg?._avg?.stars ?? 0,
+                },
+                allTestimonialsIds: allTestimonials.map((t: { id: string }) => t.id),
+                pagination: {
+                    total: widget?._count?.testimonials || 0,
+                    page,
+                    limit,
+                    hasMore: (page - 1) * limit + limit < (widget?._count?.testimonials || 0),
+                },
+            };
+
+            return NextResponse.json({ widget: data, error: null });
         } else {
             return NextResponse.json({ widget: null, error: "Widget not found" });
         }

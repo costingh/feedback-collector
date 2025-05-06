@@ -3,80 +3,75 @@
 import { useState, useEffect } from "react";
 import { getUserTestimonials } from "@/actions/workspace";
 import { getUserForms } from "@/actions/form";
+import { useInfiniteQuery } from '@tanstack/react-query';
+import { getUserWidget } from "@/actions/widgets";
 
 import { cn, needsDarkBackground } from "@/lib/utils";
 import WidgetEditorNav from "@/components/widgets/WidgetEditorNav";
 import { ShareWidgetModal } from "@/components/widgets/ShareWidgetModal";
 import { SelectTestimonialsToShareModal } from "@/components/testimonials/SelectTestimonialsToShareModal";
 import DisplayWidget from "@/components/widgets/DisplayWidget";
-import { useQueryData } from "@/hooks/useQueryData";
-import { getUserWidget } from "@/actions/widgets";
-import { useTags } from "@/hooks/useTags";
-import axios from "axios";
 import { LoadingSpinner } from "../animations/loading-spinner";
 import WidgetEditorSidebar from "./WidgetEditorSidebar";
-import { formatNumberOfReviews } from "@/lib/utils";
 import clsx from "clsx";
+import { TagsProvider, useTagsContext } from "@/contexts/TagsContext";
+import EmbeddableWidget from "./EmbeddableWidget";
 
-const EditWidget = ({ widgetId, workspaceId }: any) => {
-	const [currentWidget, setCurrentWidget] = useState<any>(null);
-	const [isLoading, setIsLoading] = useState(true);
+const EditWidget = ({ widgetId, workspaceId, initialData }: any) => {
 	const [deviceResolution, setDeviceResolution] = useState({
 		width: window.innerWidth,
 		height: window.innerHeight,
 	});
 	const [hasInteracted, setHasInteracted] = useState(false);
 	const [activeSubmenu, setActiveSubmenu] = useState<string>("");
+	const [checkedItems, setChecked] = useState<Set<string>>(new Set());
+	const [currentWidget, setCurrentWidget] = useState<any>(null);
 
-	const { data: widgetData } = useQueryData(
-		["widget-data", widgetId, workspaceId],
-		() => fetchData(widgetId, workspaceId)
-	);
+	const { testimonialsResponse, formsData } = initialData;
 
-	//@ts-ignore
-	const { widgetResponse, testimonialsResponse, formsData } =
-		widgetData || {};
-
-	const allTestimonialsIds = testimonialsResponse?.data?.map(
-		(t: any) => t.id
-	);
-	const currentWidgetTestimonialsIds = widgetResponse?.allTestimonialsIds;
-
-	const testimonialsIdsToCheck = new Set(
-		allTestimonialsIds?.filter((id: string) =>
-			currentWidgetTestimonialsIds?.includes(id)
-		)
-	);
-
-	const [checkedItems, setChecked] = useState(testimonialsIdsToCheck);
-
-	if (widgetResponse?.widget) {
-		widgetResponse.widget.testimonials =
-			testimonialsResponse?.data?.filter((t: any) =>
-				testimonialsIdsToCheck?.has(t.id)
-			) || [];
-	}
+	const {
+		data: widgetData,
+		error,
+		fetchNextPage,
+		hasNextPage,
+		isFetching,
+		isFetchingNextPage,
+		status,
+	} = useInfiniteQuery({
+		queryKey: ['widget', widgetId],
+		queryFn: async ({ pageParam = 1 }) => {
+			const response = await getUserWidget(`/${widgetId}`, pageParam, 6);
+			return response;
+		},
+		initialPageParam: 1,
+		getNextPageParam: (lastPage) => {
+			if (lastPage?.pagination?.hasMore) {
+				return lastPage.pagination.page + 1;
+			}
+			return undefined;
+		},
+		initialData: {
+			pages: [initialData.widgetResponse],
+			pageParams: [1],
+		},
+	});
 
 	useEffect(() => {
-		if (widgetResponse?.widget) {
-			setCurrentWidget(widgetResponse?.widget);
-			setIsLoading(false);
+		if (widgetData?.pages?.[widgetData?.pages?.length-1]?.widget) {
+			console.log('widgetData=', widgetData)
+			// Combine testimonials from all pages
+			const allTestimonials = widgetData.pages.flatMap(page => page.widget.testimonials || []);
+			setCurrentWidget({
+				...widgetData.pages[widgetData?.pages?.length-1].widget,
+				testimonials: allTestimonials,
+				_count: {
+					...widgetData.pages[widgetData?.pages?.length-1].widget._count,
+					testimonials: allTestimonials.length
+				}
+			});
+			setChecked(new Set(widgetData.pages[widgetData?.pages?.length-1].allTestimonialsIds));
 		}
-	}, [widgetResponse?.widget]);
-
-	useEffect(() => {
-		setCurrentWidget((prevWidget: any) => ({
-			...prevWidget,
-			testimonials:
-				testimonialsResponse?.data?.filter((t: any) =>
-					checkedItems?.has(t.id)
-				) || [],
-		}));
-	}, [checkedItems]);
-
-	if (!widgetResponse) return null;
-
-	const { tags, groupedTags } = useTags(widgetResponse?.widget?.workspaceId);
+	}, [widgetData]);
 
 	// Resize Listener
 	useEffect(() => {
@@ -91,30 +86,61 @@ const EditWidget = ({ widgetId, workspaceId }: any) => {
 		return () => window.removeEventListener("resize", handleResize);
 	}, []);
 
-	useEffect(() => {
-		const startTime = Date.now();
-
-		const handleUnload = () => {
-			if (!hasInteracted && currentWidget?.id) trackMetric("bounce");
-			trackMetric("time", (Date.now() - startTime) / 1000);
-		};
-
-		window.addEventListener("beforeunload", handleUnload);
-		return () => window.removeEventListener("beforeunload", handleUnload);
-	}, [hasInteracted, currentWidget?.id]);
-
-	const trackMetric = async (eventType: string, timeSpent = 0) => {
-		try {
-			await axios.post("/api/analytics/widgets/track-metrics", {
-				widgetId: currentWidget?.id,
-				eventType,
-				timeSpent,
-				deviceInfo: `${navigator.platform}, ${navigator.userAgent}`,
-			});
-		} catch (error) {
-			console.error("Error tracking metric:", error);
-		}
+	const handlePageChange = () => {
+		fetchNextPage();
 	};
+
+	if (!widgetData?.pages?.[widgetData.pages?.length-1]?.widget) return null;
+
+	return (
+		<TagsProvider workspaceId={widgetData.pages[widgetData.pages?.length-1].widget.workspaceId}>
+			<EditWidgetContent 
+				widgetResponse={widgetData.pages[widgetData.pages?.length-1]}
+				testimonialsResponse={testimonialsResponse}
+				formsData={formsData}
+				currentWidget={currentWidget}
+				deviceResolution={deviceResolution}
+				activeSubmenu={activeSubmenu}
+				setActiveSubmenu={setActiveSubmenu}
+				checkedItems={checkedItems}
+				isLoading={isFetching}
+				isFetching={isFetchingNextPage}
+				paginationData={widgetData?.pages[widgetData.pages?.length-1].pagination}
+				setHasInteracted={setHasInteracted}
+				setDeviceResolution={setDeviceResolution}
+				setCurrentWidget={setCurrentWidget}
+				hasMore={hasNextPage}
+				onLoadMore={fetchNextPage}
+				setPage={handlePageChange}
+				setChecked={setChecked}
+				widgetId={widgetId}
+			/>
+		</TagsProvider>
+	);
+};
+
+const EditWidgetContent = ({ 
+	widgetResponse, 
+	testimonialsResponse, 
+	formsData, 
+	currentWidget,
+	deviceResolution,
+	activeSubmenu,
+	setActiveSubmenu,
+	checkedItems,
+	isLoading,
+	isFetching,
+	paginationData,
+	setHasInteracted,
+	setDeviceResolution,
+	setCurrentWidget,
+	hasMore,
+	onLoadMore,
+	setPage,
+	setChecked,
+	widgetId
+}: any) => {
+	const { tags, groupedTags } = useTagsContext();
 
 	return (
 		<div
@@ -137,13 +163,13 @@ const EditWidget = ({ widgetId, workspaceId }: any) => {
 					widget={currentWidget}
 					setWidget={setCurrentWidget}
 				/>
-				<div className="flex items-center justify-center p-4 w-[calc(100%-300px)] overflow-auto">
+				<div className="flex items-center justify-center p-4 pb-10 w-[calc(100%-300px)] overflow-auto">
 					<div
 						style={{
 							width: `${deviceResolution.width}px`,
 							height: `${deviceResolution.height}px`,
 						}}
-						className={cn(
+						className={clsx(
 							"p-2 max-w-full max-h-full hide-scrollbar",
 							[375, 768].includes(deviceResolution.width) &&
 								"border-2 rounded-2xl overflow-y-auto overflow-x-hidden",
@@ -177,32 +203,24 @@ const EditWidget = ({ widgetId, workspaceId }: any) => {
 									<LoadingSpinner size={30} />
 								</span>
 							</div>
-						) : <DisplayWidget
-							widget={{
-								...currentWidget,
-								deviceWidth: deviceResolution.width,
-							}}
-							numberOfReviews={formatNumberOfReviews(
-								currentWidget?._count?.testimonials
-							)}
-						/>}
+						) : (
+							<>
+								<DisplayWidget
+									widget={{
+										...currentWidget,
+										deviceWidth: deviceResolution.width,
+									}}
+									setPage={setPage}
+									isFetching={isFetching}
+									paginationData={paginationData}
+								/>
+							</>
+						)}
 					</div>
 				</div>
 			</div>
 		</div>
 	);
 };
-
-async function fetchData(widgetId: string, workspaceId: string) {
-	const widgetResponse = await getUserWidget(`/${widgetId}`);
-	const testimonialsResponse = await getUserTestimonials(workspaceId);
-	const formsData = await getUserForms(workspaceId);
-
-	return {
-		widgetResponse,
-		testimonialsResponse,
-		formsData,
-	};
-}
 
 export default EditWidget;

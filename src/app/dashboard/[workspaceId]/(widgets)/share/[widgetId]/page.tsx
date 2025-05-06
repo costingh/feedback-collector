@@ -5,20 +5,21 @@ import { getUserWidget, getUserWidgets } from "@/actions/widgets";
 import { useQueryData } from "@/hooks/useQueryData";
 import { LoadingSpinner } from "@/components/animations/loading-spinner";
 import { formatNumberOfReviews } from "@/lib/utils";
-
+import { useState } from "react";
 // TODO
 const ShareWidgetPage = ({ params }: { params: { widgetId: string } }) => {
 	// const [startTime, setStartTime] = useState<number | null>(null); // Start time for time spent
 	// const [hasInteracted, setHasInteracted] = useState(false); // Track user interaction
 
-	const isFetching = false;
-
-	const { data: widgetResponse, isFetching: fetchingWidget } = useQueryData(
+	const [page, setPage] = useState(1);
+	const [limit, setLimit] = useState(6);
+	const { data: widgetResponse, isFetching: isFetching } = useQueryData(
 		["shared-widget"],
-		() => getUserWidget('/' + params.widgetId)
+		() => getUserWidget('/' + params.widgetId, page, limit)
 	);
 
 	const widget = (widgetResponse as any)?.widget || [];
+
 
 	// const handleGetAllUserWidgets = useCallback(async () => {
 	// 	setIsSearchingWidgets(true);
@@ -106,7 +107,7 @@ const ShareWidgetPage = ({ params }: { params: { widgetId: string } }) => {
 							<LoadingSpinner size={30} />
 						</span>
 					</div>
-				) : <DisplayWidget widget={widget} numberOfReviews={formatNumberOfReviews(widget?._count?.testimonials)}/>}
+				) : <DisplayWidget widget={widget} setPage={setPage} isFetching={isFetching}/>}
 			</div>
 		</>
 	);

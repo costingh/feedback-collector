@@ -12,34 +12,34 @@ export default defineConfig({
 		},
 		rollupOptions: {
 			input: {
-				// widget: path.resolve(
-				// 	__dirname,
-				// 	"src/components/widgets/WidgetContainer.tsx"
-				// ),
-				form: path.resolve(
+				widget: path.resolve(
 					__dirname,
-					"src/components/embeddables/FeedbackzFormEmbed.tsx"
+					"src/components/widgets/WidgetContainer.tsx"
 				),
+				// form: path.resolve(
+				// 	__dirname,
+				// 	"src/components/embeddables/FeedbackzFormEmbed.tsx"
+				// ),
 			},
 			output: [
-				// {
-				// 	entryFileNames: "widget-embed.iife.js",
-				// 	format: "iife",
-				// 	name: "FeedbackzWidget",
-				// 	globals: {
-				// 		react: "React",
-				// 		"react-dom": "ReactDOM",
-				// 	},
-				// },
 				{
-					entryFileNames: "form-embed.iife.js",
+					entryFileNames: "widget-embed.iife.js",
 					format: "iife",
-					name: "FeedbackzForm",
+					name: "FeedbackzWidget",
 					globals: {
 						react: "React",
 						"react-dom": "ReactDOM",
 					},
 				},
+				// {
+				// 	entryFileNames: "form-embed.iife.js",
+				// 	format: "iife",
+				// 	name: "FeedbackzForm",
+				// 	globals: {
+				// 		react: "React",
+				// 		"react-dom": "ReactDOM",
+				// 	},
+				// },
 			],
 		},
 	},

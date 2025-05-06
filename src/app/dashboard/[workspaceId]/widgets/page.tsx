@@ -5,7 +5,7 @@ import { useQueryData } from "@/hooks/useQueryData";
 import Widget from "@/components/popups/Widget";
 import { LoadingSpinner } from "@/components/animations/loading-spinner";
 import { formatNumberOfReviews } from "@/lib/utils";
-
+import { useState } from "react";
 type Props = {
 	params: { workspaceId: string };
 };
@@ -16,7 +16,8 @@ const WidgetsPage = ({ params: { workspaceId } }: Props) => {
 	)
 
     const widgets = (widgetsResponse as any)?.data || [];
-	
+	const [page, setPage] = useState(1);
+
 	return (
 		<>
 			<div className="px-8 py-5 relative">
@@ -46,7 +47,7 @@ const WidgetsPage = ({ params: { workspaceId } }: Props) => {
 								{widgets.map((widget: any, index: number) => (
 									<div
 										key={widget.id}>
-										<Widget widget={widget} workspaceId={workspaceId} numberOfReviews={formatNumberOfReviews(widget?._count?.testimonials - 3)}/>
+										<Widget widget={widget} workspaceId={workspaceId} numberOfReviews={formatNumberOfReviews(widget?._count?.testimonials - 3)} setPage={setPage} isFetching={isFetching}/>
 									</div>
 								))}
 							</div>

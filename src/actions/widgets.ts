@@ -127,6 +127,8 @@ export const getUserWidget = async (widgetUrl: string | undefined, page: number 
                     hasMore: skip + limit < (widget?._count?.testimonials || 0)
                 }
             }
+        } else {
+            return { status: 404, data: 'Widget not found' };
         }
     } catch (error) {
         console.log(error)
