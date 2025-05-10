@@ -3,10 +3,18 @@ import { client } from "@/lib/prisma";
 
 // CORS headers
 const corsHeaders = {
-    "Access-Control-Allow-Origin": "*", // You can replace * with specific domains
+    "Access-Control-Allow-Origin": "*", // Change to specific origin if needed
     "Access-Control-Allow-Methods": "GET, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type, Authorization",
 };
+
+// Helper to wrap JSON response with CORS headers
+function withCors(json: any, status: number = 200) {
+    return new NextResponse(JSON.stringify(json), {
+        status,
+        headers: corsHeaders,
+    });
+}
 
 // Handle preflight requests
 export async function OPTIONS() {
@@ -22,41 +30,35 @@ export async function GET(
 ) {
     try {
         if (!widgetUrl) {
-            return new NextResponse(JSON.stringify({ error: "Not found" }), {
-                status: 404,
-                headers: corsHeaders,
-            });
+            return withCors({ error: "Not found" }, 404);
         }
 
         const searchParams = new URL(req.url).searchParams;
-
-        // Destructure and validate page and limit
-        const pageParam = searchParams.get('page');
-        const limitParam = searchParams.get('limit');
+        const pageParam = searchParams.get("page");
+        const limitParam = searchParams.get("limit");
 
         const page = pageParam ? parseInt(pageParam, 10) : 1;
         const limit = limitParam ? parseInt(limitParam, 10) : 10;
 
-        // If either page or limit is NaN, set them to default values (1 and 10)
         if (isNaN(page) || page < 1) {
-            return NextResponse.json({ error: 'Invalid page number', status: 400 });
+            return withCors({ error: "Invalid page number" }, 400);
         }
 
         if (isNaN(limit) || limit < 1) {
-            return NextResponse.json({ error: 'Invalid limit value', status: 400 });
+            return withCors({ error: "Invalid limit value" }, 400);
         }
 
         const [widget, allTestimonials, avg] = await Promise.all([
             client.widget.findFirst({
                 where: {
-                    url: '/' + widgetUrl,
+                    url: "/" + widgetUrl,
                 },
                 include: {
                     testimonials: {
                         skip: (page - 1) * limit,
                         take: limit,
                         orderBy: {
-                            createdAt: 'desc',
+                            createdAt: "desc",
                         },
                     },
                     _count: {
@@ -70,7 +72,7 @@ export async function GET(
                 where: {
                     widgets: {
                         some: {
-                            url: '/' + widgetUrl,
+                            url: "/" + widgetUrl,
                         },
                     },
                 },
@@ -82,7 +84,7 @@ export async function GET(
                 where: {
                     widgets: {
                         some: {
-                            url: '/' + widgetUrl,
+                            url: "/" + widgetUrl,
                         },
                     },
                 },
@@ -95,26 +97,31 @@ export async function GET(
         if (widget) {
             const data = {
                 status: 200,
-                data: 'Widget fetched successfully',
+                data: "Widget fetched successfully",
                 widget: {
                     ...widget,
                     avgStars: avg?._avg?.stars ?? 0,
                 },
-                allTestimonialsIds: allTestimonials.map((t: { id: string }) => t.id),
+                allTestimonialsIds: allTestimonials.map((t) => t.id),
                 pagination: {
                     total: widget?._count?.testimonials || 0,
                     page,
                     limit,
-                    hasMore: (page - 1) * limit + limit < (widget?._count?.testimonials || 0),
+                    hasMore:
+                        (page - 1) * limit + limit <
+                        (widget?._count?.testimonials || 0),
                 },
             };
 
-            return NextResponse.json({ widget: data, error: null });
+            return withCors({ widget: data, error: null });
         } else {
-            return NextResponse.json({ widget: null, error: "Widget not found" });
+            return withCors({ widget: null, error: "Widget not found" }, 404);
         }
     } catch (error) {
         console.log("[WIDGET_ERROR]", error);
-        return new NextResponse("Internal Error", { status: 500 });
+        return new NextResponse("Internal Error", {
+            status: 500,
+            headers: corsHeaders,
+        });
     }
 }
