@@ -77,6 +77,11 @@ export default function RootLayout({
 					src={`${process.env.NEXT_PUBLIC_HOST_URL}/form-embed.iife.js`}
 					strategy="afterInteractive"
 				/>
+
+				<Script
+					src={`${process.env.NEXT_PUBLIC_HOST_URL}/form-embed.iife.js?formId=EAxV479U`}
+					strategy="afterInteractive"
+				/>
 			</html>
 		</ClerkProvider>
 	);
