@@ -1,13 +1,31 @@
 import { NextRequest, NextResponse } from "next/server";
 import { client } from "@/lib/prisma";
 
+// CORS headers
+const corsHeaders = {
+    "Access-Control-Allow-Origin": "*", // You can replace * with specific domains
+    "Access-Control-Allow-Methods": "GET, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization",
+};
+
+// Handle preflight requests
+export async function OPTIONS() {
+    return new NextResponse(null, {
+        status: 200,
+        headers: corsHeaders,
+    });
+}
+
 export async function GET(
     req: NextRequest,
     { params: { widgetUrl } }: { params: { widgetUrl: string } }
 ) {
     try {
         if (!widgetUrl) {
-            return NextResponse.json({ status: 404 });
+            return new NextResponse(JSON.stringify({ error: "Not found" }), {
+                status: 404,
+                headers: corsHeaders,
+            });
         }
 
         const searchParams = new URL(req.url).searchParams;
