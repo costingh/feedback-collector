@@ -18,7 +18,7 @@ const EmbedFormComponent = ({
 		const fetchData = async () => {
 			try {
 				const response = await fetch(
-					`https://feedbackz.co/api/form/embed/${params.formUrl}`
+					`https://www.feedbackz.co/api/form/embed/${params.formUrl}`
 				);
 				const data = await response.json();
 				setForm(data.data?.form);

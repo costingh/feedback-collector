@@ -27,7 +27,7 @@ const EmbeddableWidget = ({ params, widgetData, paginationData }: { params: { ur
 		try {
 			setIsFetching(true);
 			const res = await fetch(
-				`https://feedbackz.co/api/widgets/get/${params.url}?page=${pageParam}&limit=6`
+				`https://www.feedbackz.co/api/widgets/get/${params.url}?page=${pageParam}&limit=6`
 			);
 			const data = await res.json();
 
