@@ -14,9 +14,21 @@ const LandingPage = () => {
 	return (
 		<>
 			<div className="max-w-full h-full">
-				{/* md:max-w-[85%] xl:max-w-[65%]  */}
 				<LandingPageNavBar />
 				<HeroSection />
+
+				<section className="flex flex-col items-center justify-center pb-8 lg:pb-16 bg-[#0B1624]">
+					<div className="flex flex-row items-center justify-center">
+						<span className="max-w-3xl text-center text-lg !leading-8 text-gray-400 lg:pb-0 lg:text-xl my-[30px]">Trusted &amp; Integrated with</span></div>
+						<div className="container-lp mx-auto flex flex-wrap items-center justify-center overflow-hidden">
+							<div className="carousel-container-lp-clients carousel-fade-clients">
+								<div className="carousel-clients flex items-center space-x-16">
+									<img alt="Feedbackz.co Partner Logo" loading="eager" className="w-full max-w-[85px]" src="/images/trusted-by-logos/partnerLogo1.svg" width="85" height="85"/>
+								<img alt="Feedbackz.co Partner Logo" loading="eager" className="w-full max-w-[85px]" src="/images/trusted-by-logos/partnerLogo2.svg" width="85" height="85"/>
+							</div>
+						</div>
+					</div>
+				</section>
 
 				<div className=" md:max-w-[85%] xl:max-w-[65%] bg-indigo-600 rounded-[40px] py-[80px] px-[100px] mx-auto">
 					<div className="flex-wrap flex items-center">

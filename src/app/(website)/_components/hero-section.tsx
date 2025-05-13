@@ -10,7 +10,7 @@ export const HeroSection = () => {
 	const { isSignedIn } = useAuth();
 
 	return (
-		<div className="px-5 py-3 flex flex-col min-h-[100vh] animate-in fade-in items-center justify-center overflow-x-hidden bg-[#0B1624] mb-5">
+		<div className="px-5 py-3 flex flex-col min-h-[100vh] animate-in fade-in items-center justify-center overflow-x-hidden bg-[#0B1624]">
 			<div className="h-full items-center justify-center flex flex-col">
 				<div className="flex flex-wrap gap-4 flex-col items-center justify-center">
 					<div className="max-w-3xl text-center relative">
@@ -18,6 +18,9 @@ export const HeroSection = () => {
 							{/* @ts-ignore */}
 							<feedbackz-widget data-widget-id="uOQcCM3"></feedbackz-widget>
 
+							{/* @ts-ignore */}
+							{/* <feedbackz-form data-form-type="inline" data-form-id="EAxV479U"></feedbackz-form> */}
+							
 							<Image
 								src={
 									"/images/made-with-feedbackz-white.png"
@@ -110,9 +113,9 @@ export const HeroSection = () => {
 						<Image
 							src="/images/webp-optimized/hero-image-5.webp"
 							alt=""
-							width={500}
-							height={500}
-							className="max-w-full max-h-full absolute bottom-[-200px] left-[-500px] z-[9] object-contain"
+							width={400}
+							height={400}
+							className="max-w-full max-h-full absolute top-[200px] left-[-500px] z-[9] object-contain"
 						/>
 					</div>
 
@@ -150,28 +153,6 @@ export const HeroSection = () => {
 							satisfaction.
 						</span>
 					</div>
-
-					{/* <div className="flex items-center justify-center gap-4 relative">
-						<Link href="/auth/sign-up" className="relative">
-							<Button
-								variant="outline"
-								className="rounded-full border-[1px] border-indigo-600 bg-indigo-600 !py-[20px] text-white text-[14px] font-[500] hover:text-indigo-600 w-[200px]"
-							>
-								Get Started For Free{" "}
-								<ArrowRight size={18} className="ml-2" />
-							</Button>
-							<Image
-								src="/images/webp-optimized/no-credit-card.webp"
-								width={160}
-								height={160}
-								alt="No credit card required*"
-								className="absolute top-[-30px] right-[-160px]"
-							/>
-						</Link>
-					</div> */}
-					{/* <span className="text-gray-500 text-[12px] font-light mr-2 mt-3">
-						Free 14 days trial
-					</span> */}
 				</div>
 			</div>
 		</div>
