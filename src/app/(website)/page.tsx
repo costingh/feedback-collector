@@ -14,11 +14,11 @@ const LandingPage = () => {
 	return (
 		<>
 			<div className="max-w-full h-full">
-				{/* md:max-w-[85%] xl:max-w-[65%]  */}
+				{/* md:max-w-[85%] lg:max-w-[80%] xl:max-w-[75%]  */}
 				<LandingPageNavBar />
 				<HeroSection />
 
-				<div className=" md:max-w-[85%] xl:max-w-[65%] bg-indigo-600 rounded-[40px] py-[80px] px-[100px] mx-auto">
+				<div className=" md:max-w-[85%] lg:max-w-[80%] xl:max-w-[75%] bg-indigo-600 rounded-[40px] py-[80px] px-[100px] mx-auto">
 					<div className="flex-wrap flex items-center">
 						<div className="w-[80%]">
 							{/* <p className="text-gray-100 text-[18px] font-black">
@@ -98,7 +98,7 @@ const LandingPage = () => {
 			<div className="divider h-[100px]"></div>
 			<div
 				id="#features"
-				className="max-w-full md:max-w-[85%] xl:max-w-[65%] mx-auto px-5 h-full"
+				className="max-w-full md:max-w-[85%] lg:max-w-[80%] xl:max-w-[75%] mx-auto px-5 h-full"
 			>
 				<div className="flex">
 					<div className="w-[50%]">

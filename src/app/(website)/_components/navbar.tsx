@@ -7,17 +7,22 @@ import Link from "next/link";
 import { MenuIcon, XIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { usePathname } from 'next/navigation'
 
 const LandingPageNavBar = () => {
 	const { isSignedIn } = useAuth();
-	const router = useRouter();
+	const pathname = usePathname();
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // State to handle mobile menu
-	const [isScrolled, setIsScrolled] = useState(false);
+	const [isScrolled, setIsScrolled] = useState(true);
 
 	useEffect(() => {
 		const handleScroll = () => {
 			const scrolledPast100vh = window.scrollY >= 250;
 			setIsScrolled(scrolledPast100vh);
+
+			if(pathname?.includes("feedbackz-pricing")) {
+				setIsScrolled(true);
+			}
 		};
 
 		window.addEventListener("scroll", handleScroll, { passive: true });
@@ -39,7 +44,7 @@ const LandingPageNavBar = () => {
 		<nav className={`fixed w-full top-0 left-0 transition-all z-[999]`}>
 			<div
 				className={cn(
-					"max-w-full md:max-w-[85%] xl:max-w-[65%] mx-auto px-3 py-3 mt-[20px] flex items-center justify-between rounded-[20px]",
+					"max-w-full md:max-w-[85%] lg:max-w-[80%] xl:max-w-[75%] mx-auto px-3 py-3 mt-[20px] flex items-center justify-between rounded-[20px]",
 					isScrolled ? "bg-[#0B1624]" : "bg-transparent"
 				)}
 			>

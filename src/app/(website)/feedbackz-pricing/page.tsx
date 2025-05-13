@@ -43,7 +43,7 @@ export default function Pricing() {
 
 				<ExplorePlans />
 
-				<div className="mt-12 md:max-w-[85%] xl:max-w-[65%] mx-auto space-y-6 px-4 sm:px-6">
+				<div className="mt-12 md:max-w-[85%] lg:max-w-[80%] xl:max-w-[75%] mx-auto space-y-6 px-4 sm:px-6">
 					<div className="w-full bg-indigo-600 rounded-[40px] py-[80px] px-[100px] flex flex-col items-center justify-center gap-5 relative overflow-hidden">
 						<div className="absolute -bottom-28 -left-20 w-56 h-56 bg-opacity-25 rounded-full bg-indigo-500"></div>
 						<div className="absolute -top-28 -right-24 bg-opacity-75 w-64 h-64 rounded-full bg-indigo-800"></div>
@@ -92,7 +92,7 @@ export default function Pricing() {
 				</div>
 			</div>
 			<div className="mt-12"></div>
-			<div className="max-w-full md:max-w-[85%] xl:max-w-[65%] mx-auto px-5 h-gull">
+			<div className="max-w-full md:max-w-[85%] lg:max-w-[80%] xl:max-w-[75%] mx-auto px-5 h-gull">
 				<Footer />
 			</div>
 		</>
