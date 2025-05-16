@@ -121,7 +121,7 @@ const CustomizeWidget: React.FC<CustomizeLabelsProps> = ({
 							<SelectContent>
 								<SelectGroup>
 									<SelectLabel>Categories</SelectLabel>
-									{[{label: "Elite", emoji: "👑", value: "elite"}, {label: "Simple", emoji: "👤", value: "simple"}].map((c) => (
+									{[{label: "Elite", emoji: "👑", value: "elite"}, {label: "Inline", emoji: "✨", value: "inline"}, {label: "Simple", emoji: "👤", value: "simple"}].map((c) => (
 										<SelectItem value={c.value} key={c.value}>
 											{c.emoji} {c.label}
 										</SelectItem>
@@ -141,6 +141,19 @@ const CustomizeWidget: React.FC<CustomizeLabelsProps> = ({
 								setInputValue={(color: string) => setWidget((prevWidget) => ({...prevWidget, primaryTextColor: color}))}
 							/>
 						</div>
+
+						{widget?.variant == "inline" && (
+							<div className='mt-3'>
+								<span className="text-[13px] font-normal text-gray-400 leading-[17px]">
+									Choose secondary text color
+								</span>
+								<ColorPicker
+									inputValue={widget?.secondaryTextColor}
+									// @ts-ignore
+									setInputValue={(color: string) => setWidget((prevWidget) => ({...prevWidget, secondaryTextColor: color}))}
+								/>
+							</div>
+						)}
 					</>
 				)}
 

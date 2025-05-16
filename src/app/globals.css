@@ -3,10 +3,9 @@
 @tailwind components;
 @tailwind utilities;
 
-@import 'tailwindcss/base';
+/* @import 'tailwindcss/base';
 @import 'tailwindcss/components';
-/* @import './base.css'; */
-@import 'tailwindcss/utilities';
+@import 'tailwindcss/utilities'; */
 
 @layer base {
 	:root {
@@ -77,6 +76,7 @@
 	* {
 		@apply border-border;
 	}
+
 	body {
 		/* @apply bg-background text-foreground; */
 	}
@@ -87,6 +87,7 @@
 		height: 0;
 		opacity: 0;
 	}
+
 	100% {
 		height: auto;
 		opacity: 1;
@@ -101,6 +102,7 @@
 	0% {
 		transform: rotate(0deg);
 	}
+
 	100% {
 		transform: rotate(360deg);
 	}
@@ -118,15 +120,18 @@
 	background-size: calc(100% / 3) 100%;
 	animation: l7 1s infinite linear;
 }
+
 @keyframes l7 {
 	33% {
 		background-size: calc(100% / 3) 0%, calc(100% / 3) 100%,
 			calc(100% / 3) 100%;
 	}
+
 	50% {
 		background-size: calc(100% / 3) 100%, calc(100% / 3) 0%,
 			calc(100% / 3) 100%;
 	}
+
 	66% {
 		background-size: calc(100% / 3) 100%, calc(100% / 3) 100%,
 			calc(100% / 3) 0%;
@@ -134,33 +139,42 @@
 }
 
 .scroll-container {
-	overflow-y: scroll; /* Keeps the scrolling functionality */
-	height: calc(100vh - 180px); /* Sets the height */
+	overflow-y: scroll;
+	/* Keeps the scrolling functionality */
+	height: calc(100vh - 180px);
+	/* Sets the height */
 }
 
 /* For WebKit browsers like Chrome and Safari */
 .scroll-container::-webkit-scrollbar {
-	width: 0; /* Hides the scrollbar */
-	background: transparent; /* Optional: hides the scrollbar track */
+	width: 0;
+	/* Hides the scrollbar */
+	background: transparent;
+	/* Optional: hides the scrollbar track */
 }
 
 /* For Firefox */
 .scroll-container {
-	scrollbar-width: none; /* Hides the scrollbar */
+	scrollbar-width: none;
+	/* Hides the scrollbar */
 }
 
 /* For Internet Explorer and Edge */
 .scroll-container {
-	-ms-overflow-style: none; /* Hides the scrollbar */
+	-ms-overflow-style: none;
+	/* Hides the scrollbar */
 }
 
 .hide-scrollbar {
-	-ms-overflow-style: none;  /* IE and Edge */
-	scrollbar-width: none;  /* Firefox */
+	-ms-overflow-style: none;
+	/* IE and Edge */
+	scrollbar-width: none;
+	/* Firefox */
 }
 
 .hide-scrollbar::-webkit-scrollbar {
-	display: none;  /* Chrome, Safari and Opera */
+	display: none;
+	/* Chrome, Safari and Opera */
 }
 
 .smooth-scrollbar::-webkit-scrollbar {
@@ -200,6 +214,7 @@
 	0% {
 		transform: translateY(-120vh) rotate(0deg);
 	}
+
 	100% {
 		transform: translateY(120vh) rotate(360deg);
 	}
@@ -220,6 +235,7 @@
 	50% {
 		box-shadow: 19px 0 0 3px, 38px 0 0 7px, 57px 0 0 3px;
 	}
+
 	100% {
 		box-shadow: 19px 0 0 0, 38px 0 0 3px, 57px 0 0 7px;
 	}
@@ -240,6 +256,7 @@
 	0% {
 		transform: translateX(0);
 	}
+
 	100% {
 		transform: translateX(calc(-400px * 5));
 	}
@@ -263,10 +280,8 @@
 	border-radius: 9999px;
 	border-width: 4px;
 	--tw-border-opacity: 1;
-	border-color: var(
-		--fallback-b1,
-		oklch(var(100% 0 0) / var(--tw-border-opacity))
-	);
+	border-color: var(--fallback-b1,
+			oklch(var(100% 0 0) / var(--tw-border-opacity)));
 }
 
 .avatar {
@@ -279,49 +294,115 @@ nav::-webkit-scrollbar {
 }
 
 .btn-landing {
-    display: flex;
+	display: flex;
 	padding: 16px 24px;
-    font-size: 18px;
-    line-height: 28px;
-    border-width: 1px;
-    --tw-border-opacity: 1;
-    border-color: rgb(89 76 255 / var(--tw-border-opacity, 1));
-    background-image: linear-gradient(to bottom right, var(--tw-gradient-stops));
-    --tw-gradient-from: #868CFF var(--tw-gradient-from-position);
-    --tw-gradient-to: rgb(134 140 255 / 0) var(--tw-gradient-to-position);
-    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
-    --tw-gradient-to: #4318FF var(--tw-gradient-to-position);
-    --tw-text-opacity: 1;
-    color: rgb(255 255 255 / var(--tw-text-opacity, 1));
-    --tw-shadow: inset 0px 1px 1px 0px #ffffff59;
-    --tw-shadow-colored: inset 0px 1px 1px 0px var(--tw-shadow-color);
-    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+	font-size: 18px;
+	line-height: 28px;
+	border-width: 1px;
+	--tw-border-opacity: 1;
+	border-color: rgb(89 76 255 / var(--tw-border-opacity, 1));
+	background-image: linear-gradient(to bottom right, var(--tw-gradient-stops));
+	--tw-gradient-from: #868CFF var(--tw-gradient-from-position);
+	--tw-gradient-to: rgb(134 140 255 / 0) var(--tw-gradient-to-position);
+	--tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+	--tw-gradient-to: #4318FF var(--tw-gradient-to-position);
+	--tw-text-opacity: 1;
+	color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+	--tw-shadow: inset 0px 1px 1px 0px #ffffff59;
+	--tw-shadow-colored: inset 0px 1px 1px 0px var(--tw-shadow-color);
+	box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
 .animate-rotate {
-    animation: rotate 10s linear infinite;
+	animation: rotate 10s linear infinite;
 }
 
 @keyframes rotate {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+	from {
+		transform: rotate(0deg);
+	}
+
+	to {
+		transform: rotate(360deg);
+	}
 }
 
 .to-blueSecondary {
-    --tw-gradient-to: #4318FF var(--tw-gradient-to-position);
+	--tw-gradient-to: #4318FF var(--tw-gradient-to-position);
 }
 
 .from-brandLinear {
-    --tw-gradient-from: #868CFF var(--tw-gradient-from-position);
-    --tw-gradient-to: #4318FF var(--tw-gradient-to-position);
-    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+	--tw-gradient-from: #868CFF var(--tw-gradient-from-position);
+	--tw-gradient-to: #4318FF var(--tw-gradient-to-position);
+	--tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
 .border-brandLinear {
-    --tw-border-opacity: 1;
-    border-color: rgb(134 140 255 / var(--tw-border-opacity, 1));
+	--tw-border-opacity: 1;
+	border-color: rgb(134 140 255 / var(--tw-border-opacity, 1));
+}
+
+.card-bg {
+	padding: 6px;
+	border-radius: 16px;
+	background: radial-gradient(103.78% 100% at 50% 0%, #7692ff00 80.55%, #7a96ff0a), radial-gradient(120.05% 100% at 50% 0%, #e2e8ff00 33.78%, #e2e8ff14), #e2e8ff03;
+	box-shadow: 0 -28px 84px -24px #e2e8ff1f inset;
+	position: relative;
+	display: flex;
+	gap: 6px;
+}
+
+.card-bg:before {
+	border: 1px solid rgba(226, 232, 255, .1);
+	content: "";
+	left: 0;
+	top: 0;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	border-radius: inherit;
+	pointer-events: none;
+}
+
+.container-lp {
+	max-width: 1240px !important;
+	padding-left: 24px;
+	padding-right: 24px;
+	width: 100%;
+}
+
+
+@media (min-width: 1496px) {
+	.container-lp {
+		max-width: 1496px;
+	}
+}
+
+@media (min-width: 1240px) {
+	.container-lp {
+		max-width: 1240px;
+	}
+}
+
+@media (min-width: 984px) {
+	.container-lp {
+		max-width: 984px;
+	}
+}
+
+@media (min-width: 728px) {
+	.container-lp {
+		max-width: 728px;
+	}
+}
+
+@media (min-width: 600px) {
+	.container-lp {
+		max-width: 600px;
+	}
+}
+
+.text-gray-DEFAULT-400 {
+	--tw-text-opacity: 1;
+	color: rgb(156 163 175 / var(--tw-text-opacity, 1));
 }

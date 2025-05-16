@@ -34,48 +34,42 @@ type FaqItemProps = {
 };
 
 const FaqItem: React.FC<FaqItemProps> = ({ question, answer }) => {
-	const [isOpen, setIsOpen] = useState(false);
 
 	return (
-		<div className="bg-white rounded-lg border shadow p-6">
-			<button
-				type="button"
-				className="text-left w-full flex items-center justify-between text-gray-700 transition duration-400 hover:text-indigo-600"
-				onClick={() => setIsOpen(!isOpen)}
-			>
-				<dt className="font-bold">{question}</dt>
-				<div className="ml-4 flex-shrink-0">
-					{isOpen ? (
-						<ChevronUp className="w-5 h-5 text-gray-700" />
-					) : (
-						<ChevronDown className="w-5 h-5 text-gray-700" />
-					)}
-				</div>
-			</button>
-			{isOpen && <dd className="mt-6 text-gray-600">{answer}</dd>}
-		</div>
+		<details className="group appearance-none rounded-3xl border border-white/20 outline-none transition duration-300 hover:cursor-pointer hover:bg-white/5">
+			<summary className="flex w-full appearance-none items-center justify-between px-6 py-6">
+				<span className="pr-10 text-lg text-white">{question}</span>
+				<svg xmlns="http://www.w3.org/2000/svg" className="h-[22px] w-[22px] min-w-[22px] fill-white transition duration-500 group-open:rotate-180" viewBox="0 0 256 256">
+					<path d="M216.49,104.49l-80,80a12,12,0,0,1-17,0l-80-80a12,12,0,0,1,17-17L128,159l71.51-71.52a12,12,0,0,1,17,17Z"></path>
+				</svg>
+			</summary>
+			<article className="px-6 pb-6 transition-opacity duration-500 ease-in-out">
+				<p className="text-gray-DEFAULT-400 font-[300]">{answer}</p>
+			</article>
+		</details>
 	);
 };
 
 const Faq: React.FC = () => {
 	return (
-		<section className="bg-zinc-50 py-24 lg:py-32">
-			<div className="text-center">
-				<div className="text-indigo-600 font-semibold">FAQ</div>
-				<p className="mt-2 text-4xl text-gray-900 font-extrabold leading-[2.75rem]">
-					Frequently Asked Questions
-				</p>
-			</div>
-			<dl className="mt-12 max-w-4xl mx-auto space-y-6 px-4 sm:px-6">
-				{faqData.map((item, index) => (
-					<FaqItem
-						key={index}
-						question={item.question}
-						answer={item.answer}
-					/>
-				))}
-			</dl>
-			<div className="mt-12 text-center text-sm text-gray-500">
+		<>
+			<section className="px-6 py-12" id="faq">
+				<div className="bg-transparent mx-auto flex w-full max-w-[900px] flex-col overflow-hidden bg-[#050520] pt-6 backdrop-blur-xl md:pt-20">
+					<div className="mb-12 flex flex-col gap-6">
+						<h2 className="text-transparent mx-auto bg-clip-text text-center text-3xl font-extrabold lg:text-5xl lg:leading-[60px]"><span className="text-transparent bg-gradient-to-b from-white from-40% to-[#b2b2b2] bg-clip-text">Frequently Asked Questions</span></h2>
+						<div className="mx-auto max-w-2xl text-center text-lg text-white lg:text-xl">Need more information about Feedbackz.co? Find all your answers here.</div>
+					</div>
+					<div className="flex flex-col gap-6">
+						{faqData.map((item, index) => (
+							<FaqItem
+								key={index}
+								question={item.question}
+								answer={item.answer}
+							/>
+						))}
+					</div>
+				</div>
+				<div className="mt-12 text-center text-sm text-gray-DEFAULT-400">
 				Still have questions?{' '}
 				<button
 					type="button"
@@ -84,8 +78,9 @@ const Faq: React.FC = () => {
 					Chat with us now
 				</button>
 				.
-			</div>
-		</section>
+				</div>
+			</section>			
+		</>
 	);
 };
 

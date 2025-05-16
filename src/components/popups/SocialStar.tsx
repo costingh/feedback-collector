@@ -28,7 +28,7 @@ function SocialStar({
 									"transition-transform duration-300 ease-in-out group-hover:scale-110"
 							)}
 						>
-							<Image
+							<img
 								width={100}
 								height={100}
 								alt=""

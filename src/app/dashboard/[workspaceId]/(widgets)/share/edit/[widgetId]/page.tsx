@@ -12,8 +12,6 @@ const EditWidgetPage = async ({ params }: Props) => {
 	const testimonialsResponse = await getUserTestimonials(params.workspaceId);
 	const formsData = await getUserForms(params.workspaceId);
 
-	console.log('xxxxxxx=',widgetResponse?.widget?.testimonials?.length)
-
 	return (
 		<EditWidget
 			widgetId={params.widgetId}

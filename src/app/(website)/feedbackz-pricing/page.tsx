@@ -7,6 +7,7 @@ import Faq from "../_components/faq";
 import ExplorePlans from "../_components/explore-plans";
 import PricingTabs from "../_components/pricing-tabs";
 import Footer from "../_components/footer";
+import Container from "@/components/layout/container";
 
 export default function Pricing() {
 	return (
@@ -39,7 +40,9 @@ export default function Pricing() {
 
 				<PricingTabs />
 
-				<Faq />
+				<div className="bg-[#050520] mt-5">
+					<Faq />
+				</div>
 
 				<ExplorePlans />
 
@@ -92,9 +95,9 @@ export default function Pricing() {
 				</div>
 			</div>
 			<div className="mt-12"></div>
-			<div className="max-w-full md:max-w-[85%] lg:max-w-[80%] xl:max-w-[75%] mx-auto px-5 h-gull">
+			<Container>
 				<Footer />
-			</div>
+			</Container>
 		</>
 	);
 }

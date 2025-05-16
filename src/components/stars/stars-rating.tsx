@@ -9,9 +9,12 @@ type StarsRatingProps = {
 	style?: any;
 	scale?: any;
 	marginLeft?: number;
+	ratedIcon?: React.ReactNode;
+	unratedIcon?: React.ReactNode;
 };
 
-const StarsRating: React.FC<StarsRatingProps> = ({ ratingChanged, readonly, value, style, scale, marginLeft }) => {
+
+const StarsRating: React.FC<StarsRatingProps> = ({ ratingChanged, readonly, value, style, scale, marginLeft, ratedIcon, unratedIcon }) => {
 	return (
 		//@ts-ignore
 		<Rating
@@ -22,6 +25,8 @@ const StarsRating: React.FC<StarsRatingProps> = ({ ratingChanged, readonly, valu
 			style={{transform: `scale(${scale})`, marginLeft: `${marginLeft}px`, ...style}}
 			onChange={(value) => ratingChanged && ratingChanged(value)}
 			readonly={readonly}
+      		ratedIcon={ratedIcon}
+      		unratedIcon={unratedIcon}
 		/>
 	);
 };

@@ -27,7 +27,7 @@ function EliteAvatarsVariant({
 							"transition-transform duration-300 ease-in-out group-hover:scale-110"
 					)}
 				>
-					<Image
+					<img
 						src="/images/avatars-testimonial-grain.png"
 						alt="Elite Widget"
 						width={50}
@@ -79,7 +79,7 @@ function EliteAvatarsVariant({
 							)}
 						</div>
 					</div>
-					<Image
+					<img
 						src="/images/avatars-testimonial-grain.png"
 						alt="Elite Widget"
 						width={50}

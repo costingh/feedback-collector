@@ -4,7 +4,7 @@ const nextConfig = {
 		remotePatterns: [
 			{
 				protocol: "https",
-				hostname: "**", // 🔥 allows all HTTPS hosts
+				hostname: "recordr-bucket.s3.eu-north-1.amazonaws.com",
 			},
 		],
 	},

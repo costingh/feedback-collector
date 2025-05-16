@@ -89,9 +89,46 @@ export const groupTagsByCategory = (tags: Tag[]) => {
 	}, {} as { [category: string]: Tag[] });
 };
 
-export const needsDarkBackground = (widget: any) => {
-	return widget?.type == "avatars" && widget?.variant == "elite";
+function normalizeHexColor(hex: string): string | null {
+	hex = hex.replace('#', '').toLowerCase();
+
+	if (hex.length === 3) {
+		// e.g., "abc" → "aabbcc"
+		return hex.split('').map(c => c + c).join('');
+	}
+
+	if (hex.length === 6 || hex.length === 8) {
+		return hex.slice(0, 6); // ignore alpha if present
+	}
+
+	return null;
 }
+
+function hexToLuminance(hex: string): number {
+	const r = parseInt(hex.slice(0, 2), 16) / 255;
+	const g = parseInt(hex.slice(2, 4), 16) / 255;
+	const b = parseInt(hex.slice(4, 6), 16) / 255;
+
+	const adjust = (c: number) =>
+		c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+
+	return 0.2126 * adjust(r) + 0.7152 * adjust(g) + 0.0722 * adjust(b);
+}
+
+export const needsDarkBackground = (widget: any): boolean => {
+	if (widget?.type == 'avatars' && widget?.variant !== 'elite') return true;
+	const rawHex = widget?.primaryTextColor;
+
+	if (!rawHex) return false;
+
+	const normalizedHex = normalizeHexColor(rawHex);
+	if (!normalizedHex) return false;
+
+	const luminance = hexToLuminance(normalizedHex);
+
+	// If luminance is high, background is bright, so we need dark text
+	return luminance > 0.5;
+};
 
 export const tagCategories = [
 	{

@@ -45,7 +45,7 @@ const LandingPageNavBar = () => {
 			<div
 				className={cn(
 					"max-w-full md:max-w-[85%] lg:max-w-[80%] xl:max-w-[75%] mx-auto px-3 py-3 mt-[20px] flex items-center justify-between rounded-[20px]",
-					isScrolled ? "bg-[#0B1624]" : "bg-transparent"
+					isScrolled ? "bg-[#050520]" : "bg-transparent"
 				)}
 			>
 				<Logo isTransparentBg={true} />
@@ -123,7 +123,7 @@ const LandingPageNavBar = () => {
 
 			{/* Mobile Menu (Visible on small screens) */}
 			{isMobileMenuOpen && (
-				<div className="md:hidden flex flex-col items-center bg-[#0B1624] py-3 space-y-2 h-[100vh]">
+				<div className="md:hidden flex flex-col items-center bg-[#050520] py-3 space-y-2 h-[100vh]">
 					<Link
 						href="/"
 						className="text-md text-slate-100 hover:cursor-pointer hover:text-gray-200"

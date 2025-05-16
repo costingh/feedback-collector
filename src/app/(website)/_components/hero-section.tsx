@@ -5,12 +5,13 @@ import { useAuth } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
+import { HeroButton } from "./hero-button";
 
 export const HeroSection = () => {
 	const { isSignedIn } = useAuth();
 
 	return (
-		<div className="px-5 py-3 flex flex-col min-h-[100vh] animate-in fade-in items-center justify-center overflow-x-hidden bg-[#0B1624]">
+		<div className="px-5 py-3 flex flex-col min-h-[100vh] animate-in fade-in items-center justify-center overflow-x-hidden">
 			<div className="h-full items-center justify-center flex flex-col">
 				<div className="flex flex-wrap gap-4 flex-col items-center justify-center">
 					<div className="max-w-3xl text-center relative">
@@ -20,7 +21,7 @@ export const HeroSection = () => {
 
 							{/* @ts-ignore */}
 							{/* <feedbackz-form data-form-type="inline" data-form-id="EAxV479U"></feedbackz-form> */}
-							
+
 							<Image
 								src={
 									"/images/made-with-feedbackz-white.png"
@@ -86,13 +87,17 @@ export const HeroSection = () => {
 							display as widgets or walls.
 						</div>
 
-						{/* <Image
-							src="/images/webp-optimized/hero-image.webp"
-							alt=""
-							width={500}
-							height={500}
-							className="max-w-full absolute top-[-50px] right-[-550px] object-contain"
-						/> */}
+						<div className="absolute top-[150px] right-[-350px] w-[400px] h-[400px]">
+							<div className="w-[200px] h-[200px] rounded-full bg-gradient-to-br from-brandLinear to-blueSecondary opacity-30 blur-2xl absolute left-[30px] top-[30px] z-[0] shadow-2xl shadow-indigo-500"></div>
+							<Image
+								src="/images/webp-optimized/hero-image.webp"
+								alt=""
+								width={400}
+								height={400}
+								className="max-w-full absolute top-0 right-0 object-contain z-[2]"
+							/>
+						</div>
+
 
 						{/* <Image
 							src="/images/webp-optimized/demo-image-2.webp"
@@ -110,28 +115,20 @@ export const HeroSection = () => {
 							className="max-w-full max-h-full absolute bottom-[-300px] left-[-300px] z-[9] object-contain"
 						/> */}
 
-						<Image
-							src="/images/webp-optimized/hero-image-5.webp"
-							alt=""
-							width={400}
-							height={400}
-							className="max-w-full max-h-full absolute top-[200px] left-[-500px] z-[9] object-contain"
-						/>
+						<div className="absolute bottom-[0px] left-[-300px] w-[300px] h-[300px]">
+							<div className="w-[200px] h-[200px] rounded-full bg-gradient-to-br from-brandLinear to-blueSecondary opacity-30 blur-xl absolute left-[30px] top-[30px] z-[0] shadow-2xl shadow-indigo-500"></div>
+							<Image
+								src="/images/webp-optimized/hero-image-5.webp"
+								alt=""
+								width={300}
+								height={300}
+								className="max-w-full max-h-full top-0 right-0 absolute object-contain z-[2]"
+							/>
+						</div>
 					</div>
 
 					<div className="relative">
-						<div className="relative w-full overflow-hidden rounded-2xl p-[1px] sm:max-w-[400px] z-[99]">
-							<div className="absolute inset-0 z-10 h-[1000px] animate-rotate rounded-lg bg-[conic-gradient(#6756ff_20deg,transparent_120deg)]"></div>
-							<div className="relative z-20 flex w-full flex-col items-center justify-center gap-6 rounded-2xl border-4 border-black lg:flex-row lg:gap-10 lg:pt-0 overflow-hidden">
-								<Link
-									href="/auth/sign-up"
-									className="btn-landing flex w-full max-w-full flex-col text-center font-semibold"
-									data-discover="true"
-								>
-									<div>Start Your Free Trial Now</div>
-								</Link>
-							</div>
-						</div>
+						<HeroButton variant="lg" text="Start Your Free Trial Now" />
 						<Image
 							src="/images/no-credit-card-white.png"
 							width={160}
