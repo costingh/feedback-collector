@@ -58,54 +58,56 @@ const Sidebar = ({ activeWorkspaceId }: Props) => {
 
 	const SidebarSection = (
 		<div className="flex-none relative p-4 h-full w-[250px] flex flex-col gap-4 items-center overflow-hidden border-r-[1px]">
-			<Logo/>
-			
+			<Logo />
+
 			<WorkspacesSwitch
 				activeWorkspaceId={activeWorkspaceId}
 				onChangeActiveWorkspace={onChangeActiveWorkspace}
-				workspace={workspace}	
+				workspace={workspace}
 				currentWorkspace={currentWorkspace}
 			/>
-		
-			{/* <p className="w-full text-[#9D9D9D] font-bold mt-4">Menu</p> */}
-			<nav className="w-full overflow-y-scroll h-[500px]">
+
+			<nav className="w-full overflow-y-scroll">
 				<ul>
 					{menuItems.map((item) => (
-						<SidebarItem
-							href={item.href}
-							icon={item.icon}
-							selected={pathName === item.href}
-							title={item.title}
-							key={item.title}
-							notifications={
-								(item.title === "Notifications" &&
-									count._count &&
-									count._count.notification) ||
-								0
-							}
-						/>
+						<>
+							{item?.href ? <SidebarItem
+								href={item.href || ""}
+								icon={item.icon}
+								selected={pathName === item.href}
+								title={item.title}
+								key={item.title}
+								notifications={
+									(item.title === "Notifications" &&
+										count._count &&
+										count._count.notification) ||
+									0
+								}
+							/> : <div className="text-gray-400 text-[12px] font-semibold ml-2 my-2">{item.title}</div>}
+						</>
 					))}
 				</ul>
 			</nav>
-			
-			<Separator className="w-4/5" />
-			{workspace.subscription?.plan === "FREE" && (
-				<GlobalCard
-					title="Upgrade to PRO"
-					description="Complete your trial and unlock premium features with the Pro version."
-					footer={<PaymentButton planType='PRO_MONTHLY' />}
-				/>
-			)}
-
-			{workspace.subscription?.plan === "PRO" && (
-				<GlobalCard
-					title="Upgrade to BUSINESS"
-					description="Unlock workspaces and team collaboration."
-					footer={<PaymentButton planType='BUSINESS_MONTHLY' />}
-				/>
-			)}
 
 			<div className="w-full mt-auto">
+				<Separator className="w-4/5" />
+
+				{workspace.subscription?.plan === "FREE" && (
+					<GlobalCard
+						title="Upgrade to PRO"
+						description="Complete your trial and unlock premium features with the Pro version."
+						footer={<PaymentButton planType='PRO_MONTHLY' />}
+					/>
+				)}
+
+				{workspace.subscription?.plan === "PRO" && (
+					<GlobalCard
+						title="Upgrade to BUSINESS"
+						description="Unlock workspaces and team collaboration."
+						footer={<PaymentButton planType='BUSINESS_MONTHLY' />}
+					/>
+				)}
+				<div className="w-full h-[10px]"></div>
 				<SidebarUserButton />
 			</div>
 		</div>

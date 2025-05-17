@@ -313,6 +313,22 @@ nav::-webkit-scrollbar {
 	box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
+.purple-background {
+	border-width: 1px;
+	--tw-border-opacity: 1;
+	border-color: rgb(89 76 255 / var(--tw-border-opacity, 1));
+	background-image: linear-gradient(to bottom right, var(--tw-gradient-stops));
+	--tw-gradient-from: #868CFF var(--tw-gradient-from-position);
+	--tw-gradient-to: rgb(134 140 255 / 0) var(--tw-gradient-to-position);
+	--tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+	--tw-gradient-to: #4318FF var(--tw-gradient-to-position);
+	--tw-text-opacity: 1;
+	color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+	--tw-shadow: inset 0px 1px 1px 0px #ffffff59;
+	--tw-shadow-colored: inset 0px 1px 1px 0px var(--tw-shadow-color);
+	box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
 .animate-rotate {
 	animation: rotate 10s linear infinite;
 }

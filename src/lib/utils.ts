@@ -324,6 +324,17 @@ export const tagCategories = [
 	},
 ]
 
+export function generateUniqueId(length = 8) {
+	const characters =
+		"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+	let uniqueId = "";
+	for (let i = 0; i < length; i++) {
+		const randomIndex = Math.floor(Math.random() * characters.length);
+		uniqueId += characters[randomIndex];
+	}
+	return uniqueId;
+}
+
 export function constructMetadata({
 	title = "Feedbackz - Collect and share testimonials | Free testimonial collection tool | Feedbackz",
 	description = "Feedbackz helps freelancers and businesses collect and showcase text and video testimonials with shareable pages, forms, and widgets.",

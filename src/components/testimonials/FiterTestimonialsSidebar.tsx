@@ -8,6 +8,8 @@ import StarsRating from "@/components/stars/stars-rating";
 import { Tag } from "@/types/Tag";
 import { Form } from "@/types/Form";
 import { Separator } from "@/components/ui/separator";
+import { UnratedIconVariant2 } from "@/app/(website)/_components/icons/unrated-icon-variant-2";
+import { RatedIconVariant2 } from "@/app/(website)/_components/icons/rated-icon-variant-2";
 
 const TagComponent = ({
 	label,
@@ -33,7 +35,7 @@ const TagComponent = ({
 	);
 };
 
-{/* @ts-ignore */}
+{/* @ts-ignore */ }
 const FiterTestimonialsSidebar: React.FC = ({
 	testimonials,
 	filters,
@@ -58,7 +60,7 @@ const FiterTestimonialsSidebar: React.FC = ({
 	return (
 		<div className={cn(
 			"border-l-[1px] border-gray-200 h-[100vh] px-6 py-6 overflow-hidden transition-all text-left",
-			showFilterSidebar ? 'w-[380px]' : 'w-0 p-0' 
+			showFilterSidebar ? 'w-[380px]' : 'w-0 p-0'
 		)}>
 			<div className="flex items-center justify-between">
 				<h1 className="text-[18px] font-bold">Search and Filter</h1>
@@ -74,7 +76,7 @@ const FiterTestimonialsSidebar: React.FC = ({
 				className="w-full mb-3 mt-5"
 				value={filters.searchForKeywords}
 				onChange={(e) =>
-					setFilters((prevFilters : any) => ({
+					setFilters((prevFilters: any) => ({
 						...prevFilters,
 						searchForKeywords: e.target.value,
 					}))
@@ -89,17 +91,19 @@ const FiterTestimonialsSidebar: React.FC = ({
 					<StarsRating
 						value={filters.rating}
 						ratingChanged={(val) =>
-							setFilters((prevFilters:any) => ({
+							setFilters((prevFilters: any) => ({
 								...prevFilters,
 								rating: val,
 							}))
 						}
+						ratedIcon={<RatedIconVariant2 />}
+						unratedIcon={<UnratedIconVariant2 />}
 					/>
 				</div>
 				<span
 					className="border-b-2 border-dotted border-gray-400 text-gray-400 text-[14px] cursor-pointer transition-all hover:opacity-50"
 					onClick={() =>
-						setFilters((prevFilters:any) => ({
+						setFilters((prevFilters: any) => ({
 							...prevFilters,
 							rating: 0,
 						}))
@@ -119,7 +123,7 @@ const FiterTestimonialsSidebar: React.FC = ({
 						filters.approvalStatus == "approved" && "bg-gray-300"
 					)}
 					onClick={() =>
-						setFilters((prevFilters:any) => ({
+						setFilters((prevFilters: any) => ({
 							...prevFilters,
 							approvalStatus: "approved",
 						}))
@@ -133,7 +137,7 @@ const FiterTestimonialsSidebar: React.FC = ({
 						filters.approvalStatus == "unapproved" && "bg-gray-300"
 					)}
 					onClick={() =>
-						setFilters((prevFilters:any) => ({
+						setFilters((prevFilters: any) => ({
 							...prevFilters,
 							approvalStatus: "unapproved",
 						}))
@@ -147,7 +151,7 @@ const FiterTestimonialsSidebar: React.FC = ({
 						filters.approvalStatus == "all" && "bg-gray-300"
 					)}
 					onClick={() =>
-						setFilters((prevFilters:any) => ({
+						setFilters((prevFilters: any) => ({
 							...prevFilters,
 							approvalStatus: "all",
 						}))
@@ -163,7 +167,7 @@ const FiterTestimonialsSidebar: React.FC = ({
 			</span>
 			<div className="w-full mb-4">
 				{groupedTags && Object.keys(groupedTags).length == 0 && <span className='text-[13px] text-gray-700'>No tags yet</span>}
-				{groupedTags && Object.keys(groupedTags).map((category:any, index) => (
+				{groupedTags && Object.keys(groupedTags).map((category: any, index) => (
 					<div key={category}>
 						<div className="w-full py-2">
 							<h1 className=" text-[13px] text-zinc-800 font-semibold">
@@ -179,17 +183,17 @@ const FiterTestimonialsSidebar: React.FC = ({
 									key={tag.id}
 									label={tag.tagName}
 									isActive={filters?.tags?.find(
-										(t:any) => t.id == tag.id
+										(t: any) => t.id == tag.id
 									)}
 									onClick={() =>
-										setFilters((prevFilters:any) => ({
+										setFilters((prevFilters: any) => ({
 											...prevFilters,
 											tags: prevFilters.tags.find(
-												(t:any) => t.id == tag.id
+												(t: any) => t.id == tag.id
 											)
 												? prevFilters.tags.filter(
-														(t:any) => t.id != tag.id
-												  )
+													(t: any) => t.id != tag.id
+												)
 												: [...prevFilters.tags, tag],
 										}))
 									}
@@ -207,23 +211,23 @@ const FiterTestimonialsSidebar: React.FC = ({
 
 			<div className="flex items-center flex-wrap gap-2">
 				{userForms?.length == 0 && <span className='text-[13px] text-gray-700'>No forms yet</span>}
-				{userForms?.map((form:any) => (
+				{userForms?.map((form: any) => (
 					<TagComponent
 						key={form.id}
 						label={`${form.name} - ${form.url}`}
 						isActive={filters.forms.find(
-							(testimonial:any) => testimonial.id == form.id
+							(testimonial: any) => testimonial.id == form.id
 						)}
 						onClick={() =>
-							setFilters((prevFilters:any) => ({
+							setFilters((prevFilters: any) => ({
 								...prevFilters,
 								forms: prevFilters.forms.find(
-									(testimonial:any) => testimonial.id == form.id
+									(testimonial: any) => testimonial.id == form.id
 								)
 									? prevFilters.forms.filter(
-											(testimonial:any) =>
-												testimonial.id != form.id
-									  )
+										(testimonial: any) =>
+											testimonial.id != form.id
+									)
 									: [...prevFilters.forms, form],
 							}))
 						}

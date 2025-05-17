@@ -1,6 +1,7 @@
 'use server'
 
 import { client } from '@/lib/prisma'
+import { generateUniqueId } from '@/lib/utils';
 import { currentUser } from '@clerk/nextjs/server'
 
 export const getFormById = async (id: string) => {
@@ -362,14 +363,3 @@ export const duplicateForm = async (formId: string) => {
         };
     }
 };
-
-
-const generateUniqueId = (length = 8) => {
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let uniqueId = '';
-    for (let i = 0; i < length; i++) {
-        const randomIndex = Math.floor(Math.random() * characters.length);
-        uniqueId += characters[randomIndex];
-    }
-    return uniqueId;
-}

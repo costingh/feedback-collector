@@ -24,17 +24,7 @@ import { toast } from "sonner";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { LoadingSpinner } from "../animations/loading-spinner";
-
-function generateUniqueId(length = 8) {
-	const characters =
-		"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-	let uniqueId = "";
-	for (let i = 0; i < length; i++) {
-		const randomIndex = Math.floor(Math.random() * characters.length);
-		uniqueId += characters[randomIndex];
-	}
-	return uniqueId;
-}
+import { generateUniqueId } from "@/lib/utils";
 
 export function CreateWidgetModal({
 	loading,

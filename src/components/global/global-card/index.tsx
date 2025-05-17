@@ -16,17 +16,17 @@ type Props = {
 
 const GlobalCard = ({ title, children, description, footer }: Props) => {
 	return (
-		<Card className="bg-transparent mt-4 border-[#70707061]">
-			<CardHeader className="p-4">
-				<CardTitle className="text-md text-[#9D9D9D]">
+		<Card className="bg-transparent mt-3 border-[#70707061]">
+			<CardHeader className="px-4 py-2">
+				<CardTitle className="text-[13px] text-[#9D9D9D]">
 					{title}
 				</CardTitle>
-				<CardDescription className="text-[#707070]">
+				<CardDescription className="text-[#707070] text-[12px]">
 					{description}
 				</CardDescription>
 			</CardHeader>
-			{children && <div className="p-4">{children}</div>}
-			{footer && <CardFooter className="p-4">{footer}</CardFooter>}
+			{children && <div className="px-4">{children}</div>}
+			{footer && <CardFooter className="px-4 py-2">{footer}</CardFooter>}
 		</Card>
 	);
 };

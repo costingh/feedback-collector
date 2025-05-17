@@ -38,7 +38,7 @@ const PaymentButton = ({ planType, styles }: Props) => {
 	return (
 		<Button
 			className={clsx(
-				"text-sm w-full bg-indigo-600 text-white hover:bg-indigo-700",
+				"text-[14px] purple-background w-full",
 				styles
 			)}
 			onClick={() => handleSubscribeAction(planType)}
@@ -51,9 +51,6 @@ const PaymentButton = ({ planType, styles }: Props) => {
 			) : (
 				"Subscribe"
 			)}
-			{/* <Loader className='w-4' color="#000" state={isProcessing}>
-				Upgrade
-			</Loader> */}
 		</Button>
 	);
 };

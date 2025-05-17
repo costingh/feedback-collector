@@ -8,36 +8,49 @@ import {
 	Settings,
 } from "@/components/icons";
 import {
+	BellRing,
 	BrickWall,
 	Bug,
+	Command,
 	CreditCardIcon,
 	Feather,
+	Gauge,
 	Heart,
+	ImageUp,
 	LayoutDashboardIcon,
+	Megaphone,
 	Pickaxe,
 	Rows2,
 	Settings2Icon,
+	Sparkle,
+	Sparkles,
 	Tag,
 	Zap,
 } from "lucide-react";
 
 export const MENU_ITEMS = (
 	workspaceId: string
-): { title: string; href: string; icon: React.ReactNode }[] => [
+): { title: string; href?: string; icon?: React.ReactNode }[] => [
 	{
-		title: "Home",
+		title: "Dashboard",
 		href: `/dashboard/${workspaceId}`,
-		icon: <LayoutDashboardIcon />,
+		icon: <Gauge className="w-6 h-6" />,
+	},
+	{
+		title: "COLLECT",
 	},
 	{
 		title: "Forms",
 		href: `/dashboard/${workspaceId}/forms`,
-		icon: <Rows2 className="w-6 h-6" />,
+		icon: <Megaphone className="w-6 h-6" />,
 	},
 	{
-		title: "Testimonials",
-		href: `/dashboard/${workspaceId}/testimonials`,
-		icon: <Heart className="w-6 h-6" />,
+		title: "Import Testimonials",
+		href: `/dashboard/${workspaceId}/import-testimonials`,
+		icon: <ImageUp className="w-6 h-6" />,
+	},
+	{
+		title: "ORGANIZE",
 	},
 	{
 		title: "Tags",
@@ -45,14 +58,25 @@ export const MENU_ITEMS = (
 		icon: <Tag className="w-6 h-6" />,
 	},
 	{
+		title: "Testimonials",
+		href: `/dashboard/${workspaceId}/testimonials`,
+		icon: <Sparkles className="w-6 h-6" />,
+	},
+	{
+		title: "DESIGN",
+	},
+	{
 		title: "Widgets hub",
 		href: `/dashboard/${workspaceId}/widgets`,
-		icon: <BrickWall className="w-6 h-6" />,
+		icon: <Command className="w-6 h-6" />,
 	},
 	{
 		title: "Creator",
 		href: `/dashboard/${workspaceId}/creator`,
 		icon: <Pickaxe className="w-6 h-6" />,
+	},
+	{
+		title: "INTEGRATE",
 	},
 	{
 		title: "Automate",
@@ -65,6 +89,9 @@ export const MENU_ITEMS = (
 		icon: <Feather className="w-6 h-6" />,
 	},
 	{
+		title: "CUSTOMIZE",
+	},
+	{
 		title: "Report a bug",
 		href: `/dashboard/${workspaceId}/report-a-bug`,
 		icon: <Bug className="w-6 h-6" />,
@@ -72,7 +99,7 @@ export const MENU_ITEMS = (
 	{
 		title: "Notifications",
 		href: `/dashboard/${workspaceId}/notifications`,
-		icon: <Bell className="w-6 h-6" />,
+		icon: <BellRing className="w-6 h-6" />,
 	},
 	{
 		title: "Billing",

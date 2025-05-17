@@ -8,6 +8,7 @@ import {
 	ArrowDownToLine,
 	BadgeCheck,
 	BadgeMinus,
+	Check,
 	Filter,
 	Loader,
 	Loader2,
@@ -28,6 +29,9 @@ import { getUserForms } from "@/actions/form";
 import { Form } from "@/types/Form";
 import { groupTagsByCategory } from "@/lib/utils";
 import { useTags } from "@/hooks/useTags";
+import clsx from "clsx";
+import Link from "next/link";
+import { Button } from "../ui/button";
 
 type Props = {
 	workspaceId: string;
@@ -304,7 +308,7 @@ const TestimonialsPage = ({ workspaceId }: Props) => {
 							/>
 							<span className="text-gray-200 font-[400] text-[13px]">
 								{loading.action == "export" &&
-								loading.loading ? (
+									loading.loading ? (
 									<Loader2
 										size={11}
 										className="spin my-[4px] mx-[4px]"
@@ -339,7 +343,7 @@ const TestimonialsPage = ({ workspaceId }: Props) => {
 							<BadgeCheck size={14} className="text-gray-200" />
 							<span className="text-gray-200 font-[400] text-[13px]">
 								{loading.action == "approve" &&
-								loading.loading ? (
+									loading.loading ? (
 									<Loader2
 										size={11}
 										className="spin my-[4px] mx-[4px]"
@@ -357,7 +361,7 @@ const TestimonialsPage = ({ workspaceId }: Props) => {
 							<BadgeMinus size={14} className="text-gray-200" />
 							<span className="text-gray-200 font-[400] text-[13px]">
 								{loading.action == "unapprove" &&
-								loading.loading ? (
+									loading.loading ? (
 									<Loader2
 										size={11}
 										className="spin my-[4px] mx-[4px]"
@@ -374,7 +378,7 @@ const TestimonialsPage = ({ workspaceId }: Props) => {
 							<Trash2 size={14} className="text-red-600" />
 							<span className="text-gray-200 font-[400] text-[13px]">
 								{loading.action == "delete" &&
-								loading.loading ? (
+									loading.loading ? (
 									<Loader2
 										size={11}
 										className="spin my-[4px] mx-[4px]"
@@ -398,14 +402,23 @@ const TestimonialsPage = ({ workspaceId }: Props) => {
 							</p>
 						</div>
 						<div className="flex items-center gap-4">
+							<Link
+								href={`/dashboard/${workspaceId}/import-testimonials`} data-discover="true">
+								<Button
+									className={clsx(
+										"text-[16px] purple-background px-4 py-2",
+									)}
+								>
+									Import Testimonials
+								</Button>
+							</Link>
 							<div
 								onClick={handleCheckAll}
 								className="flex items-center gap-3 cursor-pointer px-4 py-2 transition-all hover:bg-gray-200 bg-gray-100 rounded-[6px]"
 							>
-								<span className="text-[16px] text-gray-500">
+								<span className="text-[16px] text-gray-500 whitespace-nowrap">
 									Select All
 								</span>
-								{/* <Check size={16} className="text-gray-500" /> */}
 							</div>
 							<div
 								onClick={() => setShowFilterSidebar(true)}
