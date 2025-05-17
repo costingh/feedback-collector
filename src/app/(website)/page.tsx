@@ -27,7 +27,7 @@ const LandingPage = () => {
 				<div className="bg-[#050520]">
 					<LandingPageNavBar />
 					<HeroSection />
-					<DemoVideo />
+					{/* <DemoVideo /> */}
 					<PartnersLogoCarousel />
 					<KpisSection />
 					<CTABanner2 />
