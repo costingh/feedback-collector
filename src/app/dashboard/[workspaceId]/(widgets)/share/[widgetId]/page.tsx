@@ -4,7 +4,7 @@ import DisplayWidget from "@/components/widgets/DisplayWidget";
 import { getUserWidget, getUserWidgets } from "@/actions/widgets";
 import { useQueryData } from "@/hooks/useQueryData";
 import { LoadingSpinner } from "@/components/animations/loading-spinner";
-import { formatNumberOfReviews } from "@/lib/utils";
+import { cn, formatNumberOfReviews, needsDarkBackground } from "@/lib/utils";
 import { useState } from "react";
 // TODO
 const ShareWidgetPage = ({ params }: { params: { widgetId: string } }) => {
@@ -104,7 +104,7 @@ const ShareWidgetPage = ({ params }: { params: { widgetId: string } }) => {
 				{isFetching ? (
 					<div className="w-full h-full flex items-center justify-center">
 						<span className="inline-block">
-							<LoadingSpinner size={30} />
+							<LoadingSpinner size={30} className={cn(needsDarkBackground(widget) ? 'text-white' : 'text-black')} />
 						</span>
 					</div>
 				) : <DisplayWidget widget={widget} setPage={setPage} isFetching={isFetching}/>}
