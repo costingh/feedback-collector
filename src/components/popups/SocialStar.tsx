@@ -3,6 +3,7 @@ import StarsRating from "@/components/stars/stars-rating";
 import Image from "next/image";
 import clsx from "clsx";
 import NoTestimonialsLinkedMessage from "../widgets/NoTestimonialsLinkedMessage";
+import { cn } from "@/lib/utils";
 
 function SocialStar({
 	transition,
@@ -23,10 +24,15 @@ function SocialStar({
 						<div
 							key={t.id}
 							className={clsx(
-								"flex items-start gap-3 p-2 rounded-[20px] bg-white w-full max-w-[600px]",
+								"flex items-start gap-3 p-2 rounded-[20px] w-full max-w-[600px]",
 								transition &&
-									"transition-transform duration-300 ease-in-out group-hover:scale-110"
+									"transition-transform duration-300 ease-in-out group-hover:scale-110",
+									widget?.cardBorderColor !== 'transparent' && "border-[1px]"
 							)}
+							style={{
+								backgroundColor: widget?.cardBackground,
+								borderColor: widget?.cardBorderColor,
+							}}
 						>
 							<img
 								width={100}
@@ -45,13 +51,13 @@ function SocialStar({
 										readonly
 									/>
 								</div>
-								<p className="text-gray-800 font-normal text-[12px] sm:text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px]">
+								<p className={cn("font-normal text-[12px] sm:text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px]")} style={{color: widget?.primaryTextColor}}>
 									{t?.message}
 								</p>
 
-								<span className="text-gray-400 font-normal text-[10px] sm:text-[11px] md:text-[12px] lg:text-[13px] xl:text-[14px]">
+								<span className="font-normal text-[10px] sm:text-[11px] md:text-[12px] lg:text-[13px] xl:text-[14px]" style={{color: widget?.secondaryTextColor}}>
 									{t.name} /{" "}
-									<span className="text-blue-300 text-[10px] sm:text-[11px] md:text-[12px] lg:text-[13px] xl:text-[14px]">
+									<span className="text-blue-300 text-[10px] sm:text-[11px] md:text-[12px] lg:text-[13px] xl:text-[14px]" style={{color: widget?.thirdTextColor	}}>
 										{t?.jobTitle || t?.company || t?.email}
 									</span>
 								</span>

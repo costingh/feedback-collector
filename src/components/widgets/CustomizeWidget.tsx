@@ -18,7 +18,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "../ui/select";
 
 interface CustomizeLabelsProps {
-	widget: Widget & {_count: {testimonials: number}} & {avgStars: number} | null | undefined;
+	widget: Widget & { _count: { testimonials: number } } & { avgStars: number } | null | undefined;
 	setWidget: (widget: Widget) => void;
 }
 
@@ -33,13 +33,13 @@ const CustomizeWidget: React.FC<CustomizeLabelsProps> = ({
 	widget,
 	setWidget,
 }) => {
-	if(!widget?.id) return null;
-	
+	if (!widget?.id) return null;
+
 	const { mutate: handleUpdate, isPending: isLoading } = useMutationData(
 		["add-testimonials-for-widget"],
 		() => customizeWidget(widget?.id, widget?.widgetDescription || "", widget?.cardBackground || "", widget?.primaryTextColor || "", widget?.secondaryTextColor || "", widget?.thirdTextColor || "", widget?.cardBorderColor || "", widget?.variant || ""),
 		["shared-widget"],
-		() => {}
+		() => { }
 	);
 
 	const [formLabels, setFormLabels] = useState<FormLabelsType[]>([
@@ -80,6 +80,13 @@ const CustomizeWidget: React.FC<CustomizeLabelsProps> = ({
 	return (
 		<div className="w-full h-full flex flex-col justify-between">
 			<div>
+				<div className="flex items-center justify-between my-3">
+					<p className="text-[14px] font-[600] text-[#000]">Widget Name:</p>
+					<span className="px-2 py-1 rounded-[6px] text-[12px] font-normal cursor-pointer">
+						{widget?.name}
+					</span>
+				</div>
+
 				<div className="flex items-center justify-between">
 					<p className="text-[14px] font-[600] text-[#000]">Widget Type:</p>
 
@@ -121,7 +128,7 @@ const CustomizeWidget: React.FC<CustomizeLabelsProps> = ({
 							<SelectContent>
 								<SelectGroup>
 									<SelectLabel>Categories</SelectLabel>
-									{[{label: "Elite", emoji: "👑", value: "elite"}, {label: "Inline", emoji: "✨", value: "inline"}, {label: "Simple", emoji: "👤", value: "simple"}].map((c) => (
+									{[{ label: "Elite", emoji: "👑", value: "elite" }, { label: "Inline", emoji: "✨", value: "inline" }, { label: "Simple", emoji: "👤", value: "simple" }].map((c) => (
 										<SelectItem value={c.value} key={c.value}>
 											{c.emoji} {c.label}
 										</SelectItem>
@@ -138,7 +145,7 @@ const CustomizeWidget: React.FC<CustomizeLabelsProps> = ({
 							<ColorPicker
 								inputValue={widget?.primaryTextColor}
 								// @ts-ignore
-								setInputValue={(color: string) => setWidget((prevWidget) => ({...prevWidget, primaryTextColor: color}))}
+								setInputValue={(color: string) => setWidget((prevWidget) => ({ ...prevWidget, primaryTextColor: color }))}
 							/>
 						</div>
 
@@ -150,7 +157,7 @@ const CustomizeWidget: React.FC<CustomizeLabelsProps> = ({
 								<ColorPicker
 									inputValue={widget?.secondaryTextColor}
 									// @ts-ignore
-									setInputValue={(color: string) => setWidget((prevWidget) => ({...prevWidget, secondaryTextColor: color}))}
+									setInputValue={(color: string) => setWidget((prevWidget) => ({ ...prevWidget, secondaryTextColor: color }))}
 								/>
 							</div>
 						)}
@@ -167,7 +174,7 @@ const CustomizeWidget: React.FC<CustomizeLabelsProps> = ({
 							<ColorPicker
 								inputValue={widget?.cardBackground}
 								// @ts-ignore
-								setInputValue={(color: string) => setWidget((prevWidget) => ({...prevWidget, cardBackground: color}))}
+								setInputValue={(color: string) => setWidget((prevWidget) => ({ ...prevWidget, cardBackground: color }))}
 							/>
 						</div>
 						<div className='mt-3'>
@@ -177,7 +184,7 @@ const CustomizeWidget: React.FC<CustomizeLabelsProps> = ({
 							<ColorPicker
 								inputValue={widget?.primaryTextColor}
 								// @ts-ignore
-								setInputValue={(color: string) => setWidget((prevWidget) => ({...prevWidget, primaryTextColor: color}))}
+								setInputValue={(color: string) => setWidget((prevWidget) => ({ ...prevWidget, primaryTextColor: color }))}
 							/>
 						</div>
 						<div className='mt-3'>
@@ -187,7 +194,7 @@ const CustomizeWidget: React.FC<CustomizeLabelsProps> = ({
 							<ColorPicker
 								inputValue={widget?.secondaryTextColor}
 								// @ts-ignore
-								setInputValue={(color: string) => setWidget((prevWidget) => ({...prevWidget, secondaryTextColor: color}))}
+								setInputValue={(color: string) => setWidget((prevWidget) => ({ ...prevWidget, secondaryTextColor: color }))}
 							/>
 						</div>
 						<div className='mt-3'>
@@ -197,7 +204,7 @@ const CustomizeWidget: React.FC<CustomizeLabelsProps> = ({
 							<ColorPicker
 								inputValue={widget?.thirdTextColor}
 								// @ts-ignore
-								setInputValue={(color: string) => setWidget((prevWidget) => ({...prevWidget, thirdTextColor: color}))}
+								setInputValue={(color: string) => setWidget((prevWidget) => ({ ...prevWidget, thirdTextColor: color }))}
 							/>
 						</div>
 						<div className='mt-3'>
@@ -207,25 +214,81 @@ const CustomizeWidget: React.FC<CustomizeLabelsProps> = ({
 							<ColorPicker
 								inputValue={widget?.cardBorderColor}
 								// @ts-ignore
-								setInputValue={(color: string) => setWidget((prevWidget) => ({...prevWidget, cardBorderColor: color}))}
+								setInputValue={(color: string) => setWidget((prevWidget) => ({ ...prevWidget, cardBorderColor: color }))}
+							/>
+						</div>
+					</>
+				)}
+
+				{widget?.type == "social_star" && (
+					<>
+						<p className="text-[14px] font-[600] text-[#000] mt-5">Customize colors:</p>
+						<div className='mt-3'>
+							<span className="text-[13px] font-normal text-gray-400 leading-[17px]">
+								Choose background color for cards
+							</span>
+							<ColorPicker
+								inputValue={widget?.cardBackground}
+								// @ts-ignore
+								setInputValue={(color: string) => setWidget((prevWidget) => ({ ...prevWidget, cardBackground: color }))}
+							/>
+						</div>
+						<div className='mt-3'>
+							<span className="text-[13px] font-normal text-gray-400 leading-[17px]">
+								Choose primary text color
+							</span>
+							<ColorPicker
+								inputValue={widget?.primaryTextColor}
+								// @ts-ignore
+								setInputValue={(color: string) => setWidget((prevWidget) => ({ ...prevWidget, primaryTextColor: color }))}
+							/>
+						</div>
+						<div className='mt-3'>
+							<span className="text-[13px] font-normal text-gray-400 leading-[17px]">
+								Choose secondary text color
+							</span>
+							<ColorPicker
+								inputValue={widget?.secondaryTextColor}
+								// @ts-ignore
+								setInputValue={(color: string) => setWidget((prevWidget) => ({ ...prevWidget, secondaryTextColor: color }))}
+							/>
+						</div>
+						<div className='mt-3'>
+							<span className="text-[13px] font-normal text-gray-400 leading-[17px]">
+								Choose third text color
+							</span>
+							<ColorPicker
+								inputValue={widget?.thirdTextColor}
+								// @ts-ignore
+								setInputValue={(color: string) => setWidget((prevWidget) => ({ ...prevWidget, thirdTextColor: color }))}
+							/>
+						</div>
+						<div className='mt-3'>
+							<span className="text-[13px] font-normal text-gray-400 leading-[17px]">
+								Choose card border color
+							</span>
+							<ColorPicker
+								inputValue={widget?.cardBorderColor}
+								// @ts-ignore
+								setInputValue={(color: string) => setWidget((prevWidget) => ({ ...prevWidget, cardBorderColor: color }))}
 							/>
 						</div>
 					</>
 				)}
 
 				{widget?.type == 'avatars' && <>
-                    {formLabels.map((label) => (
-                        <LabelEdit
-                            labelKey={label.key}
-                            key={label.key}
-                            title={label.title}
-                            // @ts-ignore
-                            textareaValue={widget?.[label.key] || ""}
-                            tooltipDescription={label.tooltipDescription}
-                            handleInputChange={handleInputChange}
-                        />
-                    ))}
-                </>}
+					{formLabels.map((label) => (
+						<LabelEdit
+							labelKey={label.key}
+							key={label.key}
+							title={label.title}
+							// @ts-ignore
+							textareaValue={widget?.[label.key] || ""}
+							tooltipDescription={label.tooltipDescription}
+							handleInputChange={handleInputChange}
+						/>
+					))}
+				</>}
 			</div>
 
 			<div
