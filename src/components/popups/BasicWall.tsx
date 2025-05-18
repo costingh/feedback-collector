@@ -5,6 +5,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import StarsRating from "../stars/stars-rating";
 import { Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useExpandableText } from "@/hooks/useExpandableText";
 interface Widget {
 	url: string;
 	testimonials: any[];
@@ -25,15 +26,25 @@ interface PaginationData {
 function BasicWall({ widget, setPage, isFetching, paginationData }: { widget: Widget, setPage: any, isFetching: boolean, paginationData?: PaginationData }) {
 	const [allTestimonials, setAllTestimonials] = useState<any[]>([]);
 	const videoRefs = useRef<{ [key: string]: HTMLVideoElement | null }>({});
-
-	// Determine columns based on device width
-	const getColumnsClass = () => {
-		if (!widget?.deviceWidth) return "columns-1 sm:columns-2 lg:columns-3";
-		if (widget?.deviceWidth < 640) return "columns-1";
-		if (widget?.deviceWidth < 1024) return "columns-2";
-		return "columns-3";
-	};
-
+	const { isExpanded, toggle } = useExpandableText();
+	const [maxCharactersToShow, setMaxCharactersToShow] = useState(300);
+	const [columnsClass, setColumnsClass] = useState("columns-1 sm:columns-2 lg:columns-3");
+	
+	useEffect(() => {
+		if (!widget?.deviceWidth) return;
+	
+		if (widget.deviceWidth < 640) {
+			setMaxCharactersToShow(50);
+			setColumnsClass("columns-1");
+		} else if (widget.deviceWidth < 1024) {
+			setMaxCharactersToShow(150);
+			setColumnsClass("columns-2");
+		} else {
+			setMaxCharactersToShow(300);
+			setColumnsClass("columns-3");
+		}
+	}, [widget?.deviceWidth]);
+	
 	React.useEffect(() => {
 		if (widget) {
 			const newTestimonials = widget?.testimonials || [];
@@ -55,7 +66,7 @@ function BasicWall({ widget, setPage, isFetching, paginationData }: { widget: Wi
 	return (
 		<div className="flex flex-col gap-6">
 			<div
-				className={`${getColumnsClass()} gap-3 sm:gap-4 mx-auto px-2 sm:px-4 w-full [column-fill:_balance]`}
+				className={`${columnsClass} gap-3 sm:gap-4 mx-auto px-2 sm:px-4 w-full [column-fill:_balance]`}
 			>
 				{allTestimonials?.map((t: any) => (
 					<div
@@ -134,7 +145,7 @@ function BasicWall({ widget, setPage, isFetching, paginationData }: { widget: Wi
 											{t?.name}
 										</p>
 										<span
-											className="sm:text-[12px] font-[400] mt-[-5px] sm:mt-[-7px] p-0 block"
+											className="sm:text-[12px] font-[400] mt-[5px] sm:mt-[7px] p-0 block"
 											style={{
 												color: widget?.secondaryTextColor,
 											}}
@@ -148,13 +159,25 @@ function BasicWall({ widget, setPage, isFetching, paginationData }: { widget: Wi
 										value={t.stars}
 										readonly={true}
 										scale={0.8}
+										marginLeft={-10}
 									/>
 								</div>
 								<p
 									className="text-[13px] sm:text-[14px] mt-2 sm:mt-3 mb-3 sm:mb-4"
 									style={{ color: widget?.thirdTextColor }}
 								>
-									{t.message}
+									{t?.message.length > maxCharactersToShow && !isExpanded(t.id)
+									? `${t.message.slice(0, maxCharactersToShow)}... `
+									: t.message}
+
+									{t?.message.length > maxCharactersToShow && (
+										<span
+											onClick={() => toggle(t.id)}
+											className="text-blue-500 cursor-pointer hover:underline ml-1 text-sm"
+										>
+											{isExpanded(t.id) ? "See less" : "See more"}
+										</span>
+									)}
 								</p>
 								<span
 									className="text-[12px] sm:text-[14px] font-[500]"

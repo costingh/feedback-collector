@@ -6,13 +6,9 @@ import NoTestimonialsLinkedMessage from "../widgets/NoTestimonialsLinkedMessage"
 
 function RatingBadge({
 	transition,
-	testimonials,
-	numberOfReviews,
 	widget
 }: {
 	transition?: boolean;
-	testimonials: any;
-	numberOfReviews: number;
 	widget: any;
 }) {
 
@@ -24,7 +20,7 @@ function RatingBadge({
 					"transition-transform duration-300 ease-in-out group-hover:scale-110"
 			)}
 		>
-			{numberOfReviews > 0 ? (
+			{widget?._count?.testimonials > 0 ? (
 				<div className="flex items-center gap-2">
 					<div className="number text-gray-50 py-4 px-4 rounded-[6px] bg-[#000] flex items-center justify-center text-[18px] font-semibold">
 						{widget?.avgStars?.toFixed(1) || 0.0}
@@ -37,7 +33,7 @@ function RatingBadge({
 							/>
 						</div>
 						<span className="text-[#000] text-[14px] font-normal">
-							from {formatNumber(testimonials?.length || 0)}{" "}
+							from {formatNumber(widget?._count?.testimonials || 0)}{" "}
 							testimonials
 						</span>
 					</div>

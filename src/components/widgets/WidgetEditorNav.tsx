@@ -1,4 +1,4 @@
-import { Monitor, Smartphone, Tablet } from "lucide-react";
+import { ArrowLeft, Monitor, Smartphone, Tablet } from "lucide-react";
 import React, { Dispatch, useState, SetStateAction } from "react";
 import { Input } from "../ui/input";
 import {
@@ -9,7 +9,8 @@ import {
 } from "@/components/ui/tooltip";
 import { _STUDIO_SIDEBAR_BUTTONS } from "@/constants/studio-sidebar";
 import { cn } from "@/lib/utils";
-
+import { Button } from "../ui/button";
+import { useRouter } from "next/navigation";
 type WidgetEditorNavProps = {
 	deviceResolution: { width: number; height: number };
 	setDeviceResolution: (res: { width: number; height: number }) => void;
@@ -19,7 +20,7 @@ type WidgetEditorNavProps = {
 function WidgetEditorNav({ deviceResolution, setDeviceResolution, setActiveSubmenu }: WidgetEditorNavProps) {
 	// State to track the selected device (smartphone, tablet, monitor)
 	const [selectedDevice, setSelectedDevice] = useState<string>("monitor"); // Default is 'monitor'
-
+	const router = useRouter();
 	// Handler for device buttons
 	const handleDeviceClick = (device: string) => {
 		setSelectedDevice(device); // Set the selected device
@@ -76,19 +77,12 @@ function WidgetEditorNav({ deviceResolution, setDeviceResolution, setActiveSubme
 
 	return (
 		<div className="bg-white p-6 border-b-[1px] border-gray-200 flex items-center justify-between gap-4">
-			<div className="flex items-center">
-				{_STUDIO_SIDEBAR_BUTTONS.map((route, idx) => (
-					<TooltipProvider key={idx}>
-						<Tooltip delayDuration={0}>
-							<TooltipTrigger asChild>
-								{renderSidebarButton(route)}
-							</TooltipTrigger>
-							<TooltipContent side="right" sideOffset={5} align="start">
-								<p>{route.label}</p>
-							</TooltipContent>
-						</Tooltip>
-					</TooltipProvider>
-				))}
+			<div className="flex items-center gap-2">
+				{/* go back button */}
+				<Button variant="outline" size="icon" className="rounded-full" onClick={() => router.back()}>
+					<ArrowLeft className="h-4 w-4" />
+				</Button>
+				<span className="text-[13px] text-gray-700">Go back</span>
 			</div>
 			<div className="flex items-center gap-5">
 				<div className="flex items-center gap-2 bg-gray-100 rounded-[15px] px-[13px] py-[5px]">
@@ -134,7 +128,20 @@ function WidgetEditorNav({ deviceResolution, setDeviceResolution, setActiveSubme
 					<span>px</span>
 				</div>
 			</div>
-			<div></div>
+			<div className="flex items-center">
+				{_STUDIO_SIDEBAR_BUTTONS.map((route, idx) => (
+					<TooltipProvider key={idx}>
+						<Tooltip delayDuration={0}>
+							<TooltipTrigger asChild>
+								{renderSidebarButton(route)}
+							</TooltipTrigger>
+							<TooltipContent side="right" sideOffset={5} align="start">
+								<p>{route.label}</p>
+							</TooltipContent>
+						</Tooltip>
+					</TooltipProvider>
+				))}
+			</div>
 		</div>
 	);
 }

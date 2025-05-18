@@ -43,8 +43,8 @@ function Widget({
 				)}
 			>
 				{widget?.type == "basic_wall" && (
-					<div style={{ transform: "scale(0.4)", width: "600px" }}>
-						<BasicWall widget={widget} setPage={setPage} isFetching={isFetching} />
+					<div style={{ transform: "scale(0.6)", width: "600px" }}>
+						<BasicWall widget={{...widget, deviceWidth: 1200}} setPage={setPage} isFetching={isFetching} />
 					</div>
 				)}
 
@@ -57,8 +57,6 @@ function Widget({
 				{widget?.type == "rating_badge" && (
 					<div>
 						<RatingBadge
-							testimonials={widget?.testimonials}
-							numberOfReviews={widget?._count?.testimonials}
 							widget={widget}
 						/>
 					</div>

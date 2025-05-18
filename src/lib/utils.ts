@@ -116,7 +116,7 @@ function hexToLuminance(hex: string): number {
 }
 
 export const needsDarkBackground = (widget: any): boolean => {
-	if (widget?.type == 'avatars' && widget?.variant !== 'elite') return true;
+	if (widget?.type == 'avatars' && widget?.variant == 'elite') return true;
 	const rawHex = widget?.primaryTextColor;
 
 	if (!rawHex) return false;
