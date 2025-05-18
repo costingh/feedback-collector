@@ -15,9 +15,10 @@ type WidgetEditorNavProps = {
 	deviceResolution: { width: number; height: number };
 	setDeviceResolution: (res: { width: number; height: number }) => void;
 	setActiveSubmenu: Dispatch<SetStateAction<string>>;
+	workspaceId: string;
 };
 
-function WidgetEditorNav({ deviceResolution, setDeviceResolution, setActiveSubmenu }: WidgetEditorNavProps) {
+function WidgetEditorNav({ deviceResolution, setDeviceResolution, setActiveSubmenu, workspaceId }: WidgetEditorNavProps) {
 	// State to track the selected device (smartphone, tablet, monitor)
 	const [selectedDevice, setSelectedDevice] = useState<string>("monitor"); // Default is 'monitor'
 	const router = useRouter();
@@ -79,7 +80,7 @@ function WidgetEditorNav({ deviceResolution, setDeviceResolution, setActiveSubme
 		<div className="bg-white p-6 border-b-[1px] border-gray-200 flex items-center justify-between gap-4">
 			<div className="flex items-center gap-2">
 				{/* go back button */}
-				<Button variant="outline" size="icon" className="rounded-full" onClick={() => router.back()}>
+				<Button variant="outline" size="icon" className="rounded-full" onClick={() => router.push(`/dashboard/${workspaceId}/widgets`)}>
 					<ArrowLeft className="h-4 w-4" />
 				</Button>
 				<span className="text-[13px] text-gray-700">Go back</span>

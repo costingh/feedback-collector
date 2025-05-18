@@ -114,6 +114,7 @@ const EditWidget = ({ widgetId, workspaceId, initialData }: any) => {
 				setPage={handlePageChange}
 				setChecked={setChecked}
 				widgetId={widgetId}
+				workspaceId={workspaceId}
 			/>
 		</TagsProvider>
 	);
@@ -138,7 +139,8 @@ const EditWidgetContent = ({
 	onLoadMore,
 	setPage,
 	setChecked,
-	widgetId
+	widgetId,
+	workspaceId
 }: any) => {
 	const { tags, groupedTags } = useTagsContext();
 
@@ -156,6 +158,7 @@ const EditWidgetContent = ({
 				deviceResolution={deviceResolution}
 				setDeviceResolution={setDeviceResolution}
 				setActiveSubmenu={setActiveSubmenu}
+				workspaceId={workspaceId}
 			/>
 
 			<div className="flex h-[calc(100vh-100px)] overflow-hidden">
