@@ -19,6 +19,7 @@ import CallToAction from "./_components/call-to-action";
 import Container from "@/components/layout/container";
 import IntroBanner from "./_components/intro-banner";
 import { CTABanner2 } from "./_components/cta-banner-2";
+import FeaturesSection from "./_components/features-section";
 
 const LandingPage = () => {
 	return (
@@ -33,7 +34,7 @@ const LandingPage = () => {
 					<CTABanner2 />
 				</div>
 			</div>
-			<div className="w-full bg-[#050520] pt-[80px] px-[100px] pb-[130px]">
+			<div id='features' className="w-full bg-[#050520] pt-[80px] px-[100px] pb-[130px]">
 				<div className="flex items-center justify-center flex-col gap-4">
 					<div className="text-center">
 						<h2 className="text-transparent bg-clip-text text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight bg-gradient-to-b from-white to-[#7496F8] text-transparent bg-clip-text">
@@ -69,114 +70,8 @@ const LandingPage = () => {
 				<IntroBanner />
 				<UseSteps />
 				<WhyUseFeedbackz />
-
-				<div id="#features" className="w-full">
-					<div
-						className="max-w-full md:max-w-[85%] lg:max-w-[80%] xl:max-w-[75%] mx-auto px-5 h-full"
-					>
-						<div className="flex">
-							<div className="w-[50%] flex flex-col gap-4">
-								<p className="text-[#9ca3af]">
-									Seamless Testimonial Collection
-								</p>
-
-								<h2
-									className="text-transparent mx-auto bg-clip-text text-md font-extrabold sm:text-md lg:text-4xl">
-									<span className="text-transparent bg-gradient-to-b from-white from-70% to-[#b2b2b2] bg-clip-text">Easily gather{" "}</span>
-									<span className="text-transparent bg-gradient-to-b from-white from-30% to-[#7496F8] bg-clip-text">authentic testimonials{" "}</span>
-									<span className="text-transparent bg-gradient-to-b from-white from-70% to-[#b2b2b2] bg-clip-text">from your website with customizable forms and popups.</span>
-								</h2>
-
-								<span className="text-[#9ca3af]">
-									Say goodbye to missed opportunities and let your
-									customers share their positive experiences
-									effortlessly.
-								</span>
-								<HeroButton variant="sm" text="Try Feedbackz for free" />
-							</div>
-							<div className="w-[50%]">
-								<Image
-									src="/images/webp-optimized/image-1.webp"
-									alt="Feedbackz form embedded on site"
-									width={400}
-									height={400}
-									sizes="(max-width: 768px) 100vw, 50vw"
-									placeholder="blur"
-									blurDataURL="/images/webp-blured/image-1.webp"
-									className="mx-auto max-w-[400px]"
-								/>
-							</div>
-						</div>
-
-						<div className="divider h-[100px]"></div>
-
-						<div className="flex">
-							<div className="w-[50%] flex flex-col gap-4">
-								<Image
-									src="/images/webp-optimized/demo-showcase-options.webp"
-									alt="Testimonial wall and widgets"
-									width={400}
-									height={400}
-									sizes="(max-width: 768px) 100vw, 50vw"
-									placeholder="blur"
-									blurDataURL="/images/webp-blured/demo-showcase-options.webp"
-									className="w-full max-w-[400px]"
-								/>
-							</div>
-							<div className="w-[50%] flex flex-col gap-4">
-								<p className="text-[#9ca3af]">
-									Dynamic Showcase Options
-								</p>
-								<h2
-									className="text-transparent mx-auto bg-clip-text text-md font-extrabold sm:text-md lg:text-4xl">
-									<span className="text-transparent bg-gradient-to-b from-white from-70% to-[#b2b2b2] bg-clip-text">Display testimonials in style{" "}</span>
-									<span className="text-transparent bg-gradient-to-b from-white from-30% to-[#7496F8] bg-clip-text">with customizable widgets and testimonial{" "}</span>
-									<span className="text-transparent bg-gradient-to-b from-white from-70% to-[#b2b2b2] bg-clip-text">walls</span>
-								</h2>
-								<span className="text-[#9ca3af]">
-									Transform your website into a trust-building
-									platform that highlights real customer satisfaction
-									and boosts credibility.
-								</span>
-								<HeroButton variant="sm" text="Try Feedbackz for free" />
-							</div>
-						</div>
-
-						<div className="divider h-[100px]"></div>
-
-						<div className="flex">
-							<div className="w-[50%] flex flex-col gap-4">
-								<p className="text-[#9ca3af]">
-									Effortless Integration
-								</p>
-								<h2
-									className="text-transparent mx-auto bg-clip-text text-md font-extrabold sm:text-md lg:text-4xl">
-									<span className="text-transparent bg-gradient-to-b from-white from-70% to-[#b2b2b2] bg-clip-text">Integrate Feedbackz seamlessly{" "}</span>
-									<span className="text-transparent bg-gradient-to-b from-white from-30% to-[#7496F8] bg-clip-text">into your existing website or SaaS platform{" "}</span>
-								</h2>
-								<span className="text-[#9ca3af]">
-									Enjoy a hassle-free setup that allows you to start
-									collecting and showcasing testimonials without any
-									technical headaches.
-								</span>
-								<HeroButton variant="sm" text="Try Feedbackz for free" />
-							</div>
-							<div className="w-[50%]">
-								<Image
-									src="/images/webp-optimized/demo-website-integration.webp"
-									alt="Integrate Feedbackz with your SaaS"
-									width={400}
-									height={400}
-									sizes="(max-width: 768px) 100vw, 50vw"
-									placeholder="blur"
-									blurDataURL="/images/webp-blured/demo-website-integration.webp"
-									className="mx-auto w-[400px]"
-								/>
-							</div>
-						</div>
-					</div>
-				</div>
-
+				<FeaturesSection/>
+				
 				<Faq />
 				<CallToAction />
 			</div>

@@ -14,7 +14,7 @@ export const getDashboardStats = async (workspaceId: string) => {
         const [workspacesCount, forms, widgetsCount, testimonialsCount] = await Promise.all([
             client.workSpace.count({ where: { userId: userInfo.id } }),
             client.form.findMany({
-                where: { userId: user.id, workspaceId },
+                where: { userId: user.id, workspaceId, isGhostForm: false },
                 select: { id: true, name: true, isPaused: true, published: true },
             }),
             client.widget.count({ where: { userId: user.id, workspaceId } }),

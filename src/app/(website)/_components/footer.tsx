@@ -15,6 +15,25 @@ function Footer() {
 						<h3 className="text-[15px] font-semibold text-gray-900">
 							Product
 						</h3>
+						
+						<Link
+							href="/#features"
+							className="text-[15px] text-gray-500 cursor-pointer transition-all hover:pl-2 hover:text-gray-900 font-[300]"
+						>
+							Features
+						</Link>
+						<Link
+							href="/#faq"
+							className="text-[15px] text-gray-500 cursor-pointer transition-all hover:pl-2 hover:text-gray-900 font-[300]"
+						>
+							FAQ
+						</Link>
+						<Link
+							href="/feedbackz-pricing"
+							className="text-[15px] text-gray-500 cursor-pointer transition-all hover:pl-2 hover:text-gray-900 font-[300]"
+						>
+							Pricing
+						</Link>
 						<Link
 							href="/auth/sign-in"
 							className="text-[15px] text-gray-500 cursor-pointer transition-all hover:pl-2 hover:text-gray-900 font-[300]"
@@ -26,18 +45,6 @@ function Footer() {
 							className="text-[15px] text-gray-500 cursor-pointer transition-all hover:pl-2 hover:text-gray-900 font-[300]"
 						>
 							Register
-						</Link>
-						<Link
-							href="/#features"
-							className="text-[15px] text-gray-500 cursor-pointer transition-all hover:pl-2 hover:text-gray-900 font-[300]"
-						>
-							Features
-						</Link>
-						<Link
-							href="/feedbackz-pricing"
-							className="text-[15px] text-gray-500 cursor-pointer transition-all hover:pl-2 hover:text-gray-900 font-[300]"
-						>
-							Pricing
 						</Link>
 					</div>
 

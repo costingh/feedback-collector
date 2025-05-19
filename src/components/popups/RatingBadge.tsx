@@ -17,12 +17,12 @@ function RatingBadge({
 			className={clsx(
 				"",
 				transition &&
-					"transition-transform duration-300 ease-in-out group-hover:scale-110"
+				"transition-transform duration-300 ease-in-out group-hover:scale-110"
 			)}
 		>
 			{widget?._count?.testimonials > 0 ? (
 				<div className="flex items-center gap-2">
-					<div className="number text-gray-50 py-4 px-4 rounded-[6px] bg-[#000] flex items-center justify-center text-[18px] font-semibold">
+					<div className="number py-4 px-4 rounded-[6px] flex items-center justify-center text-[18px] font-semibold" style={{ backgroundColor: widget?.cardBackground, color: widget?.secondaryTextColor }}>
 						{widget?.avgStars?.toFixed(1) || 0.0}
 					</div>
 					<div className="">
@@ -32,14 +32,14 @@ function RatingBadge({
 								readonly
 							/>
 						</div>
-						<span className="text-[#000] text-[14px] font-normal">
+						<span className="text-[14px] font-normal" style={{ color: widget?.primaryTextColor }}>
 							from {formatNumber(widget?._count?.testimonials || 0)}{" "}
 							testimonials
 						</span>
 					</div>
 				</div>
 			) : (
-				<NoTestimonialsLinkedMessage widget={widget}/>
+				<NoTestimonialsLinkedMessage widget={widget} />
 			)}
 		</div>
 	);

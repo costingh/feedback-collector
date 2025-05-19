@@ -20,7 +20,7 @@ const LandingPageNavBar = () => {
 			const scrolledPast100vh = window.scrollY >= 250;
 			setIsScrolled(scrolledPast100vh);
 
-			if(pathname?.includes("feedbackz-pricing")) {
+			if (pathname?.includes("feedbackz-pricing")) {
 				setIsScrolled(true);
 			}
 		};
@@ -67,32 +67,32 @@ const LandingPageNavBar = () => {
 				{/* Desktop Menu */}
 				<div className="hidden lg:flex items-center gap-x-10">
 					<Link
-						href="/"
-						className="text-sm text-slate-100 hover:cursor-pointer hover:text-gray-200"
-					>
-						Home
-					</Link>
-					<Link
 						onClick={() => handleHashChange("#features")}
 						href="#features"
 						className="text-sm text-slate-100 hover:cursor-pointer hover:text-gray-200"
 					>
 						Features
 					</Link>
-					<Link href="/feedbackz-pricing">
-						<div className="text-sm text-slate-100 hover:cursor-pointer hover:text-gray-200">
-							Pricing
-						</div>
+					<Link
+						onClick={() => handleHashChange("#faq")}
+						href="#faq"
+						className="text-sm text-slate-100 hover:cursor-pointer hover:text-gray-200"
+					>
+						FAQ
+					</Link>
+					<Link href="/blog" className="text-sm text-slate-100 hover:cursor-pointer hover:text-gray-200">
+						Blog
+					</Link>
+					<Link href="/feedbackz-pricing" className="text-sm text-slate-100 hover:cursor-pointer hover:text-gray-200">
+						Pricing
 					</Link>
 					<Link href="/tos">
 						<div className="text-sm text-slate-100 hover:cursor-pointer hover:text-gray-200">
 							Terms of Service
 						</div>
 					</Link>
-					<Link href="/privacy-policy">
-						<div className="text-sm text-slate-100 hover:cursor-pointer hover:text-gray-200">
-							Privacy Policy
-						</div>
+					<Link href="/privacy-policy" className="text-sm text-slate-100 hover:cursor-pointer hover:text-gray-200">
+						Privacy Policy
 					</Link>
 				</div>
 
@@ -125,16 +125,20 @@ const LandingPageNavBar = () => {
 			{isMobileMenuOpen && (
 				<div className="md:hidden flex flex-col items-center bg-[#050520] py-3 space-y-2 h-[100vh]">
 					<Link
-						href="/"
-						className="text-md text-slate-100 hover:cursor-pointer hover:text-gray-200"
-					>
-						Home
-					</Link>
-					<Link
 						href="#features"
 						className="text-md text-slate-100 hover:cursor-pointer hover:text-gray-200"
 					>
 						Features
+					</Link>
+					<Link
+						onClick={() => handleHashChange("#faq")}
+						href="#faq"
+						className="text-sm text-slate-100 hover:cursor-pointer hover:text-gray-200"
+					>
+						FAQ
+					</Link>
+					<Link href="/blog" className="text-sm text-slate-100 hover:cursor-pointer hover:text-gray-200">
+						Blog
 					</Link>
 					<Link
 						href="/feedbackz-pricing"

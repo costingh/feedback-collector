@@ -13,7 +13,7 @@ function VideoWithFallback({ src }: { src: string }) {
 
 	return (
 		<video
-			className="w-full h-full object-cover"
+			className="w-full h-full object-cover bg-gray-200"
 			controls
 			preload="metadata"
 			onError={() => setHasError(true)}

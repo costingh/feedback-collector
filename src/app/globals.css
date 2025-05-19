@@ -364,7 +364,7 @@ nav::-webkit-scrollbar {
 	background: radial-gradient(103.78% 100% at 50% 0%, #7692ff00 80.55%, #7a96ff0a), radial-gradient(120.05% 100% at 50% 0%, #e2e8ff00 33.78%, #e2e8ff14), #e2e8ff03;
 	box-shadow: 0 -28px 84px -24px #e2e8ff1f inset;
 	position: relative;
-	display: flex;
+	/* display: flex; */
 	gap: 6px;
 }
 

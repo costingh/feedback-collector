@@ -276,6 +276,42 @@ const CustomizeWidget: React.FC<CustomizeLabelsProps> = ({
 					</>
 				)}
 
+{widget?.type == "rating_badge" && (
+					<>
+						<p className="text-[14px] font-[600] text-[#000] mt-5">Customize colors:</p>
+						<div className='mt-3'>
+							<span className="text-[13px] font-normal text-gray-400 leading-[17px]">
+								Choose background color for cards
+							</span>
+							<ColorPicker
+								inputValue={widget?.cardBackground}
+								// @ts-ignore
+								setInputValue={(color: string) => setWidget((prevWidget) => ({ ...prevWidget, cardBackground: color }))}
+							/>
+						</div>
+						<div className='mt-3'>
+							<span className="text-[13px] font-normal text-gray-400 leading-[17px]">
+								Choose primary text color
+							</span>
+							<ColorPicker
+								inputValue={widget?.primaryTextColor}
+								// @ts-ignore
+								setInputValue={(color: string) => setWidget((prevWidget) => ({ ...prevWidget, primaryTextColor: color }))}
+							/>
+						</div>
+						<div className='mt-3'>
+							<span className="text-[13px] font-normal text-gray-400 leading-[17px]">
+								Choose secondary text color
+							</span>
+							<ColorPicker
+								inputValue={widget?.secondaryTextColor}
+								// @ts-ignore
+								setInputValue={(color: string) => setWidget((prevWidget) => ({ ...prevWidget, secondaryTextColor: color }))}
+							/>
+						</div>
+					</>
+				)}
+
 				{widget?.type == 'avatars' && <>
 					{formLabels.map((label) => (
 						<LabelEdit

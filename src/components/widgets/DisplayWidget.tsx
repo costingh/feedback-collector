@@ -23,7 +23,7 @@ function DisplayWidget({ widget, setPage, isFetching, paginationData }: { widget
 						))}
 
 					{widget.type == "rating_badge" && (
-						<RatingBadge testimonials={widget?.testimonials} numberOfReviews={widget?._count?.testimonials} widget={widget} />
+						<RatingBadge widget={widget} />
 					)}
 
 					{widget.type == "social_star" && (
