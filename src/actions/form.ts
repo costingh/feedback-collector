@@ -66,6 +66,7 @@ export const getUserForms = async (workspaceId: string) => {
             where: {
                 workspaceId,
                 // userId: user.id, // FIX for shared workspaces
+                isGhostForm: false,
             },
             include: {
                 formFields: true,

@@ -11,6 +11,7 @@ import { UnratedIconVariant2 } from "@/app/(website)/_components/icons/unrated-i
 import { RatedIconVariant2 } from "@/app/(website)/_components/icons/rated-icon-variant-2";
 import TestimonialsSourceComponent from "./TestimonialsSourceComponent";
 import { useExpandableText } from "@/hooks/useExpandableText";
+import VideoWithFallback from "../global/video/VideoWithFallback";
 
 function TestimonialsList({
 	testimonials,
@@ -61,14 +62,7 @@ function TestimonialsList({
 						<div className="w-full text-left">
 							{t.video && (
 								<div className="w-[200px] h-[150px] rounded-lg overflow-hidden mb-5">
-									<video
-										className="w-full h-full object-cover"
-										controls
-										preload="metadata"
-									>
-										<source src={t.video} type="video/mp4" />
-										Your browser does not support the video tag.
-									</video>
+									<VideoWithFallback src={t.video} />
 								</div>
 							)}
 

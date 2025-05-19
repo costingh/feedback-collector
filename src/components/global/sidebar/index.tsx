@@ -70,7 +70,7 @@ const Sidebar = ({ activeWorkspaceId }: Props) => {
 			<nav className="w-full overflow-y-scroll">
 				<ul>
 					{menuItems.map((item) => (
-						<>
+						<React.Fragment key={item.title}>
 							{item?.href ? <SidebarItem
 								href={item.href || ""}
 								icon={item.icon}
@@ -84,7 +84,7 @@ const Sidebar = ({ activeWorkspaceId }: Props) => {
 									0
 								}
 							/> : <div className="text-gray-400 text-[12px] font-semibold ml-2 my-2">{item.title}</div>}
-						</>
+						</React.Fragment>
 					))}
 				</ul>
 			</nav>
