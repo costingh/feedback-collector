@@ -60,7 +60,7 @@ const features = [
 export default function FeaturesSection() {
     return (
         <Container className="my-[100px]">
-            <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 mb-[60px]">
+            <div className="mx-auto flex max-w-5xl flex-col gap-6 px-4 mb-[60px]">
                 <h2 className="text-transparent mx-auto bg-clip-text text-center text-3xl font-extrabold lg:text-5xl lg:leading-[60px]">
                     <span className="text-transparent bg-gradient-to-b from-white from-70% to-[#b2b2b2] bg-clip-text">Collect powerful testimonials </span>
                     <span className="text-transparent bg-gradient-to-b from-white from-30% to-[#7496F8] bg-clip-text">with branded forms, </span>

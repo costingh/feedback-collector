@@ -31,7 +31,7 @@ export default function WhyUseFeedbackz() {
     return (
         <section id="why-use-feedbackz">
             <div className="container-lp relative z-10 mx-auto pb-[100px]">
-                <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4">
+                <div className="mx-auto flex max-w-5xl flex-col gap-6 px-4">
                     <h2 className="text-transparent mx-auto bg-clip-text text-center text-3xl font-extrabold lg:text-5xl lg:leading-[60px]">
                         <span className="text-transparent bg-gradient-to-b from-white from-70% to-[#b2b2b2] bg-clip-text">How we </span>
                         <span className="text-transparent bg-gradient-to-b from-white from-30% to-[#7496F8] bg-clip-text">transform </span>

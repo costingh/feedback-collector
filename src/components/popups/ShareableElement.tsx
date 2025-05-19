@@ -117,7 +117,7 @@ function ShareableElement({ type, workspaceId }: { type: string, workspaceId: st
                 </div>}
 
                 {type == 'rating_badge' && <div>
-                    <RatingBadge transition={true} widget={mockWidget} />
+                    <RatingBadge transition={true} widget={{ ...mockWidget, cardBackground: '#000', primaryTextColor: '#000', secondaryTextColor: '#fff' }} />
                 </div>}
 
                 {type == 'social_star' && <div style={{ transform: 'scale(0.8)' }}>
