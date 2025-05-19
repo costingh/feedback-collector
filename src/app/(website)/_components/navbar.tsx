@@ -20,7 +20,7 @@ const LandingPageNavBar = () => {
 			const scrolledPast100vh = window.scrollY >= 250;
 			setIsScrolled(scrolledPast100vh);
 
-			if (pathname?.includes("feedbackz-pricing")) {
+			if (pathname?.includes("feedbackz-pricing") || pathname?.includes("blog")) {
 				setIsScrolled(true);
 			}
 		};
