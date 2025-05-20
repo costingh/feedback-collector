@@ -96,6 +96,7 @@ const CustomizeWidget: React.FC<CustomizeLabelsProps> = ({
 						{widget?.type == "social_star" && "Social Star"}
 						{widget?.type == "rating_badge" && "Rating Badge"}
 						{widget?.type == "avatars" && "Avatars"}
+						{widget?.type == "minimalist_review" && "Minimalist Review"}
 					</span>
 				</div>
 
@@ -220,7 +221,7 @@ const CustomizeWidget: React.FC<CustomizeLabelsProps> = ({
 					</>
 				)}
 
-				{widget?.type == "social_star" && (
+				{widget?.type == "social_star" || widget?.type == "minimalist_review" && (
 					<>
 						<p className="text-[14px] font-[600] text-[#000] mt-5">Customize colors:</p>
 						<div className='mt-3'>

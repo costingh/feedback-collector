@@ -90,7 +90,7 @@ function Widget({
 
 				{widget?.type == "minimalist_review" && (
 					<div style={{ transform: "scale(0.8)" }}>
-						<MinimalistReview review={widget?.testimonials[0]} />
+						<MinimalistReview review={widget?.testimonials[0]} primaryTextColor={widget?.primaryTextColor} secondaryTextColor={widget?.secondaryTextColor} thirdTextColor={widget?.thirdTextColor} cardBackground={widget?.cardBackground} cardBorderColor={widget?.cardBorderColor}/>
 					</div>
 				)}
 
@@ -116,6 +116,7 @@ function Widget({
 						{widget?.type == "social_star" && "Social Star"}
 						{widget?.type == "rating_badge" && "Rating Badge"}
 						{widget?.type == "avatars" && "Avatars"}
+						{widget?.type == "minimalist_review" && "Minimalist Review"}
 					</span>
 				</div>
 			</div>

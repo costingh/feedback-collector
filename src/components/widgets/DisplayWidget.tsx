@@ -35,7 +35,7 @@ function DisplayWidget({ widget, setPage, isFetching, paginationData }: { widget
 					)}
 
 					{widget.type == "minimalist_review" && (
-						<MinimalistReview review={widget?.testimonials?.[0]}/>
+						<MinimalistReview review={widget?.testimonials?.[0]} primaryTextColor={widget?.primaryTextColor} secondaryTextColor={widget?.secondaryTextColor} thirdTextColor={widget?.thirdTextColor} cardBackground={widget?.cardBackground} cardBorderColor={widget?.cardBorderColor}/>
 					)}
 				</div>
 			)}

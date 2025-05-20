@@ -120,8 +120,8 @@ function ShareableElement({ type, workspaceId }: { type: string, workspaceId: st
                     <RatingBadge transition={true} widget={{ ...mockWidget, cardBackground: '#000', primaryTextColor: '#000', secondaryTextColor: '#fff' }} />
                 </div>}
 
-                {type == 'social_star' && <div style={{ transform: 'scale(0.8)' }}>
-                    <SocialStar transition={true} testimonials={testimonialsMock.slice(0, 1)} numberOfReviews={1041} widget={null} />
+                {type == 'social_star' && <div>
+                    <SocialStar transition={true} testimonials={testimonialsMock.slice(0, 1)} numberOfReviews={1041} widget={null} style={{transform: 'scale(0.6)'}} />
                 </div>}
 
                 {type == 'hero_quotes' && <div style={{ transform: 'scale(0.8)' }}>
@@ -134,7 +134,7 @@ function ShareableElement({ type, workspaceId }: { type: string, workspaceId: st
                 </div>}
 
                 {type == 'minimalist_review' && <div style={{ transform: 'scale(0.8)' }}>
-                    <MinimalistReview review={testimonialsMock[0]} />
+                    <MinimalistReview review={testimonialsMock[0]} primaryTextColor={mockWidget.primaryTextColor} secondaryTextColor={mockWidget.secondaryTextColor} thirdTextColor={mockWidget.thirdTextColor} cardBackground={mockWidget.cardBackground} cardBorderColor={mockWidget.cardBorderColor} />
                 </div>}
             </div>
             <div className="bottom w-full py-4 px-5">

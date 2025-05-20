@@ -155,10 +155,10 @@ const UpdateWidgetHighlightedTestimonials = ({
 		useMutationData(
 			["add-testimonials-for-widget"],
 			() => updateWidget(widgetId, Array.from(checkedItems)),
-			["shared-widget"],
+			['widget', widgetId],
 			() => {
 				handleClose();
-			}	
+			},
 		);
 
 	return (

@@ -9,17 +9,19 @@ function SocialStar({
 	transition,
 	testimonials,
 	numberOfReviews,
-	widget
+	widget,
+	style
 }: {
 	transition?: boolean;
 	testimonials: any;
 	numberOfReviews: number;
 	widget: any;
+	style?: React.CSSProperties;
 }) {
 	return (
 		<>
 			{numberOfReviews > 0 ? (
-				<div className="w-full flex flex-col items-center gap-4">
+				<div className="w-full flex flex-col items-center gap-4" style={style || {}}>
 					{testimonials.map((t: any) => (
 						<div
 							key={t.id}
