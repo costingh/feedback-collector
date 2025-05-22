@@ -191,6 +191,7 @@ model Widget {
   thirdTextColor     String            @default("#374151")
   cardBorderColor    String            @default("#e5e7eb")
   variant            String            @default("")
+  assetColorVariant   String          @default("white")
   WidgetAnalytics    WidgetAnalytics[]
   workspaceId        String
   workspace          WorkSpace         @relation(fields: [workspaceId], references: [id])

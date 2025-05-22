@@ -17,6 +17,7 @@ import ColorPicker from "../forms/form-editor/ColorPicker";
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "../ui/select";
 
+
 interface CustomizeLabelsProps {
 	widget: Widget & { _count: { testimonials: number } } & { avgStars: number } | null | undefined;
 	setWidget: (widget: Widget) => void;
@@ -37,10 +38,18 @@ const CustomizeWidget: React.FC<CustomizeLabelsProps> = ({
 
 	const { mutate: handleUpdate, isPending: isLoading } = useMutationData(
 		["add-testimonials-for-widget"],
-		() => customizeWidget(widget?.id, widget?.widgetDescription || "", widget?.cardBackground || "", widget?.primaryTextColor || "", widget?.secondaryTextColor || "", widget?.thirdTextColor || "", widget?.cardBorderColor || "", widget?.variant || ""),
+		() => customizeWidget(widget?.id, widget?.widgetDescription || "", widget?.cardBackground || "", widget?.primaryTextColor || "", widget?.secondaryTextColor || "", widget?.thirdTextColor || "", widget?.cardBorderColor || "", widget?.variant || "", widget?.assetColorVariant || ""),
 		["shared-widget"],
 		() => { }
 	);
+
+	const handleChangeAssetValue = (value: string) => {
+		setWidget({
+			...widget,
+			// @ts-ignore
+			assetColorVariant: value,
+		});
+	}
 
 	const [formLabels, setFormLabels] = useState<FormLabelsType[]>([
 		{
@@ -112,11 +121,21 @@ const CustomizeWidget: React.FC<CustomizeLabelsProps> = ({
 				{widget?.type == "avatars" && (
 					<>
 						<Label className="text-[14px] font-[600] text-[#000]">
+							Choose Asset Theme
+						</Label>
+
+						<div className="flex flex-row items-center gap-2 my-2">
+							<div className="w-6 h-6 rounded-[10px] bg-white border-[1px] border-gray-200 cursor-pointer" onClick={() => handleChangeAssetValue('white')}></div>
+							<div className="w-6 h-6 rounded-[10px] bg-[#ffbf00] border-[1px] border-gray-200 cursor-pointer" onClick={() => handleChangeAssetValue('gold')}></div>
+							<div className="w-6 h-6 rounded-[10px] bg-[#d9d9d9] border-[1px] border-gray-200 cursor-pointer" onClick={() => handleChangeAssetValue('silver')}></div>
+							<div className="w-6 h-6 rounded-[10px] bg-black border-[1px] border-gray-200 cursor-pointer" onClick={() => handleChangeAssetValue('black')}></div>
+						</div>
+
+						<Label className="text-[14px] font-[600] text-[#000]">
 							Choose a Variant
 						</Label>
 						<Select
 							value={widget?.variant || 'simple'}
-							// @ts-ignore
 							onValueChange={(value) =>
 								setWidget({
 									...widget,

@@ -3,7 +3,7 @@ import StarsRating from "@/components/stars/stars-rating";
 import Image from "next/image";
 import { Widget } from "@prisma/client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { formatNumberOfReviews, needsDarkBackground } from "@/lib/utils";
+import { formatNumberOfReviews, getAssetColorVariant, needsDarkBackground } from "@/lib/utils";
 import NoTestimonialsLinkedMessage from "./NoTestimonialsLinkedMessage";
 
 function EliteAvatarsVariant({
@@ -28,7 +28,7 @@ function EliteAvatarsVariant({
 					)}
 				>
 					<img
-						src="/images/avatars-testimonial-grain.png"
+						src={getAssetColorVariant(widget)}
 						alt="Elite Widget"
 						width={50}
 						height={50}
@@ -80,7 +80,7 @@ function EliteAvatarsVariant({
 						</div>
 					</div>
 					<img
-						src="/images/avatars-testimonial-grain.png"
+						src={getAssetColorVariant(widget)}
 						alt="Elite Widget"
 						width={50}
 						height={50}

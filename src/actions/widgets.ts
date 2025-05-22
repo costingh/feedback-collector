@@ -199,7 +199,7 @@ export const updateWidget = async (widgetId: string, testimonialsIds: string[]) 
     }
 };
 
-export const customizeWidget = async (widgetId: string, description: string, cardBackground: string, primaryTextColor: string, secondaryTextColor: string, thirdTextColor: string, cardBorderColor: string, variant: string) => {
+export const customizeWidget = async (widgetId: string, description: string, cardBackground: string, primaryTextColor: string, secondaryTextColor: string, thirdTextColor: string, cardBorderColor: string, variant: string, assetColorVariant: string) => {
     try {
         if (!widgetId) return { status: 404 };
 
@@ -214,7 +214,8 @@ export const customizeWidget = async (widgetId: string, description: string, car
                 secondaryTextColor: secondaryTextColor,
                 thirdTextColor: thirdTextColor,
                 cardBorderColor: cardBorderColor,
-                variant: variant
+                variant: variant,
+                assetColorVariant: assetColorVariant
             },
         });
 

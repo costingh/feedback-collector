@@ -4,7 +4,7 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { Widget } from "@prisma/client";
 import CustomizeWidget from "./CustomizeWidget";
 interface ISidebarProps {
-	widget: Widget & { _count: { testimonials: number } } & { avgStars: number } | null | undefined,
+	widget: Widget & { _count: { testimonials: number } } & { avgStars: number } | null | undefined;
 	setWidget:  Dispatch<SetStateAction<Widget | null>>;
 }
 

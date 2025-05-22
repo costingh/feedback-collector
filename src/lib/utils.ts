@@ -115,7 +115,9 @@ function hexToLuminance(hex: string): number {
 }
 
 export const needsDarkBackground = (widget: any): boolean => {
-	if (widget?.type == 'avatars' && widget?.variant == 'elite') return true;
+	if (widget?.type == 'avatars' && widget?.variant == 'elite' && (widget?.assetColorVariant == 'white' || widget?.assetColorVariant == 'silver')) return true;
+	else if (widget?.type == 'avatars' && widget?.variant == 'elite' &&( widget?.assetColorVariant == 'gold' || widget?.assetColorVariant == 'black' )) return false;
+	
 	const rawHex = widget?.primaryTextColor;
 
 	if (!rawHex) return false;
@@ -128,6 +130,22 @@ export const needsDarkBackground = (widget: any): boolean => {
 	// If luminance is high, background is bright, so we need dark text
 	return luminance > 0.5;
 };
+
+export const getAssetColorVariant = (widget: any) => {
+	if (widget.type === 'avatars') {
+		if(widget.assetColorVariant === 'gold') {
+			return '/images/avatars-testimonial-grain-gold.png';
+		} else if (widget.assetColorVariant === 'silver') {
+			return '/images/avatars-testimonial-grain-silver.png';
+		} else if (widget.assetColorVariant === 'black') {
+			return '/images/avatars-testimonial-grain-black.png';
+		} else if (widget.assetColorVariant === 'white') {
+			return '/images/avatars-testimonial-grain.png';
+		} else {
+			return '/images/avatars-testimonial-grain.png';
+		}
+	}
+}
 
 export const extractWidgetColors = (widget: any) => {
 	if (widget.type === 'rating_badge') {
