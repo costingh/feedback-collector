@@ -11,12 +11,7 @@ type WidgetType = {
 	[key: string]: any;
 };
 
-type PaginationData = {
-	page: number;
-	hasMore: boolean;
-};
-
-const EmbeddableWidget = ({ params, widgetData, paginationData }: { params: { url: string }, widgetData?: any, paginationData?: any}) => {
+const EmbeddableWidget = ({ params }: { params: { url: string } }) => {
 	const [widget, setWidget] = useState<WidgetType | null>(null);
 	const [page, setPage] = useState(1);
 	const [isFetching, setIsFetching] = useState(false);
@@ -40,6 +35,7 @@ const EmbeddableWidget = ({ params, widgetData, paginationData }: { params: { ur
 				const prevTestimonials = prev?.testimonials || [];
 				return {
 					...baseWidget,
+					pagination: data?.widget?.pagination,
 					testimonials: [...prevTestimonials, ...newTestimonials],
 					_count: {
 						...baseWidget._count,
@@ -58,14 +54,8 @@ const EmbeddableWidget = ({ params, widgetData, paginationData }: { params: { ur
 	};
 
 	useEffect(() => {
-		if(!widgetData) {
-			fetchWidget(page);
-		} else {
-			setWidget(widgetData)
-			setIsFetching(false);
-			setLoading(false);
-		}
-	}, [page, widgetData]);
+		fetchWidget(page);
+	}, [page])
 
 	const handlePageChange = () => {
 		if (hasMore && !isFetching) {
@@ -75,7 +65,7 @@ const EmbeddableWidget = ({ params, widgetData, paginationData }: { params: { ur
 
 	if (loading) {
 		return (
-			<div className="w-full h-full flex items-center justify-center">
+			<div className="w-full min-h-screen flex items-center justify-center">
 				<LoadingSpinner size={30} />
 			</div>
 		);
@@ -83,7 +73,7 @@ const EmbeddableWidget = ({ params, widgetData, paginationData }: { params: { ur
 
 	if (!widget || !widget.testimonials?.length) {
 		return (
-			<div className="w-full h-full flex items-center justify-center">
+			<div className="w-full min-h-screen flex items-center justify-center">
 				<div className="flex flex-col items-center justify-center max-w-lg text-center">
 					<h1 className="text-black font-bold text-[20px] mb-2">
 						Oops, no testimonials found
@@ -97,12 +87,14 @@ const EmbeddableWidget = ({ params, widgetData, paginationData }: { params: { ur
 	}
 
 	return (
-		<DisplayWidget
-			widget={widget}
-			setPage={handlePageChange}
-			isFetching={isFetching}
-			paginationData={paginationData ? paginationData : { page, hasMore }}
-		/>
+		<div className='py-6'>
+			<DisplayWidget
+				widget={widget}
+				setPage={handlePageChange}
+				isFetching={isFetching}
+				paginationData={widget?.pagination ? widget?.pagination : { page, hasMore }}
+			/>
+		</div>
 	);
 };
 
