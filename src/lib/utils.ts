@@ -2,7 +2,6 @@ import { clsx, type ClassValue } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 import { Tag } from "@/types/Tag";
 import { Metadata } from 'next';
-import { Widget } from '@prisma/client';
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs))
@@ -129,6 +128,35 @@ export const needsDarkBackground = (widget: any): boolean => {
 	// If luminance is high, background is bright, so we need dark text
 	return luminance > 0.5;
 };
+
+export const extractWidgetColors = (widget: any) => {
+	if (widget.type === 'rating_badge') {
+		widget.cardBackground = '#000';
+		widget.primaryTextColor = '#000';
+		widget.secondaryTextColor = '#fff';
+	} else if (widget.type === 'hero_quotes') {
+		widget.cardBackground = 'transparent';
+		widget.primaryTextColor = '#1a202c';
+		widget.secondaryTextColor = '#cbd5e0';
+		widget.thirdTextColor = '#90cdf4';
+	} else if (widget.type === 'rating_badge') {
+		widget.cardBackground = '#000';
+		widget.primaryTextColor = '#000';
+		widget.secondaryTextColor = '#fff';
+	} else if (widget.type === 'hero_quotes') {
+		widget.cardBackground = 'transparent';
+		widget.primaryTextColor = '#1a202c';
+		widget.secondaryTextColor = '#cbd5e0';
+		widget.thirdTextColor = '#90cdf4';
+	}  else {
+		widget.cardBackground = '#fff';
+		widget.primaryTextColor = '#79797dff';
+		widget.secondaryTextColor = '#4b5563';
+		widget.thirdTextColor = '#374151';
+	}
+
+	return widget;
+}
 
 export const tagCategories = [
 	{

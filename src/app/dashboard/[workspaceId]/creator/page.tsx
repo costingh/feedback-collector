@@ -44,6 +44,7 @@ const CreatorPage = ({ params: { workspaceId } }: Props) => {
 					<ShareableElement workspaceId={workspaceId} type='avatars'/>
 					<ShareableElement workspaceId={workspaceId} type='social_star'/>
 					<ShareableElement workspaceId={workspaceId} type='minimalist_review'/>
+					<ShareableElement workspaceId={workspaceId} type='hero_quotes'/>
 				</div>
 			</div>
 		</>

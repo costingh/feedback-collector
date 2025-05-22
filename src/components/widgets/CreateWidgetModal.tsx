@@ -84,16 +84,18 @@ export function CreateWidgetModal({
 			}
 
 			toast.success("Widget created successfully");
-			setFormValue({
-				name: "",
-				target: "",
-			});
+			
 			router.push(`/dashboard/${workspaceId}/share/edit/${createdWidget.url}`);
 		} catch (e) {
 			console.error(e);
 			toast.error("Could not create widget");
-		} finally {
+			setFormValue({
+				name: "",
+				target: "",
+			});
 			setCreatingWidget(false);
+		} finally {
+			
 		}
 	};
 	return (

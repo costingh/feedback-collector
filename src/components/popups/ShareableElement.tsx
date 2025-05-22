@@ -8,7 +8,7 @@ import HeroQuotes from "./HeroQuotes";
 import { testimonialsMock } from "@/constants/testimonials-mock";
 import Avatars from "./Avatars";
 import MinimalistReview from "./MinimalistReview";
-import { formatNumberOfReviews } from "@/lib/utils";
+import { extractWidgetColors, formatNumberOfReviews } from "@/lib/utils";
 
 function ShareableElement({ type, workspaceId }: { type: string, workspaceId: string }) {
     const [loading, setLoading] = useState({
@@ -16,7 +16,7 @@ function ShareableElement({ type, workspaceId }: { type: string, workspaceId: st
         loading: false
     })
 
-    const mockWidget = {
+    let mockWidget = {
         "id": "cm8uovnho0003t7otihlugm5c",
         "name": "main",
         "target": "home",
@@ -24,84 +24,27 @@ function ShareableElement({ type, workspaceId }: { type: string, workspaceId: st
         "createdAt": "2025-03-29T20:54:01.607Z",
         "updatedAt": "2025-05-01T10:05:09.838Z",
         "userId": "user_2saB2x4TjQaMi3j85qt7Ox3dBdu",
-        "type": "avatars",
+        // "type": "avatars",
         "widgetDescription": "Trusted by 10k clients",
-        "cardBackground": "#fff",
-        "primaryTextColor": "#79797dff",
-        "secondaryTextColor": "#4b5563",
-        "thirdTextColor": "#374151",
         "cardBorderColor": "#e5e7eb",
         "variant": "simple",
         "workspaceId": "cm8qd31va00002fb448hcrwzu",
-        "testimonials": [
-            ...testimonialsMock,
-            // {
-            //     "id": "cm98yov0u000921r75h7lk4ut",
-            //     "stars": 5,
-            //     "message": "I came across Senja a couple of weeks ago when I was googling alternatives to gathering testimonials. Setting it up was easy, and the widgets they provide are awesome!",
-            //     "name": "Lou",
-            //     "email": "",
-            //     "company": "",
-            //     "jobTitle": "CEO",
-            //     "website": "",
-            //     "formId": "cm8qd54f900022fb4z94jnu3m",
-            //     "avatar": "https://recordr-bucket.s3.eu-north-1.amazonaws.com/avatars/1744144647062-594202.jpg",
-            //     "logo": "",
-            //     "video": "",
-            //     "source": "feedbackz",
-            //     "approved": true,
-            //     "createdAt": "2025-04-08T20:37:27.439Z",
-            //     "tagId": null,
-            //     "widgetId": "cm90dzdfg0007d1dn3o7fugm9"
-            // },
-            // {
-            //     "id": "cm98ynumu000521r7glyytq7y",
-            //     "stars": 5,
-            //     "message": "I sent a link to all of my customers and I've had twenty testimonials in two days. It's obviously very easy to use, otherwise they wouldn't be flooding us with testimonials.",
-            //     "name": "Joel",
-            //     "email": "",
-            //     "company": "",
-            //     "jobTitle": "CEO",
-            //     "website": "",
-            //     "formId": "cm8qd54f900022fb4z94jnu3m",
-            //     "avatar": "https://recordr-bucket.s3.eu-north-1.amazonaws.com/avatars/1744144599809-737427.jpg",
-            //     "logo": "",
-            //     "video": "",
-            //     "source": "feedbackz",
-            //     "approved": true,
-            //     "createdAt": "2025-04-08T20:36:40.278Z",
-            //     "tagId": null,
-            //     "widgetId": "cm90dzdfg0007d1dn3o7fugm9"
-            // },
-            // {
-            //     "id": "cm98ynasy000321r7bxhf2awi",
-            //     "stars": 4,
-            //     "message": "The most amazing tool in the world. Is blazing fast, easy to integrate, to navigate and very clean.",
-            //     "name": "Mack",
-            //     "email": "",
-            //     "company": "",
-            //     "jobTitle": "CEO @ Socialify",
-            //     "website": "",
-            //     "formId": "cm8qd54f900022fb4z94jnu3m",
-            //     "avatar": "https://recordr-bucket.s3.eu-north-1.amazonaws.com/avatars/1744144574216-908453.jpg",
-            //     "logo": "",
-            //     "video": "",
-            //     "source": "feedbackz",
-            //     "approved": true,
-            //     "createdAt": "2025-04-08T20:36:14.579Z",
-            //     "tagId": null,
-            //     "widgetId": "cm90dzdfg0007d1dn3o7fugm9"
-            // }
-        ],
+        "testimonials": testimonialsMock,
         "_count": {
             "testimonials": 3
         },
         "avgStars": 4.666666666666667
     }
 
+    const getMockWidget = (type: string) => {
+        const widget = { ...mockWidget, type };
+        extractWidgetColors(widget);
+        return widget;
+    }
+
     return (
         <div className="border-[1px] border-gray-200 rounded-[12px] overflow-hidden group cursor:pointer">
-            <div className="top w-full h-[250px] bg-gray-100 flex items-center justify-center overflow-hidden">
+            <div className="top w-full h-[170px] bg-gray-100 flex items-center justify-center overflow-hidden">
                 {type == 'basic_wall' && (
                     <Image
                         src="/images/widgets/basic-wall.png"
@@ -117,24 +60,24 @@ function ShareableElement({ type, workspaceId }: { type: string, workspaceId: st
                 </div>}
 
                 {type == 'rating_badge' && <div>
-                    <RatingBadge transition={true} widget={{ ...mockWidget, cardBackground: '#000', primaryTextColor: '#000', secondaryTextColor: '#fff' }} />
+                    <RatingBadge transition={true} widget={getMockWidget('rating_badge')} />
                 </div>}
 
                 {type == 'social_star' && <div>
-                    <SocialStar transition={true} testimonials={testimonialsMock.slice(0, 1)} numberOfReviews={1041} widget={null} style={{transform: 'scale(0.6)'}} />
+                    <SocialStar transition={true} testimonials={testimonialsMock.slice(0, 1)} numberOfReviews={1041} widget={null} style={{ transform: 'scale(0.5)', width: '500px' }} />
                 </div>}
 
-                {type == 'hero_quotes' && <div style={{ transform: 'scale(0.8)' }}>
-                    <HeroQuotes transition={true} />
+                {type == 'hero_quotes' && <div>
+                    <HeroQuotes transition={true} widget={getMockWidget('hero_quotes')} style={{ transform: 'scale(0.6)' }} />
                 </div>}
 
                 {type == 'avatars' && <div>
                     {/* @ts-ignore */}
-                    <Avatars transition={true} testimonials={testimonialsMock} widget={mockWidget} numberOfReviews={formatNumberOfReviews(1023 - 3)} />
+                    <Avatars transition={true} testimonials={testimonialsMock} widget={getMockWidget('avatars')} numberOfReviews={formatNumberOfReviews(1023 - 3)} />
                 </div>}
 
-                {type == 'minimalist_review' && <div style={{ transform: 'scale(0.8)' }}>
-                    <MinimalistReview review={testimonialsMock[0]} primaryTextColor={mockWidget.primaryTextColor} secondaryTextColor={mockWidget.secondaryTextColor} thirdTextColor={mockWidget.thirdTextColor} cardBackground={mockWidget.cardBackground} cardBorderColor={mockWidget.cardBorderColor} />
+                {type == 'minimalist_review' && <div>
+                    <MinimalistReview review={testimonialsMock[0]} widget={getMockWidget('minimalist_review')} style={{ transform: 'scale(0.6)' }} />
                 </div>}
             </div>
             <div className="bottom w-full py-4 px-5">

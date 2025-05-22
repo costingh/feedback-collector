@@ -1,11 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { getUserTestimonials } from "@/actions/workspace";
-import { getUserForms } from "@/actions/form";
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { getUserWidget } from "@/actions/widgets";
-
 import { cn, needsDarkBackground } from "@/lib/utils";
 import WidgetEditorNav from "@/components/widgets/WidgetEditorNav";
 import { ShareWidgetModal } from "@/components/widgets/ShareWidgetModal";
@@ -15,7 +12,6 @@ import { LoadingSpinner } from "../animations/loading-spinner";
 import WidgetEditorSidebar from "./WidgetEditorSidebar";
 import clsx from "clsx";
 import { TagsProvider, useTagsContext } from "@/contexts/TagsContext";
-import EmbeddableWidget from "./EmbeddableWidget";
 
 const EditWidget = ({ widgetId, workspaceId, initialData }: any) => {
 	const [deviceResolution, setDeviceResolution] = useState({
@@ -57,19 +53,19 @@ const EditWidget = ({ widgetId, workspaceId, initialData }: any) => {
 	});
 
 	useEffect(() => {
-		if (widgetData?.pages?.[widgetData?.pages?.length-1]?.widget) {
+		if (widgetData?.pages?.[widgetData?.pages?.length - 1]?.widget) {
 			console.log('widgetData=', widgetData)
 			// Combine testimonials from all pages
 			const allTestimonials = widgetData.pages.flatMap(page => page.widget.testimonials || []);
 			setCurrentWidget({
-				...widgetData.pages[widgetData?.pages?.length-1].widget,
+				...widgetData.pages[widgetData?.pages?.length - 1].widget,
 				testimonials: allTestimonials,
 				_count: {
-					...widgetData.pages[widgetData?.pages?.length-1].widget._count,
+					...widgetData.pages[widgetData?.pages?.length - 1].widget._count,
 					testimonials: allTestimonials.length
 				}
 			});
-			setChecked(new Set(widgetData.pages[widgetData?.pages?.length-1].allTestimonialsIds));
+			setChecked(new Set(widgetData.pages[widgetData?.pages?.length - 1].allTestimonialsIds));
 		}
 	}, [widgetData]);
 
@@ -90,12 +86,12 @@ const EditWidget = ({ widgetId, workspaceId, initialData }: any) => {
 		fetchNextPage();
 	};
 
-	if (!widgetData?.pages?.[widgetData.pages?.length-1]?.widget) return null;
+	if (!widgetData?.pages?.[widgetData.pages?.length - 1]?.widget) return null;
 
 	return (
-		<TagsProvider workspaceId={widgetData.pages[widgetData.pages?.length-1].widget.workspaceId}>
-			<EditWidgetContent 
-				widgetResponse={widgetData.pages[widgetData.pages?.length-1]}
+		<TagsProvider workspaceId={widgetData.pages[widgetData.pages?.length - 1].widget.workspaceId}>
+			<EditWidgetContent
+				widgetResponse={widgetData.pages[widgetData.pages?.length - 1]}
 				testimonialsResponse={testimonialsResponse}
 				formsData={formsData}
 				currentWidget={currentWidget}
@@ -105,7 +101,7 @@ const EditWidget = ({ widgetId, workspaceId, initialData }: any) => {
 				checkedItems={checkedItems}
 				isLoading={isFetching}
 				isFetching={isFetchingNextPage}
-				paginationData={widgetData?.pages[widgetData.pages?.length-1].pagination}
+				paginationData={widgetData?.pages[widgetData.pages?.length - 1].pagination}
 				setHasInteracted={setHasInteracted}
 				setDeviceResolution={setDeviceResolution}
 				setCurrentWidget={setCurrentWidget}
@@ -120,10 +116,10 @@ const EditWidget = ({ widgetId, workspaceId, initialData }: any) => {
 	);
 };
 
-const EditWidgetContent = ({ 
-	widgetResponse, 
-	testimonialsResponse, 
-	formsData, 
+const EditWidgetContent = ({
+	widgetResponse,
+	testimonialsResponse,
+	formsData,
 	currentWidget,
 	deviceResolution,
 	activeSubmenu,
@@ -175,7 +171,7 @@ const EditWidgetContent = ({
 						className={clsx(
 							"p-2 max-w-full max-h-full hide-scrollbar",
 							[375, 768].includes(deviceResolution.width) &&
-								"border-2 rounded-2xl overflow-y-auto overflow-x-hidden",
+							"border-2 rounded-2xl overflow-y-auto overflow-x-hidden",
 							needsDarkBackground(currentWidget)
 								? "border-white"
 								: "border-black"
@@ -203,21 +199,19 @@ const EditWidgetContent = ({
 						{isLoading ? (
 							<div className="w-full h-full flex items-center justify-center">
 								<span className="inline-block">
-									<LoadingSpinner size={30} className={cn(needsDarkBackground({...currentWidget}) ? 'text-white' : 'text-black')} />
+									<LoadingSpinner size={30} className={cn(needsDarkBackground({ ...currentWidget }) ? 'text-white' : 'text-black')} />
 								</span>
 							</div>
 						) : (
-							<>
-								<DisplayWidget
-									widget={{
-										...currentWidget,
-										deviceWidth: deviceResolution.width,
-									}}
-									setPage={setPage}
-									isFetching={isFetching}
-									paginationData={paginationData}
-								/>
-							</>
+							<DisplayWidget
+								widget={{
+									...currentWidget,
+									deviceWidth: deviceResolution.width,
+								}}
+								setPage={setPage}
+								isFetching={isFetching}
+								paginationData={paginationData}
+							/>
 						)}
 					</div>
 				</div>

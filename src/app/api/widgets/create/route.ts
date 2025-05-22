@@ -2,6 +2,7 @@ import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
 import {client} from "@/lib/prisma";
+import { extractWidgetColors } from "@/lib/utils";
 
 export async function POST(req: Request) {
     try {
@@ -24,11 +25,8 @@ export async function POST(req: Request) {
             variant: data.variant,
         }
 
-        if(data.type === 'rating_badge') {
-            dataToCreate.cardBackground = '#000';
-            dataToCreate.primaryTextColor = '#000';
-            dataToCreate.secondaryTextColor = '#fff';
-        }
+        // Enrich widget with color scheme
+        dataToCreate = extractWidgetColors(dataToCreate);
 
         const result = await client.widget.create({
             data: {

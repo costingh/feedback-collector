@@ -68,6 +68,7 @@ function BasicWall({ widget, setPage, isFetching, paginationData }: { widget: Wi
 			<div
 				className={`${columnsClass} gap-3 sm:gap-4 mx-auto px-2 sm:px-4 w-full [column-fill:_balance]`}
 			>
+
 				{allTestimonials?.map((t: any) => (
 					<div
 						key={t.id}
@@ -192,7 +193,7 @@ function BasicWall({ widget, setPage, isFetching, paginationData }: { widget: Wi
 					</div>
 				))}
 			</div>
-			<div className="flex flex-col gap-6 pb-4">
+			{(paginationData?.total || 0) > 0 && <div className="flex flex-col gap-6 pb-4">
 				<div className="flex justify-center">
 
 					<Button
@@ -210,7 +211,13 @@ function BasicWall({ widget, setPage, isFetching, paginationData }: { widget: Wi
 						)}
 					</Button>
 				</div>
-			</div>
+			</div>}
+
+			{(paginationData?.total || 0) === 0 && <div className="flex flex-col gap-6 pb-4">
+				<div className="flex justify-center">
+					<p className="text-gray-500 text-center">No testimonials to show. Please add some testimonials to your widget.</p>
+				</div>
+			</div>}
 		</div>
 	);
 }

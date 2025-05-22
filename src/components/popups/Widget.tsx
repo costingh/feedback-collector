@@ -43,7 +43,7 @@ function Widget({
 				)}
 			>
 				{widget?.type == "basic_wall" && (
-					<div style={{ transform: "scale(0.6)", width: "600px" }}>
+					<div style={{ width: "600px" }}>
 						<BasicWall widget={{...widget, deviceWidth: 1200}} setPage={setPage} isFetching={isFetching} />
 					</div>
 				)}
@@ -84,13 +84,13 @@ function Widget({
 
 				{widget?.type == "hero_quotes" && (
 					<div style={{ transform: "scale(0.8)" }}>
-						<HeroQuotes />
+						<HeroQuotes widget={widget} />
 					</div>
 				)}
 
 				{widget?.type == "minimalist_review" && (
 					<div style={{ transform: "scale(0.8)" }}>
-						<MinimalistReview review={widget?.testimonials[0]} primaryTextColor={widget?.primaryTextColor} secondaryTextColor={widget?.secondaryTextColor} thirdTextColor={widget?.thirdTextColor} cardBackground={widget?.cardBackground} cardBorderColor={widget?.cardBorderColor}/>
+						<MinimalistReview review={widget?.testimonials[0]} widget={widget}/>
 					</div>
 				)}
 
@@ -117,6 +117,7 @@ function Widget({
 						{widget?.type == "rating_badge" && "Rating Badge"}
 						{widget?.type == "avatars" && "Avatars"}
 						{widget?.type == "minimalist_review" && "Minimalist Review"}
+						{widget?.type == "hero_quotes" && "Hero Quotes"}
 					</span>
 				</div>
 			</div>

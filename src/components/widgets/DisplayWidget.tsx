@@ -5,12 +5,13 @@ import RatingBadge from "../popups/RatingBadge";
 import SocialStar from "../popups/SocialStar";
 import Avatars from "../popups/Avatars";
 import MinimalistReview from "../popups/MinimalistReview";
+import HeroQuotes from "../popups/HeroQuotes";
 
 function DisplayWidget({ widget, setPage, isFetching, paginationData }: { widget: any, setPage: any, isFetching: boolean, paginationData?: any }) {
 	return (
-		<>
+		<div className="w-full h-full flex items-center justify-center">
 			{widget && (
-				<div className="w-full h-full">
+				<>
 					{widget.type == "basic_wall" && (
 						<BasicWall widget={{...widget, deviceWidth: widget.deviceWidth}} setPage={setPage} isFetching={isFetching} paginationData={paginationData} />
 					)}
@@ -35,11 +36,15 @@ function DisplayWidget({ widget, setPage, isFetching, paginationData }: { widget
 					)}
 
 					{widget.type == "minimalist_review" && (
-						<MinimalistReview review={widget?.testimonials?.[0]} primaryTextColor={widget?.primaryTextColor} secondaryTextColor={widget?.secondaryTextColor} thirdTextColor={widget?.thirdTextColor} cardBackground={widget?.cardBackground} cardBorderColor={widget?.cardBorderColor}/>
+						<MinimalistReview review={widget?.testimonials?.[0]} widget={widget}/>
 					)}
-				</div>
+
+					{widget.type == "hero_quotes" && (
+						<HeroQuotes widget={widget} />
+					)}
+				</>
 			)}
-		</>
+		</div>
 	);
 }
 
