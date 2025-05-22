@@ -16,6 +16,7 @@ const WidgetsPage = ({ params: { workspaceId } }: Props) => {
 	)
 
     const widgets = (widgetsResponse as any)?.data || [];
+
 	const [page, setPage] = useState(1);
 
 	return (

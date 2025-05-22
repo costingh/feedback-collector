@@ -43,7 +43,7 @@ function Widget({
 				)}
 			>
 				{widget?.type == "basic_wall" && (
-					<div style={{ height: '170px', transform: 'scale(0.2)' }}>
+					<div style={{  width: '1200px', transform: 'scale(0.3)' }}>
 						<BasicWall widget={{...widget, deviceWidth: 1200}} setPage={setPage} isFetching={isFetching}  />
 					</div>
 				)}

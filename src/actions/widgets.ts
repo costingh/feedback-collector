@@ -16,7 +16,7 @@ export const getUserWidgets = async (workspaceId: string | undefined) => {
             },
             include: {
                 testimonials: {
-                    take: 3,
+                    take: 9,
                     orderBy: {
                         createdAt: 'desc'
                     },
