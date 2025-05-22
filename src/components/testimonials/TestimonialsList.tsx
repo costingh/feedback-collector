@@ -12,6 +12,7 @@ import { RatedIconVariant2 } from "@/app/(website)/_components/icons/rated-icon-
 import TestimonialsSourceComponent from "./TestimonialsSourceComponent";
 import { useExpandableText } from "@/hooks/useExpandableText";
 import VideoWithFallback from "../global/video/VideoWithFallback";
+import { CheckedUnapprovedTestimonialPopup } from "../tooltips/CheckedUnapprovedTestimonialPopup";
 
 function TestimonialsList({
 	testimonials,
@@ -159,9 +160,14 @@ function TestimonialsList({
 								</Link>
 							</div>}
 
-							<span className="text-gray-400 font-semibold text-[12px]">
-								{timeAgo(t?.createdAt)}
-							</span>
+							<div className="flex items-center gap-2">
+								<span className="text-gray-400 font-semibold text-[12px]">
+									{timeAgo(t?.createdAt)}
+								</span>
+
+								{!t?.approved && checkedItems.has(t.id) && <div className="ml-2"><CheckedUnapprovedTestimonialPopup /></div>}
+							</div>
+
 						</div>
 					</div>
 					<div className="w-full bg-gray-100 h-[1px]"></div>

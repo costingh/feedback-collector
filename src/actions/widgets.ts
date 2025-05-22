@@ -72,6 +72,9 @@ export const getUserWidget = async (widgetUrl: string | undefined, page: number 
                 },
                 include: {
                     testimonials: {
+                        where: {
+                            approved: true
+                        },
                         skip,
                         take: limit,
                         orderBy: {
@@ -80,7 +83,11 @@ export const getUserWidget = async (widgetUrl: string | undefined, page: number 
                     },
                     _count: {
                         select: {
-                            testimonials: true
+                            testimonials: {
+                                where: {
+                                    approved: true
+                                }
+                            }
                         }
                     }
                 },
@@ -99,6 +106,7 @@ export const getUserWidget = async (widgetUrl: string | undefined, page: number 
             }),
             client.formResponse.aggregate({
                 where: {
+                    approved: true,
                     widgets: {
                         some: {
                             url: widgetUrl

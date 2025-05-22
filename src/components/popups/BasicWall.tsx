@@ -83,18 +83,19 @@ function BasicWall({ widget, setPage, isFetching, paginationData }: { widget: Wi
 								<div className="relative aspect-video w-full">
 									<video
 										src={t.video}
-										className="w-full h-full object-cover"
+										className="w-full h-full object-cover bg-gray-200"
 										ref={(el) => {
 											if (el) {
 												videoRefs.current[t.id] = el;
 											}
 										}}
+										preload="none"
 									/>
 
 									<div className="absolute bottom-0 left-0 right-0 w-full flex items-center justify-between pb-3 px-3">
 										<div className="flex flex-col items-start justify-center gap-[2px]">
 											<StarsRating
-												value={t.stars}
+												value={Math.floor(t.stars || 0)}
 												readonly={true}
 												scale={0.7}
 												marginLeft={-20}
@@ -157,10 +158,10 @@ function BasicWall({ widget, setPage, isFetching, paginationData }: { widget: Wi
 								</div>
 								<div className="flex items-center mt-2 sm:mt-3">
 									<StarsRating
-										value={t.stars}
+										value={Math.floor(t.stars || 0)}
 										readonly={true}
-										scale={0.8}
-										marginLeft={-10}
+										scale={0.7}
+										marginLeft={-20}
 									/>
 								</div>
 								<p
