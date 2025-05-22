@@ -23,7 +23,7 @@ interface PaginationData {
 	hasMore: boolean;
 }
 
-function BasicWall({ widget, setPage, isFetching, paginationData }: { widget: Widget, setPage: any, isFetching: boolean, paginationData?: PaginationData }) {
+function BasicWall({ widget, setPage, isFetching, paginationData }: { widget: Widget, setPage: any, isFetching: boolean, paginationData?: PaginationData}) {
 	const [allTestimonials, setAllTestimonials] = useState<any[]>([]);
 	const videoRefs = useRef<{ [key: string]: HTMLVideoElement | null }>({});
 	const { isExpanded, toggle } = useExpandableText();
@@ -68,7 +68,6 @@ function BasicWall({ widget, setPage, isFetching, paginationData }: { widget: Wi
 			<div
 				className={`${columnsClass} gap-3 sm:gap-4 mx-auto px-2 sm:px-4 w-full [column-fill:_balance]`}
 			>
-
 				{allTestimonials?.map((t: any) => (
 					<div
 						key={t.id}

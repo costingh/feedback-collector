@@ -56,7 +56,7 @@ function ShareableElement({ type, workspaceId }: { type: string, workspaceId: st
                 )}
 
                 {type == 'rolling_wall' && <div style={{ transform: 'scale(0.4)' }}>
-                    <RollingWall transition={true} testimonials={testimonialsMock} />
+                    <RollingWall transition={true} testimonials={testimonialsMock} widget={getMockWidget('rolling_wall')} />
                 </div>}
 
                 {type == 'rating_badge' && <div>

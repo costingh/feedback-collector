@@ -2,7 +2,7 @@ import React from "react";
 import MinimalistReview from "./MinimalistReview";
 import clsx from "clsx";
   
-function RollingWall({ transition, testimonials }: { transition?: boolean, testimonials: any }) {
+function RollingWall({ transition, testimonials, widget }: { transition?: boolean, testimonials: any, widget: any }) {
 	// Split reviews into two groups for two rows
 	const half = Math.ceil(testimonials.length / 2);
 	const firstRowReviews = testimonials.slice(0, half);
@@ -24,7 +24,7 @@ function RollingWall({ transition, testimonials }: { transition?: boolean, testi
 							className="slide flex w-[400px] items-center justify-center"
 							key={index}
 						>
-							<MinimalistReview review={review} />
+							<MinimalistReview review={review} widget={widget}/>
 						</div>
 					))}
 					{firstRowReviews.map((review : any, index : number) => (
@@ -32,7 +32,7 @@ function RollingWall({ transition, testimonials }: { transition?: boolean, testi
 							className="slide flex w-[400px] items-center justify-center"
 							key={index + firstRowReviews.length}
 						>
-							<MinimalistReview review={review} />
+							<MinimalistReview review={review} widget={widget} />
 						</div>
 					))}
 				</div>
@@ -44,7 +44,7 @@ function RollingWall({ transition, testimonials }: { transition?: boolean, testi
 							className="slide flex w-[400px] items-center justify-center"
 							key={index}
 						>
-							<MinimalistReview review={review} />
+							<MinimalistReview review={review} widget={widget} />
 						</div>
 					))}
 					{secondRowReviews.map((review : any, index : number) => (
@@ -52,7 +52,7 @@ function RollingWall({ transition, testimonials }: { transition?: boolean, testi
 							className="slide flex w-[400px] items-center justify-center"
 							key={index + secondRowReviews.length}
 						>
-							<MinimalistReview review={review} />
+							<MinimalistReview review={review} widget={widget} />
 						</div>
 					))}
 				</div>

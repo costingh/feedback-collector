@@ -18,7 +18,7 @@ function DisplayWidget({ widget, setPage, isFetching, paginationData }: { widget
 
 					{widget.type == "rolling_wall" &&
 						(widget?.testimonials?.length > 10 ? (
-							<RollingWall testimonials={widget?.testimonials} />
+							<RollingWall testimonials={widget?.testimonials} widget={widget} />
 						) : (
 							<BasicWall widget={{...widget, deviceWidth: widget.deviceWidth}} setPage={setPage} isFetching={isFetching} paginationData={paginationData} />
 						))}

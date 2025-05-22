@@ -43,14 +43,14 @@ function Widget({
 				)}
 			>
 				{widget?.type == "basic_wall" && (
-					<div style={{ width: "600px" }}>
-						<BasicWall widget={{...widget, deviceWidth: 1200}} setPage={setPage} isFetching={isFetching} />
+					<div style={{ height: '170px', transform: 'scale(0.2)' }}>
+						<BasicWall widget={{...widget, deviceWidth: 1200}} setPage={setPage} isFetching={isFetching}  />
 					</div>
 				)}
 
 				{widget?.type == "rolling_wall" && (
 					<div style={{ transform: "scale(0.4)" }}>
-						<RollingWall testimonials={widget?.testimonials} />
+						<RollingWall testimonials={widget?.testimonials} widget={widget} />
 					</div>
 				)}
 
