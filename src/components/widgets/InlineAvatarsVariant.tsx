@@ -20,9 +20,9 @@ function InlineAvatarsVariant({
     return (
         <>
             {testimonials?.length >= 3 ? (
-                <>
+                <div className="flex-col">
                     <div
-                        className={cn("flex flex-wrap items-center justify-center gap-1 text-sm font-light lg:gap-3 lg:text-lg")} style={{ color: widget?.primaryTextColor }}>
+                        className={cn("flex flex-wrap items-center justify-center gap-1 text-[12px] font-light lg:gap-3 lg:text-lg")} style={{ color: widget?.primaryTextColor }}>
                         <div><span className="hidden lg:inline-flex">Rated</span> "Excellent" <span
                             className="font-bold">{widget?.avgStars?.toFixed(1)}/5</span></div>
                         <div className="hidden flex-row lg:flex">
@@ -38,7 +38,7 @@ function InlineAvatarsVariant({
                     <div className="mb-4 mt-2 text-center" style={{ color: widget?.secondaryTextColor }}>Discover Why Feedbackz is the Preferred Choice for
                         Bussiness Owners.
                     </div>
-                </>
+                </div>
             ) : (
                 <NoTestimonialsLinkedMessage widget={widget} />
             )}

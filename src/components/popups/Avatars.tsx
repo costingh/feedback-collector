@@ -8,14 +8,16 @@ function Avatars({
 	testimonials,
 	widget,
 	numberOfReviews,
+	style
 }: {
 	transition?: boolean;
 	testimonials: any;
 	widget: Widget & { _count: { testimonials: number } } & { avgStars: number } | null | undefined;
 	numberOfReviews: string;
+	style?: React.CSSProperties;
 }) {
 	return (
-		<>
+		<div style={style}>
 			{widget?.type == "avatars" && widget?.variant == "simple" && <SimpleAvatarsVariant
 				transition={transition}
 				testimonials={testimonials}
@@ -33,7 +35,7 @@ function Avatars({
 				widget={widget}
 				numberOfReviews={numberOfReviews}
 			/>}
-		</>
+		</div>
 	);
 }
 
