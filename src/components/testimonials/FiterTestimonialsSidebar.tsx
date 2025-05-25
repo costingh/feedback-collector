@@ -96,8 +96,8 @@ const FiterTestimonialsSidebar: React.FC = ({
 								rating: val,
 							}))
 						}
-						ratedIcon={<RatedIconVariant2 />}
-						unratedIcon={<UnratedIconVariant2 />}
+						variant='custom1'
+						color='#FFBF00'
 					/>
 				</div>
 				<span

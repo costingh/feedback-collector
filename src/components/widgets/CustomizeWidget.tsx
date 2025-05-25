@@ -38,7 +38,7 @@ const CustomizeWidget: React.FC<CustomizeLabelsProps> = ({
 
 	const { mutate: handleUpdate, isPending: isLoading } = useMutationData(
 		["add-testimonials-for-widget"],
-		() => customizeWidget(widget?.id, widget?.widgetDescription || "", widget?.cardBackground || "", widget?.primaryTextColor || "", widget?.secondaryTextColor || "", widget?.thirdTextColor || "", widget?.cardBorderColor || "", widget?.variant || "", widget?.assetColorVariant || ""),
+		() => customizeWidget(widget?.id, widget?.widgetDescription || "", widget?.cardBackground || "", widget?.primaryTextColor || "", widget?.secondaryTextColor || "", widget?.thirdTextColor || "", widget?.cardBorderColor || "", widget?.variant || "", widget?.assetColorVariant || "", widget?.starsColor || "", widget?.starsVariant || ""),
 		["shared-widget"],
 		() => { }
 	);
@@ -118,21 +118,67 @@ const CustomizeWidget: React.FC<CustomizeLabelsProps> = ({
 					</span>
 				</div>
 
+				<p className="text-[14px] font-[600] text-[#000] mt-5">Customize stars:</p>
+
+				<div className='mt-3 mb-2'>
+					<span className="text-[13px] font-normal text-gray-400 leading-[17px]">
+						Choose stars color
+					</span>
+					<ColorPicker
+						inputValue={widget?.starsColor}
+						// @ts-ignore
+						setInputValue={(color: string) => setWidget((prevWidget) => ({ ...prevWidget, starsColor: color }))}
+					/>
+				</div>
+
+				<div className="mb-2">
+					<span className="text-[13px] font-normal text-gray-400 leading-[17px]">
+						Choose stars variant
+					</span>
+					<Select
+						value={widget?.starsVariant || 'default'}
+						onValueChange={(value) =>
+							setWidget({
+								...widget,
+								starsVariant: value,
+							})
+						}
+					>
+						<SelectTrigger className="w-full outline-none focus-visible:ring-0 focus-visible:ring-transparent mt-2">
+							<SelectValue placeholder="Select category" />
+						</SelectTrigger>
+						<SelectContent>
+							<SelectGroup>
+								<SelectLabel>Categories</SelectLabel>
+								{[{ label: "Default", emoji: "👑", value: "default" }, { label: "Custom", emoji: "✨", value: "custom1" }].map((c) => (
+									<SelectItem value={c.value} key={c.value}>
+										{c.emoji} {c.label}
+									</SelectItem>
+								))}
+							</SelectGroup>
+						</SelectContent>
+					</Select>
+				</div>
+
 				{widget?.type == "avatars" && (
 					<>
-						<Label className="text-[14px] font-[600] text-[#000]">
-							Choose Asset Theme
-						</Label>
+						{widget?.variant == 'elite' && (
+							<>
+								<Label className="text-[14px] font-[600] text-[#000]">
+									Choose Asset Theme
+								</Label>
 
-						<div className="flex flex-row items-center gap-2 my-2">
-							<div className="w-6 h-6 rounded-[10px] bg-white border-[1px] border-gray-200 cursor-pointer" onClick={() => handleChangeAssetValue('white')}></div>
-							<div className="w-6 h-6 rounded-[10px] bg-[#ffbf00] border-[1px] border-gray-200 cursor-pointer" onClick={() => handleChangeAssetValue('gold')}></div>
-							<div className="w-6 h-6 rounded-[10px] bg-[#d9d9d9] border-[1px] border-gray-200 cursor-pointer" onClick={() => handleChangeAssetValue('silver')}></div>
-							<div className="w-6 h-6 rounded-[10px] bg-black border-[1px] border-gray-200 cursor-pointer" onClick={() => handleChangeAssetValue('black')}></div>
-						</div>
+								<div className="flex flex-row items-center gap-2 my-2">
+									<div className="w-6 h-6 rounded-[10px] bg-white border-[1px] border-gray-200 cursor-pointer" onClick={() => handleChangeAssetValue('white')}></div>
+									<div className="w-6 h-6 rounded-[10px] bg-[#ffbf00] border-[1px] border-gray-200 cursor-pointer" onClick={() => handleChangeAssetValue('gold')}></div>
+									<div className="w-6 h-6 rounded-[10px] bg-[#d9d9d9] border-[1px] border-gray-200 cursor-pointer" onClick={() => handleChangeAssetValue('silver')}></div>
+									<div className="w-6 h-6 rounded-[10px] bg-black border-[1px] border-gray-200 cursor-pointer" onClick={() => handleChangeAssetValue('black')}></div>
+								</div>
+							</>
+						)}
 
 						<Label className="text-[14px] font-[600] text-[#000]">
-							Choose a Variant
+							Choose a Widget Variant
 						</Label>
 						<Select
 							value={widget?.variant || 'simple'}

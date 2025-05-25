@@ -46,7 +46,12 @@ export const CollectVideoTestimonial = ({
 				{description}
 			</p>
 			<QuestionList questions={questions} />
-			<StarsRating value={0} ratingChanged={ratingChanged} />
+			<StarsRating 
+				value={0} 
+				ratingChanged={ratingChanged}
+				variant='custom1'
+				color='#FFBF00'
+			/>
 			
 			<VideoRecorder onVideoChange={onVideoChange}/>
 			<button

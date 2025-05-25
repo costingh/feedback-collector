@@ -51,6 +51,8 @@ function SocialStar({
 									<StarsRating
 										value={t?.stars || 0}
 										readonly
+										variant={widget?.starsVariant}
+                                		color={widget?.starsColor}
 									/>
 								</div>
 								<p className={cn("font-normal text-[12px] sm:text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px]")} style={{color: widget?.primaryTextColor}}>

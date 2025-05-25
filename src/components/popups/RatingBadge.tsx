@@ -30,6 +30,8 @@ function RatingBadge({
 							<StarsRating
 								value={Math.floor(widget?.avgStars || 0)}
 								readonly
+								variant={widget?.starsVariant}
+                                color={widget?.starsColor}
 							/>
 						</div>
 						<span className="text-[14px] font-normal" style={{ color: widget?.primaryTextColor }}>

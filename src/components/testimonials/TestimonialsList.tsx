@@ -76,9 +76,10 @@ function TestimonialsList({
 								<StarsRating
 									value={Math.ceil(t.stars)}
 									readonly={true}
-									ratedIcon={<RatedIconVariant2 />}
-									unratedIcon={<UnratedIconVariant2 />}
-									style={{ marginLeft: '-4px' }} />
+									variant='custom1'
+                                	color='#FFBF00'
+									marginLeft={-4}
+								/>
 							</div>
 							{/* </div> */}
 

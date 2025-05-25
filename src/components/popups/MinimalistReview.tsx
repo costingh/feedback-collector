@@ -31,7 +31,12 @@ function MinimalistReview({ review, widget, style }: { review: any, widget: any,
 						</p>
 					</div>
 				</div>
-				<StarsRating readonly={true} value={Math.floor(review?.stars || 0)} />
+				<StarsRating 
+					readonly={true} 
+					value={Math.floor(review?.stars || 0)} 
+					variant={widget?.starsVariant}
+					color={widget?.starsColor}
+				/>
 			</div>
 		</div>
 	);

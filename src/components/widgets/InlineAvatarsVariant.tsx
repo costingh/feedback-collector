@@ -2,9 +2,6 @@ import StarsRating from "@/components/stars/stars-rating";
 import { Widget } from "@prisma/client";
 import { cn } from "@/lib/utils";
 import NoTestimonialsLinkedMessage from "./NoTestimonialsLinkedMessage";
-import { RatedIconVariant2 } from "@/app/(website)/_components/icons/rated-icon-variant-2";
-import { UnratedIconVariant2 } from "@/app/(website)/_components/icons/unrated-icon-variant-2";
-
 
 function InlineAvatarsVariant({
     transition,
@@ -22,13 +19,17 @@ function InlineAvatarsVariant({
             {testimonials?.length >= 3 ? (
                 <div className="flex-col">
                     <div
-                        className={cn("flex flex-wrap items-center justify-center gap-1 text-[12px] font-light lg:gap-3 lg:text-lg")} style={{ color: widget?.primaryTextColor }}>
-                        <div><span className="hidden lg:inline-flex">Rated</span> "Excellent" <span
+                        className={cn("flex flex-wrap items-center justify-center gap-1 text-[12px] font-light lg:gap-3 lg:text-lg")} 
+                        style={{ color: widget?.primaryTextColor }}
+                    >
+                        
+                        <div>
+                            <span className="inline-flex">Rated</span> "Excellent" <span
                             className="font-bold">{widget?.avgStars?.toFixed(1)}/5</span></div>
-                        <div className="hidden flex-row lg:flex">
+                        <div className="flex">
                             <StarsRating
-                                ratedIcon={<RatedIconVariant2 />}
-                                unratedIcon={<UnratedIconVariant2 />}
+                                variant={widget?.starsVariant}
+                                color={widget?.starsColor || ""}
                                 readonly
                                 value={Math.floor(widget?.avgStars || 0)}
                             />

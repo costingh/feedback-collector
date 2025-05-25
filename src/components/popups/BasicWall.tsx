@@ -6,16 +6,10 @@ import StarsRating from "../stars/stars-rating";
 import { Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useExpandableText } from "@/hooks/useExpandableText";
-interface Widget {
-	url: string;
-	testimonials: any[];
-	cardBackground: string;
-	primaryTextColor: string;
-	secondaryTextColor: string;
-	thirdTextColor: string;
-	cardBorderColor: string;
-	deviceWidth?: number;
-}
+import { Widget } from "@prisma/client";
+
+type WidgetType = Widget & {testimonials: any[]; deviceWidth?: number;};
+
 interface PaginationData {
 	total: number;
 	page: number;
@@ -23,7 +17,7 @@ interface PaginationData {
 	hasMore: boolean;
 }
 
-function BasicWall({ widget, setPage, isFetching, paginationData }: { widget: Widget, setPage: any, isFetching: boolean, paginationData?: PaginationData}) {
+function BasicWall({ widget, setPage, isFetching, paginationData }: { widget: WidgetType, setPage: any, isFetching: boolean, paginationData?: PaginationData}) {
 	const [allTestimonials, setAllTestimonials] = useState<any[]>([]);
 	const videoRefs = useRef<{ [key: string]: HTMLVideoElement | null }>({});
 	const { isExpanded, toggle } = useExpandableText();
@@ -98,6 +92,8 @@ function BasicWall({ widget, setPage, isFetching, paginationData }: { widget: Wi
 												readonly={true}
 												scale={0.7}
 												marginLeft={-20}
+												variant={widget?.starsVariant}
+                                				color={widget?.starsColor}
 											/>
 											<p className="text-[17px] font-[500] m-0 p-0 text-white">
 												{t?.name}
@@ -161,6 +157,8 @@ function BasicWall({ widget, setPage, isFetching, paginationData }: { widget: Wi
 										readonly={true}
 										scale={0.7}
 										marginLeft={-20}
+										variant={widget?.starsVariant}
+                                		color={widget?.starsColor}
 									/>
 								</div>
 								<p

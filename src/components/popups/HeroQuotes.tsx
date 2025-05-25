@@ -49,8 +49,8 @@ function HeroQuotes({ transition, widget, style }: { transition?: boolean, widge
 				<StarsRating
 					value={Math.floor(selectedTestimonial?.stars || 0)}
 					readonly
-					ratedIcon={<RatedIconVariant2 />}
-					unratedIcon={<UnratedIconVariant2 />}
+					variant={widget?.starsVariant}
+					color={widget?.starsColor}
 				/>
 			</div>
 

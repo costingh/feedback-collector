@@ -39,6 +39,8 @@ function EliteAvatarsVariant({
 								value={Math.floor(widget?.avgStars || 0)}
 								readonly
 								scale={0.7}
+								variant={widget?.starsVariant}
+                                color={widget?.starsColor || ""}
 							/>
 						</div>
 						<div

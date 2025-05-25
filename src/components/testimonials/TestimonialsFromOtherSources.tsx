@@ -116,8 +116,8 @@ function TestimonialsFromOtherSources({
                                         <StarsRating
                                             value={Math.ceil(t.stars)}
                                             readonly={true}
-                                            ratedIcon={<RatedIconVariant2 />}
-                                            unratedIcon={<UnratedIconVariant2 />}
+                                            variant='custom1'
+                                	        color='#FFBF00'
                                         />
                                     </div>
                                 </div>

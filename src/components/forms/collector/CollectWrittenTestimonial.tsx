@@ -63,7 +63,12 @@ export const CollectWrittenTestimonial = ({
 				{description}
 			</p>
 			<QuestionList questions={questions} />
-			<StarsRating value={0} ratingChanged={ratingChanged} />
+			<StarsRating 
+				value={0} 
+				ratingChanged={ratingChanged} 
+				variant='custom1'
+				color='#FFBF00'
+			/>
 			<textarea
 				ref={messageRef}
 				onChange={handleTextareaChange}

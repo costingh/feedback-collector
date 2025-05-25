@@ -40,6 +40,8 @@ function SimpleAvatarsVariant({
 								readonly
 								scale={0.7}
 								marginLeft={-15}
+								variant={widget?.starsVariant}
+                                color={widget?.starsColor || ""}
 							/>
 						</div>
 						<div
