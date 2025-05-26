@@ -2,6 +2,7 @@
 
 import { client } from "@/lib/prisma"
 import { currentUser } from "@clerk/nextjs/server"
+import { StarsVariant } from "@prisma/client"
 
 export const getUserWidgets = async (workspaceId: string | undefined) => {
     try {
@@ -199,7 +200,7 @@ export const updateWidget = async (widgetId: string, testimonialsIds: string[]) 
     }
 };
 
-export const customizeWidget = async (widgetId: string, description: string, cardBackground: string, primaryTextColor: string, secondaryTextColor: string, thirdTextColor: string, cardBorderColor: string, variant: string, assetColorVariant: string, starsColor: string, starsVariant: string) => {
+export const customizeWidget = async (widgetId: string, description: string, cardBackground: string, primaryTextColor: string, secondaryTextColor: string, thirdTextColor: string, cardBorderColor: string, variant: string, assetColorVariant: string, starsColor: string, starsVariant: StarsVariant) => {
     try {
         if (!widgetId) return { status: 404 };
 
