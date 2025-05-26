@@ -9,7 +9,7 @@ import {
 	TooltipProvider,
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Widget } from "@prisma/client";
+import { StarsVariant, Widget } from "@prisma/client";
 import { useMutationData } from "@/hooks/useMutationData";
 import { customizeWidget } from "@/actions/widgets";
 import { LoadingSpinner } from "../animations/loading-spinner";
@@ -140,7 +140,7 @@ const CustomizeWidget: React.FC<CustomizeLabelsProps> = ({
 						onValueChange={(value) =>
 							setWidget({
 								...widget,
-								starsVariant: value,
+								starsVariant: value as StarsVariant,
 							})
 						}
 					>
