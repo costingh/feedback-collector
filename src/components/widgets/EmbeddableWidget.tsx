@@ -22,7 +22,7 @@ const EmbeddableWidget = ({ params }: { params: { url: string } }) => {
 		try {
 			setIsFetching(true);
 			const res = await fetch(
-				`http://localhost:3000/api/widgets/get/${params.url}?page=${pageParam}&limit=6`
+				`https://www.feedbackz.co/api/widgets/get/${params.url}?page=${pageParam}&limit=6`
 			);
 			const data = await res.json();
 

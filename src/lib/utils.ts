@@ -173,6 +173,9 @@ export const extractWidgetColors = (widget: any) => {
 		widget.thirdTextColor = '#374151';
 	}
 
+	widget.starsColor = '#FFBF00';
+	widget.starsVariant = 'custom1';
+
 	return widget;
 }
 

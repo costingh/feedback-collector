@@ -64,7 +64,7 @@ function ShareableElement({ type, workspaceId }: { type: string, workspaceId: st
                 </div>}
 
                 {type == 'social_star' && <div>
-                    <SocialStar transition={true} testimonials={testimonialsMock.slice(0, 1)} numberOfReviews={1041} widget={null} style={{ transform: 'scale(0.5)', width: '500px' }} />
+                    <SocialStar transition={true} testimonials={testimonialsMock.slice(0, 1)} numberOfReviews={1041} widget={getMockWidget('social_star')} style={{ transform: 'scale(0.5)', width: '500px' }} />
                 </div>}
 
                 {type == 'hero_quotes' && <div>
