@@ -9,7 +9,7 @@ import HeroQuotes from "../popups/HeroQuotes";
 
 function DisplayWidget({ widget, setPage, isFetching, paginationData }: { widget: any, setPage: any, isFetching: boolean, paginationData?: any }) {
 	return (
-		<div className="w-full h-full flex items-center justify-center">
+		<div className="w-full flex items-center justify-center">
 			{widget && (
 				<>
 					{widget.type == "basic_wall" && (

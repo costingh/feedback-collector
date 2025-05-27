@@ -65,7 +65,7 @@ const EmbeddableWidget = ({ params }: { params: { url: string } }) => {
 
 	if (loading) {
 		return (
-			<div className="w-full min-h-screen flex items-center justify-center">
+			<div className="w-full flex items-center justify-center">
 				<LoadingSpinner size={30} />
 			</div>
 		);
