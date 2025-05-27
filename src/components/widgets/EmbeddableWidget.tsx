@@ -16,11 +16,9 @@ const EmbeddableWidget = ({ params }: { params: { url: string } }) => {
 	const [page, setPage] = useState(1);
 	const [isFetching, setIsFetching] = useState(false);
 	const [hasMore, setHasMore] = useState(true);
-	const [loading, setLoading] = useState(true);
 
 	const fetchWidget = async (pageParam: number) => {
 		try {
-			setIsFetching(true);
 			const res = await fetch(
 				`https://www.feedbackz.co/api/widgets/get/${params.url}?page=${pageParam}&limit=6`
 			);
@@ -49,7 +47,6 @@ const EmbeddableWidget = ({ params }: { params: { url: string } }) => {
 			setWidget(null);
 		} finally {
 			setIsFetching(false);
-			setLoading(false);
 		}
 	};
 
@@ -63,13 +60,13 @@ const EmbeddableWidget = ({ params }: { params: { url: string } }) => {
 		}
 	};
 
-	if (loading) {
-		return (
-			<div className="w-full flex items-center justify-center">
-				<LoadingSpinner size={30} />
-			</div>
-		);
-	}
+	// if (loading) {
+	// 	return (
+	// 		<div className="w-full flex items-center justify-center">
+	// 			<LoadingSpinner size={30} />
+	// 		</div>
+	// 	);
+	// }
 
 	if (!widget || !widget.testimonials?.length) {
 		return (
