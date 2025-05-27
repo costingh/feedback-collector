@@ -5,6 +5,14 @@ import path from "path";
 export default defineConfig({
 	plugins: [react()],
 	build: {
+		minify: "terser",
+		terserOptions: {
+			compress: {
+				drop_console: true, // remove console logs
+				drop_debugger: true,
+			},
+			mangle: true,
+		},
 		lib: {
 			// Required but will be overridden by rollupOptions.input
 			entry: "./src/components/widgets/WidgetContainer.tsx",
@@ -21,6 +29,7 @@ export default defineConfig({
 				// 	"src/components/embeddables/FeedbackzFormEmbed.tsx"
 				// ),
 			},
+			// external: ["react", "react-dom"], //
 			output: [
 				{
 					entryFileNames: "widget-embed.iife.js",

@@ -60,17 +60,17 @@ const EmbeddableWidget = ({ params }: { params: { url: string } }) => {
 		}
 	};
 
-	// if (loading) {
-	// 	return (
-	// 		<div className="w-full flex items-center justify-center">
-	// 			<LoadingSpinner size={30} />
-	// 		</div>
-	// 	);
-	// }
-
-	if (!widget || !widget.testimonials?.length) {
+	if (isFetching) {
 		return (
-			<div className="w-full min-h-screen flex items-center justify-center">
+			<div className="w-full flex items-center justify-center">
+				<LoadingSpinner size={30} />
+			</div>
+		);
+	}
+
+	if ((!widget || !widget.testimonials?.length) && !isFetching) {
+		return (
+			<div className="w-full flex items-center justify-center">
 				<div className="flex flex-col items-center justify-center max-w-lg text-center">
 					<h1 className="text-black font-bold text-[20px] mb-2">
 						Oops, no testimonials found
