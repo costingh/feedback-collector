@@ -14,7 +14,7 @@ type WidgetType = {
 const EmbeddableWidget = ({ params }: { params: { url: string } }) => {
 	const [widget, setWidget] = useState<WidgetType | null>(null);
 	const [page, setPage] = useState(1);
-	const [isFetching, setIsFetching] = useState(false);
+	const [isFetching, setIsFetching] = useState(true);
 	const [hasMore, setHasMore] = useState(true);
 
 	const fetchWidget = async (pageParam: number) => {
