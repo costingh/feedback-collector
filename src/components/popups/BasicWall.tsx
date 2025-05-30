@@ -165,8 +165,8 @@ function BasicWall({ widget, setPage, isFetching, paginationData }: { widget: Wi
 									className="text-[13px] sm:text-[14px] mt-2 sm:mt-3 mb-3 sm:mb-4"
 									style={{ color: widget?.thirdTextColor }}
 								>
-									{t?.message.length > maxCharactersToShow && !isExpanded(t.id)
-									? `${t.message.slice(0, maxCharactersToShow)}... `
+									{t?.message?.length > maxCharactersToShow && !isExpanded(t.id)
+									? `${t.message?.slice(0, maxCharactersToShow)}... `
 									: t.message}
 
 									{t?.message.length > maxCharactersToShow && (
