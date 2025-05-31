@@ -54,7 +54,7 @@ export default function RootLayout({
                 `}
 				</Script>
 				<body >
-					<Analytics/>
+					<Analytics />
 					{/* <SpeedInsights/> */}
 					<ReduxProvider>
 						<ReactQueryProvider>
@@ -75,11 +75,6 @@ export default function RootLayout({
 
 				<Script
 					src={`${process.env.NEXT_PUBLIC_HOST_URL}/form-embed.iife.js`}
-					strategy="afterInteractive"
-				/>
-
-				<Script
-					src={`${process.env.NEXT_PUBLIC_HOST_URL}/form-embed.iife.js?formId=EAxV479U`}
 					strategy="afterInteractive"
 				/>
 			</html>

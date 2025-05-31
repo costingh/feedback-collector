@@ -1,15 +1,9 @@
 "use client";
 
-import Link from "next/link";
-import { useAuth } from "@clerk/nextjs";
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { ArrowRight } from "lucide-react";
 import { HeroButton } from "./hero-button";
 
 export const HeroSection = () => {
-	const { isSignedIn } = useAuth();
-
 	return (
 		<div className="px-5 py-3 flex flex-col min-h-[100vh] animate-in fade-in items-center justify-center overflow-x-hidden">
 			<div className="h-full items-center justify-center flex flex-col">
@@ -20,7 +14,7 @@ export const HeroSection = () => {
 							<feedbackz-widget data-widget-id="uOQcCM3"></feedbackz-widget>
 
 							{/* @ts-ignore */}
-							{/* <feedbackz-form data-form-type="inline" data-form-id="EAxV479U"></feedbackz-form> */}
+							<feedbackz-form data-form-id="KAVTPAry" data-widget-type="chat-style-floading-widget"></feedbackz-form>
 
 							<Image
 								src={
@@ -31,25 +25,6 @@ export const HeroSection = () => {
 								height={200}
 							/>
 						</div>
-
-						{/* <span className="text-[14px] text-gray-500 bg-gray-200 border-[1px] border-gray-300 px-[10px] py-[4px] rounded-full">All-In-One platform to grow your business</span> */}
-
-						{/* <h1 className=" text-[3.5rem] text-[#111827] font-[900] leading-[60px] mb-6 mt-4">
-							<span className="text-white relative">
-								Collect and share
-								<Image
-									src="/images/hero-vector.svg"
-									alt=""
-									width={180}
-									height={180}
-									className="max-w-full absolute bottom-0 right-[-180px]"
-								/>
-							</span>
-							<br />
-							<span className="bg-gradient-to-b from-white to-[#4f46e5] bg-clip-text text-transparent">
-								testimonials to boost trust and conversions.
-							</span>
-						</h1> */}
 
 						<div className="relative flex max-w-[425px] flex-col items-center justify-center pb-4 text-center sm:max-w-[700px] lg:max-w-6xl lg:pb-0">
 							<h1 className="text-transparent bg-clip-text text-3xl font-extrabold leading-[40px] sm:text-5xl sm:leading-[55px] lg:text-6xl lg:leading-[80px] 2xl:text-7xl">
@@ -67,16 +42,6 @@ export const HeroSection = () => {
 								</span>
 							</h1>
 						</div>
-
-						{/* <p className="text-[16px] text-white font-[300] mb-6 leading-[30px]">
-							Feedbackz enables you to seamlessly collect and
-							showcase client testimonials through customizable
-							forms and popups. Easily embed these on your
-							website, share them with customers, and create
-							dynamic widgets or testimonial walls to display on
-							your SaaS platform, website, or blog. Enhance
-							customer satisfaction and build trust effortlessly.
-						</p> */}
 
 						<div className="max-w-3xl text-center text-lg !leading-8 text-white lg:pb-0 lg:text-xl my-[30px]">
 							Collect and showcase testimonials{" "}

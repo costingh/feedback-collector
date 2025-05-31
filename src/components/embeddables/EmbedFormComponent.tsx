@@ -2,14 +2,14 @@
 import React, { useEffect, useState } from "react";
 
 import FormWidget from "@/components/forms/form-editor/FormWidget";
-import { LoadingSpinner } from "../animations/loading-spinner";
+import { FloatingFormWidget } from "./FloatingFormWidget";
 
 const EmbedFormComponent = ({
 	params,
 	searchParams,
 }: {
 	params: { formUrl: string };
-	searchParams: { raw?: string; centered?: string };
+	searchParams: { raw?: string; centered?: string, widgetType?: string };
 }) => {
 	const [form, setForm] = useState<any>(null);
 	const [loading, setLoading] = useState(true);
@@ -33,30 +33,30 @@ const EmbedFormComponent = ({
 		fetchData();
 	}, [params.formUrl]);
 
-	if (loading) {
-		return (
-			<div className="w-full h-full flex items-center justify-center">
-				<span className="inline-block">
-					<LoadingSpinner size={30} />
-				</span>
-			</div>
-		);
-	}
-
 	return (
-		<main className="w-screen bg-cover bg-center">
-			<div className="h-full w-full py-4">
-				{form && (
-					<FormWidget
-						formUrl={params.formUrl}
-						isRaw={searchParams.raw || ""}
-						isCentered={searchParams.centered}
-						form={form}
-						isSearchingForm={false}
-					/>
-				)}
-			</div>
-		</main>
+		<>
+			{searchParams.widgetType == 'chat-style-floading-widget' ? <FloatingFormWidget>
+				<FormWidget
+					formUrl={params.formUrl}
+					isRaw={searchParams.raw || ""}
+					isCentered={searchParams.centered}
+					form={form}
+					isSearchingForm={loading}
+				/>
+			</FloatingFormWidget> : (
+				<main className="w-screen bg-cover bg-center">
+					<div className="h-full w-full py-4">
+						<FormWidget
+							formUrl={params.formUrl}
+							isRaw={searchParams.raw || ""}
+							isCentered={searchParams.centered}
+							form={form}
+							isSearchingForm={loading}
+						/>
+					</div>
+				</main>
+			)}
+		</>
 	);
 };
 

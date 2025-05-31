@@ -10,10 +10,12 @@ class FeedbackzFormEmbed extends HTMLElement {
             return;
         }
 
+        const widgetType = this.getAttribute("data-widget-type");
+
         const mountPoint = document.createElement("div");
         this.appendChild(mountPoint);
 
-        ReactDOM.createRoot(mountPoint).render(<EmbedFormComponent params={{ formUrl: formId }} searchParams={{raw: 'true', centered: 'false'}} />);
+        ReactDOM.createRoot(mountPoint).render(<EmbedFormComponent params={{ formUrl: formId }} searchParams={{raw: 'true', centered: 'false', widgetType: widgetType || undefined}} />);
     }
 }
 

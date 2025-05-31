@@ -304,6 +304,7 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 	) => {
 
 		return (
+
 			<div className="px-[15px] md:px-[25px] py-[15px] md:py-[30px] bg-white shadow-lg rounded-[15px] w-full max-w-[480px] text-left border-[1px] border-gray-100 pointer-events testimonial-modal relative">
 				{displayPowerdByLabel()}
 				<FormHeader
@@ -319,11 +320,11 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 				{isPaused ? (
 					<FormPaused />
 				) : (
-					<>
+					<div className="w-full">
 						{!published && !isSearchingForm ? (
 							<FormUnpublished />
 						) : (
-							<>
+							<div className="w-full">
 								{isSearchingForm ? (
 									<FormLoaderSkeleton />
 								) : (
@@ -371,9 +372,9 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 										)}
 									</>
 								)}
-							</>
+							</div>
 						)}
-					</>
+					</div>
 				)}
 
 			</div>

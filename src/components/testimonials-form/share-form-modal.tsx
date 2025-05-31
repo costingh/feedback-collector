@@ -33,15 +33,17 @@ const ShareFormModal = ({
 	const height = "100%";
 	const allow = "camera;microphone";
 	
-	const inlineIframeCode = `<feedbackz-form data-form-type="inline" data-form-id="${form?.url?.replace('/p/', '')}"></feedbackz-form>\n<script src="${process.env.NEXT_PUBLIC_HOST_URL}/form-embed.iife.js?formId=${form?.url?.replace('/p/', '')}"></script>`
+	const inlineIframeCode = `<feedbackz-form data-widget-type="inline" data-form-id="${form?.url?.replace('/p/', '')}"></feedbackz-form>\n<script src="${process.env.NEXT_PUBLIC_HOST_URL}/form-embed.iife.js?formId=${form?.url?.replace('/p/', '')}"></script>`
 	
-	const popupIframeCode = `<feedbackz-form data-form-type="popup" data-form-id="${form?.url?.replace('/p/', '')}"></feedbackz-form>\n<script src="${process.env.NEXT_PUBLIC_HOST_URL}/form-embed.iife.js?formId=${form?.url?.replace('/p/', '')}"></script>`
+	const popupIframeCode = `<feedbackz-form data-widget-type="centered-popup" data-form-id="${form?.url?.replace('/p/', '')}"></feedbackz-form>\n<script src="${process.env.NEXT_PUBLIC_HOST_URL}/form-embed.iife.js?formId=${form?.url?.replace('/p/', '')}"></script>`
+	
+	const chatStyleIframeCode = `<feedbackz-form data-form-id="${form?.url?.replace('/p/', '')}" data-widget-type="chat-style-floading-widget"></feedbackz-form>\n<script src="${process.env.NEXT_PUBLIC_HOST_URL}/form-embed.iife.js?formId=${form?.url?.replace('/p/', '')}"></script>`
 	
 	const [code, setCode] =
-		useState(embeddingType == 1 ? inlineIframeCode : popupIframeCode);
+		useState(embeddingType == 1 ? inlineIframeCode : embeddingType == 2 ? popupIframeCode : chatStyleIframeCode);
 
 	useEffect(() => {
-		setCode(embeddingType == 1 ? inlineIframeCode : popupIframeCode)
+		setCode(embeddingType == 1 ? inlineIframeCode : embeddingType == 2 ? popupIframeCode : chatStyleIframeCode)
 	}, [embeddingType])
 
 	return (
@@ -209,6 +211,39 @@ const ShareFormModal = ({
 
 										<div className="absolute top-0 left-0 bottom-0 right-0 w-full h-full flex items-center justify-center">
 											<div className="h-[100px] bg-green-400 w-[150px] rounded"></div>
+										</div>
+									</div>
+									<div
+										className="right w-[50%] rounded-[10px] border-[1px] border-gray-200 p-4 cursor-pointer hover:bg-gray-100 h-[234px] relative"
+										onClick={() => setEmbeddingType(3)}
+										style={
+											embeddingType == 2
+												? {
+														background:
+															"rgb(243 244 246",
+												  }
+												: {}
+										}
+									>
+										<div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
+										<div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
+										<div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
+										<div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
+										<div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
+										<div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
+										<div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
+										<div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
+										<div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
+										<div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
+										<div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
+										<div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
+										<div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
+										<div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
+										<div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
+										<div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
+										<div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
+
+										<div className="absolute bottom-[20px] left-[20px] w-[40px] h-[40px] rounded-full bg-green-400">
 										</div>
 									</div>
 								</div>

@@ -30,48 +30,55 @@ export async function GET(
 
         const formattedUrl = formUrl.includes("/p/") ? formUrl : "/p/" + formUrl;
 
+        // Combined query with nested include
         const form = await client.form.findFirst({
             where: { url: formattedUrl },
-            include: { formFields: true, questions: true },
-        });
-
-        if (form) {
-            const user = await client.user.findFirst({
-                where: { clerkid: form.userId },
-            });
-
-            const payment = await client.subscription.findFirst({
-                where: { userId: user?.id },
-            });
-
-            return new NextResponse(
-                JSON.stringify({
-                    status: 200,
-                    data: {
-                        form: {
-                            ...form,
-                            hasCustomBranding:
-                                payment?.plan === "BUSINESS" || payment?.plan === "PRO",
+            include: {
+                formFields: true,
+                questions: true,
+                workspace: {
+                    include: {
+                        User: {
+                            include: {
+                                subscription: true,
+                            },
                         },
                     },
-                }),
-                {
-                    status: 200,
-                    headers: {
-                        ...corsHeaders,
-                        "Content-Type": "application/json",
-                    },
-                }
-            );
-        } else {
-            return new NextResponse(
-                JSON.stringify({ form: null, error: "Form not found" }),
-                {
-                    status: 404,
-                    headers: corsHeaders,
-                }
-            );
+                },
+            },
+        });
+
+        if (!form || !form.workspace?.User) {
+            return new NextResponse(JSON.stringify({ error: "Form not found" }), {
+                status: 404,
+                headers: corsHeaders,
+            });
         }
+
+        const user = form.workspace.User;
+        const subscription = user.subscription;
+
+        const hasCustomBranding =
+            subscription?.plan === "BUSINESS" || subscription?.plan === "PRO";
+
+        return new NextResponse(
+            JSON.stringify({
+                status: 200,
+                data: {
+                    form: {
+                        ...form,
+                        hasCustomBranding,
+                    },
+                },
+            }),
+            {
+                status: 200,
+                headers: {
+                    ...corsHeaders,
+                    "Content-Type": "application/json",
+                },
+            }
+        );
     } catch (error) {
         console.error("[FORM_ERROR]", error);
         return new NextResponse("Internal Error", {

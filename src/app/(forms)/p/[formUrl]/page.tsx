@@ -20,7 +20,7 @@ const TestimonialFormPage = async ({
 						isRaw={searchParams.raw || ""}
 						isCentered={searchParams.centered}
 						form={form}
-						isSearchingForm={false}
+						isSearchingForm={!form}
 					/>
 				)}
 			</div>
