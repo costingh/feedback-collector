@@ -21,24 +21,22 @@ export const HeroSection = () => {
 									"/images/made-with-feedbackz-white.png"
 								}
 								alt="Made with Feedbackz"
-								width={200}
-								height={200}
+								width={150}
+								height={150}
+								className='mt-[-25px]'
 							/>
 						</div>
 
 						<div className="relative flex max-w-[425px] flex-col items-center justify-center pb-4 text-center sm:max-w-[700px] lg:max-w-6xl lg:pb-0">
 							<h1 className="text-transparent bg-clip-text text-3xl font-extrabold leading-[40px] sm:text-5xl sm:leading-[55px] lg:text-6xl lg:leading-[80px] 2xl:text-7xl">
 								<span className="bg-gradient-to-b from-white from-70% to-[#b2b2b2] bg-clip-text">
-									Share testimonials <br />
+									Social proof that <br />
 								</span>
 								<span className="bg-gradient-to-b from-white from-30% to-[#7496F8] bg-clip-text">
-									to build trust{" "}
-								</span>
-								<span className="bg-gradient-to-b from-white from-70% to-[#b2b2b2] bg-clip-text">
-									and increase{" "}
+									builds trust and drives{" "}
 								</span>
 								<span className="bg-gradient-to-b from-white from-30% to-[#7496F8] bg-clip-text">
-									conversions
+									sales
 								</span>
 							</h1>
 						</div>
@@ -115,6 +113,8 @@ export const HeroSection = () => {
 							satisfaction.
 						</span>
 					</div>
+
+					<a href="https://startupfa.me/s/feedbackz.co?utm_source=feedbackz.co" target="_blank"><img src="https://startupfa.me/badges/featured/dark-rounded.webp" alt="Featured on Startup Fame" width="171" height="54" className="fixed bottom-[20px] right-[100px] z-[999]" /></a>
 				</div>
 			</div>
 		</div>
