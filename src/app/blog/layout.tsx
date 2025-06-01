@@ -1,4 +1,4 @@
-import LandingPageNavBar from '../(website)/_components/navbar'
+// import LandingPageNavBar from '../(website)/_components/navbar'
 import SearchForm from './_components/SearchForm'
 
 export default function BlogLayout({

@@ -24,7 +24,7 @@ export default function PlanCard({ plan }: { plan: any }) {
 			<p className="text-gray-500 text-sm mb-4">
 				/month billed {plan.interval}
 			</p>
-			{/* @ts-ignore */}
+			
 			<PaymentButton
 				planType={plan.planType}
 				styles={`w-full ${

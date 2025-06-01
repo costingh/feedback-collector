@@ -104,13 +104,9 @@ function ShareableElement({
 
 				{type == 'avatars' && (
 					<div>
+						{/* prettier-ignore */}
 						{/* @ts-ignore */}
-						<Avatars
-							transition={true}
-							testimonials={testimonialsMock}
-							widget={getMockWidget('avatars')}
-							numberOfReviews={formatNumberOfReviews(1023 - 3)}
-						/>
+						<Avatars transition={true} testimonials={testimonialsMock} widget={getMockWidget('avatars')} numberOfReviews={formatNumberOfReviews(1023 - 3)} />
 					</div>
 				)}
 

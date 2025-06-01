@@ -48,6 +48,7 @@ export default async function BlogPost({ post, allPosts }: BlogPostProps) {
 			remarkPlugins: [remarkGfm],
 			rehypePlugins: [rehypePrism],
 		},
+		parseFrontmatter: true,
 	})
 
 	return (

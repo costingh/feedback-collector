@@ -37,37 +37,22 @@ export default function RootLayout({
 	return (
 		<ClerkProvider>
 			<html lang="en" className={fredoka.className}>
-				<StructuredData
-					type="Organization"
-					data={{
-						name: 'Feedbackz',
-						url: 'https://feedbackz.co',
-						logo: 'https://feedbackz.co/images/app-preview.png',
-						description:
-							'Feedbackz helps freelancers and businesses collect and showcase text and video testimonials with shareable pages, forms, and widgets.',
-						sameAs: [
-							'https://twitter.com/feedbackz',
-							'https://linkedin.com/company/feedbackz',
-						],
-					}}
-				/>
-				{/* <!-- Google tag (gtag.js) --> */}
-				<Script
-					id="gtm-script-1"
-					strategy="lazyOnload"
-					src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
-				/>
-
-				<Script id="gtm-script-2" strategy="lazyOnload">
-					{`
-                    window.dataLayer = window.dataLayer || [];
-                    function gtag(){dataLayer.push(arguments);}
-                    gtag('js', new Date());
-                    gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}', {
-                    page_path: window.location.pathname,
-                    });
-                `}
-				</Script>
+				<head>
+					<StructuredData
+						type="Organization"
+						data={{
+							name: 'Feedbackz',
+							url: 'https://feedbackz.co',
+							logo: 'https://feedbackz.co/images/app-preview.png',
+							description:
+								'Feedbackz helps freelancers and businesses collect and showcase text and video testimonials with shareable pages, forms, and widgets.',
+							sameAs: [
+								'https://twitter.com/feedbackz',
+								'https://linkedin.com/company/feedbackz',
+							],
+						}}
+					/>
+				</head>
 				<body>
 					<Analytics />
 					{/* <SpeedInsights/> */}
@@ -77,26 +62,45 @@ export default function RootLayout({
 							<Toaster />
 						</ReactQueryProvider>
 					</ReduxProvider>
+
+					{/* Google Analytics */}
+					<Script
+						id="gtm-script-1"
+						strategy="lazyOnload"
+						src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
+					/>
+
+					<Script id="gtm-script-2" strategy="lazyOnload">
+						{`
+							window.dataLayer = window.dataLayer || [];
+							function gtag(){dataLayer.push(arguments);}
+							gtag('js', new Date());
+							gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}', {
+								page_path: window.location.pathname,
+							});
+						`}
+					</Script>
+
+					{/* Widget Scripts */}
+					<Script
+						src={`${process.env.NEXT_PUBLIC_HOST_URL}/widget-embed.iife.js`}
+						strategy="afterInteractive"
+					/>
+
+					<Script
+						src={`${process.env.NEXT_PUBLIC_HOST_URL}/form-embed.iife.js`}
+						strategy="afterInteractive"
+					/>
+
+					<Script
+						src="https://js.howdygo.com/v1.2.1/index.js"
+						strategy="afterInteractive"
+					/>
 				</body>
 				{/* <Script
 					src='http://localhost:3000/embed.js?formId=YWByDh4R&width=100%&height=100%&allow=camera;microphone'
 					strategy="afterInteractive"
 				/> */}
-
-				<Script
-					src={`${process.env.NEXT_PUBLIC_HOST_URL}/widget-embed.iife.js`}
-					strategy="afterInteractive"
-				/>
-
-				<Script
-					src={`${process.env.NEXT_PUBLIC_HOST_URL}/form-embed.iife.js`}
-					strategy="afterInteractive"
-				/>
-
-				<Script
-					src="https://js.howdygo.com/v1.2.1/index.js"
-					strategy="afterInteractive"
-				/>
 			</html>
 		</ClerkProvider>
 	)
