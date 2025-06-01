@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next'
-import { getAllPosts } from './(blog)/blog/_lib/getPosts'
+import { getAllPosts } from './blog/_lib/getPosts'
 
 interface BlogPost {
 	slug: string
