@@ -1,6 +1,6 @@
-import Link from "next/link";
-import React from "react";
-import Logo from "./logo";
+import Link from 'next/link'
+import React from 'react'
+import Logo from './logo'
 
 function Footer() {
 	return (
@@ -15,7 +15,7 @@ function Footer() {
 						<h3 className="text-[15px] font-semibold text-gray-900">
 							Product
 						</h3>
-						
+
 						<Link
 							href="/#features"
 							className="text-[15px] text-gray-500 cursor-pointer transition-all hover:pl-2 hover:text-gray-900 font-[300]"
@@ -131,7 +131,7 @@ function Footer() {
 				© 2025 Feedbackz. All rights reserved.
 			</div>
 		</>
-	);
+	)
 }
 
-export default Footer;
+export default Footer

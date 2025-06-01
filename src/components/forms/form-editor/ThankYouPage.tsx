@@ -1,62 +1,62 @@
-"use client";
+'use client'
 
-import React, { useState } from "react";
-import { CircleHelp } from "lucide-react";
-import { Form } from "@/types/Form";
+import React, { useState } from 'react'
+import { CircleHelp } from 'lucide-react'
+import { Form } from '@/types/Form'
 import {
 	Tooltip,
 	TooltipContent,
 	TooltipProvider,
 	TooltipTrigger,
-} from "@/components/ui/tooltip";
+} from '@/components/ui/tooltip'
 
 interface ThankYouPageProps {
-	setForm: React.Dispatch<React.SetStateAction<Form>>;
-	form: Form;
+	setForm: React.Dispatch<React.SetStateAction<Form>>
+	form: Form
 }
 
 type ThankYouPageEditFormType = {
-	key: string;
-	title: string;
-	tooltipDescription: string;
-	inputType: string;
-};
+	key: string
+	title: string
+	tooltipDescription: string
+	inputType: string
+}
 
 const ThankYouPage: React.FC<ThankYouPageProps> = ({ setForm, form }) => {
 	const [formLabels, setFormLabels] = useState<ThankYouPageEditFormType[]>([
 		{
-			key: "thankYouCustomURL",
-			title: "Custom Page",
-			tooltipDescription: "Redirect the user to a certain URL.",
-			inputType: "single-line",
+			key: 'thankYouCustomURL',
+			title: 'Custom Page',
+			tooltipDescription: 'Redirect the user to a certain URL.',
+			inputType: 'single-line',
 		},
 		{
-			key: "thankYouPageTitle",
-			title: "Page Title",
+			key: 'thankYouPageTitle',
+			title: 'Page Title',
 			tooltipDescription:
-				"This is the title appearing at the top of your Thank You page.",
-			inputType: "single-line",
+				'This is the title appearing at the top of your Thank You page.',
+			inputType: 'single-line',
 		},
 		{
-			key: "thankYouPageMessage",
-			title: "Page Description",
+			key: 'thankYouPageMessage',
+			title: 'Page Description',
 			tooltipDescription:
-				"This is the description of the purpose of this form.",
-			inputType: "multi-line",
+				'This is the description of the purpose of this form.',
+			inputType: 'multi-line',
 		},
-	]);
+	])
 
 	const handleInputChange = (value: string, key: string) => {
 		setForm((prevFormState) => ({
 			...prevFormState,
 			[key]: value,
-		}));
-	};
+		}))
+	}
 
 	const extractFieldValue = (form: Form, key: string) => {
 		//@ts-ignore
-		return form[key];
-	};
+		return form[key]
+	}
 
 	return (
 		<div className="w-full">
@@ -66,25 +66,25 @@ const ThankYouPage: React.FC<ThankYouPageProps> = ({ setForm, form }) => {
 					key={label.key}
 					title={label.title}
 					tooltipDescription={label.tooltipDescription}
-					textareaValue={extractFieldValue(form, label.key) || ""}
+					textareaValue={extractFieldValue(form, label.key) || ''}
 					handleInputChange={handleInputChange}
 					inputType={label.inputType}
 				/>
 			))}
 		</div>
-	);
-};
+	)
+}
 
-export default ThankYouPage;
+export default ThankYouPage
 
 type LabelEditProps = {
-	labelKey: string;
-	title: string;
-	tooltipDescription: string;
-	textareaValue?: string;
-	handleInputChange: any;
-	inputType: string;
-};
+	labelKey: string
+	title: string
+	tooltipDescription: string
+	textareaValue?: string
+	handleInputChange: any
+	inputType: string
+}
 
 const LabelEdit: React.FC<LabelEditProps> = ({
 	labelKey,
@@ -112,14 +112,14 @@ const LabelEdit: React.FC<LabelEditProps> = ({
 					</Tooltip>
 				</TooltipProvider>
 			</div>
-			{inputType == "multi-line" ? (
+			{inputType == 'multi-line' ? (
 				<textarea
 					className="w-full border-[1px] border-gray-200 rounded-[4px] px-3 py-2 text-[14px]"
 					value={textareaValue}
 					onChange={(e) =>
 						handleInputChange(e.target.value, labelKey)
 					}
-                    rows={4}
+					rows={4}
 				></textarea>
 			) : (
 				<input
@@ -133,5 +133,5 @@ const LabelEdit: React.FC<LabelEditProps> = ({
 				/>
 			)}
 		</div>
-	);
-};
+	)
+}

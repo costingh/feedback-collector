@@ -8,9 +8,9 @@ import {
 	PlusSquare,
 	Share2,
 	Trash2,
-} from "lucide-react";
+} from 'lucide-react'
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button'
 import {
 	Dialog,
 	DialogClose,
@@ -20,10 +20,10 @@ import {
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { useEffect, useState } from "react";
+} from '@/components/ui/dialog'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { useEffect, useState } from 'react'
 import {
 	Select,
 	SelectContent,
@@ -32,31 +32,31 @@ import {
 	SelectLabel,
 	SelectTrigger,
 	SelectValue,
-} from "@/components/ui/select";
-import { Tag } from "@/types/Tag";
-import { tagCategories as categories } from "@/lib/utils";
-import { LoadingSpinner } from "../animations/loading-spinner";
+} from '@/components/ui/select'
+import { Tag } from '@/types/Tag'
+import { tagCategories as categories } from '@/lib/utils'
+import { LoadingSpinner } from '../animations/loading-spinner'
 
 export function EditTag({
 	tag,
-	handleEditTag
+	handleEditTag,
 }: {
-	tag: Tag;
-	handleEditTag: (tag: Tag) => void;
+	tag: Tag
+	handleEditTag: (tag: Tag) => void
 }) {
 	const [formValue, setFormValue] = useState({
 		category: tag.category,
 		tagName: tag.tagName,
 		tagDescription: tag.tagDescription,
-	});
+	})
 
 	const handleEdit = async (t: Tag) => {
 		await handleEditTag({
 			...tag,
-			...t
+			...t,
 		})
-		document.getElementById("close-dialog")?.click();
-	};
+		document.getElementById('close-dialog')?.click()
+	}
 
 	return (
 		<Dialog>
@@ -169,12 +169,12 @@ export function EditTag({
 					</div>
 
 					<DialogClose asChild>
-						<div id="close-dialog" style={{ display: "none" }}>
+						<div id="close-dialog" style={{ display: 'none' }}>
 							Save changes
 						</div>
 					</DialogClose>
 				</DialogFooter>
 			</DialogContent>
 		</Dialog>
-	);
+	)
 }

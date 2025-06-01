@@ -1,39 +1,39 @@
-"use client";
+'use client'
 
-import { useState } from "react";
-import axios from "axios";
-import { toast } from "sonner";
-import { Textarea } from "@/components/ui/textarea";
-import SpinnerButton from "@/components/global/loader/spinner-button";
+import { useState } from 'react'
+import axios from 'axios'
+import { toast } from 'sonner'
+import { Textarea } from '@/components/ui/textarea'
+import SpinnerButton from '@/components/global/loader/spinner-button'
 
 const FeatureRequestPage = () => {
-	const [description, setDescription] = useState<string>("");
-	const [loading, setLoading] = useState<boolean>(false);
+	const [description, setDescription] = useState<string>('')
+	const [loading, setLoading] = useState<boolean>(false)
 
 	const handleSubmit = async () => {
 		if (!description.trim()) {
-			toast.error("Feature description cannot be empty");
-			return;
+			toast.error('Feature description cannot be empty')
+			return
 		}
 
-		setLoading(true);
+		setLoading(true)
 		try {
-			const response = await axios.post("/api/request-feature", {
+			const response = await axios.post('/api/request-feature', {
 				description,
-			});
+			})
 			if (response.status === 200) {
-				toast.success("Feature request submitted successfully!");
-				setDescription("");
+				toast.success('Feature request submitted successfully!')
+				setDescription('')
 			} else {
-				toast.error("Failed to submit the feature request.");
+				toast.error('Failed to submit the feature request.')
 			}
 		} catch (error) {
-			console.error(error);
-			toast.error("Unexpected error occurred.");
+			console.error(error)
+			toast.error('Unexpected error occurred.')
 		} finally {
-			setLoading(false);
+			setLoading(false)
 		}
-	};
+	}
 
 	return (
 		<div className="max-w-2xl mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
@@ -53,12 +53,9 @@ const FeatureRequestPage = () => {
 				disabled={loading}
 			/>
 
-			<SpinnerButton
-				loading={loading}
-				handleSubmit={handleSubmit}
-			/>
+			<SpinnerButton loading={loading} handleSubmit={handleSubmit} />
 		</div>
-	);
-};
+	)
+}
 
-export default FeatureRequestPage;
+export default FeatureRequestPage

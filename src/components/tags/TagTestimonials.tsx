@@ -9,9 +9,9 @@ import {
 	Share2,
 	TagIcon,
 	Trash2,
-} from "lucide-react";
+} from 'lucide-react'
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button'
 import {
 	Dialog,
 	DialogClose,
@@ -21,12 +21,12 @@ import {
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger,
-} from "@/components/ui/dialog";
-import { useEffect, useState } from "react";
+} from '@/components/ui/dialog'
+import { useEffect, useState } from 'react'
 
-import { toast } from "sonner";
-import axios from "axios";
-import { Tag } from "@/types/Tag";
+import { toast } from 'sonner'
+import axios from 'axios'
+import { Tag } from '@/types/Tag'
 
 export function TagTestimonials({
 	testimonialsIds,
@@ -35,19 +35,19 @@ export function TagTestimonials({
 	allUserTags,
 	setTags,
 }: {
-	testimonialsIds: string[];
-	loading: { action: string; loading: boolean };
-	setLoading: any;
-	allUserTags: Tag[];
-	setTags: any;
+	testimonialsIds: string[]
+	loading: { action: string; loading: boolean }
+	setLoading: any
+	allUserTags: Tag[]
+	setTags: any
 }) {
-	const [isTagging, setIsTagging] = useState("");
+	const [isTagging, setIsTagging] = useState('')
 
 	const handleTagTestimonial = async (
 		tag: Tag,
-		testimonialsIds: string[]
+		testimonialsIds: string[],
 	) => {
-		setIsTagging(tag?.id || "");
+		setIsTagging(tag?.id || '')
 		try {
 			const response = await axios.put(`/api/tag/update?id=${tag.id}`, {
 				data: {
@@ -57,7 +57,7 @@ export function TagTestimonials({
 						...testimonialsIds,
 					],
 				},
-			});
+			})
 
 			if (!response?.data?.error) {
 				//@ts-ignore
@@ -71,36 +71,36 @@ export function TagTestimonials({
 										...(tag?.formResponsesIds || []),
 										...testimonialsIds,
 									],
-							  }
-							: t
-					)
-				);
-				toast.success("Testimonials tagged successfully!");
+								}
+							: t,
+					),
+				)
+				toast.success('Testimonials tagged successfully!')
 			} else {
-				toast.error("Failed to tag testimonials.");
+				toast.error('Failed to tag testimonials.')
 			}
 		} catch (error) {
-			console.error("Failed to tag:", error);
-			toast.error("An error occurred while tagging the testimonials");
+			console.error('Failed to tag:', error)
+			toast.error('An error occurred while tagging the testimonials')
 		}
-		setIsTagging("");
-	};
+		setIsTagging('')
+	}
 
 	const handleUntagTestimonial = async (
 		tag: Tag,
-		testimonialsIds: string[]
+		testimonialsIds: string[],
 	) => {
-		setIsTagging(tag?.id || "");
+		setIsTagging(tag?.id || '')
 		try {
 			const response = await axios.put(`/api/tag/update?id=${tag.id}`, {
 				data: {
 					id: tag.id,
 					formResponsesIds:
 						tag?.formResponsesIds?.filter(
-							(id) => !testimonialsIds.includes(id)
+							(id) => !testimonialsIds.includes(id),
 						) || [],
 				},
-			});
+			})
 
 			if (!response?.data?.error) {
 				//@ts-ignore
@@ -113,22 +113,22 @@ export function TagTestimonials({
 									formResponsesIds:
 										tag?.formResponsesIds?.filter(
 											(id) =>
-												!testimonialsIds.includes(id)
+												!testimonialsIds.includes(id),
 										) || [],
-							  }
-							: t
-					)
-				);
-				toast.success("Testimonials tagged successfully!");
+								}
+							: t,
+					),
+				)
+				toast.success('Testimonials tagged successfully!')
 			} else {
-				toast.error("Failed to tag testimonials.");
+				toast.error('Failed to tag testimonials.')
 			}
 		} catch (error) {
-			console.error("Failed to tag:", error);
-			toast.error("An error occurred while tagging the testimonials");
+			console.error('Failed to tag:', error)
+			toast.error('An error occurred while tagging the testimonials')
 		}
-		setIsTagging("");
-	};
+		setIsTagging('')
+	}
 
 	return (
 		<Dialog>
@@ -139,13 +139,13 @@ export function TagTestimonials({
 				>
 					<TagIcon size={14} className="text-gray-200" />
 					<span className="text-gray-200 font-[400] text-[13px]">
-						{loading.action == "delete" && loading.loading ? (
+						{loading.action == 'delete' && loading.loading ? (
 							<Loader2
 								size={11}
 								className="spin my-[4px] mx-[4px]"
 							/>
 						) : (
-							"Tag"
+							'Tag'
 						)}
 					</span>
 				</div>
@@ -165,14 +165,14 @@ export function TagTestimonials({
 					{allUserTags.map((tag) => (
 						<>
 							{testimonialsIds.some((id) =>
-								tag.formResponsesIds?.includes(id)
+								tag.formResponsesIds?.includes(id),
 							) ? (
 								<div
 									key={tag.id}
 									onClick={() =>
 										handleUntagTestimonial(
 											tag,
-											testimonialsIds
+											testimonialsIds,
 										)
 									}
 									className="cursor-pointer bg-purple-100 px-[8px] py-[3px] rounded-[10px] border-[1px] border-purple-400 "
@@ -200,7 +200,7 @@ export function TagTestimonials({
 									onClick={() =>
 										handleTagTestimonial(
 											tag,
-											testimonialsIds
+											testimonialsIds,
 										)
 									}
 									className="cursor-pointer bg-gray-100 px-[8px] py-[3px] rounded-[10px] border-[1px] border-gray-300 "
@@ -228,5 +228,5 @@ export function TagTestimonials({
 				</div>
 			</DialogContent>
 		</Dialog>
-	);
+	)
 }

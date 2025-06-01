@@ -1,26 +1,29 @@
-import clsx from "clsx";
-import StarsRating from "@/components/stars/stars-rating";
-import { Widget } from "@prisma/client";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { needsDarkBackground } from "@/lib/utils";
+import clsx from 'clsx'
+import StarsRating from '@/components/stars/stars-rating'
+import { Widget } from '@prisma/client'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { needsDarkBackground } from '@/lib/utils'
 
 function SimpleAvatarsVariant({
 	transition,
 	testimonials,
 	widget,
 }: {
-	transition?: boolean;
-	testimonials: any;
-	widget: (Widget & { _count: { testimonials: number } } & { avgStars: number }) | null | undefined;
+	transition?: boolean
+	testimonials: any
+	widget:
+		| (Widget & { _count: { testimonials: number } } & { avgStars: number })
+		| null
+		| undefined
 }) {
 	return (
 		<>
 			{testimonials?.length > 0 ? (
 				<div
 					className={clsx(
-						"w-full flex flex-col sm:flex-row items-center sm:items-start gap-3",
+						'w-full flex flex-col sm:flex-row items-center sm:items-start gap-3',
 						transition &&
-							"transition-transform duration-300 ease-in-out group-hover:scale-110"
+							'transition-transform duration-300 ease-in-out group-hover:scale-110',
 					)}
 				>
 					<div className="flex sm:-space-x-5 avatar-group justify-center sm:justify-start">
@@ -28,7 +31,7 @@ function SimpleAvatarsVariant({
 							<Avatar key={t.id}>
 								<AvatarImage src={t.avatar} />
 								<AvatarFallback>
-									{t?.name?.slice(0, 2) || "N/A"}
+									{t?.name?.slice(0, 2) || 'N/A'}
 								</AvatarFallback>
 							</Avatar>
 						))}
@@ -41,7 +44,7 @@ function SimpleAvatarsVariant({
 								scale={0.7}
 								marginLeft={-15}
 								variant={widget?.starsVariant}
-                                color={widget?.starsColor || ""}
+								color={widget?.starsColor || ''}
 							/>
 						</div>
 						<div
@@ -49,7 +52,7 @@ function SimpleAvatarsVariant({
 							style={{ color: widget?.primaryTextColor }}
 						>
 							{widget?.widgetDescription ||
-								"Trusted by thousands of customers"}
+								'Trusted by thousands of customers'}
 						</div>
 					</div>
 				</div>
@@ -58,10 +61,10 @@ function SimpleAvatarsVariant({
 					<div className="flex flex-col items-center justify-center max-w-[280px] sm:max-w-lg text-center">
 						<h1
 							className={clsx(
-								"font-700 text-[15px] sm:text-[20px] mb-2",
+								'font-700 text-[15px] sm:text-[20px] mb-2',
 								needsDarkBackground(widget)
-									? "text-gray-300"
-									: "text-black"
+									? 'text-gray-300'
+									: 'text-black',
 							)}
 						>
 							Oops, looks like you didnt link any testimonials to
@@ -69,10 +72,10 @@ function SimpleAvatarsVariant({
 						</h1>
 						<p
 							className={clsx(
-								"text-gray-600 text-[14px] sm:text-[16px]",
+								'text-gray-600 text-[14px] sm:text-[16px]',
 								needsDarkBackground(widget)
-									? "text-gray-400"
-									: "text-black"
+									? 'text-gray-400'
+									: 'text-black',
 							)}
 						>
 							Please go to the "Creator" sidebar menu and link
@@ -82,7 +85,7 @@ function SimpleAvatarsVariant({
 				</div>
 			)}
 		</>
-	);
+	)
 }
 
-export default SimpleAvatarsVariant;
+export default SimpleAvatarsVariant

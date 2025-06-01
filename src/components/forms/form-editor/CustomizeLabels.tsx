@@ -1,26 +1,26 @@
-"use client";
+'use client'
 
-import React, { useState } from "react";
-import { CircleHelp } from "lucide-react";
-import { Form } from "@/types/Form";
+import React, { useState } from 'react'
+import { CircleHelp } from 'lucide-react'
+import { Form } from '@/types/Form'
 import {
 	Tooltip,
 	TooltipContent,
 	TooltipProvider,
 	TooltipTrigger,
-} from "@/components/ui/tooltip";
+} from '@/components/ui/tooltip'
 
 interface CustomizeLabelsProps {
-	setForm: React.Dispatch<React.SetStateAction<Form>>;
-	form: Form;
+	setForm: React.Dispatch<React.SetStateAction<Form>>
+	form: Form
 }
 
 type FormLabelsType = {
-	key: string;
-	title: string;
-	tooltipDescription: string;
-	questions?: { text: string }[];
-};
+	key: string
+	title: string
+	tooltipDescription: string
+	questions?: { text: string }[]
+}
 
 const CustomizeLabels: React.FC<CustomizeLabelsProps> = ({ setForm, form }) => {
 	const [formLabels, setFormLabels] = useState<FormLabelsType[]>([
@@ -31,54 +31,54 @@ const CustomizeLabels: React.FC<CustomizeLabelsProps> = ({ setForm, form }) => {
 		// 		"This is the title appearing at the top of your form.",
 		// },
 		{
-			key: "description",
-			title: "Description",
+			key: 'description',
+			title: 'Description',
 			tooltipDescription:
-				"This is the description of the purpose of this form.",
+				'This is the description of the purpose of this form.',
 		},
 		{
-			key: "questions",
-			title: "Enter a few questions",
+			key: 'questions',
+			title: 'Enter a few questions',
 			tooltipDescription:
-				"Here you can add what topics should customers target when offering feedback.",
+				'Here you can add what topics should customers target when offering feedback.',
 			questions: form.questions,
 		},
 		{
-			key: "textareaPlaceholder",
-			title: "Response",
-			tooltipDescription: "An example of message for the customers.",
+			key: 'textareaPlaceholder',
+			title: 'Response',
+			tooltipDescription: 'An example of message for the customers.',
 		},
 		{
-			key: "buttonLabel",
-			title: "Button Label",
-			tooltipDescription: "Change the submit button label.",
+			key: 'buttonLabel',
+			title: 'Button Label',
+			tooltipDescription: 'Change the submit button label.',
 		},
-	]);
+	])
 
 	const handleInputChange = (value: string, key: string) => {
-		if (key == "questions") {
-			const questions = value.split("\n");
+		if (key == 'questions') {
+			const questions = value.split('\n')
 			// @ts-ignore
 			setForm((prevFormState) => ({
 				...prevFormState,
-				[key]: questions.map(q => ({text: q})),
-			}));
+				[key]: questions.map((q) => ({ text: q })),
+			}))
 		} else {
 			setForm((prevFormState) => ({
 				...prevFormState,
 				[key]: value,
-			}));
+			}))
 		}
-	};
+	}
 
 	const extractFieldValue = (form: Form, key: string) => {
-		if (key == "questions") {
-			return form[key].map((q) => q.text).join("\n");
+		if (key == 'questions') {
+			return form[key].map((q) => q.text).join('\n')
 		} else {
 			//@ts-ignore
-			return form[key];
+			return form[key]
 		}
-	};
+	}
 
 	return (
 		<div className="w-full">
@@ -88,23 +88,23 @@ const CustomizeLabels: React.FC<CustomizeLabelsProps> = ({ setForm, form }) => {
 					key={label.key}
 					title={label.title}
 					tooltipDescription={label.tooltipDescription}
-					textareaValue={extractFieldValue(form, label.key) || ""}
+					textareaValue={extractFieldValue(form, label.key) || ''}
 					handleInputChange={handleInputChange}
 				/>
 			))}
 		</div>
-	);
-};
+	)
+}
 
-export default CustomizeLabels;
+export default CustomizeLabels
 
 type LabelEditProps = {
-	labelKey: string;
-	title: string;
-	tooltipDescription: string;
-	textareaValue?: string;
-	handleInputChange: any;
-};
+	labelKey: string
+	title: string
+	tooltipDescription: string
+	textareaValue?: string
+	handleInputChange: any
+}
 
 const LabelEdit: React.FC<LabelEditProps> = ({
 	labelKey,
@@ -137,5 +137,5 @@ const LabelEdit: React.FC<LabelEditProps> = ({
 				onChange={(e) => handleInputChange(e.target.value, labelKey)}
 			></textarea>
 		</div>
-	);
-};
+	)
+}

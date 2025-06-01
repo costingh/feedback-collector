@@ -1,4 +1,4 @@
-"use client";
+'use client'
 
 import {
 	Copy,
@@ -9,100 +9,115 @@ import {
 	PlusSquare,
 	SquareArrowOutUpRight,
 	Trash2,
-} from "lucide-react";
-import {useState } from "react";
-import { toast } from "sonner";
-import Link from "next/link";
-import { Form } from "@/types/Form";
-import FormSkeleton from "@/components/global/skeletons/FormSkeleton";
-import { useQueryData } from "@/hooks/useQueryData";
-import { createNewForm, deleteForm, duplicateForm, getUserForms, pauseForm } from "@/actions/form";
-import { useMutationData, useMutationDataState } from "@/hooks/useMutationData";
-import ShareFormModal from "@/components/testimonials-form/share-form-modal";
-import { useRouter } from "next/navigation";
+} from 'lucide-react'
+import { useState } from 'react'
+import { toast } from 'sonner'
+import Link from 'next/link'
+import { Form } from '@/types/Form'
+import FormSkeleton from '@/components/global/skeletons/FormSkeleton'
+import { useQueryData } from '@/hooks/useQueryData'
+import {
+	createNewForm,
+	deleteForm,
+	duplicateForm,
+	getUserForms,
+	pauseForm,
+} from '@/actions/form'
+import { useMutationData, useMutationDataState } from '@/hooks/useMutationData'
+import ShareFormModal from '@/components/testimonials-form/share-form-modal'
+import { useRouter } from 'next/navigation'
 
 type Props = {
 	params: { workspaceId: string }
-};
+}
 
 const FormsPage = ({ params: { workspaceId } }: Props) => {
 	const router = useRouter()
 
 	const { data: formsData, isFetching: fetchingForms } = useQueryData(
-		["user-forms", workspaceId],
+		['user-forms', workspaceId],
 		() => getUserForms(workspaceId),
 		undefined,
-		false // refetchOnWindowFocus
-	);
+		false, // refetchOnWindowFocus
+	)
 
-	const userForms = (formsData as any)?.data?.forms || [];
+	const userForms = (formsData as any)?.data?.forms || []
 
-	const [copied, setCopied] = useState(false);
+	const [copied, setCopied] = useState(false)
 
 	const handleEditForm = (formId: string) => {
-		router.push(`/dashboard/${workspaceId}/forms/edit/${formId}`);
-	};
+		router.push(`/dashboard/${workspaceId}/forms/edit/${formId}`)
+	}
 
-	const { mutate: handleCreateNewForm, isPending: isLoading } = useMutationData(
-		["create-form"],
-		() => createNewForm(workspaceId),
-		["user-forms", workspaceId]
-	);
-	
+	const { mutate: handleCreateNewForm, isPending: isLoading } =
+		useMutationData(['create-form'], () => createNewForm(workspaceId), [
+			'user-forms',
+			workspaceId,
+		])
+
 	const { mutate: handleDeleteForm, isPending } = useMutationData(
-		["delete-form"],
+		['delete-form'],
 		(formId: string) => deleteForm(formId),
-		["user-forms", workspaceId]
-	);
-	
-	const { latestVariables: latestDeleteVariables } = useMutationDataState(["delete-form"]);
-	const isDeleting = isPending ? latestDeleteVariables?.variables : null;
-	
-	const { mutate: handlePauseForm, isPending: isPendingUpdate } = useMutationData(
-		["update-form"],
-		(form: Form) => pauseForm(form.id, !form.isPaused),
-		["user-forms", workspaceId]
-	);
-	
-	const { latestVariables: latestUpdateVariables } = useMutationDataState(["update-form"]);
-	const isPausing = isPendingUpdate ? latestUpdateVariables?.variables : null;
+		['user-forms', workspaceId],
+	)
 
-	const { mutate: handleDuplicateForm, isPending: isPendingDuplicate } = useMutationData(
-		["update-form"],
-		(formId: string) => duplicateForm(formId),
-		["user-forms", workspaceId]
-	);
-	
-	const { latestVariables: latestDyplicateVariables } = useMutationDataState(["duplicate-form"]);
-	const isDuplicatingForm = isPendingDuplicate ? latestDyplicateVariables?.variables : null;
+	const { latestVariables: latestDeleteVariables } = useMutationDataState([
+		'delete-form',
+	])
+	const isDeleting = isPending ? latestDeleteVariables?.variables : null
+
+	const { mutate: handlePauseForm, isPending: isPendingUpdate } =
+		useMutationData(
+			['update-form'],
+			(form: Form) => pauseForm(form.id, !form.isPaused),
+			['user-forms', workspaceId],
+		)
+
+	const { latestVariables: latestUpdateVariables } = useMutationDataState([
+		'update-form',
+	])
+	const isPausing = isPendingUpdate ? latestUpdateVariables?.variables : null
+
+	const { mutate: handleDuplicateForm, isPending: isPendingDuplicate } =
+		useMutationData(
+			['update-form'],
+			(formId: string) => duplicateForm(formId),
+			['user-forms', workspaceId],
+		)
+
+	const { latestVariables: latestDyplicateVariables } = useMutationDataState([
+		'duplicate-form',
+	])
+	const isDuplicatingForm = isPendingDuplicate
+		? latestDyplicateVariables?.variables
+		: null
 
 	const handleCopy = (url: string) => {
 		navigator.clipboard
 			.writeText(url)
 			.then(() => {
-				setCopied(true);
-				toast.success("Copied to clipboard!");
-				setTimeout(() => setCopied(false), 2000);
+				setCopied(true)
+				toast.success('Copied to clipboard!')
+				setTimeout(() => setCopied(false), 2000)
 			})
 			.catch((err) => {
-				console.error("Failed to copy: ", err);
-				toast.error("Failed to copy URL.");
-			});
-	};
+				console.error('Failed to copy: ', err)
+				toast.error('Failed to copy URL.')
+			})
+	}
 
 	const getResponseRate = (form: Form) => {
 		const completions =
-			form?.metrics?.find((m) => m.actionType == "completion")?.total ||
-			0;
+			form?.metrics?.find((m) => m.actionType == 'completion')?.total || 0
 		const visits =
-			form?.metrics?.find((m) => m.actionType == "view")?.total || 0;
+			form?.metrics?.find((m) => m.actionType == 'view')?.total || 0
 
 		if (visits) {
-			return ((completions / visits) * 100).toFixed(2);
+			return ((completions / visits) * 100).toFixed(2)
 		} else {
-			return 0;
+			return 0
 		}
-	};
+	}
 
 	return (
 		<div className="px-8  py-5">
@@ -123,7 +138,7 @@ const FormsPage = ({ params: { workspaceId } }: Props) => {
 							{isLoading ? (
 								<Loader2 size={14} className="spin mx-auto" />
 							) : (
-								"Create new form"
+								'Create new form'
 							)}
 						</div>
 					</div>
@@ -139,7 +154,7 @@ const FormsPage = ({ params: { workspaceId } }: Props) => {
 			) : (
 				<>
 					{userForms?.length ? (
-						userForms.map((form : Form) => (
+						userForms.map((form: Form) => (
 							<div
 								key={form?.id}
 								className="testimonial-wrapper w-full border-[1px] border-gray-200 rounded-[20px] px-6 py-5 relative overflow-hidden mb-4"
@@ -151,7 +166,7 @@ const FormsPage = ({ params: { workspaceId } }: Props) => {
 									<div className="flex flex-col">
 										<div className="flex items-center gap-3">
 											<h1 className="font-semibold text-[15px] text-gray-900">
-												{form?.name || "-"}
+												{form?.name || '-'}
 											</h1>
 											{!form?.isPaused ? (
 												<span className="w-[6px] h-[6px] rounded-full bg-green-500"></span>
@@ -172,7 +187,7 @@ const FormsPage = ({ params: { workspaceId } }: Props) => {
 													handleCopy(
 														process.env
 															.NEXT_PUBLIC_HOST_URL +
-															form.url
+															form.url,
 													)
 												}
 											/>
@@ -180,38 +195,38 @@ const FormsPage = ({ params: { workspaceId } }: Props) => {
 									</div>
 									<div className="flex gap-4">
 										{[
-											"Visits",
-											"Testimonials",
-											"Response Rate",
+											'Visits',
+											'Testimonials',
+											'Response Rate',
 										].map((item, index) => (
 											<div
 												key={index}
 												className="flex flex-col items-center justify-center gap-[0px]"
 											>
 												<p className="font-semibold text-[15px] text-gray-700 m-0 p-0 leading-3">
-													{item == "Visits" && (
+													{item == 'Visits' && (
 														<>
 															{form?.metrics?.find(
 																(m) =>
 																	m.actionType ==
-																	"view"
+																	'view',
 															)?.total || 0}
 														</>
 													)}
-													{item == "Testimonials" && (
+													{item == 'Testimonials' && (
 														<>
 															{form?.metrics?.find(
 																(m) =>
 																	m.actionType ==
-																	"completion"
+																	'completion',
 															)?.total || 0}
 														</>
 													)}
 													{item ==
-														"Response Rate" && (
+														'Response Rate' && (
 														<>
 															{getResponseRate(
-																form
+																form,
 															)}
 															%
 														</>
@@ -229,7 +244,7 @@ const FormsPage = ({ params: { workspaceId } }: Props) => {
 										<div
 											className="rounded-[7px] bg-gray-200 text-gray-500 px-[10px] py-[4px] cursor-pointer hover:bg-gray-300 flex items-center gap-[4px]"
 											onClick={() =>
-												handleEditForm(form?.id || "")
+												handleEditForm(form?.id || '')
 											}
 										>
 											<Edit2
@@ -241,9 +256,19 @@ const FormsPage = ({ params: { workspaceId } }: Props) => {
 											</div>
 										</div>
 
-										<ShareFormModal form={form} formUrl={process.env.NEXT_PUBLIC_HOST_URL + form?.url} handleCopy={handleCopy}/>
+										<ShareFormModal
+											form={form}
+											formUrl={
+												process.env
+													.NEXT_PUBLIC_HOST_URL +
+												form?.url
+											}
+											handleCopy={handleCopy}
+										/>
 										<div
-											onClick={() => handlePauseForm(form)}
+											onClick={() =>
+												handlePauseForm(form)
+											}
 											className="rounded-[7px] bg-gray-200 text-gray-500 px-[10px] py-[4px] cursor-pointer hover:bg-gray-300 flex items-center gap-[4px]"
 										>
 											<OctagonPause
@@ -257,9 +282,9 @@ const FormsPage = ({ params: { workspaceId } }: Props) => {
 														className="spin my-[4px] mx-[4px]"
 													/>
 												) : form?.isPaused ? (
-													"Unpause"
+													'Unpause'
 												) : (
-													"Pause"
+													'Pause'
 												)}
 											</div>
 										</div>
@@ -267,7 +292,7 @@ const FormsPage = ({ params: { workspaceId } }: Props) => {
 											className="rounded-[7px] bg-gray-200 text-gray-500 px-[10px] py-[4px] cursor-pointer hover:bg-gray-300 flex items-center gap-[4px]"
 											onClick={() =>
 												handleDuplicateForm(
-													form?.id || ""
+													form?.id || '',
 												)
 											}
 										>
@@ -283,7 +308,7 @@ const FormsPage = ({ params: { workspaceId } }: Props) => {
 														className="spin my-[4px] mx-[4px]"
 													/>
 												) : (
-													"Duplicate"
+													'Duplicate'
 												)}
 											</div>
 										</div>
@@ -313,7 +338,7 @@ const FormsPage = ({ params: { workspaceId } }: Props) => {
 										<div
 											className="text-[13px] font-[500]"
 											onClick={() =>
-												handleDeleteForm(form?.id || "")
+												handleDeleteForm(form?.id || '')
 											}
 										>
 											{isDeleting == form.id ? (
@@ -322,7 +347,7 @@ const FormsPage = ({ params: { workspaceId } }: Props) => {
 													className="spin my-[4px] mx-[4px]"
 												/>
 											) : (
-												"Delete"
+												'Delete'
 											)}
 										</div>
 									</div>
@@ -343,7 +368,7 @@ const FormsPage = ({ params: { workspaceId } }: Props) => {
 				</>
 			)}
 		</div>
-	);
-};
+	)
+}
 
-export default FormsPage;
+export default FormsPage

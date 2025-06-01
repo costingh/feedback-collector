@@ -1,17 +1,17 @@
-import { acceptInvite } from "@/actions/user";
-import { redirect } from "next/navigation";
-import React from "react";
+import { acceptInvite } from '@/actions/user'
+import { redirect } from 'next/navigation'
+import React from 'react'
 
 type Props = {
 	params: {
-		inviteId: string;
-	};
-};
+		inviteId: string
+	}
+}
 
 const Page = async ({ params: { inviteId } }: Props) => {
-	const invite = await acceptInvite(inviteId);
+	const invite = await acceptInvite(inviteId)
 
-	if (invite.status === 404) return redirect("/auth/sign-in");
+	if (invite.status === 404) return redirect('/auth/sign-in')
 
 	if (invite?.status === 401) {
 		return (
@@ -21,10 +21,10 @@ const Page = async ({ params: { inviteId } }: Props) => {
 				</h2>
 				<p>You are not authorized to accept this invite</p>
 			</div>
-		);
+		)
 	}
 
-	if (invite?.status === 200) return redirect("/auth/callback");
-};
+	if (invite?.status === 200) return redirect('/auth/callback')
+}
 
-export default Page;
+export default Page

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react'
 import {
 	Card,
 	CardHeader,
@@ -6,23 +6,23 @@ import {
 	CardDescription,
 	CardContent,
 	CardFooter,
-} from "@/components/ui/card";
+} from '@/components/ui/card'
 import {
 	PieChart as PieChardRecharts,
 	Pie,
 	Sector,
 	ResponsiveContainer,
-} from "recharts";
+} from 'recharts'
 
 export function PieChart({ data }: { data: any }) {
-	const [activeIndex, setActiveIndex] = useState<number>(0);
+	const [activeIndex, setActiveIndex] = useState<number>(0)
 
 	const onPieEnter = (e: any, index: number) => {
-		setActiveIndex(index);
-	};
+		setActiveIndex(index)
+	}
 
 	const renderActiveShape = (props: any) => {
-		const RADIAN = Math.PI / 180;
+		const RADIAN = Math.PI / 180
 		const {
 			cx,
 			cy,
@@ -35,16 +35,16 @@ export function PieChart({ data }: { data: any }) {
 			payload,
 			percent,
 			value,
-		} = props;
-		const sin = Math.sin(-RADIAN * midAngle);
-		const cos = Math.cos(-RADIAN * midAngle);
-		const sx = cx + (outerRadius + 10) * cos;
-		const sy = cy + (outerRadius + 10) * sin;
-		const mx = cx + (outerRadius + 30) * cos;
-		const my = cy + (outerRadius + 30) * sin;
-		const ex = mx + (cos >= 0 ? 1 : -1) * 22;
-		const ey = my;
-		const textAnchor = cos >= 0 ? "start" : "end";
+		} = props
+		const sin = Math.sin(-RADIAN * midAngle)
+		const cos = Math.cos(-RADIAN * midAngle)
+		const sx = cx + (outerRadius + 10) * cos
+		const sy = cy + (outerRadius + 10) * sin
+		const mx = cx + (outerRadius + 30) * cos
+		const my = cy + (outerRadius + 30) * sin
+		const ex = mx + (cos >= 0 ? 1 : -1) * 22
+		const ey = my
+		const textAnchor = cos >= 0 ? 'start' : 'end'
 
 		return (
 			<g>
@@ -91,15 +91,16 @@ export function PieChart({ data }: { data: any }) {
 					{`(Rate ${(percent * 100).toFixed(2)}%)`}
 				</text>
 			</g>
-		);
-	};
+		)
+	}
 
 	return (
 		<Card>
 			<CardHeader>
 				<CardTitle>Forms Split</CardTitle>
 				<CardDescription>
-					Showing a summary of forms split by their state (paused, published, draft)
+					Showing a summary of forms split by their state (paused,
+					published, draft)
 				</CardDescription>
 			</CardHeader>
 			<CardContent>
@@ -133,5 +134,5 @@ export function PieChart({ data }: { data: any }) {
 				</div>
 			</CardFooter> */}
 		</Card>
-	);
+	)
 }

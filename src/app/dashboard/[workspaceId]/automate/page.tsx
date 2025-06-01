@@ -1,12 +1,12 @@
-"use client";
+'use client'
 
-import { Button } from "@/components/ui/button";
-import { Lightbulb, CalendarClock } from "lucide-react";
-import Link from "next/link";
+import { Button } from '@/components/ui/button'
+import { Lightbulb, CalendarClock } from 'lucide-react'
+import Link from 'next/link'
 
 type Props = {
-	params: { workspaceId: string };
-};
+	params: { workspaceId: string }
+}
 
 const AutomatePage = ({ params: { workspaceId } }: Props) => {
 	return (
@@ -50,7 +50,7 @@ const AutomatePage = ({ params: { workspaceId } }: Props) => {
 				</ul>
 			</div>
 		</div>
-	);
-};
+	)
+}
 
-export default AutomatePage;
+export default AutomatePage

@@ -8,15 +8,15 @@ export const useSearch = (key: string, type: 'USERS') => {
 	const [debounce, setDebounce] = useState('')
 	const [onUsers, setOnUsers] = useState<
 		| {
-			id: string
-			subscription: {
-				plan: 'PRO' | 'FREE' | 'BUSINESS'
-			} | null
-			firstname: string | null
-			lastname: string | null
-			image: string | null
-			email: string | null
-		}[]
+				id: string
+				subscription: {
+					plan: 'PRO' | 'FREE' | 'BUSINESS'
+				} | null
+				firstname: string | null
+				lastname: string | null
+				image: string | null
+				email: string | null
+		  }[]
 		| undefined
 	>(undefined)
 
@@ -39,7 +39,7 @@ export const useSearch = (key: string, type: 'USERS') => {
 				if (users.status === 200) setOnUsers(users.data)
 			}
 		},
-		false
+		false,
 	)
 
 	useEffect(() => {

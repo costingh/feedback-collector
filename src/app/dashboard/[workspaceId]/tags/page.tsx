@@ -1,21 +1,28 @@
-"use client";
+'use client'
 
-import { Eye } from "lucide-react";
-import { formatNumber, tagCategories, timeAgo } from "@/lib/utils";
-import { ConfirmDeleteTag } from "@/components/tags/ConfirmDeleteTag";
-import { EditTag } from "@/components/tags/EditTag";
-import { useTags } from "@/hooks/useTags";
-import Loader from "@/components/global/loader";
-import { CreateTagModal } from '@/components/tags/CreateTagModal';
-import { LoadingSpinner } from "@/components/animations/loading-spinner";
+import { Eye } from 'lucide-react'
+import { formatNumber, tagCategories, timeAgo } from '@/lib/utils'
+import { ConfirmDeleteTag } from '@/components/tags/ConfirmDeleteTag'
+import { EditTag } from '@/components/tags/EditTag'
+import { useTags } from '@/hooks/useTags'
+import Loader from '@/components/global/loader'
+import { CreateTagModal } from '@/components/tags/CreateTagModal'
+import { LoadingSpinner } from '@/components/animations/loading-spinner'
 
 type Props = {
-	params: { workspaceId: string };
-};
+	params: { workspaceId: string }
+}
 
 const Page = ({ params: { workspaceId } }: Props) => {
-	const { handleCreateTag: createTag, isSearchingTags, tags, groupedTags, creatingTag, handleDeleteTag, handleEditTag } =
-		useTags(workspaceId);
+	const {
+		handleCreateTag: createTag,
+		isSearchingTags,
+		tags,
+		groupedTags,
+		creatingTag,
+		handleDeleteTag,
+		handleEditTag,
+	} = useTags(workspaceId)
 
 	return (
 		<div className="px-8 py-5 relative">
@@ -28,7 +35,11 @@ const Page = ({ params: { workspaceId } }: Props) => {
 						</p>
 					</div>
 				</div>
-				<CreateTagModal workspaceId={workspaceId} createTag={createTag} creatingTag={creatingTag} />
+				<CreateTagModal
+					workspaceId={workspaceId}
+					createTag={createTag}
+					creatingTag={creatingTag}
+				/>
 			</div>
 
 			{isSearchingTags ? (
@@ -42,69 +53,107 @@ const Page = ({ params: { workspaceId } }: Props) => {
 					{tags?.length ? (
 						<div className="flex w-full">
 							<div className="w-full border-[1px] border-gray-200 rounded-t-[10px]">
-								{Object.keys(groupedTags).map((category, index) => (
-									<div key={category}>
-										<div
-												className="w-full border-b-[1px] py-2 px-4 border-gray-200 h-[60px] cursor-pointer bg-gray-100"
-												style={index == 0 ? {borderTopLeftRadius: '10px', borderTopRightRadius: '10px'} : {}}
-											>
-											<h1 className=" text-[14px] text-zinc-900 font-semibold">{tagCategories.find(c => c.name== category)?.emoji + ' ' + category}</h1>
-											<p className="text-[12px] text-300 text-gray-400">{tagCategories.find(c => c.name== category)?.description}</p>
-										</div>
-										{groupedTags[category].map((tag) => (
+								{Object.keys(groupedTags).map(
+									(category, index) => (
+										<div key={category}>
 											<div
-												key={tag.id}
-												className="w-full flex items-center justify-between border-b-[1px] py-2 px-4 border-gray-200 h-[60px] cursor-pointer hover:bg-gray-50"
+												className="w-full border-b-[1px] py-2 px-4 border-gray-200 h-[60px] cursor-pointer bg-gray-100"
+												style={
+													index == 0
+														? {
+																borderTopLeftRadius:
+																	'10px',
+																borderTopRightRadius:
+																	'10px',
+															}
+														: {}
+												}
 											>
-												<div className="text-ellipsis overflow-hidden whitespace-nowrap w-[25%]">
-													<h1 className="text-[#000] font-normal text-[14px]">
-														{tag.tagName}
-													</h1>
-													<span className="text-gray-400 font-normal text-[14px]">
-														{tag.tagDescription ||
-															"-"}
-													</span>
-												</div>
-												<div className="text-ellipsis overflow-hidden whitespace-nowrap w-[25%] flex items-center gap-2">
-													<span className="bg-gray-200 py-[4px] px-[5px] rounded-[7px] cursor-pointer hover:bg-gray-300">
-														<Eye
-															size={14}
-															className="text-gray-700"
-														/>{" "}
-													</span>
-													<span className="text-gray-400 font-normal text-[14px]">
-														{formatNumber(
-															tag
-																?.formResponsesIds
-																?.length || 0
-														)}{" "}
-														testimonials tagged
-													</span>
-												</div>
-												<div className="w-[25%]">
-													<span className="px-3 py-1 text-[13px] font-normal text-gray-600 bg-gray-100 rounded-[12px]">
-														{tag.category}
-													</span>
-												</div>
-												<div className="w-[12.5%]">
-													<span className="text-gray-500 text-[14px] font-normal">
-														{tag.createdAt ? timeAgo(tag.createdAt) : '-'}
-													</span>
-												</div>
-												<div className="text-ellipsis overflow-hidden whitespace-nowrap flex items-center gap-3 w-[12.5%] justify-end">
-													<ConfirmDeleteTag
-														tag={tag}
-														handleDeleteTag={handleDeleteTag}
-													/>
-													<EditTag
-														tag={tag}
-														handleEditTag={handleEditTag}
-													/>
-												</div>
+												<h1 className=" text-[14px] text-zinc-900 font-semibold">
+													{tagCategories.find(
+														(c) =>
+															c.name == category,
+													)?.emoji +
+														' ' +
+														category}
+												</h1>
+												<p className="text-[12px] text-300 text-gray-400">
+													{
+														tagCategories.find(
+															(c) =>
+																c.name ==
+																category,
+														)?.description
+													}
+												</p>
 											</div>
-										))}
-									</div>
-								))}
+											{groupedTags[category].map(
+												(tag) => (
+													<div
+														key={tag.id}
+														className="w-full flex items-center justify-between border-b-[1px] py-2 px-4 border-gray-200 h-[60px] cursor-pointer hover:bg-gray-50"
+													>
+														<div className="text-ellipsis overflow-hidden whitespace-nowrap w-[25%]">
+															<h1 className="text-[#000] font-normal text-[14px]">
+																{tag.tagName}
+															</h1>
+															<span className="text-gray-400 font-normal text-[14px]">
+																{tag.tagDescription ||
+																	'-'}
+															</span>
+														</div>
+														<div className="text-ellipsis overflow-hidden whitespace-nowrap w-[25%] flex items-center gap-2">
+															<span className="bg-gray-200 py-[4px] px-[5px] rounded-[7px] cursor-pointer hover:bg-gray-300">
+																<Eye
+																	size={14}
+																	className="text-gray-700"
+																/>{' '}
+															</span>
+															<span className="text-gray-400 font-normal text-[14px]">
+																{formatNumber(
+																	tag
+																		?.formResponsesIds
+																		?.length ||
+																		0,
+																)}{' '}
+																testimonials
+																tagged
+															</span>
+														</div>
+														<div className="w-[25%]">
+															<span className="px-3 py-1 text-[13px] font-normal text-gray-600 bg-gray-100 rounded-[12px]">
+																{tag.category}
+															</span>
+														</div>
+														<div className="w-[12.5%]">
+															<span className="text-gray-500 text-[14px] font-normal">
+																{tag.createdAt
+																	? timeAgo(
+																			tag.createdAt,
+																		)
+																	: '-'}
+															</span>
+														</div>
+														<div className="text-ellipsis overflow-hidden whitespace-nowrap flex items-center gap-3 w-[12.5%] justify-end">
+															<ConfirmDeleteTag
+																tag={tag}
+																handleDeleteTag={
+																	handleDeleteTag
+																}
+															/>
+															<EditTag
+																tag={tag}
+																handleEditTag={
+																	handleEditTag
+																}
+															/>
+														</div>
+													</div>
+												),
+											)}
+										</div>
+									),
+								)}
 							</div>
 						</div>
 					) : (
@@ -121,7 +170,7 @@ const Page = ({ params: { workspaceId } }: Props) => {
 				</>
 			)}
 		</div>
-	);
-};
+	)
+}
 
-export default Page;
+export default Page

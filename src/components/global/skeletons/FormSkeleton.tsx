@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 
 const FormSkeleton = () => {
 	return (
@@ -12,7 +12,7 @@ const FormSkeleton = () => {
 					<div className="h-3 bg-gray-300 rounded w-[275px]"></div>
 				</div>
 				<div className="flex gap-3 w-[250px]">
-					{["Visits", "Testimonials", "Response Rate"].map(
+					{['Visits', 'Testimonials', 'Response Rate'].map(
 						(item, index) => (
 							<div
 								className="flex flex-col items-center gap-[0px] w-full"
@@ -21,7 +21,7 @@ const FormSkeleton = () => {
 								<div className="h-4 bg-gray-300 rounded w-[20px]"></div>
 								<span className="h-3 bg-gray-300 rounded w-full mt-2"></span>
 							</div>
-						)
+						),
 					)}
 				</div>
 			</div>
@@ -36,7 +36,7 @@ const FormSkeleton = () => {
 				<div className="h-7 bg-gray-300 rounded w-[80px] animate-pulse"></div>
 			</div>
 		</div>
-	);
-};
+	)
+}
 
-export default FormSkeleton;
+export default FormSkeleton

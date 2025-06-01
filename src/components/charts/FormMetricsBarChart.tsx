@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 import {
 	Card,
 	CardHeader,
@@ -6,7 +6,7 @@ import {
 	CardDescription,
 	CardContent,
 	CardFooter,
-} from "@/components/ui/card";
+} from '@/components/ui/card'
 import {
 	BarChart,
 	Bar,
@@ -16,7 +16,7 @@ import {
 	Tooltip,
 	Legend,
 	ResponsiveContainer,
-} from "recharts";
+} from 'recharts'
 
 export function FormMetricsBarChart({ data }: { data: any }) {
 	return (
@@ -52,5 +52,5 @@ export function FormMetricsBarChart({ data }: { data: any }) {
 				<div className="text-sm">Metric comparison by form name.</div>
 			</CardFooter>
 		</Card>
-	);
+	)
 }

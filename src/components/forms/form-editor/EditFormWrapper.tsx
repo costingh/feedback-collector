@@ -1,6 +1,6 @@
-"use client";
+'use client'
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from 'react'
 import {
 	ChevronDown,
 	Cog,
@@ -9,27 +9,27 @@ import {
 	ReceiptText,
 	SquareArrowOutUpRight,
 	Tag,
-} from "lucide-react";
-import TestimonialPopup from "@/components/popups/TestimonialPopup";
-import { toast } from "sonner";
-import axios from "axios";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-import { Form } from "@/types/Form";
-import options from "./CustomerDetailsOptionList";
-import EditFormAspect from "./EditFormAspect";
-import CustomerDetails from "./CustomerDetails";
-import CustomizeLabels from "./CustomizeLabels";
-import AdvancedSettings from "./AdvancedSettings";
-import ThankYouPage from "./ThankYouPage";
-import Loader from "@/components/global/loader";
-import { LoadingSpinner } from "@/components/animations/loading-spinner";
-import { Alert } from "@material-tailwind/react";
-import FormPublishedAlert from "./FormPublishedAlert";
+} from 'lucide-react'
+import TestimonialPopup from '@/components/popups/TestimonialPopup'
+import { toast } from 'sonner'
+import axios from 'axios'
+import { useRouter } from 'next/navigation'
+import Link from 'next/link'
+import { Form } from '@/types/Form'
+import options from './CustomerDetailsOptionList'
+import EditFormAspect from './EditFormAspect'
+import CustomerDetails from './CustomerDetails'
+import CustomizeLabels from './CustomizeLabels'
+import AdvancedSettings from './AdvancedSettings'
+import ThankYouPage from './ThankYouPage'
+import Loader from '@/components/global/loader'
+import { LoadingSpinner } from '@/components/animations/loading-spinner'
+import { Alert } from '@material-tailwind/react'
+import FormPublishedAlert from './FormPublishedAlert'
 
 const submenus = [
 	{
-		name: "Aspect",
+		name: 'Aspect',
 		icon: (
 			<Paintbrush
 				size={20}
@@ -38,7 +38,7 @@ const submenus = [
 		),
 	},
 	{
-		name: "Customer details",
+		name: 'Customer details',
 		icon: (
 			<ReceiptText
 				size={20}
@@ -47,15 +47,15 @@ const submenus = [
 		),
 	},
 	{
-		name: "Customize Labels",
+		name: 'Customize Labels',
 		icon: <Tag size={20} className="text-orange-600 mr-[8px] ml-[15px]" />,
 	},
 	{
-		name: "Advanced",
+		name: 'Advanced',
 		icon: <Cog size={20} className="text-blue-700 mr-[8px] ml-[15px]" />,
 	},
 	{
-		name: "Thank you page",
+		name: 'Thank you page',
 		icon: (
 			<PartyPopper
 				size={20}
@@ -63,79 +63,79 @@ const submenus = [
 			/>
 		),
 	},
-];
+]
 
 export default function EditFormWrapper({
 	formId,
-	formData
+	formData,
 }: {
-	formId: string;
+	formId: string
 	formData: Form
 }) {
-	const [openIndex, setOpenIndex] = useState<number>(-1);
+	const [openIndex, setOpenIndex] = useState<number>(-1)
 
-	const [step, setStep] = useState<number>(0);
-	const [isSearchingForm, setIsSearchingForm] = useState<boolean>(true);
-	const [applyingChanges, setApplyingChanges] = useState<boolean>(false);
+	const [step, setStep] = useState<number>(0)
+	const [isSearchingForm, setIsSearchingForm] = useState<boolean>(true)
+	const [applyingChanges, setApplyingChanges] = useState<boolean>(false)
 
 	const [form, setForm] = useState<Form>({
-		id: "",
-		name: "Testimonials",
-		brandLogo: "/logo.png",
-		brandName: "Feedbackz",
-		backgroundColor: "#9072afff",
-		primaryColor: "#8466b4ff",
+		id: '',
+		name: 'Testimonials',
+		brandLogo: '/logo.png',
+		brandName: 'Feedbackz',
+		backgroundColor: '#9072afff',
+		primaryColor: '#8466b4ff',
 		withAnimatedBg: false,
 		published: false,
 		isPaused: false,
 		pausedUntil: null,
-		url: "",
-		customUrl: "",
+		url: '',
+		customUrl: '',
 		questions: [],
-		title: "",
-		description: "",
-		textareaPlaceholder: "",
-		buttonLabel: "",
+		title: '',
+		description: '',
+		textareaPlaceholder: '',
+		buttonLabel: '',
 		formFields: options,
-		thankYouPageTitle: "",
-		thankYouPageMessage: "",
-		thankYouCustomURL: "",
+		thankYouPageTitle: '',
+		thankYouPageMessage: '',
+		thankYouCustomURL: '',
 		hasCustomBranding: false,
 		// FormAnalytics: {
 		// 	visits: 0,
 		// 	testimonials: 0,
 		// 	responseRate: 0
 		// }
-	});
+	})
 
 	useEffect(() => {
-		formData && setForm(formData);
-	}, [formData]);
+		formData && setForm(formData)
+	}, [formData])
 
 	// const router = useRouter();
 
 	const toggleAccordion = (index: number) => {
 		// FOR  customize labels
 		if (index == 2) {
-			setStep(1);
-			setOpenIndex(openIndex === index ? -1 : index);
+			setStep(1)
+			setOpenIndex(openIndex === index ? -1 : index)
 		} else if (index == 3) {
 			// FOR ADVANCED
-			setOpenIndex(openIndex === index ? -1 : index);
+			setOpenIndex(openIndex === index ? -1 : index)
 		} else if (index == 4) {
 			// FOR thank you page
-			setStep(4);
-			setOpenIndex(openIndex === index ? -1 : index);
+			setStep(4)
+			setOpenIndex(openIndex === index ? -1 : index)
 		} else if (index == 0) {
 			// FOR ASPECT
-			setStep(0);
-			setOpenIndex(openIndex === index ? -1 : index);
+			setStep(0)
+			setOpenIndex(openIndex === index ? -1 : index)
 		} else {
 			// For CUSTOMER DETAILS
-			setStep(3);
-			setOpenIndex(openIndex === index ? -1 : index);
+			setStep(3)
+			setOpenIndex(openIndex === index ? -1 : index)
 		}
-	};
+	}
 
 	const renderSubmenu = (submenu: string) => {
 		if (submenu == submenus[0].name) {
@@ -165,48 +165,48 @@ export default function EditFormWrapper({
 						setForm((prev) => ({ ...prev, brandLogo: val }))
 					}
 				/>
-			);
+			)
 		} else if (submenu == submenus[1].name) {
-			return <CustomerDetails setForm={setForm} form={form} />;
+			return <CustomerDetails setForm={setForm} form={form} />
 		} else if (submenu == submenus[2].name) {
-			return <CustomizeLabels setForm={setForm} form={form} />;
+			return <CustomizeLabels setForm={setForm} form={form} />
 		} else if (submenu == submenus[3].name) {
-			return <AdvancedSettings setForm={setForm} form={form} />;
+			return <AdvancedSettings setForm={setForm} form={form} />
 		} else if (submenu == submenus[4].name) {
-			return <ThankYouPage setForm={setForm} form={form} />;
+			return <ThankYouPage setForm={setForm} form={form} />
 		}
-	};
+	}
 
 	const handleGetFormById = useCallback(async (formId: string) => {
-		setIsSearchingForm(true);
+		setIsSearchingForm(true)
 		try {
-			const response = await axios.get(`/api/get-form?id=${formId}`);
-			const formResponse = response?.data?.form;
+			const response = await axios.get(`/api/get-form?id=${formId}`)
+			const formResponse = response?.data?.form
 
 			if (!formResponse) {
-				console.error("Form not found!");
-				return;
+				console.error('Form not found!')
+				return
 			}
 
 			// console.log("Got form: ", formResponse);
-			setForm(formResponse);
+			setForm(formResponse)
 		} catch (err) {
-			console.error("An error occurred while retrieving the form!", err);
+			console.error('An error occurred while retrieving the form!', err)
 		} finally {
-			setIsSearchingForm(false);
+			setIsSearchingForm(false)
 		}
-	}, []);
+	}, [])
 
 	useEffect(() => {
-		handleGetFormById(formId);
-	}, []);
+		handleGetFormById(formId)
+	}, [])
 
 	const handleApplyChanges = async () => {
-		if (!form) return;
-		setApplyingChanges(true);
+		if (!form) return
+		setApplyingChanges(true)
 
 		try {
-			const response = await axios.post("/api/form/update-form", {
+			const response = await axios.post('/api/form/update-form', {
 				formData: {
 					//@ts-ignore
 					...form,
@@ -218,20 +218,20 @@ export default function EditFormWrapper({
 					})),
 					questions: form.questions.map((q) => ({ text: q.text })),
 				},
-			});
+			})
 
-			const updatedForm = response?.data?.form;
+			const updatedForm = response?.data?.form
 
 			if (!updatedForm) {
-				toast.error("Changes could not be applied!");
-				return;
+				toast.error('Changes could not be applied!')
+				return
 			}
-			setApplyingChanges(false);
+			setApplyingChanges(false)
 		} catch (err) {
-			console.error(err);
-			setApplyingChanges(false);
+			console.error(err)
+			setApplyingChanges(false)
 		}
-	};
+	}
 
 	return (
 		<>
@@ -246,8 +246,7 @@ export default function EditFormWrapper({
 					) : (
 						<div className="flex h-full">
 							<div className="left w-full h-[100vh] relative">
-
-								<FormPublishedAlert show={!form?.published}/>
+								<FormPublishedAlert show={!form?.published} />
 
 								<TestimonialPopup
 									step={step}
@@ -285,7 +284,7 @@ export default function EditFormWrapper({
 										onChange={(e) =>
 											setForm((prev) => ({
 												...prev,
-												name: e.target.value || "-",
+												name: e.target.value || '-',
 											}))
 										}
 										className="font-black text-gray-800 text-[17px]"
@@ -331,8 +330,8 @@ export default function EditFormWrapper({
 												<div
 													className={`transform transition-transform duration-300 ${
 														openIndex === index
-															? "-rotate-180"
-															: ""
+															? '-rotate-180'
+															: ''
 													}`}
 												>
 													<ChevronDown
@@ -349,7 +348,7 @@ export default function EditFormWrapper({
 											{openIndex === index && (
 												<div className="py-4 border-b-[1px] border-gray-200 animate-slide-down">
 													{renderSubmenu(
-														submenu.name
+														submenu.name,
 													)}
 												</div>
 											)}
@@ -361,7 +360,7 @@ export default function EditFormWrapper({
 									className="text-center py-[10px] rounded-[8px] bg-[#000] text-[#eee] w-full cursor-pointer text-[14px] font-semibold mt-10 hover:opacity-80"
 								>
 									{!applyingChanges ? (
-										"Apply changes"
+										'Apply changes'
 									) : (
 										<div className="flex items-center justify-center">
 											<LoadingSpinner />
@@ -374,5 +373,5 @@ export default function EditFormWrapper({
 				</>
 			)}
 		</>
-	);
+	)
 }

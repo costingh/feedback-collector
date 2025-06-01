@@ -1,11 +1,11 @@
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-import path from "path";
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import path from 'path'
 
 export default defineConfig({
 	plugins: [react()],
 	build: {
-		minify: "terser",
+		minify: 'terser',
 		terserOptions: {
 			compress: {
 				drop_console: true, // remove console logs
@@ -15,8 +15,8 @@ export default defineConfig({
 		},
 		lib: {
 			// Required but will be overridden by rollupOptions.input
-			entry: "./src/components/widgets/WidgetContainer.tsx",
-			formats: ["iife", "umd"],
+			entry: './src/components/widgets/WidgetContainer.tsx',
+			formats: ['iife', 'umd'],
 		},
 		rollupOptions: {
 			input: {
@@ -26,7 +26,7 @@ export default defineConfig({
 				// ),
 				form: path.resolve(
 					__dirname,
-					"src/components/embeddables/FeedbackzFormEmbed.tsx"
+					'src/components/embeddables/FeedbackzFormEmbed.tsx',
 				),
 			},
 			// external: ["react", "react-dom"], //
@@ -41,12 +41,12 @@ export default defineConfig({
 				// 	},
 				// },
 				{
-					entryFileNames: "form-embed.iife.js",
-					format: "iife",
-					name: "FeedbackzForm",
+					entryFileNames: 'form-embed.iife.js',
+					format: 'iife',
+					name: 'FeedbackzForm',
 					globals: {
-						react: "React",
-						"react-dom": "ReactDOM",
+						react: 'React',
+						'react-dom': 'ReactDOM',
 					},
 				},
 			],
@@ -54,12 +54,12 @@ export default defineConfig({
 	},
 	resolve: {
 		alias: {
-			"@": path.resolve(__dirname, "src"), // Path alias for cleaner imports
+			'@': path.resolve(__dirname, 'src'), // Path alias for cleaner imports
 		},
 	},
 	define: {
 		'process.env': {
 			NEXT_PUBLIC_HOST_URL: JSON.stringify(process.env.VITE_HOST_URL),
-		}
-	}
-});
+		},
+	},
+})

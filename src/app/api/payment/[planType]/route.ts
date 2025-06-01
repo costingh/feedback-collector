@@ -7,11 +7,19 @@ const stripe = new Stripe(process.env.STRIPE_CLIENT_SECRET as string)
 
 export async function GET(
 	req: NextRequest,
-	{ params: { planType } }: { params: { planType: string } }
-  ) {
+	{ params: { planType } }: { params: { planType: string } },
+) {
 	const user = await currentUser()
-	if (!user) return NextResponse.json({ status: 404, message: 'User is not logged in!' })
-	if (!planType) return NextResponse.json({ status: 404, message: 'Unknown plan specified!' })
+	if (!user)
+		return NextResponse.json({
+			status: 404,
+			message: 'User is not logged in!',
+		})
+	if (!planType)
+		return NextResponse.json({
+			status: 404,
+			message: 'Unknown plan specified!',
+		})
 
 	const session = await stripe.checkout.sessions.create({
 		mode: 'subscription',
@@ -37,9 +45,25 @@ export async function GET(
 }
 
 const getPriceIdFromPlanType = (planType: string) => {
-	if(planType == 'PRO_MONTHLY') return PLANS.monthly.find(p => p.planType == planType)?.stripePriceId || '';
-	else if(planType == 'PRO_YEARLY') return PLANS.yearly.find(p => p.planType == planType)?.stripePriceId || '';
-	else if(planType == 'BUSINESS_MONTHLY') return PLANS.monthly.find(p => p.planType == planType)?.stripePriceId || '';
-	else if(planType == 'BUSINESS_YEARLY') return PLANS.yearly.find(p => p.planType == planType)?.stripePriceId || '';
-	return ''; 
+	if (planType == 'PRO_MONTHLY')
+		return (
+			PLANS.monthly.find((p) => p.planType == planType)?.stripePriceId ||
+			''
+		)
+	else if (planType == 'PRO_YEARLY')
+		return (
+			PLANS.yearly.find((p) => p.planType == planType)?.stripePriceId ||
+			''
+		)
+	else if (planType == 'BUSINESS_MONTHLY')
+		return (
+			PLANS.monthly.find((p) => p.planType == planType)?.stripePriceId ||
+			''
+		)
+	else if (planType == 'BUSINESS_YEARLY')
+		return (
+			PLANS.yearly.find((p) => p.planType == planType)?.stripePriceId ||
+			''
+		)
+	return ''
 }

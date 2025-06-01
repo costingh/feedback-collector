@@ -1,7 +1,7 @@
-"use client";
+'use client'
 
-import { LoadingSpinner } from "@/components/animations/loading-spinner";
-import EmbeddableWidget from "@/components/widgets/EmbeddableWidget";
+import { LoadingSpinner } from '@/components/animations/loading-spinner'
+import EmbeddableWidget from '@/components/widgets/EmbeddableWidget'
 
 const LandingPage = ({ params }: { params: { url: string } }) => {
 	return (
@@ -18,7 +18,7 @@ const LandingPage = ({ params }: { params: { url: string } }) => {
 				</>
 			)}
 		</>
-	);
-};
+	)
+}
 
-export default LandingPage;
+export default LandingPage

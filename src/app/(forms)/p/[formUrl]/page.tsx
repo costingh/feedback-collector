@@ -1,15 +1,15 @@
-import { getFormByUrl } from "@/actions/form";
-import FormWidget from "@/components/forms/form-editor/FormWidget";
+import { getFormByUrl } from '@/actions/form'
+import FormWidget from '@/components/forms/form-editor/FormWidget'
 
 const TestimonialFormPage = async ({
 	params,
 	searchParams,
 }: {
-	params: { formUrl: string };
-	searchParams: { raw?: string; centered?: string };
+	params: { formUrl: string }
+	searchParams: { raw?: string; centered?: string }
 }) => {
-	const formResponse: any = await getFormByUrl(params.formUrl);
-	const form = formResponse?.data?.form;
+	const formResponse: any = await getFormByUrl(params.formUrl)
+	const form = formResponse?.data?.form
 
 	return (
 		<main className="w-screen h-screen bg-cover bg-center">
@@ -17,7 +17,7 @@ const TestimonialFormPage = async ({
 				{form && (
 					<FormWidget
 						formUrl={params.formUrl}
-						isRaw={searchParams.raw || ""}
+						isRaw={searchParams.raw || ''}
 						isCentered={searchParams.centered}
 						form={form}
 						isSearchingForm={!form}
@@ -25,7 +25,7 @@ const TestimonialFormPage = async ({
 				)}
 			</div>
 		</main>
-	);
-};
+	)
+}
 
-export default TestimonialFormPage;
+export default TestimonialFormPage

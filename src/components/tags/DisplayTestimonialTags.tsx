@@ -1,10 +1,10 @@
-import { Tag } from "@/types/Tag";
-import { TagIcon } from "lucide-react";
+import { Tag } from '@/types/Tag'
+import { TagIcon } from 'lucide-react'
 
 type DisplayTestimonialTagsProps = {
-	tags: Tag[];
-	id: string;
-};
+	tags: Tag[]
+	id: string
+}
 
 const DisplayTestimonialTags: React.FC<DisplayTestimonialTagsProps> = ({
 	tags,
@@ -13,13 +13,13 @@ const DisplayTestimonialTags: React.FC<DisplayTestimonialTagsProps> = ({
 	const tagNames =
 		tags
 			.reduce((acc, tag) => {
-				const formResponsesSet = new Set(tag?.formResponsesIds);
+				const formResponsesSet = new Set(tag?.formResponsesIds)
 				if (formResponsesSet.has(id)) {
-					acc.push(tag.tagName);
+					acc.push(tag.tagName)
 				}
-				return acc;
+				return acc
 			}, [] as string[])
-			.join(", ") || "No tags yet";
+			.join(', ') || 'No tags yet'
 
 	return (
 		<div className="flex items-center gap-1">
@@ -28,7 +28,7 @@ const DisplayTestimonialTags: React.FC<DisplayTestimonialTagsProps> = ({
 				{tagNames}
 			</span>
 		</div>
-	);
-};
+	)
+}
 
-export default DisplayTestimonialTags;
+export default DisplayTestimonialTags

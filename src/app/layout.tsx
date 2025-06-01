@@ -1,32 +1,33 @@
-import { ClerkProvider } from "@clerk/nextjs";
-import ReactQueryProvider from "@/react-query";
-import { ReduxProvider } from "@/redux/provider";
-import { Toaster } from "sonner";
-import Script from "next/script";
+import { ClerkProvider } from '@clerk/nextjs'
+import ReactQueryProvider from '@/react-query'
+import { ReduxProvider } from '@/redux/provider'
+import { Toaster } from 'sonner'
+import Script from 'next/script'
+import StructuredData from '@/components/global/StructuredData'
 
 // vercel analytics
-import { Analytics } from "@vercel/analytics/react"
+import { Analytics } from '@vercel/analytics/react'
 // import { SpeedInsights } from "@vercel/speed-insights/next"
 
 // seo
-import { constructMetadata } from "@/lib/utils";
+import { constructMetadata } from '@/lib/utils'
 
 // styles
-import "./globals.css";
-import { Fredoka } from 'next/font/google';
+import './globals.css'
+import { Fredoka } from 'next/font/google'
 const fredoka = Fredoka({
 	subsets: ['latin'],
 	weight: ['300', '400', '500', '600', '700'],
 	variable: '--font-fredoka',
 	display: 'swap',
-});
+})
 
 export const metadata = constructMetadata()
 
 export default function RootLayout({
 	children,
 }: Readonly<{
-	children: React.ReactNode;
+	children: React.ReactNode
 }>) {
 	// const formId = "kJ3GK61u"; // Example form ID
 	// const width = "100%";
@@ -36,6 +37,20 @@ export default function RootLayout({
 	return (
 		<ClerkProvider>
 			<html lang="en" className={fredoka.className}>
+				<StructuredData
+					type="Organization"
+					data={{
+						name: 'Feedbackz',
+						url: 'https://feedbackz.co',
+						logo: 'https://feedbackz.co/images/app-preview.png',
+						description:
+							'Feedbackz helps freelancers and businesses collect and showcase text and video testimonials with shareable pages, forms, and widgets.',
+						sameAs: [
+							'https://twitter.com/feedbackz',
+							'https://linkedin.com/company/feedbackz',
+						],
+					}}
+				/>
 				{/* <!-- Google tag (gtag.js) --> */}
 				<Script
 					id="gtm-script-1"
@@ -53,7 +68,7 @@ export default function RootLayout({
                     });
                 `}
 				</Script>
-				<body >
+				<body>
 					<Analytics />
 					{/* <SpeedInsights/> */}
 					<ReduxProvider>
@@ -79,10 +94,10 @@ export default function RootLayout({
 				/>
 
 				<Script
-					src='https://js.howdygo.com/v1.2.1/index.js'
+					src="https://js.howdygo.com/v1.2.1/index.js"
 					strategy="afterInteractive"
 				/>
 			</html>
 		</ClerkProvider>
-	);
+	)
 }

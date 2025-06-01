@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(
 	req: NextRequest,
-	{ params: { id } }: { params: { id: string } }
+	{ params: { id } }: { params: { id: string } },
 ) {
 	console.log('Enpoint hit ✅')
 
@@ -49,7 +49,8 @@ export async function GET(
 			},
 		})
 
-		if (createUser) return NextResponse.json({ status: 201, user: createUser })
+		if (createUser)
+			return NextResponse.json({ status: 201, user: createUser })
 
 		return NextResponse.json({ status: 400 })
 	} catch (error) {

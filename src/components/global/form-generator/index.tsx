@@ -1,21 +1,21 @@
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import React from "react";
-import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
-import { ErrorMessage } from "@hookform/error-message";
-import { Textarea } from "@/components/ui/textarea";
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import React from 'react'
+import { FieldErrors, FieldValues, UseFormRegister } from 'react-hook-form'
+import { ErrorMessage } from '@hookform/error-message'
+import { Textarea } from '@/components/ui/textarea'
 
 type Props = {
-	type?: "text" | "email" | "password" | "number";
-	inputType: "select" | "input" | "textarea";
-	options?: { value: string; label: string; id: string }[];
-	label?: string;
-	placeholder: string;
-	register: UseFormRegister<any>;
-	name: string;
-	errors: FieldErrors<FieldValues>;
-	lines?: number;
-};
+	type?: 'text' | 'email' | 'password' | 'number'
+	inputType: 'select' | 'input' | 'textarea'
+	options?: { value: string; label: string; id: string }[]
+	label?: string
+	placeholder: string
+	register: UseFormRegister<any>
+	name: string
+	errors: FieldErrors<FieldValues>
+	lines?: number
+}
 
 const FormGenerator = ({
 	inputType,
@@ -29,7 +29,7 @@ const FormGenerator = ({
 	lines,
 }: Props) => {
 	switch (inputType) {
-		case "input":
+		case 'input':
 			return (
 				<Label
 					className="flex flex-col gap-2 text-[#9D9D9D]"
@@ -48,13 +48,13 @@ const FormGenerator = ({
 						name={name}
 						render={({ message }) => (
 							<p className="text-red-400 mt-2">
-								{message === "Required" ? "" : message}
+								{message === 'Required' ? '' : message}
 							</p>
 						)}
 					/>
 				</Label>
-			);
-		case "select":
+			)
+		case 'select':
 			return (
 				<Label
 					htmlFor={`select-${label}`}
@@ -82,14 +82,14 @@ const FormGenerator = ({
 						name={name}
 						render={({ message }) => (
 							<p className="text-red-400 mt-2">
-								{message === "Required" ? "" : message}
+								{message === 'Required' ? '' : message}
 							</p>
 						)}
 					/>
 				</Label>
-			);
+			)
 
-		case "textarea":
+		case 'textarea':
 			return (
 				<Label
 					className="flex flex-col gap-2"
@@ -108,16 +108,16 @@ const FormGenerator = ({
 						name={name}
 						render={({ message }) => (
 							<p className="text-red-400 mt-2">
-								{message === "Required" ? "" : message}
+								{message === 'Required' ? '' : message}
 							</p>
 						)}
 					/>
 				</Label>
-			);
+			)
 
 		default:
-			break;
+			break
 	}
-};
+}
 
-export default FormGenerator;
+export default FormGenerator

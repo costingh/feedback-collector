@@ -1,22 +1,21 @@
-import { useState } from "react";
-
+import { useState } from 'react'
 
 interface TestimonialsFilterReturn {
-	filters: any;
-	setFilters: any;
+	filters: any
+	setFilters: any
 }
 
 export const useTestimonialsFilter = (): TestimonialsFilterReturn => {
 	const [filters, setFilters] = useState({
-		searchForKeywords: "",
+		searchForKeywords: '',
 		rating: 0,
-		approvalStatus: "all",
+		approvalStatus: 'all',
 		tags: [],
 		forms: [],
-	});
+	})
 
 	return {
 		filters,
 		setFilters,
-	};
-};
+	}
+}

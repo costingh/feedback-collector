@@ -1,7 +1,7 @@
-"use client";
+'use client'
 
-import Image from "next/image";
-import { HeroButton } from "./hero-button";
+import Image from 'next/image'
+import { HeroButton } from './hero-button'
 
 export const HeroSection = () => {
 	return (
@@ -14,16 +14,17 @@ export const HeroSection = () => {
 							<feedbackz-widget data-widget-id="uOQcCM3"></feedbackz-widget>
 
 							{/* @ts-ignore */}
-							<feedbackz-form data-form-id="KAVTPAry" data-widget-type="chat-style-floading-widget"></feedbackz-form>
+							<feedbackz-form
+								data-form-id="KAVTPAry"
+								data-widget-type="chat-style-floading-widget"
+							></feedbackz-form>
 
 							<Image
-								src={
-									"/images/made-with-feedbackz-white.png"
-								}
+								src={'/images/made-with-feedbackz-white.png'}
 								alt="Made with Feedbackz"
 								width={150}
 								height={150}
-								className='mt-[-25px]'
+								className="mt-[-25px]"
 							/>
 						</div>
 
@@ -33,7 +34,7 @@ export const HeroSection = () => {
 									Social proof that <br />
 								</span>
 								<span className="bg-gradient-to-b from-white from-30% to-[#7496F8] bg-clip-text">
-									builds trust and drives{" "}
+									builds trust and drives{' '}
 								</span>
 								<span className="bg-gradient-to-b from-white from-30% to-[#7496F8] bg-clip-text">
 									sales
@@ -42,10 +43,10 @@ export const HeroSection = () => {
 						</div>
 
 						<div className="max-w-3xl text-center text-lg !leading-8 text-white lg:pb-0 lg:text-xl my-[30px]">
-							Collect and showcase testimonials{" "}
+							Collect and showcase testimonials{' '}
 							<span className="underline underline-offset-[6px]">
 								with customizable forms and popups.
-							</span>{" "}
+							</span>{' '}
 							Embed them on your site, share with customers, or
 							display as widgets or walls.
 						</div>
@@ -60,7 +61,6 @@ export const HeroSection = () => {
 								className="max-w-full absolute top-0 right-0 object-contain z-[2]"
 							/>
 						</div>
-
 
 						{/* <Image
 							src="/images/webp-optimized/demo-image-2.webp"
@@ -91,7 +91,10 @@ export const HeroSection = () => {
 					</div>
 
 					<div className="relative">
-						<HeroButton variant="lg" text="Start Your Free Trial Now" />
+						<HeroButton
+							variant="lg"
+							text="Start Your Free Trial Now"
+						/>
 						<Image
 							src="/images/no-credit-card-white.png"
 							width={160}
@@ -114,9 +117,20 @@ export const HeroSection = () => {
 						</span>
 					</div>
 
-					<a href="https://startupfa.me/s/feedbackz.co?utm_source=feedbackz.co" target="_blank"><img src="https://startupfa.me/badges/featured/dark-rounded.webp" alt="Featured on Startup Fame" width="171" height="54" className="fixed bottom-[20px] right-[100px] z-[999]" /></a>
+					<a
+						href="https://startupfa.me/s/feedbackz.co?utm_source=feedbackz.co"
+						target="_blank"
+					>
+						<img
+							src="https://startupfa.me/badges/featured/dark-rounded.webp"
+							alt="Featured on Startup Fame"
+							width="171"
+							height="54"
+							className="fixed bottom-[20px] right-[100px] z-[999]"
+						/>
+					</a>
 				</div>
 			</div>
 		</div>
-	);
-};
+	)
+}

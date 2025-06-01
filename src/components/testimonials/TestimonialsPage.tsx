@@ -1,9 +1,9 @@
-"use client";
+'use client'
 
-import axios from "axios";
-import { useCallback, useEffect, useState } from "react";
-import { toast } from "sonner";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import axios from 'axios'
+import { useCallback, useEffect, useState } from 'react'
+import { toast } from 'sonner'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
 	ArrowDownToLine,
 	BadgeCheck,
@@ -14,141 +14,141 @@ import {
 	Loader2,
 	TagIcon,
 	Trash2,
-} from "lucide-react";
-import { Tag } from "@/types/Tag";
-import { useTestimonialsFilter } from "@/hooks/useTestimonialsFilters";
-import { useQuery } from "@tanstack/react-query";
-import { getUserTestimonials } from "@/actions/workspace";
-import { TagTestimonials } from "../tags/TagTestimonials";
-import TestimonialsList from "./TestimonialsList";
-import { CreateWidgetModal } from "../widgets/CreateWidgetModal";
-import { getUserTags } from "@/actions/tags";
-import FiterTestimonialsSidebar from "./FiterTestimonialsSidebar";
-import { LoadingSpinner } from "../animations/loading-spinner";
-import { getUserForms } from "@/actions/form";
-import { Form } from "@/types/Form";
-import { groupTagsByCategory } from "@/lib/utils";
-import { useTags } from "@/hooks/useTags";
-import clsx from "clsx";
-import Link from "next/link";
-import { Button } from "../ui/button";
+} from 'lucide-react'
+import { Tag } from '@/types/Tag'
+import { useTestimonialsFilter } from '@/hooks/useTestimonialsFilters'
+import { useQuery } from '@tanstack/react-query'
+import { getUserTestimonials } from '@/actions/workspace'
+import { TagTestimonials } from '../tags/TagTestimonials'
+import TestimonialsList from './TestimonialsList'
+import { CreateWidgetModal } from '../widgets/CreateWidgetModal'
+import { getUserTags } from '@/actions/tags'
+import FiterTestimonialsSidebar from './FiterTestimonialsSidebar'
+import { LoadingSpinner } from '../animations/loading-spinner'
+import { getUserForms } from '@/actions/form'
+import { Form } from '@/types/Form'
+import { groupTagsByCategory } from '@/lib/utils'
+import { useTags } from '@/hooks/useTags'
+import clsx from 'clsx'
+import Link from 'next/link'
+import { Button } from '../ui/button'
 
 type Props = {
-	workspaceId: string;
-};
+	workspaceId: string
+}
 
 const TestimonialsPage = ({ workspaceId }: Props) => {
-	const { tags, groupedTags, setTags } = useTags(workspaceId);
+	const { tags, groupedTags, setTags } = useTags(workspaceId)
 
 	const { data: testimonialsResponse, isFetched } = useQuery({
-		queryKey: ["user-testimonials", workspaceId],
+		queryKey: ['user-testimonials', workspaceId],
 		queryFn: () => getUserTestimonials(workspaceId),
 		refetchOnWindowFocus: false,
-	});
+	})
 
 	const { data: formsResponse } = useQuery({
-		queryKey: ["user-forms", workspaceId],
+		queryKey: ['user-forms', workspaceId],
 		queryFn: () => getUserForms(workspaceId),
-	});
+	})
 
-	const userTestimonials = testimonialsResponse?.data || [];
-	const userForms: any = formsResponse?.data?.forms || [];
+	const userTestimonials = testimonialsResponse?.data || []
+	const userForms: any = formsResponse?.data?.forms || []
 
-	const [testimonials, setTestimonials] = useState<any>(userTestimonials);
+	const [testimonials, setTestimonials] = useState<any>(userTestimonials)
 
-	const [filteredTestimonials, setFilteredTestimonials] = useState([]);
-	const [checkedItems, setChecked] = useState(new Set());
-	const { filters, setFilters } = useTestimonialsFilter();
+	const [filteredTestimonials, setFilteredTestimonials] = useState([])
+	const [checkedItems, setChecked] = useState(new Set())
+	const { filters, setFilters } = useTestimonialsFilter()
 	const [loading, setLoading] = useState({
-		action: "",
+		action: '',
 		loading: false,
-	});
-	const [showFilterSidebar, setShowFilterSidebar] = useState(true);
+	})
+	const [showFilterSidebar, setShowFilterSidebar] = useState(true)
 
 	useEffect(() => {
 		const handleKeyDown = (event: KeyboardEvent) => {
-			if (event.key === "Escape") {
-				setChecked(new Set());
+			if (event.key === 'Escape') {
+				setChecked(new Set())
 			}
-		};
+		}
 
-		document.addEventListener("keydown", handleKeyDown);
+		document.addEventListener('keydown', handleKeyDown)
 		return () => {
-			document.removeEventListener("keydown", handleKeyDown);
-		};
-	}, []);
+			document.removeEventListener('keydown', handleKeyDown)
+		}
+	}, [])
 
 	useEffect(() => {
-		let _filteredTestimonials = [...testimonials];
+		let _filteredTestimonials = [...testimonials]
 
-		if (filters.approvalStatus === "approved") {
+		if (filters.approvalStatus === 'approved') {
 			_filteredTestimonials = _filteredTestimonials.filter(
-				(t: any) => t.approved === true
-			);
-		} else if (filters.approvalStatus === "unapproved") {
+				(t: any) => t.approved === true,
+			)
+		} else if (filters.approvalStatus === 'unapproved') {
 			_filteredTestimonials = _filteredTestimonials.filter(
-				(t: any) => t.approved === false
-			);
+				(t: any) => t.approved === false,
+			)
 		}
 
 		if (filters.rating !== 0) {
 			_filteredTestimonials = _filteredTestimonials.filter(
-				(t: any) => t.stars === filters.rating
-			);
+				(t: any) => t.stars === filters.rating,
+			)
 		}
 
 		if (filters.tags.length > 0) {
 			_filteredTestimonials = _filteredTestimonials.filter((t) =>
 				// @ts-ignore
-				filters.tags.some((tag) => tag.formResponsesIds.includes(t.id))
-			);
+				filters.tags.some((tag) => tag.formResponsesIds.includes(t.id)),
+			)
 		}
 
 		if (filters.forms.length > 0) {
 			_filteredTestimonials = _filteredTestimonials.filter((t) =>
 				// @ts-ignore
-				filters.forms.some((form) => t.form.id == form.id)
-			);
+				filters.forms.some((form) => t.form.id == form.id),
+			)
 		}
 
 		if (filters.searchForKeywords) {
 			_filteredTestimonials = _filteredTestimonials.filter(
 				(testimonial) =>
 					// @ts-ignore
-					testimonial.message.includes(filters.searchForKeywords)
-			);
+					testimonial.message.includes(filters.searchForKeywords),
+			)
 		}
 
 		// @ts-ignore
-		setFilteredTestimonials(_filteredTestimonials);
-	}, [filters, testimonials]);
+		setFilteredTestimonials(_filteredTestimonials)
+	}, [filters, testimonials])
 
 	const isChecked = (id: number) => {
-		return checkedItems.has(id);
-	};
+		return checkedItems.has(id)
+	}
 
 	const updateForm = async (action: string, approved: boolean) => {
-		setLoading({ action, loading: true });
+		setLoading({ action, loading: true })
 		try {
-			const URL = "/api/testimonials/edit";
+			const URL = '/api/testimonials/edit'
 
 			if (!checkedItems) {
-				setLoading({ action: "", loading: false });
-				return;
+				setLoading({ action: '', loading: false })
+				return
 			}
 			// Convert the set to an array and iterate over the ids
-			const idsArray = Array.from(checkedItems);
+			const idsArray = Array.from(checkedItems)
 			for (const id of idsArray) {
 				const rawResponse = await fetch(URL, {
-					method: "POST",
+					method: 'POST',
 					headers: {
-						Accept: "application/json",
-						"Content-Type": "application/json",
+						Accept: 'application/json',
+						'Content-Type': 'application/json',
 					},
 					body: JSON.stringify({ data: { id, approved } }),
-				});
+				})
 
-				const response = await rawResponse.json();
+				const response = await rawResponse.json()
 
 				if (response?.error) {
 					// toast.error(response.error);
@@ -159,134 +159,134 @@ const TestimonialsPage = ({ workspaceId }: Props) => {
 							//@ts-ignore
 							if (checkedItems.has(t.id))
 								//@ts-ignore
-								return { ...t, approved };
+								return { ...t, approved }
 							//@ts-ignore
-							else return { ...t };
-						})
-					);
+							else return { ...t }
+						}),
+					)
 					// toast.success("Response approved!");
 				}
 			}
 		} catch (err) {
-			console.error(err);
-			toast.error("Unexpected error");
+			console.error(err)
+			toast.error('Unexpected error')
 		} finally {
-			setLoading({ action: "", loading: false });
+			setLoading({ action: '', loading: false })
 		}
-	};
+	}
 
 	const handleDelete = async () => {
-		setLoading({ action: "delete", loading: true });
+		setLoading({ action: 'delete', loading: true })
 		try {
-			const rawResponse = await fetch("/api/testimonials/delete", {
-				method: "DELETE",
+			const rawResponse = await fetch('/api/testimonials/delete', {
+				method: 'DELETE',
 				headers: {
-					Accept: "application/json",
-					"Content-Type": "application/json",
+					Accept: 'application/json',
+					'Content-Type': 'application/json',
 				},
 				body: JSON.stringify({ ids: Array.from(checkedItems) }),
-			});
+			})
 
-			const response = await rawResponse.json();
+			const response = await rawResponse.json()
 
 			if (!response?.success) {
-				toast.error("Could not delete testimonials");
+				toast.error('Could not delete testimonials')
 			} else {
 				setTestimonials((prevT: any) =>
 					//@ts-ignore
-					prevT.filter((t) => !checkedItems.has(t.id))
-				);
-				setChecked(new Set());
-				toast.success("Testimonials deleted successfully!");
+					prevT.filter((t) => !checkedItems.has(t.id)),
+				)
+				setChecked(new Set())
+				toast.success('Testimonials deleted successfully!')
 			}
 		} catch (err) {
-			console.error(err);
-			toast.error("Unexpected error");
+			console.error(err)
+			toast.error('Unexpected error')
 		} finally {
-			setLoading({ action: "", loading: false });
+			setLoading({ action: '', loading: false })
 		}
-	};
+	}
 
 	const handleExport = () => {
 		try {
-			setLoading({ action: "export", loading: true });
+			setLoading({ action: 'export', loading: true })
 
 			// Filter only the selected testimonials
 			const testimonialsToExport: any = filteredTestimonials.filter(
-				(t: any) => checkedItems.has(t.id)
-			);
+				(t: any) => checkedItems.has(t.id),
+			)
 
 			// Define the columns to export
 			const csvHeaders = [
-				"ID",
-				"Name",
-				"Email",
-				"Stars",
-				"Message",
-				"Approved",
-				"Created At",
-				"Form Name",
-			];
+				'ID',
+				'Name',
+				'Email',
+				'Stars',
+				'Message',
+				'Approved',
+				'Created At',
+				'Form Name',
+			]
 
 			// Function to escape commas, quotes, and newlines in the CSV fields
 			const escapeCsvField = (field: string | null) => {
-				if (field == null) return "N/A"; // Handle null/undefined
-				const fieldStr = field.toString();
+				if (field == null) return 'N/A' // Handle null/undefined
+				const fieldStr = field.toString()
 				if (/[,"\n]/.test(fieldStr)) {
 					// Escape double quotes by doubling them
-					return `"${fieldStr.replace(/"/g, '""')}"`;
+					return `"${fieldStr.replace(/"/g, '""')}"`
 				}
-				return fieldStr;
-			};
+				return fieldStr
+			}
 
 			// Convert the testimonials to CSV-friendly format, escaping necessary fields
 			const csvRows = testimonialsToExport.map((t: any) => ({
 				id: t.id,
-				name: escapeCsvField(t.name || "N/A"),
-				email: escapeCsvField(t.email || "N/A"),
-				stars: escapeCsvField(t.stars || "N/A"),
-				message: escapeCsvField(t.message || "N/A"),
-				approved: t.approved ? "Yes" : "No",
+				name: escapeCsvField(t.name || 'N/A'),
+				email: escapeCsvField(t.email || 'N/A'),
+				stars: escapeCsvField(t.stars || 'N/A'),
+				message: escapeCsvField(t.message || 'N/A'),
+				approved: t.approved ? 'Yes' : 'No',
 				createdAt: escapeCsvField(
-					new Date(t.createdAt).toLocaleDateString()
+					new Date(t.createdAt).toLocaleDateString(),
 				),
-				formName: escapeCsvField(t.form?.name || "N/A"),
-			}));
+				formName: escapeCsvField(t.form?.name || 'N/A'),
+			}))
 
 			// Convert array of objects to CSV string
 			const csvContent = [
-				csvHeaders.join(","), // Add the header row
-				...csvRows.map((row: any) => Object.values(row).join(",")), // Add each row of data
-			].join("\n");
+				csvHeaders.join(','), // Add the header row
+				...csvRows.map((row: any) => Object.values(row).join(',')), // Add each row of data
+			].join('\n')
 
 			// Create a Blob from the CSV string
 			const blob = new Blob([csvContent], {
-				type: "text/csv;charset=utf-8;",
-			});
+				type: 'text/csv;charset=utf-8;',
+			})
 
 			// Create a temporary URL for the Blob
-			const url = window.URL.createObjectURL(blob);
+			const url = window.URL.createObjectURL(blob)
 
 			// Create a temporary <a> element and trigger the download
-			const a = document.createElement("a");
-			a.href = url;
-			a.download = "testimonials_export.csv"; // The file name for download
-			a.style.display = "none";
-			document.body.appendChild(a);
-			a.click();
+			const a = document.createElement('a')
+			a.href = url
+			a.download = 'testimonials_export.csv' // The file name for download
+			a.style.display = 'none'
+			document.body.appendChild(a)
+			a.click()
 
 			// Clean up by revoking the Blob URL and removing the element
-			window.URL.revokeObjectURL(url);
-			document.body.removeChild(a);
+			window.URL.revokeObjectURL(url)
+			document.body.removeChild(a)
 
-			toast.success("Testimonials exported successfully!");
+			toast.success('Testimonials exported successfully!')
 		} catch (err) {
-			console.error("Error while exporting:", err);
-			toast.error("Error while exporting");
+			console.error('Error while exporting:', err)
+			toast.error('Error while exporting')
 		} finally {
-			setLoading({ action: "", loading: false });
+			setLoading({ action: '', loading: false })
 		}
-	};
+	}
 
 	const handleCheckAll = () => {
 		setChecked(new Set(testimonials.map((t: any) => t.id)))
@@ -307,14 +307,14 @@ const TestimonialsPage = ({ workspaceId }: Props) => {
 								className="text-gray-200"
 							/>
 							<span className="text-gray-200 font-[400] text-[13px]">
-								{loading.action == "export" &&
-									loading.loading ? (
+								{loading.action == 'export' &&
+								loading.loading ? (
 									<Loader2
 										size={11}
 										className="spin my-[4px] mx-[4px]"
 									/>
 								) : (
-									"Export"
+									'Export'
 								)}
 							</span>
 						</div>
@@ -337,37 +337,37 @@ const TestimonialsPage = ({ workspaceId }: Props) => {
 						/>
 
 						<div
-							onClick={() => updateForm("approve", true)}
+							onClick={() => updateForm('approve', true)}
 							className="flex items-center justify-center gap-2 cursor-pointer hover:opacity-60 bg-[#3c3b3b] px-[8px] py-[3px] rounded-[10px]"
 						>
 							<BadgeCheck size={14} className="text-gray-200" />
 							<span className="text-gray-200 font-[400] text-[13px]">
-								{loading.action == "approve" &&
-									loading.loading ? (
+								{loading.action == 'approve' &&
+								loading.loading ? (
 									<Loader2
 										size={11}
 										className="spin my-[4px] mx-[4px]"
 									/>
 								) : (
-									"Approve"
+									'Approve'
 								)}
 							</span>
 						</div>
 
 						<div
-							onClick={() => updateForm("unapprove", false)}
+							onClick={() => updateForm('unapprove', false)}
 							className="flex items-center justify-center gap-2 cursor-pointer hover:opacity-60 bg-[#3c3b3b] px-[8px] py-[3px] rounded-[10px]"
 						>
 							<BadgeMinus size={14} className="text-gray-200" />
 							<span className="text-gray-200 font-[400] text-[13px]">
-								{loading.action == "unapprove" &&
-									loading.loading ? (
+								{loading.action == 'unapprove' &&
+								loading.loading ? (
 									<Loader2
 										size={11}
 										className="spin my-[4px] mx-[4px]"
 									/>
 								) : (
-									"Unapprove"
+									'Unapprove'
 								)}
 							</span>
 						</div>
@@ -377,14 +377,14 @@ const TestimonialsPage = ({ workspaceId }: Props) => {
 						>
 							<Trash2 size={14} className="text-red-600" />
 							<span className="text-gray-200 font-[400] text-[13px]">
-								{loading.action == "delete" &&
-									loading.loading ? (
+								{loading.action == 'delete' &&
+								loading.loading ? (
 									<Loader2
 										size={11}
 										className="spin my-[4px] mx-[4px]"
 									/>
 								) : (
-									"Delete"
+									'Delete'
 								)}
 							</span>
 						</div>
@@ -403,10 +403,12 @@ const TestimonialsPage = ({ workspaceId }: Props) => {
 						</div>
 						<div className="flex items-center gap-4">
 							<Link
-								href={`/dashboard/${workspaceId}/import-testimonials`} data-discover="true">
+								href={`/dashboard/${workspaceId}/import-testimonials`}
+								data-discover="true"
+							>
 								<Button
 									className={clsx(
-										"text-[16px] purple-background px-4 py-2",
+										'text-[16px] purple-background px-4 py-2',
 									)}
 								>
 									Import Testimonials
@@ -478,7 +480,7 @@ const TestimonialsPage = ({ workspaceId }: Props) => {
 				userForms={userForms}
 			/>
 		</div>
-	);
-};
+	)
+}
 
-export default TestimonialsPage;
+export default TestimonialsPage

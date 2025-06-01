@@ -1,6 +1,6 @@
-import { MoveLeft, PlusSquare } from "lucide-react";
+import { MoveLeft, PlusSquare } from 'lucide-react'
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button'
 import {
 	Dialog,
 	DialogClose,
@@ -10,10 +10,10 @@ import {
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { useState } from "react";
+} from '@/components/ui/dialog'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { useState } from 'react'
 import {
 	Select,
 	SelectContent,
@@ -22,11 +22,11 @@ import {
 	SelectLabel,
 	SelectTrigger,
 	SelectValue,
-} from "@/components/ui/select";
-import { toast } from "sonner";
-import { CreateTagType, Tag } from "@/types/Tag";
-import { tagCategories as categories } from "@/lib/utils";
-import { LoadingSpinner } from "../animations/loading-spinner";
+} from '@/components/ui/select'
+import { toast } from 'sonner'
+import { CreateTagType, Tag } from '@/types/Tag'
+import { tagCategories as categories } from '@/lib/utils'
+import { LoadingSpinner } from '../animations/loading-spinner'
 
 const Category = ({
 	category,
@@ -35,20 +35,20 @@ const Category = ({
 	setActive,
 	setFormValue,
 }: {
-	category: any;
-	active: number;
-	index: number;
-	setActive: any;
-	setFormValue: any;
+	category: any
+	active: number
+	index: number
+	setActive: any
+	setFormValue: any
 }) => {
 	return (
 		<div
-			style={active == index ? { background: "rgb(238, 239, 240)" } : {}}
+			style={active == index ? { background: 'rgb(238, 239, 240)' } : {}}
 			className="flex gap-3 hover:bg-gray-50 py-3 border-b-[1px] border-[rgb(229 231 235)] cursor-pointer"
 			onClick={() => {
-				setActive(index);
+				setActive(index)
 				// @ts-ignore
-				setFormValue((prev) => ({ ...prev, category: category.name }));
+				setFormValue((prev) => ({ ...prev, category: category.name }))
 			}}
 		>
 			<div>{category.emoji}</div>
@@ -61,46 +61,45 @@ const Category = ({
 				</p>
 			</div>
 		</div>
-	);
-};
+	)
+}
 
 export function CreateTagModal({
 	workspaceId,
 	createTag,
-	creatingTag
+	creatingTag,
 }: {
-	workspaceId: string;
-	createTag: (tagData: Tag) => void;
-	creatingTag: boolean;
-
+	workspaceId: string
+	createTag: (tagData: Tag) => void
+	creatingTag: boolean
 }) {
-	const [step, setStep] = useState(1);
-	const [activeCategory, setActiveCategory] = useState(-1);
+	const [step, setStep] = useState(1)
+	const [activeCategory, setActiveCategory] = useState(-1)
 
 	const [formValue, setFormValue] = useState<CreateTagType>({
-		category: "",
-		tagName: "",
-		tagDescription: "",
+		category: '',
+		tagName: '',
+		tagDescription: '',
 		workspaceId,
-	});
+	})
 
 	const handleCreateTag = () => {
 		if (!formValue.tagName) {
-			toast.error("Tag name is required");
-			return;
+			toast.error('Tag name is required')
+			return
 		}
 
-		createTag(formValue);
+		createTag(formValue)
 
-		document.getElementById("close-dialog")?.click();
+		document.getElementById('close-dialog')?.click()
 		setFormValue({
-			category: "",
-			tagName: "",
-			tagDescription: "",
-			workspaceId
-		});
-		setStep(1);
-	};
+			category: '',
+			tagName: '',
+			tagDescription: '',
+			workspaceId,
+		})
+		setStep(1)
+	}
 
 	return (
 		<Dialog>
@@ -249,7 +248,7 @@ export function CreateTagModal({
 							className="text-center py-[10px] rounded-[8px] bg-[#000] text-[#eee] w-full cursor-pointer text-[14px] font-semibold mt-3 hover:opacity-80"
 						>
 							{!creatingTag ? (
-								"Create"
+								'Create'
 							) : (
 								<div className="flex items-center justify-center">
 									<LoadingSpinner />
@@ -259,12 +258,12 @@ export function CreateTagModal({
 					)}
 
 					<DialogClose asChild>
-						<div id="close-dialog" style={{ display: "none" }}>
+						<div id="close-dialog" style={{ display: 'none' }}>
 							Save changes
 						</div>
 					</DialogClose>
 				</DialogFooter>
 			</DialogContent>
 		</Dialog>
-	);
+	)
 }

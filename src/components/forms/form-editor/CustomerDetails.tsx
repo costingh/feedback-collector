@@ -1,41 +1,37 @@
-"use client";
+'use client'
 
-import React from "react";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Form } from "@/types/Form";
+import React from 'react'
+import { Checkbox } from '@/components/ui/checkbox'
+import { Form } from '@/types/Form'
 
 interface CustomerDetailsProps {
-	setForm: React.Dispatch<React.SetStateAction<Form>>;
-	form: Form;
+	setForm: React.Dispatch<React.SetStateAction<Form>>
+	form: Form
 }
 
-import options from "./CustomerDetailsOptionList";
-import { Option } from "@/types/Option";
+import options from './CustomerDetailsOptionList'
+import { Option } from '@/types/Option'
 
 const CustomerDetails: React.FC<CustomerDetailsProps> = ({ setForm, form }) => {
-
-	const handleCheck = (
-		option: Option, 
-		type: "enable" | "required"
-	) => {
-		setForm(prev => ({
+	const handleCheck = (option: Option, type: 'enable' | 'required') => {
+		setForm((prev) => ({
 			...prev,
-			formFields: prev.formFields.map(field =>
+			formFields: prev.formFields.map((field) =>
 				field.key === option.key
-					? type === "enable"
+					? type === 'enable'
 						? { ...field, isEnabled: !field.isEnabled }
 						: { ...field, isRequired: !field.isRequired }
-					: field
+					: field,
 			),
-		}));
-	};
+		}))
+	}
 
 	const getAllOptions = (): Option[] => {
-		return options.map(option => ({
+		return options.map((option) => ({
 			...option,
-			...(form?.formFields?.find(ao => ao.key === option.key) || {}),
-		}));
-	};
+			...(form?.formFields?.find((ao) => ao.key === option.key) || {}),
+		}))
+	}
 
 	const renderTesimonialCollectorElementOption = (): JSX.Element => {
 		return (
@@ -59,7 +55,7 @@ const CustomerDetails: React.FC<CustomerDetailsProps> = ({ setForm, form }) => {
 													onClick={() =>
 														handleCheck(
 															option,
-															"enable"
+															'enable',
 														)
 													}
 												/>
@@ -78,7 +74,7 @@ const CustomerDetails: React.FC<CustomerDetailsProps> = ({ setForm, form }) => {
 													onClick={() =>
 														handleCheck(
 															option,
-															"required"
+															'required',
 														)
 													}
 												/>
@@ -104,8 +100,8 @@ const CustomerDetails: React.FC<CustomerDetailsProps> = ({ setForm, form }) => {
 					</div>
 				))}
 			</>
-		);
-	};
+		)
+	}
 
 	return (
 		<div className="w-full">
@@ -113,7 +109,7 @@ const CustomerDetails: React.FC<CustomerDetailsProps> = ({ setForm, form }) => {
 				<div>{renderTesimonialCollectorElementOption()}</div>
 			</div>
 		</div>
-	);
-};
+	)
+}
 
-export default CustomerDetails;
+export default CustomerDetails

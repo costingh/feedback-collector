@@ -1,25 +1,25 @@
-"use client";
+'use client'
 
-import { needsDarkBackground, timeAgo } from "@/lib/utils";
+import { needsDarkBackground, timeAgo } from '@/lib/utils'
 import {
 	ExternalLink,
 	Eye,
 	MousePointerClick,
 	Percent,
 	Share2,
-} from "lucide-react";
-import React, { useState } from "react";
-import RollingWall from "./RollingWall";
-import RatingBadge from "./RatingBadge";
-import SocialStar from "./SocialStar";
-import { ShareWidgetModal } from "../widgets/ShareWidgetModal";
-import Avatars from "./Avatars";
-import HeroQuotes from "./HeroQuotes";
-import Link from "next/link";
-import BasicWall from "./BasicWall";
-import { WidgetValidationTooltip } from "../tooltips/WidgetValidationTooltip";
-import MinimalistReview from "./MinimalistReview";
-import clsx from "clsx";
+} from 'lucide-react'
+import React, { useState } from 'react'
+import RollingWall from './RollingWall'
+import RatingBadge from './RatingBadge'
+import SocialStar from './SocialStar'
+import { ShareWidgetModal } from '../widgets/ShareWidgetModal'
+import Avatars from './Avatars'
+import HeroQuotes from './HeroQuotes'
+import Link from 'next/link'
+import BasicWall from './BasicWall'
+import { WidgetValidationTooltip } from '../tooltips/WidgetValidationTooltip'
+import MinimalistReview from './MinimalistReview'
+import clsx from 'clsx'
 
 function Widget({
 	widget,
@@ -28,41 +28,46 @@ function Widget({
 	setPage,
 	isFetching,
 }: {
-	widget: any;
-	workspaceId: string;
-	numberOfReviews: string;
-	setPage: (page: number) => void;
-	isFetching: boolean;
+	widget: any
+	workspaceId: string
+	numberOfReviews: string
+	setPage: (page: number) => void
+	isFetching: boolean
 }) {
 	return (
 		<div className="border-[1px] border-gray-200 rounded-[12px] overflow-hidden">
 			<div
 				className={clsx(
-					"top w-full h-[200px] flex items-center justify-center relative overflow-hidden",
-					needsDarkBackground(widget) ? "bg-gray-900" : "bg-gray-100"
+					'top w-full h-[200px] flex items-center justify-center relative overflow-hidden',
+					needsDarkBackground(widget) ? 'bg-gray-900' : 'bg-gray-100',
 				)}
 			>
-				{widget?.type == "basic_wall" && (
-					<div style={{  width: '1200px', transform: 'scale(0.3)' }}>
-						<BasicWall widget={{...widget, deviceWidth: 1200}} setPage={setPage} isFetching={isFetching}  />
+				{widget?.type == 'basic_wall' && (
+					<div style={{ width: '1200px', transform: 'scale(0.3)' }}>
+						<BasicWall
+							widget={{ ...widget, deviceWidth: 1200 }}
+							setPage={setPage}
+							isFetching={isFetching}
+						/>
 					</div>
 				)}
 
-				{widget?.type == "rolling_wall" && (
-					<div style={{ transform: "scale(0.4)" }}>
-						<RollingWall testimonials={widget?.testimonials} widget={widget} />
-					</div>
-				)}
-
-				{widget?.type == "rating_badge" && (
-					<div>
-						<RatingBadge
+				{widget?.type == 'rolling_wall' && (
+					<div style={{ transform: 'scale(0.4)' }}>
+						<RollingWall
+							testimonials={widget?.testimonials}
 							widget={widget}
 						/>
 					</div>
 				)}
 
-				{widget?.type == "avatars" && (
+				{widget?.type == 'rating_badge' && (
+					<div>
+						<RatingBadge widget={widget} />
+					</div>
+				)}
+
+				{widget?.type == 'avatars' && (
 					<div>
 						<Avatars
 							testimonials={widget?.testimonials}
@@ -72,8 +77,8 @@ function Widget({
 					</div>
 				)}
 
-				{widget?.type == "social_star" && (
-					<div style={{ transform: "scale(0.8)" }}>
+				{widget?.type == 'social_star' && (
+					<div style={{ transform: 'scale(0.8)' }}>
 						<SocialStar
 							testimonials={widget?.testimonials.slice(0, 1)}
 							numberOfReviews={widget?._count?.testimonials}
@@ -82,15 +87,18 @@ function Widget({
 					</div>
 				)}
 
-				{widget?.type == "hero_quotes" && (
-					<div style={{ transform: "scale(0.8)" }}>
+				{widget?.type == 'hero_quotes' && (
+					<div style={{ transform: 'scale(0.8)' }}>
 						<HeroQuotes widget={widget} />
 					</div>
 				)}
 
-				{widget?.type == "minimalist_review" && (
-					<div style={{ transform: "scale(0.8)" }}>
-						<MinimalistReview review={widget?.testimonials[0]} widget={widget}/>
+				{widget?.type == 'minimalist_review' && (
+					<div style={{ transform: 'scale(0.8)' }}>
+						<MinimalistReview
+							review={widget?.testimonials[0]}
+							widget={widget}
+						/>
 					</div>
 				)}
 
@@ -105,19 +113,20 @@ function Widget({
 				<div className="absolute bottom-0 right-0">
 					<span
 						className={clsx(
-							"px-2 py-1 rounded-tl-[6px] text-[12px] font-normal cursor-pointer",
+							'px-2 py-1 rounded-tl-[6px] text-[12px] font-normal cursor-pointer',
 							needsDarkBackground(widget)
-								? "bg-[#4dff076f] text-white"
-								: "bg-[#4dff073e] text-[#0d7d019a]"
+								? 'bg-[#4dff076f] text-white'
+								: 'bg-[#4dff073e] text-[#0d7d019a]',
 						)}
 					>
-						{widget?.type == "basic_wall" && "Wall of Love"}
-						{widget?.type == "rolling_wall" && "Carousel"}
-						{widget?.type == "social_star" && "Social Star"}
-						{widget?.type == "rating_badge" && "Rating Badge"}
-						{widget?.type == "avatars" && "Avatars"}
-						{widget?.type == "minimalist_review" && "Minimalist Review"}
-						{widget?.type == "hero_quotes" && "Hero Quotes"}
+						{widget?.type == 'basic_wall' && 'Wall of Love'}
+						{widget?.type == 'rolling_wall' && 'Carousel'}
+						{widget?.type == 'social_star' && 'Social Star'}
+						{widget?.type == 'rating_badge' && 'Rating Badge'}
+						{widget?.type == 'avatars' && 'Avatars'}
+						{widget?.type == 'minimalist_review' &&
+							'Minimalist Review'}
+						{widget?.type == 'hero_quotes' && 'Hero Quotes'}
 					</span>
 				</div>
 			</div>
@@ -133,7 +142,7 @@ function Widget({
 					</div>
 					<div className="flex flex-col items-end">
 						<div className="flex items-center gap-2">
-							<ShareWidgetModal widgetUrl={widget?.url || ""}>
+							<ShareWidgetModal widgetUrl={widget?.url || ''}>
 								<div className="hover:bg-gray-200 cursor-pointer rounded-[6px] p-1 flex gap-2 items-center">
 									<span className="text-[12px] text-[#9f9f9f]">
 										Share
@@ -176,10 +185,10 @@ function Widget({
 					<div className="flex-[0.33] flex flex-col gap-1">
 						<span className="text-gray-400 text-[12px]">Views</span>
 						<div className="flex items-center gap-1">
-							<Eye className="text-gray-400" size={20} />{" "}
+							<Eye className="text-gray-400" size={20} />{' '}
 							<p className="text-gray-400 text-[16px] font-semibold">
 								{widget?.metrics?.find(
-									(m: any) => m.actionType == "view"
+									(m: any) => m.actionType == 'view',
 								)?.total || 0}
 							</p>
 						</div>
@@ -192,10 +201,10 @@ function Widget({
 							<MousePointerClick
 								className="text-gray-400"
 								size={20}
-							/>{" "}
+							/>{' '}
 							<p className="text-gray-400 text-[16px] font-semibold">
 								{widget?.metrics?.find(
-									(m: any) => m.actionType == "interaction"
+									(m: any) => m.actionType == 'interaction',
 								)?.total || 0}
 							</p>
 						</div>
@@ -205,10 +214,10 @@ function Widget({
 							Bounce Rate
 						</span>
 						<div className="flex items-center gap-1">
-							<Percent className="text-gray-400" size={20} />{" "}
+							<Percent className="text-gray-400" size={20} />{' '}
 							<p className="text-gray-400 text-[16px] font-semibold">
 								{widget?.metrics?.find(
-									(m: any) => m.actionType == "bounce"
+									(m: any) => m.actionType == 'bounce',
 								)?.total || 0}
 							</p>
 						</div>
@@ -216,7 +225,7 @@ function Widget({
 				</div>
 			</div>
 		</div>
-	);
+	)
 }
 
-export default Widget;
+export default Widget

@@ -1,13 +1,13 @@
-import { getFormById } from "@/actions/form";
-import EditFormWrapper from "@/components/forms/form-editor/EditFormWrapper";
+import { getFormById } from '@/actions/form'
+import EditFormWrapper from '@/components/forms/form-editor/EditFormWrapper'
 
 export default async function EditFormPage({
 	params,
 }: {
-	params: { id: string };
+	params: { id: string }
 }) {
-	const formResponse: any = await getFormById(params.id);
-	const formData = formResponse?.data?.form;
+	const formResponse: any = await getFormById(params.id)
+	const formData = formResponse?.data?.form
 
-	return <EditFormWrapper formData={formData} formId={params.id} />;
+	return <EditFormWrapper formData={formData} formId={params.id} />
 }

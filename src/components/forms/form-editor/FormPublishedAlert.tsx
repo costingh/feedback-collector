@@ -1,16 +1,16 @@
-"use client";
+'use client'
 
-import React from "react";
+import React from 'react'
 
 interface FormPublishedAlertProps {
-	show: boolean;
+	show: boolean
 }
 
 const FormPublishedAlert: React.FC<FormPublishedAlertProps> = ({ show }) => {
 	return (
 		<div
 			className={`transition-opacity duration-500 ease-in-out ${
-				show ? "opacity-100" : "opacity-0 pointer-events-none"
+				show ? 'opacity-100' : 'opacity-0 pointer-events-none'
 			}`}
 		>
 			<div
@@ -37,7 +37,7 @@ const FormPublishedAlert: React.FC<FormPublishedAlertProps> = ({ show }) => {
 				</div>
 			</div>
 		</div>
-	);
-};
+	)
+}
 
-export default FormPublishedAlert;
+export default FormPublishedAlert

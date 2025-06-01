@@ -1,29 +1,29 @@
-"use client";
+'use client'
 
-import { useState, useEffect } from "react";
-import { useInfiniteQuery } from '@tanstack/react-query';
-import { getUserWidget } from "@/actions/widgets";
-import { cn, needsDarkBackground } from "@/lib/utils";
-import WidgetEditorNav from "@/components/widgets/WidgetEditorNav";
-import { ShareWidgetModal } from "@/components/widgets/ShareWidgetModal";
-import { SelectTestimonialsToShareModal } from "@/components/testimonials/SelectTestimonialsToShareModal";
-import DisplayWidget from "@/components/widgets/DisplayWidget";
-import { LoadingSpinner } from "../animations/loading-spinner";
-import WidgetEditorSidebar from "./WidgetEditorSidebar";
-import clsx from "clsx";
-import { TagsProvider, useTagsContext } from "@/contexts/TagsContext";
+import { useState, useEffect } from 'react'
+import { useInfiniteQuery } from '@tanstack/react-query'
+import { getUserWidget } from '@/actions/widgets'
+import { cn, needsDarkBackground } from '@/lib/utils'
+import WidgetEditorNav from '@/components/widgets/WidgetEditorNav'
+import { ShareWidgetModal } from '@/components/widgets/ShareWidgetModal'
+import { SelectTestimonialsToShareModal } from '@/components/testimonials/SelectTestimonialsToShareModal'
+import DisplayWidget from '@/components/widgets/DisplayWidget'
+import { LoadingSpinner } from '../animations/loading-spinner'
+import WidgetEditorSidebar from './WidgetEditorSidebar'
+import clsx from 'clsx'
+import { TagsProvider, useTagsContext } from '@/contexts/TagsContext'
 
 const EditWidget = ({ widgetId, workspaceId, initialData }: any) => {
 	const [deviceResolution, setDeviceResolution] = useState({
 		width: window.innerWidth,
 		height: window.innerHeight,
-	});
-	const [hasInteracted, setHasInteracted] = useState(false);
-	const [activeSubmenu, setActiveSubmenu] = useState<string>("");
-	const [checkedItems, setChecked] = useState<Set<string>>(new Set());
-	const [currentWidget, setCurrentWidget] = useState<any>(null);
+	})
+	const [hasInteracted, setHasInteracted] = useState(false)
+	const [activeSubmenu, setActiveSubmenu] = useState<string>('')
+	const [checkedItems, setChecked] = useState<Set<string>>(new Set())
+	const [currentWidget, setCurrentWidget] = useState<any>(null)
 
-	const { testimonialsResponse, formsData } = initialData;
+	const { testimonialsResponse, formsData } = initialData
 
 	const {
 		data: widgetData,
@@ -36,38 +36,47 @@ const EditWidget = ({ widgetId, workspaceId, initialData }: any) => {
 	} = useInfiniteQuery({
 		queryKey: ['widget', widgetId],
 		queryFn: async ({ pageParam = 1 }) => {
-			const response = await getUserWidget(`/${widgetId}`, pageParam, 6);
-			return response;
+			const response = await getUserWidget(`/${widgetId}`, pageParam, 6)
+			return response
 		},
 		initialPageParam: 1,
 		getNextPageParam: (lastPage) => {
 			if (lastPage?.pagination?.hasMore) {
-				return lastPage.pagination.page + 1;
+				return lastPage.pagination.page + 1
 			}
-			return undefined;
+			return undefined
 		},
 		initialData: {
 			pages: [initialData.widgetResponse],
 			pageParams: [1],
 		},
-	});
+	})
 
 	useEffect(() => {
 		if (widgetData?.pages?.[widgetData?.pages?.length - 1]?.widget) {
 			console.log('widgetData=', widgetData)
 			// Combine testimonials from all pages
-			const allTestimonials = widgetData.pages.flatMap(page => page.widget.testimonials || []);
+			const allTestimonials = widgetData.pages.flatMap(
+				(page) => page.widget.testimonials || [],
+			)
 			setCurrentWidget({
 				...widgetData.pages[widgetData?.pages?.length - 1].widget,
 				testimonials: allTestimonials,
 				_count: {
-					...widgetData.pages[widgetData?.pages?.length - 1].widget._count,
-					testimonials: allTestimonials.length
-				}
-			});
-			setChecked(new Set(widgetData.pages[widgetData?.pages?.length - 1].allTestimonialsIds));
+					...widgetData.pages[widgetData?.pages?.length - 1].widget
+						._count,
+					testimonials: allTestimonials.length,
+				},
+			})
+			setChecked(
+				new Set(
+					widgetData.pages[
+						widgetData?.pages?.length - 1
+					].allTestimonialsIds,
+				),
+			)
 		}
-	}, [widgetData]);
+	}, [widgetData])
 
 	// Resize Listener
 	useEffect(() => {
@@ -75,21 +84,26 @@ const EditWidget = ({ widgetId, workspaceId, initialData }: any) => {
 			setDeviceResolution({
 				width: window.innerWidth,
 				height: window.innerHeight,
-			});
-		};
+			})
+		}
 
-		window.addEventListener("resize", handleResize);
-		return () => window.removeEventListener("resize", handleResize);
-	}, []);
+		window.addEventListener('resize', handleResize)
+		return () => window.removeEventListener('resize', handleResize)
+	}, [])
 
 	const handlePageChange = () => {
-		fetchNextPage();
-	};
+		fetchNextPage()
+	}
 
-	if (!widgetData?.pages?.[widgetData.pages?.length - 1]?.widget) return null;
+	if (!widgetData?.pages?.[widgetData.pages?.length - 1]?.widget) return null
 
 	return (
-		<TagsProvider workspaceId={widgetData.pages[widgetData.pages?.length - 1].widget.workspaceId}>
+		<TagsProvider
+			workspaceId={
+				widgetData.pages[widgetData.pages?.length - 1].widget
+					.workspaceId
+			}
+		>
 			<EditWidgetContent
 				widgetResponse={widgetData.pages[widgetData.pages?.length - 1]}
 				testimonialsResponse={testimonialsResponse}
@@ -101,7 +115,9 @@ const EditWidget = ({ widgetId, workspaceId, initialData }: any) => {
 				checkedItems={checkedItems}
 				isLoading={isFetching}
 				isFetching={isFetchingNextPage}
-				paginationData={widgetData?.pages[widgetData.pages?.length - 1].pagination}
+				paginationData={
+					widgetData?.pages[widgetData.pages?.length - 1].pagination
+				}
 				setHasInteracted={setHasInteracted}
 				setDeviceResolution={setDeviceResolution}
 				setCurrentWidget={setCurrentWidget}
@@ -113,8 +129,8 @@ const EditWidget = ({ widgetId, workspaceId, initialData }: any) => {
 				workspaceId={workspaceId}
 			/>
 		</TagsProvider>
-	);
-};
+	)
+}
 
 const EditWidgetContent = ({
 	widgetResponse,
@@ -136,18 +152,18 @@ const EditWidgetContent = ({
 	setPage,
 	setChecked,
 	widgetId,
-	workspaceId
+	workspaceId,
 }: any) => {
-	const { tags, groupedTags } = useTagsContext();
+	const { tags, groupedTags } = useTagsContext()
 
 	return (
 		<div
 			onClick={() => setHasInteracted(true)}
 			className={clsx(
-				"relative min-h-screen",
+				'relative min-h-screen',
 				needsDarkBackground(currentWidget)
-					? "bg-[#101010]"
-					: "bg-gray-100"
+					? 'bg-[#101010]'
+					: 'bg-gray-100',
 			)}
 		>
 			<WidgetEditorNav
@@ -169,23 +185,23 @@ const EditWidgetContent = ({
 							height: `${deviceResolution.height}px`,
 						}}
 						className={clsx(
-							"p-2 max-w-full max-h-full hide-scrollbar",
+							'p-2 max-w-full max-h-full hide-scrollbar',
 							[375, 768].includes(deviceResolution.width) &&
-							"border-2 rounded-2xl overflow-y-auto overflow-x-hidden",
+								'border-2 rounded-2xl overflow-y-auto overflow-x-hidden',
 							needsDarkBackground(currentWidget)
-								? "border-white"
-								: "border-black"
+								? 'border-white'
+								: 'border-black',
 						)}
 					>
 						<ShareWidgetModal
-							widgetUrl={widgetResponse?.widget?.url || ""}
-							isOpened={activeSubmenu === "share_widget"}
-							handleClose={() => setActiveSubmenu("")}
+							widgetUrl={widgetResponse?.widget?.url || ''}
+							isOpened={activeSubmenu === 'share_widget'}
+							handleClose={() => setActiveSubmenu('')}
 						/>
 
 						<SelectTestimonialsToShareModal
-							isOpened={activeSubmenu === "select_testimonials"}
-							handleClose={() => setActiveSubmenu("")}
+							isOpened={activeSubmenu === 'select_testimonials'}
+							handleClose={() => setActiveSubmenu('')}
 							testimonials={testimonialsResponse?.data || []}
 							isChecked={(id: string) => checkedItems.has(id)}
 							tags={tags}
@@ -199,7 +215,16 @@ const EditWidgetContent = ({
 						{isLoading ? (
 							<div className="w-full h-full flex items-center justify-center">
 								<span className="inline-block">
-									<LoadingSpinner size={30} className={cn(needsDarkBackground({ ...currentWidget }) ? 'text-white' : 'text-black')} />
+									<LoadingSpinner
+										size={30}
+										className={cn(
+											needsDarkBackground({
+												...currentWidget,
+											})
+												? 'text-white'
+												: 'text-black',
+										)}
+									/>
 								</span>
 							</div>
 						) : (
@@ -217,7 +242,7 @@ const EditWidgetContent = ({
 				</div>
 			</div>
 		</div>
-	);
-};
+	)
+}
 
-export default EditWidget;
+export default EditWidget

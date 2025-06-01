@@ -1,23 +1,23 @@
-import { completeSubscription } from "@/actions/user";
-import { SUBSCRIPTION_PLAN } from "@prisma/client";
-import { redirect } from "next/navigation";
-import React from "react";
+import { completeSubscription } from '@/actions/user'
+import { SUBSCRIPTION_PLAN } from '@prisma/client'
+import { redirect } from 'next/navigation'
+import React from 'react'
 
 type Props = {
 	searchParams: {
-		session_id?: string;
-		cancel?: boolean;
-		planType?: SUBSCRIPTION_PLAN;
-	};
-};
+		session_id?: string
+		cancel?: boolean
+		planType?: SUBSCRIPTION_PLAN
+	}
+}
 
 const page = async ({
 	searchParams: { cancel, session_id, planType },
 }: Props) => {
 	if (session_id) {
-		const customer = await completeSubscription(session_id, planType);
+		const customer = await completeSubscription(session_id, planType)
 		if (customer.status === 200) {
-			return redirect("/auth/callback");
+			return redirect('/auth/callback')
 		}
 	}
 
@@ -29,8 +29,8 @@ const page = async ({
 					Oops! Something went wrong
 				</p>
 			</div>
-		);
+		)
 	}
-};
+}
 
-export default page;
+export default page

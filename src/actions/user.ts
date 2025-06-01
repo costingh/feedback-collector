@@ -12,7 +12,7 @@ export const sendEmail = async (
 	to: string,
 	subject: string,
 	text: string,
-	html?: string
+	html?: string,
 ) => {
 	const transporter = nodemailer.createTransport({
 		host: 'smtp.gmail.com',
@@ -120,8 +120,8 @@ export const getNotifications = async () => {
 			client.invite.findMany({
 				where: {
 					reciever: {
-						clerkid: user.id
-					}
+						clerkid: user.id,
+					},
 				},
 				select: {
 					id: true,
@@ -133,26 +133,26 @@ export const getNotifications = async () => {
 							firstname: true,
 							lastname: true,
 							email: true,
-							image: true
-						}
+							image: true,
+						},
 					},
 					WorkSpace: {
 						select: {
 							id: true,
 							name: true,
 							type: true,
-							createdAt: true
-						}
-					}
-				}
-			})
+							createdAt: true,
+						},
+					},
+				},
+			}),
 		])
 
 		if (!userData) return { status: 404 }
 
 		return { status: 200, data: { notifications: userData, invites } }
 	} catch (error) {
-		console.error("Error in getNotifications:", error)
+		console.error('Error in getNotifications:', error)
 		return { status: 400, data: [] }
 	}
 }
@@ -235,23 +235,29 @@ export const getUserPlanType = async () => {
 			},
 		})
 
-		if(!payment) {
+		if (!payment) {
 			return { status: 400 }
 		}
 
-		const currentUserPlan = payment?.subscription?.plan;
-		const trialStart = payment?.createdAt;
+		const currentUserPlan = payment?.subscription?.plan
+		const trialStart = payment?.createdAt
 
-		const trialDuration = 14 * 24 * 60 * 60 * 1000;
-		const now = Date.now();
-		const trialStartTimestamp = new Date(trialStart).getTime();
+		const trialDuration = 14 * 24 * 60 * 60 * 1000
+		const now = Date.now()
+		const trialStartTimestamp = new Date(trialStart).getTime()
 
-		if (now - trialStartTimestamp > trialDuration && currentUserPlan === 'FREE') {
-			return { status: 200, data: 'TRIAL_EXPIRED' };
-		} else if (currentUserPlan === 'FREE' && now - trialStartTimestamp <= trialDuration) {
-			return { status: 200, data: 'TRIAL' };
+		if (
+			now - trialStartTimestamp > trialDuration &&
+			currentUserPlan === 'FREE'
+		) {
+			return { status: 200, data: 'TRIAL_EXPIRED' }
+		} else if (
+			currentUserPlan === 'FREE' &&
+			now - trialStartTimestamp <= trialDuration
+		) {
+			return { status: 200, data: 'TRIAL' }
 		} else {
-			return { status: 200, data: currentUserPlan };
+			return { status: 200, data: currentUserPlan }
 		}
 	} catch (error) {
 		return { status: 400 }
@@ -325,7 +331,7 @@ export const getUserProfile = async () => {
 export const inviteMembers = async (
 	workspaceId: string,
 	recieverId: string,
-	email: string
+	email: string,
 ) => {
 	try {
 		const user = await currentUser()
@@ -462,7 +468,10 @@ export const acceptInvite = async (inviteId: string) => {
 	}
 }
 
-export const completeSubscription = async (session_id: string, planType?: SUBSCRIPTION_PLAN) => {
+export const completeSubscription = async (
+	session_id: string,
+	planType?: SUBSCRIPTION_PLAN,
+) => {
 	try {
 		const user = await currentUser()
 		if (!user) return { status: 404 }

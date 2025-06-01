@@ -1,6 +1,6 @@
-import ExplorePlansMobileScreen from "./explore-plans-mobile-screen";
-import { CheckIcon } from "./icons/check-icon";
-import { XIcon } from "./icons/x-icon";
+import ExplorePlansMobileScreen from './explore-plans-mobile-screen'
+import { CheckIcon } from './icons/check-icon'
+import { XIcon } from './icons/x-icon'
 
 export default function ExplorePlans() {
 	return (
@@ -14,7 +14,7 @@ export default function ExplorePlans() {
 						Explore what&apos;s in each plan
 					</p>
 				</div>
-				<ExplorePlansMobileScreen/>
+				<ExplorePlansMobileScreen />
 				<section
 					aria-labelledby="comparison-heading"
 					className="mt-20 hidden lg:block"
@@ -804,5 +804,5 @@ export default function ExplorePlans() {
 				</section>
 			</div>
 		</div>
-	);
+	)
 }

@@ -1,25 +1,25 @@
-"use client";
+'use client'
 
-import Link from "next/link";
-import { HeroSection } from "./_components/hero-section";
-import LandingPageNavBar from "./_components/navbar";
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
-import { MoveRight } from "lucide-react";
-import Footer from "./_components/footer";
-import { CrispChat } from "./_components/crisp-chat";
-import { PartnersLogoCarousel } from "./_components/partners-logo-carousel";
-import { KpisSection } from "./_components/kpis-section";
-import { DemoVideo } from "./_components/demo-video";
-import { HeroButton } from "./_components/hero-button";
-import UseSteps from "./_components/use-steps";
-import WhyUseFeedbackz from "./_components/why-use-feedbackz";
-import Faq from "./_components/faq";
-import CallToAction from "./_components/call-to-action";
-import Container from "@/components/layout/container";
-import IntroBanner from "./_components/intro-banner";
-import { CTABanner2 } from "./_components/cta-banner-2";
-import FeaturesSection from "./_components/features-section";
+import Link from 'next/link'
+import { HeroSection } from './_components/hero-section'
+import LandingPageNavBar from './_components/navbar'
+import { Button } from '@/components/ui/button'
+import Image from 'next/image'
+import { MoveRight } from 'lucide-react'
+import Footer from './_components/footer'
+import { CrispChat } from './_components/crisp-chat'
+import { PartnersLogoCarousel } from './_components/partners-logo-carousel'
+import { KpisSection } from './_components/kpis-section'
+import { DemoVideo } from './_components/demo-video'
+import { HeroButton } from './_components/hero-button'
+import UseSteps from './_components/use-steps'
+import WhyUseFeedbackz from './_components/why-use-feedbackz'
+import Faq from './_components/faq'
+import CallToAction from './_components/call-to-action'
+import Container from '@/components/layout/container'
+import IntroBanner from './_components/intro-banner'
+import { CTABanner2 } from './_components/cta-banner-2'
+import FeaturesSection from './_components/features-section'
 
 const LandingPage = () => {
 	return (
@@ -34,7 +34,10 @@ const LandingPage = () => {
 					<CTABanner2 />
 				</div>
 			</div>
-			<div id='features' className="w-full bg-[#050520] pt-[80px] px-[100px] pb-[130px]">
+			<div
+				id="features"
+				className="w-full bg-[#050520] pt-[80px] px-[100px] pb-[130px]"
+			>
 				<div className="flex items-center justify-center flex-col gap-4">
 					<div className="text-center">
 						<h2 className="text-transparent bg-clip-text text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight bg-gradient-to-b from-white to-[#7496F8] text-transparent bg-clip-text">
@@ -64,14 +67,13 @@ const LandingPage = () => {
 					/>
 					<div className="divider h-[20px]"></div>
 					<HeroButton variant="md" text="Try Feedbackz for free" />
-
 				</div>
 
 				<IntroBanner />
 				<UseSteps />
 				<WhyUseFeedbackz />
-				<FeaturesSection/>
-				
+				<FeaturesSection />
+
 				<Faq />
 				<CallToAction />
 			</div>
@@ -80,8 +82,8 @@ const LandingPage = () => {
 				<div className="absolute -bottom-28 -left-20 w-56 h-56 bg-opacity-25 rounded-full bg-indigo-500"></div>
 				<div className="absolute -top-28 -right-24 bg-opacity-75 w-64 h-64 rounded-full bg-indigo-800"></div>
 				<h1 className="text-white text-[32px] font-black text-center max-w-2xl leading-[38px]">
-					Tired of unorganized client feedback? Start you free
-					14-day trial now.
+					Tired of unorganized client feedback? Start you free 14-day
+					trial now.
 				</h1>
 				<Link href="/auth/sign-up">
 					<Button
@@ -116,16 +118,15 @@ const LandingPage = () => {
 				</div>
 			</div>
 
-
 			<Container>
 				<Footer />
 			</Container>
 			<CrispChat />
 		</>
-	);
-};
+	)
+}
 
-export default LandingPage;
+export default LandingPage
 
 const CheckIconSvg = () => (
 	<svg
@@ -141,4 +142,4 @@ const CheckIconSvg = () => (
 			clipRule="evenodd"
 		></path>
 	</svg>
-);
+)

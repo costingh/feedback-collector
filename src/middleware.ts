@@ -15,10 +15,13 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
 	const isPublic = isPublicApiRoute(req)
 
 	if (req.method === 'OPTIONS') {
-		return NextResponse.json({}, {
-			status: 200,
-			headers: isPublic ? corsOptions : {},
-		})
+		return NextResponse.json(
+			{},
+			{
+				status: 200,
+				headers: isPublic ? corsOptions : {},
+			},
+		)
 	}
 
 	if (isProtectedRoutes(req)) {

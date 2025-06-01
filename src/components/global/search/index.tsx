@@ -1,30 +1,30 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Skeleton } from "@/components/ui/skeleton";
-import { useMutationData } from "@/hooks/useMutationData";
-import { useSearch } from "@/hooks/useSearch";
-import { User } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Skeleton } from '@/components/ui/skeleton'
+import { useMutationData } from '@/hooks/useMutationData'
+import { useSearch } from '@/hooks/useSearch'
+import { User } from 'lucide-react'
 
-import React from "react";
-import Loader from "../loader";
-import { inviteMembers } from "@/actions/user";
+import React from 'react'
+import Loader from '../loader'
+import { inviteMembers } from '@/actions/user'
 
 type Props = {
-	workspaceId: string;
-};
+	workspaceId: string
+}
 
 const Search = ({ workspaceId }: Props) => {
 	const { query, onSearchQuery, isFetching, onUsers } = useSearch(
-		"get-users",
-		"USERS"
-	);
+		'get-users',
+		'USERS',
+	)
 
 	const { mutate, isPending } = useMutationData(
-		["invite-member"],
+		['invite-member'],
 		(data: { recieverId: string; email: string }) =>
-			inviteMembers(workspaceId, data.recieverId, data.email)
-	);
+			inviteMembers(workspaceId, data.recieverId, data.email),
+	)
 
 	return (
 		<div className="flex flex-col gap-y-5">
@@ -59,7 +59,9 @@ const Search = ({ workspaceId }: Props) => {
 							</Avatar>
 							<div className="flex flex-col items-start">
 								<h3 className="text-bold text-lg capitalize">
-									{(user?.firstname || user?.lastname) ? `${user?.firstname || ''} ${user?.lastname || ''}` : 'Unknown'}
+									{user?.firstname || user?.lastname
+										? `${user?.firstname || ''} ${user?.lastname || ''}`
+										: 'Unknown'}
 								</h3>
 								<p className="lowercase text-xs bg-white rounded-lg text-[#1e1e1e]">
 									{user?.email} | {user?.subscription?.plan}
@@ -73,7 +75,7 @@ const Search = ({ workspaceId }: Props) => {
 											email: user.email,
 										})
 									}
-									variant={"default"}
+									variant={'default'}
 									className="text-sm bg-indigo-600 text-white hover:bg-indigo-700 w-[100px] text-[13px]"
 								>
 									<Loader state={isPending} color="#000">
@@ -86,7 +88,7 @@ const Search = ({ workspaceId }: Props) => {
 				</div>
 			)}
 		</div>
-	);
-};
+	)
+}
 
-export default Search;
+export default Search

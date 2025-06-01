@@ -1,6 +1,6 @@
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import React from "react";
+import { Button } from '@/components/ui/button'
+import Link from 'next/link'
+import React from 'react'
 
 function PrivacyPolicyPage() {
 	return (
@@ -23,8 +23,8 @@ function PrivacyPolicyPage() {
 				Introduction
 				<br />
 				<br />
-				Welcome to Feedbackz! This Privacy Policy outlines how we collect,
-				use, and protect your data when you use our website at
+				Welcome to Feedbackz! This Privacy Policy outlines how we
+				collect, use, and protect your data when you use our website at
 				https://feedbackz.co and our services.
 				<br />
 				<br />
@@ -81,10 +81,11 @@ function PrivacyPolicyPage() {
 				gheorghe.costin2001@yahoo.com.
 				<br />
 				<br />
-				Thank you for using Feedbackz, your partner in collecting testimonials.
+				Thank you for using Feedbackz, your partner in collecting
+				testimonials.
 			</p>
 		</div>
-	);
+	)
 }
 
-export default PrivacyPolicyPage;
+export default PrivacyPolicyPage

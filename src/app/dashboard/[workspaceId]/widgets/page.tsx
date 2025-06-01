@@ -1,23 +1,26 @@
 'use client'
 
-import { getUserWidgets } from "@/actions/widgets";
-import { useQueryData } from "@/hooks/useQueryData";
-import Widget from "@/components/popups/Widget";
-import { LoadingSpinner } from "@/components/animations/loading-spinner";
-import { formatNumberOfReviews } from "@/lib/utils";
-import { useState } from "react";
+import { getUserWidgets } from '@/actions/widgets'
+import { useQueryData } from '@/hooks/useQueryData'
+import Widget from '@/components/popups/Widget'
+import { LoadingSpinner } from '@/components/animations/loading-spinner'
+import { formatNumberOfReviews } from '@/lib/utils'
+import { useState } from 'react'
 type Props = {
-	params: { workspaceId: string };
-};
+	params: { workspaceId: string }
+}
 
 const WidgetsPage = ({ params: { workspaceId } }: Props) => {
-	const { data: widgetsResponse, isFetching } = useQueryData(['user-widgets'], () =>
-		getUserWidgets(workspaceId), true, false
+	const { data: widgetsResponse, isFetching } = useQueryData(
+		['user-widgets'],
+		() => getUserWidgets(workspaceId),
+		true,
+		false,
 	)
 
-    const widgets = (widgetsResponse as any)?.data || [];
+	const widgets = (widgetsResponse as any)?.data || []
 
-	const [page, setPage] = useState(1);
+	const [page, setPage] = useState(1)
 
 	return (
 		<>
@@ -29,7 +32,8 @@ const WidgetsPage = ({ params: { workspaceId } }: Props) => {
 								Your Created Widgets ✨
 							</h2>
 							<p className="text-gray-500 font-light text-[14px]">
-								These are all widgets you have created to share testimonials
+								These are all widgets you have created to share
+								testimonials
 							</p>
 						</div>
 					</div>
@@ -46,9 +50,16 @@ const WidgetsPage = ({ params: { workspaceId } }: Props) => {
 						{widgets?.length ? (
 							<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
 								{widgets.map((widget: any, index: number) => (
-									<div
-										key={widget.id}>
-										<Widget widget={widget} workspaceId={workspaceId} numberOfReviews={formatNumberOfReviews(widget?._count?.testimonials)} setPage={setPage} isFetching={isFetching}/>
+									<div key={widget.id}>
+										<Widget
+											widget={widget}
+											workspaceId={workspaceId}
+											numberOfReviews={formatNumberOfReviews(
+												widget?._count?.testimonials,
+											)}
+											setPage={setPage}
+											isFetching={isFetching}
+										/>
 									</div>
 								))}
 							</div>
@@ -59,7 +70,8 @@ const WidgetsPage = ({ params: { workspaceId } }: Props) => {
 										No widgets yet.
 									</h1>
 									<p className="text-gray-600 text-[14px]">
-										Go to your &quot;Testimonials&quot; tab, and bulk share testimonials as a widget.
+										Go to your &quot;Testimonials&quot; tab,
+										and bulk share testimonials as a widget.
 									</p>
 								</div>
 							</div>
@@ -68,7 +80,7 @@ const WidgetsPage = ({ params: { workspaceId } }: Props) => {
 				)}
 			</div>
 		</>
-	);
-};
+	)
+}
 
-export default WidgetsPage;
+export default WidgetsPage

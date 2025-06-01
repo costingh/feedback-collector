@@ -1,6 +1,6 @@
-import React from "react";
-import { CheckIcon } from "./icons/check-icon";
-import { XIcon } from "./icons/x-icon";
+import React from 'react'
+import { CheckIcon } from './icons/check-icon'
+import { XIcon } from './icons/x-icon'
 
 function ExplorePlansMobileScreen() {
 	return (
@@ -55,9 +55,9 @@ function ExplorePlansMobileScreen() {
 													</span>
 												</dd>
 											</div>
-                                            <div className="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
+											<div className="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
 												<dt className="pr-4 text-gray-600 flex items-center">
-                                                    Written Testimonials
+													Written Testimonials
 												</dt>
 												<dd className="flex items-center justify-end sm:justify-center sm:px-4">
 													<span className="text-gray-900">
@@ -66,7 +66,6 @@ function ExplorePlansMobileScreen() {
 												</dd>
 											</div>
 
-                                            
 											<div className="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
 												<dt className="pr-4 text-gray-600 flex items-center">
 													Tags
@@ -83,7 +82,7 @@ function ExplorePlansMobileScreen() {
 												</dt>
 												<dd className="flex items-center justify-end sm:justify-center sm:px-4">
 													<span className="text-gray-900">
-                                                        XLSX, CSV
+														XLSX, CSV
 													</span>
 												</dd>
 											</div>
@@ -118,10 +117,10 @@ function ExplorePlansMobileScreen() {
 										<dl className="divide-y divide-gray-200 text-sm leading-6">
 											<div className="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
 												<dt className="pr-4 text-gray-600 flex items-center">
-                                                    Access to all widgets
+													Access to all widgets
 												</dt>
 												<dd className="flex items-center justify-end sm:justify-center sm:px-4">
-													<CheckIcon/>
+													<CheckIcon />
 													<span className="sr-only">
 														Yes
 													</span>
@@ -132,7 +131,7 @@ function ExplorePlansMobileScreen() {
 													Screenshot feedback
 												</dt>
 												<dd className="flex items-center justify-end sm:justify-center sm:px-4">
-													<CheckIcon/>
+													<CheckIcon />
 													<span className="sr-only">
 														Yes
 													</span>
@@ -140,10 +139,10 @@ function ExplorePlansMobileScreen() {
 											</div>
 											<div className="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
 												<dt className="pr-4 text-gray-600 flex items-center">
-                                                    Custom metadata
+													Custom metadata
 												</dt>
 												<dd className="flex items-center justify-end sm:justify-center sm:px-4">
-                                                    <XIcon />
+													<XIcon />
 													<span className="sr-only">
 														No
 													</span>
@@ -170,10 +169,10 @@ function ExplorePlansMobileScreen() {
 										<dl className="divide-y divide-gray-200 text-sm leading-6">
 											<div className="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
 												<dt className="pr-4 text-gray-600 flex items-center">
-                                                    Customize widget colors
+													Customize widget colors
 												</dt>
 												<dd className="flex items-center justify-end sm:justify-center sm:px-4">
-													<CheckIcon/>
+													<CheckIcon />
 													<span className="sr-only">
 														Yes
 													</span>
@@ -184,18 +183,18 @@ function ExplorePlansMobileScreen() {
 													Custom Text
 												</dt>
 												<dd className="flex items-center justify-end sm:justify-center sm:px-4">
-													<CheckIcon/>
+													<CheckIcon />
 													<span className="sr-only">
 														Yes
 													</span>
 												</dd>
 											</div>
-                                            <div className="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
+											<div className="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
 												<dt className="pr-4 text-gray-600 flex items-center">
 													Own Logo
 												</dt>
 												<dd className="flex items-center justify-end sm:justify-center sm:px-4">
-													<XIcon/>
+													<XIcon />
 													<span className="sr-only">
 														No
 													</span>
@@ -207,7 +206,7 @@ function ExplorePlansMobileScreen() {
 													by&apos;
 												</dt>
 												<dd className="flex items-center justify-end sm:justify-center sm:px-4">
-													<XIcon/>
+													<XIcon />
 													<span className="sr-only">
 														No
 													</span>
@@ -237,7 +236,7 @@ function ExplorePlansMobileScreen() {
 													Export to CSV
 												</dt>
 												<dd className="flex items-center justify-end sm:justify-center sm:px-4">
-													<CheckIcon/>
+													<CheckIcon />
 													<span className="sr-only">
 														Yes
 													</span>
@@ -248,7 +247,7 @@ function ExplorePlansMobileScreen() {
 													Priority support
 												</dt>
 												<dd className="flex items-center justify-end sm:justify-center sm:px-4">
-													<XIcon/>
+													<XIcon />
 													<span className="sr-only">
 														No
 													</span>
@@ -259,7 +258,7 @@ function ExplorePlansMobileScreen() {
 													Pay by invoice
 												</dt>
 												<dd className="flex items-center justify-end sm:justify-center sm:px-4">
-													<XIcon/>
+													<XIcon />
 													<span className="sr-only">
 														No
 													</span>
@@ -316,9 +315,9 @@ function ExplorePlansMobileScreen() {
 													</span>
 												</dd>
 											</div>
-                                            <div className="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
+											<div className="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
 												<dt className="pr-4 text-gray-600 flex items-center">
-                                                    Written Testimonials
+													Written Testimonials
 												</dt>
 												<dd className="flex items-center justify-end sm:justify-center sm:px-4">
 													<span className="font-semibold text-indigo-600">
@@ -326,7 +325,7 @@ function ExplorePlansMobileScreen() {
 													</span>
 												</dd>
 											</div>
-                                            <div className="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
+											<div className="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
 												<dt className="pr-4 text-gray-600 flex items-center">
 													Tags
 												</dt>
@@ -338,11 +337,11 @@ function ExplorePlansMobileScreen() {
 											</div>
 											<div className="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
 												<dt className="pr-4 text-gray-600 flex items-center">
-                                                    Reports
+													Reports
 												</dt>
 												<dd className="flex items-center justify-end sm:justify-center sm:px-4">
 													<span className="font-semibold text-indigo-600">
-                                                        XLSX, CSV
+														XLSX, CSV
 													</span>
 												</dd>
 											</div>
@@ -367,10 +366,10 @@ function ExplorePlansMobileScreen() {
 										<dl className="divide-y divide-gray-200 text-sm leading-6">
 											<div className="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
 												<dt className="pr-4 text-gray-600 flex items-center">
-                                                    Access to all widgets
+													Access to all widgets
 												</dt>
 												<dd className="flex items-center justify-end sm:justify-center sm:px-4">
-													<CheckIcon/>
+													<CheckIcon />
 													<span className="sr-only">
 														Yes
 													</span>
@@ -378,10 +377,10 @@ function ExplorePlansMobileScreen() {
 											</div>
 											<div className="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
 												<dt className="pr-4 text-gray-600 flex items-center">
-                                                    Written testimonials
+													Written testimonials
 												</dt>
 												<dd className="flex items-center justify-end sm:justify-center sm:px-4">
-													<CheckIcon/>
+													<CheckIcon />
 													<span className="sr-only">
 														Yes
 													</span>
@@ -389,10 +388,10 @@ function ExplorePlansMobileScreen() {
 											</div>
 											<div className="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
 												<dt className="pr-4 text-gray-600 flex items-center">
-                                                    Custom metadata
+													Custom metadata
 												</dt>
 												<dd className="flex items-center justify-end sm:justify-center sm:px-4">
-													<XIcon/>
+													<XIcon />
 													<span className="sr-only">
 														No
 													</span>
@@ -422,18 +421,18 @@ function ExplorePlansMobileScreen() {
 													Customize widget colors
 												</dt>
 												<dd className="flex items-center justify-end sm:justify-center sm:px-4">
-													<CheckIcon/>
+													<CheckIcon />
 													<span className="sr-only">
 														Yes
 													</span>
 												</dd>
 											</div>
-                                            <div className="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
+											<div className="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
 												<dt className="pr-4 text-gray-600 flex items-center">
 													Custom Text
 												</dt>
 												<dd className="flex items-center justify-end sm:justify-center sm:px-4">
-													<CheckIcon/>
+													<CheckIcon />
 													<span className="sr-only">
 														Yes
 													</span>
@@ -444,7 +443,7 @@ function ExplorePlansMobileScreen() {
 													Own logo
 												</dt>
 												<dd className="flex items-center justify-end sm:justify-center sm:px-4">
-													<CheckIcon/>
+													<CheckIcon />
 													<span className="sr-only">
 														Yes
 													</span>
@@ -456,7 +455,7 @@ function ExplorePlansMobileScreen() {
 													by&apos;
 												</dt>
 												<dd className="flex items-center justify-end sm:justify-center sm:px-4">
-													<CheckIcon/>
+													<CheckIcon />
 													<span className="sr-only">
 														Yes
 													</span>
@@ -486,7 +485,7 @@ function ExplorePlansMobileScreen() {
 													Export to CSV
 												</dt>
 												<dd className="flex items-center justify-end sm:justify-center sm:px-4">
-													<CheckIcon/>
+													<CheckIcon />
 													<span className="sr-only">
 														Yes
 													</span>
@@ -497,7 +496,7 @@ function ExplorePlansMobileScreen() {
 													Priority support
 												</dt>
 												<dd className="flex items-center justify-end sm:justify-center sm:px-4">
-													<XIcon/>
+													<XIcon />
 													<span className="sr-only">
 														No
 													</span>
@@ -508,7 +507,7 @@ function ExplorePlansMobileScreen() {
 													Pay by invoice
 												</dt>
 												<dd className="flex items-center justify-end sm:justify-center sm:px-4">
-													<XIcon/>
+													<XIcon />
 													<span className="sr-only">
 														No
 													</span>
@@ -567,7 +566,7 @@ function ExplorePlansMobileScreen() {
 											</div>
 											<div className="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
 												<dt className="pr-4 text-gray-600 flex items-center">
-                                                    Written Testimonials
+													Written Testimonials
 												</dt>
 												<dd className="flex items-center justify-end sm:justify-center sm:px-4">
 													<span className="text-gray-900">
@@ -575,9 +574,9 @@ function ExplorePlansMobileScreen() {
 													</span>
 												</dd>
 											</div>
-                                            <div className="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
+											<div className="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
 												<dt className="pr-4 text-gray-600 flex items-center">
-                                                    Tags
+													Tags
 												</dt>
 												<dd className="flex items-center justify-end sm:justify-center sm:px-4">
 													<span className="text-gray-900">
@@ -595,7 +594,6 @@ function ExplorePlansMobileScreen() {
 													</span>
 												</dd>
 											</div>
-											
 										</dl>
 									</div>
 									<div
@@ -617,10 +615,10 @@ function ExplorePlansMobileScreen() {
 										<dl className="divide-y divide-gray-200 text-sm leading-6">
 											<div className="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
 												<dt className="pr-4 text-gray-600 flex items-center">
-                                                Access to all widgets
+													Access to all widgets
 												</dt>
 												<dd className="flex items-center justify-end sm:justify-center sm:px-4">
-													<CheckIcon/>
+													<CheckIcon />
 													<span className="sr-only">
 														Yes
 													</span>
@@ -628,22 +626,22 @@ function ExplorePlansMobileScreen() {
 											</div>
 											<div className="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
 												<dt className="pr-4 text-gray-600 flex items-center">
-                                                Written testimonials
+													Written testimonials
 												</dt>
 												<dd className="flex items-center justify-end sm:justify-center sm:px-4">
-													<CheckIcon/>
+													<CheckIcon />
 													<span className="sr-only">
 														Yes
 													</span>
 												</dd>
 											</div>
-											
+
 											<div className="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
 												<dt className="pr-4 text-gray-600 flex items-center">
 													Custom metadata
 												</dt>
 												<dd className="flex items-center justify-end sm:justify-center sm:px-4">
-													<CheckIcon/>
+													<CheckIcon />
 													<span className="sr-only">
 														Yes
 													</span>
@@ -673,18 +671,18 @@ function ExplorePlansMobileScreen() {
 													Customize widget colors
 												</dt>
 												<dd className="flex items-center justify-end sm:justify-center sm:px-4">
-													<CheckIcon/>
+													<CheckIcon />
 													<span className="sr-only">
 														Yes
 													</span>
 												</dd>
 											</div>
-                                            <div className="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
+											<div className="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
 												<dt className="pr-4 text-gray-600 flex items-center">
 													Custom text
 												</dt>
 												<dd className="flex items-center justify-end sm:justify-center sm:px-4">
-													<CheckIcon/>
+													<CheckIcon />
 													<span className="sr-only">
 														Yes
 													</span>
@@ -695,7 +693,7 @@ function ExplorePlansMobileScreen() {
 													Own logo
 												</dt>
 												<dd className="flex items-center justify-end sm:justify-center sm:px-4">
-													<CheckIcon/>
+													<CheckIcon />
 													<span className="sr-only">
 														Yes
 													</span>
@@ -707,7 +705,7 @@ function ExplorePlansMobileScreen() {
 													by&apos;
 												</dt>
 												<dd className="flex items-center justify-end sm:justify-center sm:px-4">
-													<CheckIcon/>
+													<CheckIcon />
 													<span className="sr-only">
 														Yes
 													</span>
@@ -737,7 +735,7 @@ function ExplorePlansMobileScreen() {
 													Export to CSV
 												</dt>
 												<dd className="flex items-center justify-end sm:justify-center sm:px-4">
-													<CheckIcon/>
+													<CheckIcon />
 													<span className="sr-only">
 														Yes
 													</span>
@@ -748,7 +746,7 @@ function ExplorePlansMobileScreen() {
 													Priority support
 												</dt>
 												<dd className="flex items-center justify-end sm:justify-center sm:px-4">
-													<CheckIcon/>
+													<CheckIcon />
 													<span className="sr-only">
 														Yes
 													</span>
@@ -759,7 +757,7 @@ function ExplorePlansMobileScreen() {
 													Pay by invoice
 												</dt>
 												<dd className="flex items-center justify-end sm:justify-center sm:px-4">
-													<CheckIcon/>
+													<CheckIcon />
 													<span className="sr-only">
 														Yes
 													</span>
@@ -778,7 +776,7 @@ function ExplorePlansMobileScreen() {
 				</div>
 			</section>
 		</>
-	);
+	)
 }
 
-export default ExplorePlansMobileScreen;
+export default ExplorePlansMobileScreen

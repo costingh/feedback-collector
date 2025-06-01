@@ -1,41 +1,41 @@
-"use client";
-import { getWorkSpaces } from "@/actions/workspace";
+'use client'
+import { getWorkSpaces } from '@/actions/workspace'
 
-import React from "react";
-import Modal from "../modal";
-import { Button } from "@/components/ui/button";
-import { useQueryData } from "@/hooks/useQueryData";
-import FolderPlusDuotine from "@/components/icons/folder-plus-duotone";
-import WorkspaceForm from "@/components/forms/workspace-form";
-import { PlusSquare } from "lucide-react";
-import { PLANS } from "./../../../app/(website)/feedbackz-pricing/constants";
+import React from 'react'
+import Modal from '../modal'
+import { Button } from '@/components/ui/button'
+import { useQueryData } from '@/hooks/useQueryData'
+import FolderPlusDuotine from '@/components/icons/folder-plus-duotone'
+import WorkspaceForm from '@/components/forms/workspace-form'
+import { PlusSquare } from 'lucide-react'
+import { PLANS } from './../../../app/(website)/feedbackz-pricing/constants'
 
-type Props = {};
+type Props = {}
 
 const CreateWorkspace = (props: Props) => {
-	const { data } = useQueryData(["user-workspaces"], getWorkSpaces);
+	const { data } = useQueryData(['user-workspaces'], getWorkSpaces)
 
 	const { data: plan } = data as {
-		status: number;
+		status: number
 		data: {
 			subscription: {
-				plan: "PRO" | "FREE" | "BUSINESS";
-			} | null;
-			workspace: any[];
-		};
-	};
+				plan: 'PRO' | 'FREE' | 'BUSINESS'
+			} | null
+			workspace: any[]
+		}
+	}
 
-	if (plan.subscription?.plan === "FREE") {
+	if (plan.subscription?.plan === 'FREE') {
 		return (
 			<p className="text-gray-700 text-[13px] my-2 px-2">
 				Upgrade to a paid plan to create more workspaces
 			</p>
-		);
+		)
 	}
 
 	if (
-		plan.subscription?.plan === "BUSINESS" ||
-		plan.subscription?.plan === "PRO"
+		plan.subscription?.plan === 'BUSINESS' ||
+		plan.subscription?.plan === 'PRO'
 	)
 		return (
 			<>
@@ -43,7 +43,7 @@ const CreateWorkspace = (props: Props) => {
 				{PLANS?.monthly?.find(
 					(p) =>
 						p?.name?.toLocaleLowerCase() ==
-						plan?.subscription?.plan?.toLocaleLowerCase()
+						plan?.subscription?.plan?.toLocaleLowerCase(),
 				)?.workspaces > plan?.workspace?.length ? (
 					<Modal
 						title="Create a Workspace"
@@ -66,7 +66,7 @@ const CreateWorkspace = (props: Props) => {
 					<span>Plan limits reached</span>
 				)}
 			</>
-		);
-};
+		)
+}
 
-export default CreateWorkspace;
+export default CreateWorkspace

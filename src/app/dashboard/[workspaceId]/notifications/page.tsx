@@ -1,52 +1,52 @@
-"use client";
-import { getNotifications } from "@/actions/user";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
-import { useQueryData } from "@/hooks/useQueryData";
-import { User } from "lucide-react";
-import Link from "next/link";
-import React from "react";
+'use client'
+import { getNotifications } from '@/actions/user'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Button } from '@/components/ui/button'
+import { useQueryData } from '@/hooks/useQueryData'
+import { User } from 'lucide-react'
+import Link from 'next/link'
+import React from 'react'
 
 const Notifications = () => {
-	const { data } = useQueryData(["user-notifications"], getNotifications);
+	const { data } = useQueryData(['user-notifications'], getNotifications)
 
 	const { data: response, status } = data as {
-		status: number;
+		status: number
 		data: {
 			notifications: {
 				notification: {
-					id: string;
-					userId: string | null;
-					content: string;
-				}[];
+					id: string
+					userId: string | null
+					content: string
+				}[]
 				_count: {
-					notification: number;
-				};
-			};
+					notification: number
+				}
+			}
 			invites: {
-				id: string;
-				content: string;
-				accepted: boolean;
+				id: string
+				content: string
+				accepted: boolean
 				sender: {
-					firstname: string | null;
-					lastname: string | null;
-					email: string;
-					image: string | null;
-				} | null;
+					firstname: string | null
+					lastname: string | null
+					email: string
+					image: string | null
+				} | null
 				WorkSpace: {
-					name: string;
-					type: string;
-				} | null;
-			}[];
-		};
-	};
+					name: string
+					type: string
+				} | null
+			}[]
+		}
+	}
 
 	if (status !== 200) {
 		return (
 			<div className="flex justify-center items-center h-full w-full">
 				<p>No Notification</p>
 			</div>
-		);
+		)
 	}
 
 	return (
@@ -55,7 +55,8 @@ const Notifications = () => {
 			<div className="flex flex-col">
 				<h2 className="text-[18px] font-bold">Your Notifications ✨</h2>
 				<p className="text-gray-500 font-light text-[14px]">
-					All notifications you have from your team members, other workspaces and invites.
+					All notifications you have from your team members, other
+					workspaces and invites.
 				</p>
 			</div>
 
@@ -81,7 +82,8 @@ const Notifications = () => {
 			<div className="flex flex-col mt-6">
 				<h2 className="text-[18px] font-bold">Your Invites</h2>
 				<p className="text-gray-500 font-light text-[14px]">
-					If you are invited to join other workspaces, you will see the messages here.
+					If you are invited to join other workspaces, you will see
+					the messages here.
 				</p>
 			</div>
 
@@ -89,8 +91,8 @@ const Notifications = () => {
 				<div className="my-5 mx-auto">No invites yet.</div>
 			) : (
 				response.invites.map((invite) => {
-					const sender = invite.sender;
-					const workspace = invite.WorkSpace;
+					const sender = invite.sender
+					const workspace = invite.WorkSpace
 
 					return (
 						<div
@@ -99,7 +101,7 @@ const Notifications = () => {
 						>
 							<div className="flex items-center gap-x-3">
 								<Avatar>
-									<AvatarImage src={sender?.image || ""} />
+									<AvatarImage src={sender?.image || ''} />
 									<AvatarFallback>
 										<User />
 									</AvatarFallback>
@@ -108,27 +110,39 @@ const Notifications = () => {
 									<p className="font-semibold text-sm">
 										{sender?.firstname} {sender?.lastname}
 									</p>
-									<p className="text-xs text-gray-500">{sender?.email}</p>
+									<p className="text-xs text-gray-500">
+										{sender?.email}
+									</p>
 								</div>
 							</div>
 							<div className="flex-1">
 								<p className="text-sm">
-									Invited you to join{" "}
-									<span className="font-medium">{workspace?.name}</span>{" "}
+									Invited you to join{' '}
+									<span className="font-medium">
+										{workspace?.name}
+									</span>{' '}
 									({workspace?.type?.toLowerCase()})
 								</p>
 							</div>
-							<Link href={`${process.env.NEXT_PUBLIC_HOST_URL}/invite/${invite.id}`}>
-								<Button disabled={invite.accepted} variant="default" className="ml-auto w-fit bg-indigo-600 text-white hover:bg-indigo-700">
-									{invite.accepted ? 'Invite accepted' : 'Accept Invite'}
+							<Link
+								href={`${process.env.NEXT_PUBLIC_HOST_URL}/invite/${invite.id}`}
+							>
+								<Button
+									disabled={invite.accepted}
+									variant="default"
+									className="ml-auto w-fit bg-indigo-600 text-white hover:bg-indigo-700"
+								>
+									{invite.accepted
+										? 'Invite accepted'
+										: 'Accept Invite'}
 								</Button>
 							</Link>
 						</div>
-					);
+					)
 				})
 			)}
 		</div>
-	);
-};
+	)
+}
 
-export default Notifications;
+export default Notifications

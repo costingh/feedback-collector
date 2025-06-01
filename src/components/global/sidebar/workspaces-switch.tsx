@@ -1,9 +1,9 @@
-"use client";
+'use client'
 
-import * as React from "react";
-import { ChevronDown, ChevronUp } from "lucide-react";
-import { usePopover } from "@/hooks/use-popover";
-import { WorkspacesPopover } from "./workspaces-popover";
+import * as React from 'react'
+import { ChevronDown, ChevronUp } from 'lucide-react'
+import { usePopover } from '@/hooks/use-popover'
+import { WorkspacesPopover } from './workspaces-popover'
 
 export function WorkspacesSwitch({
 	activeWorkspaceId,
@@ -11,22 +11,22 @@ export function WorkspacesSwitch({
 	workspace,
 	currentWorkspace,
 }: {
-	activeWorkspaceId: string;
-	onChangeActiveWorkspace: any;
-	workspace: any;
-	currentWorkspace: any;
+	activeWorkspaceId: string
+	onChangeActiveWorkspace: any
+	workspace: any
+	currentWorkspace: any
 }) {
-	const popover = usePopover();
+	const popover = usePopover()
 
-	const [mounted, setMounted] = React.useState(false);
+	const [mounted, setMounted] = React.useState(false)
 
 	React.useEffect(() => {
-		setMounted(true);
-	}, []);
+		setMounted(true)
+	}, [])
 
 	const activeName = workspace?.workspace?.find(
-		(w: any) => w.id == activeWorkspaceId
-	)?.name;
+		(w: any) => w.id == activeWorkspaceId,
+	)?.name
 
 	return (
 		<div className="w-full">
@@ -41,8 +41,8 @@ export function WorkspacesSwitch({
 					</p>
 					<p className="text-gray-900 text-sm font-semibold">
 						{mounted
-							? activeName || "Select a Workspace"
-							: "Select a Workspace"}
+							? activeName || 'Select a Workspace'
+							: 'Select a Workspace'}
 					</p>
 				</div>
 				<div className="flex flex-col gap-[2px] items-center justify-center">
@@ -53,8 +53,8 @@ export function WorkspacesSwitch({
 			<WorkspacesPopover
 				anchorEl={popover.anchorRef.current}
 				onChange={(value) => {
-					onChangeActiveWorkspace(value);
-					popover.handleClose();
+					onChangeActiveWorkspace(value)
+					popover.handleClose()
 				}}
 				onClose={popover.handleClose}
 				open={popover.open}
@@ -65,5 +65,5 @@ export function WorkspacesSwitch({
 				// isSearchingProjects={isSearchingProjects}
 			/>
 		</div>
-	);
+	)
 }

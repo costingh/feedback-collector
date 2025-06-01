@@ -1,22 +1,22 @@
-"use client";
+'use client'
 
-import * as React from "react";
-import { Separator } from "@/components/ui/separator";
-import { PlusCircle } from "lucide-react";
-import { WorkspaceProps } from "@/types/index.type";
-import Modal from "./../modal/index";
-import Search from "../search";
-import CreateWorkspace from "../create-workspace";
+import * as React from 'react'
+import { Separator } from '@/components/ui/separator'
+import { PlusCircle } from 'lucide-react'
+import { WorkspaceProps } from '@/types/index.type'
+import Modal from './../modal/index'
+import Search from '../search'
+import CreateWorkspace from '../create-workspace'
 
 interface WorkspacesPopoverProps {
-	anchorEl: HTMLElement | null;
-	onChange?: (workspaceName: string) => void;
-	onClose: () => void;
-	open?: boolean;
-	workspace: any;
-	members: any;
-	currentWorkspace: any;
-	activeWorkspaceId: any;
+	anchorEl: HTMLElement | null
+	onChange?: (workspaceName: string) => void
+	onClose: () => void
+	open?: boolean
+	workspace: any
+	members: any
+	currentWorkspace: any
+	activeWorkspaceId: any
 	// isSearchingProjects: boolean;
 }
 
@@ -31,7 +31,7 @@ export function WorkspacesPopover({
 	activeWorkspaceId,
 }: // isSearchingProjects,
 WorkspacesPopoverProps) {
-	if (!open) return null;
+	if (!open) return null
 
 	return (
 		<div
@@ -39,7 +39,7 @@ WorkspacesPopoverProps) {
 			style={{
 				top: anchorEl?.getBoundingClientRect().bottom || 0,
 				left: anchorEl?.getBoundingClientRect().right || 0,
-				transform: "translateX(-100%)",
+				transform: 'translateX(-100%)',
 			}}
 		>
 			{workspace?.workspace?.map((wk: any) => (
@@ -47,8 +47,8 @@ WorkspacesPopoverProps) {
 					key={wk.id}
 					className="flex items-center p-2 hover:bg-gray-100 cursor-pointer rounded-lg"
 					onClick={() => {
-						onChange?.(wk.id);
-						onClose();
+						onChange?.(wk.id)
+						onClose()
 					}}
 				>
 					<span className="ml-3 text-gray-700 font-medium">
@@ -92,7 +92,7 @@ WorkspacesPopoverProps) {
 			<Separator className="w-4/5" />
 
 			<>
-				{workspace.subscription?.plan != "FREE" ? (
+				{workspace.subscription?.plan != 'FREE' ? (
 					<Modal
 						trigger={
 							<span className="text-sm cursor-pointer flex items-center justify-center bg-neutral-800/90  hover:bg-neutral-800/60 w-full rounded-sm p-[5px] gap-2 mb-2">
@@ -119,5 +119,5 @@ WorkspacesPopoverProps) {
 
 			<CreateWorkspace />
 		</div>
-	);
+	)
 }

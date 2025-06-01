@@ -1,21 +1,21 @@
-"use client";
+'use client'
 
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { toast } from "sonner";
+import axios from 'axios'
+import { useEffect, useState } from 'react'
+import { toast } from 'sonner'
 import {
 	Dialog,
 	DialogContent,
 	DialogHeader,
 	DialogTitle,
-} from "@/components/ui/dialog";
-import TestimonialsList from "./TestimonialsList";
-import FiterTestimonialsSidebar from "./FiterTestimonialsSidebar";
-import { useTestimonialsFilter } from "@/hooks/useTestimonialsFilters";
-import { LoadingSpinner } from "../animations/loading-spinner";
-import { useMutationData } from "@/hooks/useMutationData";
-import { updateWidget } from "@/actions/widgets";
-import { Form } from "@/types/Form";
+} from '@/components/ui/dialog'
+import TestimonialsList from './TestimonialsList'
+import FiterTestimonialsSidebar from './FiterTestimonialsSidebar'
+import { useTestimonialsFilter } from '@/hooks/useTestimonialsFilters'
+import { LoadingSpinner } from '../animations/loading-spinner'
+import { useMutationData } from '@/hooks/useMutationData'
+import { updateWidget } from '@/actions/widgets'
+import { Form } from '@/types/Form'
 
 export const SelectTestimonialsToShareModal = ({
 	isOpened,
@@ -27,66 +27,66 @@ export const SelectTestimonialsToShareModal = ({
 	checkedItems,
 	widgetId,
 	groupedTags,
-	userForms
+	userForms,
 }: {
-	isOpened: boolean;
-	handleClose: any;
-	testimonials: any;
-	isChecked: any;
-	setChecked: any;
-	tags: any;
-	checkedItems: any;
-	widgetId: string;
-	groupedTags: any;
-	userForms: Form[];
+	isOpened: boolean
+	handleClose: any
+	testimonials: any
+	isChecked: any
+	setChecked: any
+	tags: any
+	checkedItems: any
+	widgetId: string
+	groupedTags: any
+	userForms: Form[]
 }) => {
-	const { filters, setFilters } = useTestimonialsFilter();
-	const [filteredTestimonials, setFilteredTestimonials] = useState([]);
+	const { filters, setFilters } = useTestimonialsFilter()
+	const [filteredTestimonials, setFilteredTestimonials] = useState([])
 
 	useEffect(() => {
-		let _filteredTestimonials = [...testimonials];
+		let _filteredTestimonials = [...testimonials]
 
-		if (filters.approvalStatus === "approved") {
+		if (filters.approvalStatus === 'approved') {
 			_filteredTestimonials = _filteredTestimonials.filter(
-				(t: any) => t.approved === true
-			);
-		} else if (filters.approvalStatus === "unapproved") {
+				(t: any) => t.approved === true,
+			)
+		} else if (filters.approvalStatus === 'unapproved') {
 			_filteredTestimonials = _filteredTestimonials.filter(
-				(t: any) => t.approved === false
-			);
+				(t: any) => t.approved === false,
+			)
 		}
 
 		if (filters.rating !== 0) {
 			_filteredTestimonials = _filteredTestimonials.filter(
-				(t: any) => t.stars === filters.rating
-			);
+				(t: any) => t.stars === filters.rating,
+			)
 		}
 
 		if (filters.tags.length > 0) {
 			_filteredTestimonials = _filteredTestimonials.filter((t) =>
 				// @ts-ignore
-				filters.tags.some((tag) => tag.formResponsesIds.includes(t.id))
-			);
+				filters.tags.some((tag) => tag.formResponsesIds.includes(t.id)),
+			)
 		}
 
 		if (filters.forms.length > 0) {
 			_filteredTestimonials = _filteredTestimonials.filter((t) =>
 				// @ts-ignore
-				filters.forms.some((form) => t.form.id == form.id)
-			);
+				filters.forms.some((form) => t.form.id == form.id),
+			)
 		}
 
 		if (filters.searchForKeywords) {
 			_filteredTestimonials = _filteredTestimonials.filter(
 				(testimonial) =>
 					// @ts-ignore
-					testimonial.message.includes(filters.searchForKeywords)
-			);
+					testimonial.message.includes(filters.searchForKeywords),
+			)
 		}
 
 		// @ts-ignore
-		setFilteredTestimonials(_filteredTestimonials);
-	}, [filters, testimonials]);
+		setFilteredTestimonials(_filteredTestimonials)
+	}, [filters, testimonials])
 
 	return (
 		<Dialog open={isOpened} onOpenChange={handleClose}>
@@ -139,27 +139,26 @@ export const SelectTestimonialsToShareModal = ({
 				</div>
 			</DialogContent>
 		</Dialog>
-	);
-};
+	)
+}
 
 const UpdateWidgetHighlightedTestimonials = ({
 	widgetId,
 	handleClose,
 	checkedItems,
 }: {
-	widgetId: any;
-	handleClose: any;
-	checkedItems: any;
+	widgetId: any
+	handleClose: any
+	checkedItems: any
 }) => {
-	const { mutate: handleUpdate, isPending: isLoading } =
-		useMutationData(
-			["add-testimonials-for-widget"],
-			() => updateWidget(widgetId, Array.from(checkedItems)),
-			['widget', widgetId],
-			() => {
-				handleClose();
-			},
-		);
+	const { mutate: handleUpdate, isPending: isLoading } = useMutationData(
+		['add-testimonials-for-widget'],
+		() => updateWidget(widgetId, Array.from(checkedItems)),
+		['widget', widgetId],
+		() => {
+			handleClose()
+		},
+	)
 
 	return (
 		<div
@@ -167,12 +166,12 @@ const UpdateWidgetHighlightedTestimonials = ({
 			className="text-center py-[6px] rounded-[8px] bg-[#000] text-[#eee] px-3 cursor-pointer text-[13px] font-semibold hover:opacity-80"
 		>
 			{!isLoading ? (
-				"Save changes"
+				'Save changes'
 			) : (
 				<div className="flex items-center justify-center">
 					<LoadingSpinner />
 				</div>
 			)}
 		</div>
-	);
-};
+	)
+}

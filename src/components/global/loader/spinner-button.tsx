@@ -1,11 +1,11 @@
-import React from "react";
-import { Loader2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import React from 'react'
+import { Loader2 } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 
 type LoadingSpinnerButtonProps = {
-	loading: boolean;
-	handleSubmit: any;
-};
+	loading: boolean
+	handleSubmit: any
+}
 function SpinnerButton({ loading, handleSubmit }: LoadingSpinnerButtonProps) {
 	return (
 		<div className="flex justify-end">
@@ -26,7 +26,7 @@ function SpinnerButton({ loading, handleSubmit }: LoadingSpinnerButtonProps) {
 				</Button>
 			)}
 		</div>
-	);
+	)
 }
 
-export default SpinnerButton;
+export default SpinnerButton

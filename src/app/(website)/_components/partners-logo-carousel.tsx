@@ -1,11 +1,11 @@
-import React from 'react';
-import Image from 'next/image';
+import React from 'react'
+import Image from 'next/image'
 
 const logos = [
 	'/images/trusted-by-logos/partnerLogo1.svg',
 	'/images/trusted-by-logos/partnerLogo2.svg',
 	'/images/trusted-by-logos/partnerLogo3.svg',
-];
+]
 
 export const PartnersLogoCarousel = () => {
 	return (
@@ -18,7 +18,14 @@ export const PartnersLogoCarousel = () => {
 
 			<div className="relative w-full overflow-hidden h-[90px]">
 				<div className="flex animate-carousel whitespace-nowrap">
-					{[...logos, ...logos, ...logos, ...logos, ...logos, ...logos].map((logo, i) => (
+					{[
+						...logos,
+						...logos,
+						...logos,
+						...logos,
+						...logos,
+						...logos,
+					].map((logo, i) => (
 						<Image
 							key={i}
 							alt={`Partner Logo ${i}`}
@@ -32,5 +39,5 @@ export const PartnersLogoCarousel = () => {
 				</div>
 			</div>
 		</section>
-	);
-};
+	)
+}

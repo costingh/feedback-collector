@@ -1,6 +1,6 @@
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import React from "react";
+import { Button } from '@/components/ui/button'
+import Link from 'next/link'
+import React from 'react'
 
 function TermsOfServicePage() {
 	return (
@@ -20,11 +20,11 @@ function TermsOfServicePage() {
 				Introduction
 				<br />
 				<br />
-				These Terms of Service ("Terms") govern your use of the Feedbackz
-				website ("Website") and the services provided by Feedbackz.
-				ByeDispute is committed to helping users share screen recordings
-				with prospects and friends. By using our Website and App, you
-				agree to comply with these Terms.
+				These Terms of Service ("Terms") govern your use of the
+				Feedbackz website ("Website") and the services provided by
+				Feedbackz. ByeDispute is committed to helping users share screen
+				recordings with prospects and friends. By using our Website and
+				App, you agree to comply with these Terms.
 				<br />
 				<br />
 				1. Acceptance of Terms
@@ -72,11 +72,11 @@ function TermsOfServicePage() {
 				services, please contact us at gheorghe.costin2001@yahoo.com.
 				<br />
 				<br />
-				Thank you for using Feedbackz, your partner in colecting and sharing testimonials.
-				recordings.
+				Thank you for using Feedbackz, your partner in colecting and
+				sharing testimonials. recordings.
 			</p>
 		</div>
-	);
+	)
 }
 
-export default TermsOfServicePage;
+export default TermsOfServicePage

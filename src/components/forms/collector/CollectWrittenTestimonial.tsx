@@ -1,11 +1,11 @@
-"use client";
+'use client'
 
-import { Question } from "@/types/Question";
-import { useRef, useState } from "react";
-import { toast } from "sonner";
-import { QuestionList } from "../../popups/QuestionsList";
-import StarsRating from "@/components/stars/stars-rating";
-import { RocketIcon } from "@/app/(website)/_components/icons/rocket-icon";
+import { Question } from '@/types/Question'
+import { useRef, useState } from 'react'
+import { toast } from 'sonner'
+import { QuestionList } from '../../popups/QuestionsList'
+import StarsRating from '@/components/stars/stars-rating'
+import { RocketIcon } from '@/app/(website)/_components/icons/rocket-icon'
 
 export const CollectWrittenTestimonial = ({
 	questions,
@@ -16,30 +16,30 @@ export const CollectWrittenTestimonial = ({
 	setStep,
 	primaryColor,
 }: {
-	questions: Question[] | undefined;
-	textareaPlaceholder: string | undefined;
-	buttonLabel: string | undefined;
-	setFinalResponse: any | undefined;
-	description: string | undefined;
-	setStep: any | undefined;
-	primaryColor: any | undefined;
+	questions: Question[] | undefined
+	textareaPlaceholder: string | undefined
+	buttonLabel: string | undefined
+	setFinalResponse: any | undefined
+	description: string | undefined
+	setStep: any | undefined
+	primaryColor: any | undefined
 }) => {
-	const messageRef = useRef<HTMLTextAreaElement>(null);
-	const [stars, setStars] = useState<number>(0);
+	const messageRef = useRef<HTMLTextAreaElement>(null)
+	const [stars, setStars] = useState<number>(0)
 
 	const ratingChanged = (newRating: number) => {
-		setStars(newRating);
-	};
+		setStars(newRating)
+	}
 
 	const handleGoToNextStep = async () => {
 		if (!messageRef?.current?.value) {
-			toast.error("Please write a message!");
-			return;
+			toast.error('Please write a message!')
+			return
 		}
 
 		if (!stars) {
-			toast.error("Please give a star rating!");
-			return;
+			toast.error('Please give a star rating!')
+			return
 		}
 
 		// @ts-ignore
@@ -47,15 +47,15 @@ export const CollectWrittenTestimonial = ({
 			...prev,
 			stars,
 			message: messageRef?.current?.value,
-		}));
-		setStep(3);
-	};
+		}))
+		setStep(3)
+	}
 
 	const handleTextareaChange = () => {
 		if (messageRef.current) {
-			console.log(messageRef.current.value);
+			console.log(messageRef.current.value)
 		}
-	};
+	}
 
 	return (
 		<>
@@ -63,11 +63,11 @@ export const CollectWrittenTestimonial = ({
 				{description}
 			</p>
 			<QuestionList questions={questions} />
-			<StarsRating 
-				value={0} 
-				ratingChanged={ratingChanged} 
-				variant='custom1'
-				color='#FFBF00'
+			<StarsRating
+				value={0}
+				ratingChanged={ratingChanged}
+				variant="custom1"
+				color="#FFBF00"
 			/>
 			<textarea
 				ref={messageRef}
@@ -85,5 +85,5 @@ export const CollectWrittenTestimonial = ({
 				<div>Next</div> <RocketIcon />
 			</button>
 		</>
-	);
-};
+	)
+}

@@ -1,16 +1,16 @@
-import axios from "axios";
-import { toast } from "sonner";
-import { ArrowLeft, Loader2 } from "lucide-react";
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import PaymentButton from "@/components/global/payment-button";
-import { PLANS } from "../feedbackz-pricing/constants";
+import axios from 'axios'
+import { toast } from 'sonner'
+import { ArrowLeft, Loader2 } from 'lucide-react'
+import { useState } from 'react'
+import { Button } from '@/components/ui/button'
+import PaymentButton from '@/components/global/payment-button'
+import { PLANS } from '../feedbackz-pricing/constants'
 
 export default function PlanCard({ plan }: { plan: any }) {
 	return (
 		<div
 			className={`bg-white border p-8 rounded-lg shadow-lg relative ${
-				plan.mostPopular ? "border-indigo-600" : "border-gray-200"
+				plan.mostPopular ? 'border-indigo-600' : 'border-gray-200'
 			}`}
 		>
 			{plan.mostPopular && (
@@ -25,11 +25,14 @@ export default function PlanCard({ plan }: { plan: any }) {
 				/month billed {plan.interval}
 			</p>
 			{/* @ts-ignore */}
-			<PaymentButton planType={plan.planType} styles={`w-full ${
+			<PaymentButton
+				planType={plan.planType}
+				styles={`w-full ${
 					plan.mostPopular
-						? "bg-indigo-600 text-white"
-						: "bg-white text-indigo-600 border-indigo-600"
-				} hover:bg-indigo-600 hover:text-white transition border-[1px] border-indigo-600 flex items-center justify-center gap-2 rounded-[17px]`} />
+						? 'bg-indigo-600 text-white'
+						: 'bg-white text-indigo-600 border-indigo-600'
+				} hover:bg-indigo-600 hover:text-white transition border-[1px] border-indigo-600 flex items-center justify-center gap-2 rounded-[17px]`}
+			/>
 
 			{/* <Button
 				className={`w-full ${
@@ -56,5 +59,5 @@ export default function PlanCard({ plan }: { plan: any }) {
 				))}
 			</ul>
 		</div>
-	);
+	)
 }

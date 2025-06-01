@@ -1,4 +1,4 @@
-import { Loader2, Network, PlusSquare } from "lucide-react";
+import { Loader2, Network, PlusSquare } from 'lucide-react'
 
 import {
 	Dialog,
@@ -8,8 +8,8 @@ import {
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
+} from '@/components/ui/dialog'
+import { Input } from '@/components/ui/input'
 import {
 	Select,
 	SelectContent,
@@ -18,13 +18,13 @@ import {
 	SelectLabel,
 	SelectTrigger,
 	SelectValue,
-} from "@/components/ui/select";
-import { useState } from "react";
-import { toast } from "sonner";
-import axios from "axios";
-import { useRouter } from "next/navigation";
-import { LoadingSpinner } from "../animations/loading-spinner";
-import { generateUniqueId } from "@/lib/utils";
+} from '@/components/ui/select'
+import { useState } from 'react'
+import { toast } from 'sonner'
+import axios from 'axios'
+import { useRouter } from 'next/navigation'
+import { LoadingSpinner } from '../animations/loading-spinner'
+import { generateUniqueId } from '@/lib/utils'
 
 export function CreateWidgetModal({
 	loading,
@@ -33,75 +33,76 @@ export function CreateWidgetModal({
 	predefinedWidgetType,
 	workspaceId,
 }: {
-	loading: any;
-	selectedIds: string[];
-	section?: string;
-	predefinedWidgetType?: string;
-	workspaceId: string;
+	loading: any
+	selectedIds: string[]
+	section?: string
+	predefinedWidgetType?: string
+	workspaceId: string
 }) {
-	const router = useRouter();
-	const [creatingWidget, setCreatingWidget] = useState(false);
+	const router = useRouter()
+	const [creatingWidget, setCreatingWidget] = useState(false)
 	const [formValue, setFormValue] = useState({
-		name: "",
-		target: "",
-	});
-	const [widgetType, setWidgetType] = useState(predefinedWidgetType || "");
+		name: '',
+		target: '',
+	})
+	const [widgetType, setWidgetType] = useState(predefinedWidgetType || '')
 
 	const handleCreateWidget = async () => {
-		setCreatingWidget(true);
+		setCreatingWidget(true)
 
 		if (!formValue.name) {
-			toast.error("Please enter a name");
-			setCreatingWidget(false);
-			return;
+			toast.error('Please enter a name')
+			setCreatingWidget(false)
+			return
 		}
 
 		if (!widgetType) {
-			toast.error("Please select the type of the widget");
-			setCreatingWidget(false);
-			return;
+			toast.error('Please select the type of the widget')
+			setCreatingWidget(false)
+			return
 		}
 
 		try {
-			const response = await axios.post("/api/widgets/create", {
+			const response = await axios.post('/api/widgets/create', {
 				data: {
 					name: formValue.name,
 					target: formValue.target,
-					url: "/" + generateUniqueId(7),
+					url: '/' + generateUniqueId(7),
 					type: widgetType,
 					testimonialsIds: selectedIds,
 					workspaceId,
-					variant: 'elite'
+					variant: 'elite',
 				},
-			});
+			})
 
-			const createdWidget = response?.data?.result;
+			const createdWidget = response?.data?.result
 
 			if (!createdWidget) {
-				toast.error("Widget could not be created!");
-				setCreatingWidget(false);
-				return;
+				toast.error('Widget could not be created!')
+				setCreatingWidget(false)
+				return
 			}
 
-			toast.success("Widget created successfully");
-			
-			router.push(`/dashboard/${workspaceId}/share/edit/${createdWidget.url}`);
+			toast.success('Widget created successfully')
+
+			router.push(
+				`/dashboard/${workspaceId}/share/edit/${createdWidget.url}`,
+			)
 		} catch (e) {
-			console.error(e);
-			toast.error("Could not create widget");
+			console.error(e)
+			toast.error('Could not create widget')
 			setFormValue({
-				name: "",
-				target: "",
-			});
-			setCreatingWidget(false);
+				name: '',
+				target: '',
+			})
+			setCreatingWidget(false)
 		} finally {
-			
 		}
-	};
+	}
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
-				{section == "creator" ? (
+				{section == 'creator' ? (
 					<div className="rounded-[7px] bg-gray-200 text-gray-500 px-[10px] py-[4px] cursor-pointer hover:bg-gray-300 flex items-center gap-[4px]">
 						<PlusSquare size={14} className="text-gray-800" />
 						<span className="text-[13px] font-[500] whitespace-nowrap">
@@ -112,13 +113,13 @@ export function CreateWidgetModal({
 					<div className="flex items-center justify-center gap-2 cursor-pointer hover:opacity-60 bg-[#3c3b3b] px-[8px] py-[3px] rounded-[10px]">
 						<Network size={14} className="text-gray-200" />
 						<span className="text-gray-200 font-[400] text-[13px]">
-							{loading.action == "share" && loading.loading ? (
+							{loading.action == 'share' && loading.loading ? (
 								<Loader2
 									size={11}
 									className="spin my-[4px] mx-[4px]"
 								/>
 							) : (
-								"Share"
+								'Share'
 							)}
 						</span>
 					</div>
@@ -233,7 +234,7 @@ export function CreateWidgetModal({
 						className="text-center py-[10px] rounded-[8px] bg-[#000] text-[#eee] w-full cursor-pointer text-[14px] font-semibold mt-3 hover:opacity-80"
 					>
 						{!creatingWidget ? (
-							"Create Widget"
+							'Create Widget'
 						) : (
 							<div className="flex items-center justify-center">
 								<LoadingSpinner />
@@ -243,5 +244,5 @@ export function CreateWidgetModal({
 				</DialogFooter>
 			</DialogContent>
 		</Dialog>
-	);
+	)
 }

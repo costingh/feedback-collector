@@ -1,13 +1,13 @@
-"use client";
+'use client'
 
-import { TrendingUp } from "lucide-react";
+import { TrendingUp } from 'lucide-react'
 import {
 	Area,
 	AreaChart,
 	CartesianGrid,
 	XAxis,
 	ResponsiveContainer,
-} from "recharts";
+} from 'recharts'
 
 import {
 	Card,
@@ -16,30 +16,30 @@ import {
 	CardFooter,
 	CardHeader,
 	CardTitle,
-} from "@/components/ui/card";
+} from '@/components/ui/card'
 import {
 	ChartConfig,
 	ChartContainer,
 	ChartTooltip,
 	ChartTooltipContent,
-} from "@/components/ui/chart";
+} from '@/components/ui/chart'
 
 type ChartDataType = {
-	day: string;
-	desktop: number;
-	mobile: number;
-}[];
+	day: string
+	desktop: number
+	mobile: number
+}[]
 
 const chartConfig = {
 	desktop: {
-		label: "Desktop",
-		color: "#4f46e5",
+		label: 'Desktop',
+		color: '#4f46e5',
 	},
 	mobile: {
-		label: "Mobile",
-		color: "#0b1624",
+		label: 'Mobile',
+		color: '#0b1624',
 	},
-} satisfies ChartConfig;
+} satisfies ChartConfig
 
 export function AreaGraph({ chartData }: { chartData: ChartDataType }) {
 	return (
@@ -114,5 +114,5 @@ export function AreaGraph({ chartData }: { chartData: ChartDataType }) {
 				</div>
 			</CardFooter> */}
 		</Card>
-	);
+	)
 }

@@ -1,24 +1,24 @@
-"use client";
+'use client'
 
-import React from "react";
-import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
-import Image from "next/image";
-import UploadFormEditorLogo from "./UploadFormEditorLogo";
-import clsx from "clsx";
-import ColorPicker from "./ColorPicker";
+import React from 'react'
+import { Label } from '@/components/ui/label'
+import { Switch } from '@/components/ui/switch'
+import Image from 'next/image'
+import UploadFormEditorLogo from './UploadFormEditorLogo'
+import clsx from 'clsx'
+import ColorPicker from './ColorPicker'
 
 interface EditFormAspectProps {
-	backgroundColor: string;
-	setBackgroundColor: (val: string) => void;
-	primaryColor: string;
-	setPrimaryColor: (val: string) => void;
-	isChecked: boolean;
-	setChecked: (checked: boolean) => void;
-	brandLogo: string;
-	brandName: string;
-	handleBrandNameChange: (val: string) => void;
-	setBrandLogo: (val: string) => void;
+	backgroundColor: string
+	setBackgroundColor: (val: string) => void
+	primaryColor: string
+	setPrimaryColor: (val: string) => void
+	isChecked: boolean
+	setChecked: (checked: boolean) => void
+	brandLogo: string
+	brandName: string
+	handleBrandNameChange: (val: string) => void
+	setBrandLogo: (val: string) => void
 }
 
 const EditFormAspect: React.FC<EditFormAspectProps> = ({
@@ -33,23 +33,31 @@ const EditFormAspect: React.FC<EditFormAspectProps> = ({
 	handleBrandNameChange,
 	setBrandLogo,
 }) => {
-
 	return (
 		<>
 			<div className="flex w-full">
 				{/* TODO: handle plan upload logo iamge */}
 				{/* <div className={clsx("w-full p-2 border-[1px] border-gray-200 flex gap-3 items-center rounded-[8px] mb-2",  !['Business', 'Enterprise'].includes(planType || '') && 'pointer-events-none cursor-not-allowed' )}> */}
-				<div className={clsx("w-full p-2 border-[1px] border-gray-200 flex gap-3 items-center rounded-[8px] mb-2")}>
+				<div
+					className={clsx(
+						'w-full p-2 border-[1px] border-gray-200 flex gap-3 items-center rounded-[8px] mb-2',
+					)}
+				>
 					{/* <Image src={brandLogo || ''} alt={brandName || 'logo'} width={60} height={60}/> */}
 					<UploadFormEditorLogo
 						src={brandLogo || ''}
-						alt={brandName || 'logo'} 
-						width={50} 
+						alt={brandName || 'logo'}
+						width={50}
 						height={50}
 						inputType="form-logo"
 						setImages={setBrandLogo}
 					/>
-					<input type='text' value={brandName} onChange={(e) => handleBrandNameChange(e.target.value)} className='outline-none text-3xl font-black text-gray-900 tracking-wide w-full' />
+					<input
+						type="text"
+						value={brandName}
+						onChange={(e) => handleBrandNameChange(e.target.value)}
+						className="outline-none text-3xl font-black text-gray-900 tracking-wide w-full"
+					/>
 				</div>
 			</div>
 			<div className="flex gap-5 items-center w-full">
@@ -88,7 +96,7 @@ const EditFormAspect: React.FC<EditFormAspectProps> = ({
 				</div>
 			</div>
 		</>
-	);
-};
+	)
+}
 
-export default EditFormAspect;
+export default EditFormAspect

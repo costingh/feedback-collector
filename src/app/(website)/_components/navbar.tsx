@@ -1,51 +1,54 @@
-"use client";
+'use client'
 
-import { useAuth } from "@clerk/nextjs";
-import { useEffect, useState } from "react";
-import Logo from "./logo";
-import Link from "next/link";
-import { MenuIcon, XIcon } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { cn } from "@/lib/utils";
+import { useAuth } from '@clerk/nextjs'
+import { useEffect, useState } from 'react'
+import Logo from './logo'
+import Link from 'next/link'
+import { MenuIcon, XIcon } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import { cn } from '@/lib/utils'
 import { usePathname } from 'next/navigation'
 
 const LandingPageNavBar = () => {
-	const { isSignedIn } = useAuth();
-	const pathname = usePathname();
-	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // State to handle mobile menu
-	const [isScrolled, setIsScrolled] = useState(true);
+	const { isSignedIn } = useAuth()
+	const pathname = usePathname()
+	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false) // State to handle mobile menu
+	const [isScrolled, setIsScrolled] = useState(true)
 
 	useEffect(() => {
 		const handleScroll = () => {
-			const scrolledPast100vh = window.scrollY >= 250;
-			setIsScrolled(scrolledPast100vh);
+			const scrolledPast100vh = window.scrollY >= 250
+			setIsScrolled(scrolledPast100vh)
 
-			if (pathname?.includes("feedbackz-pricing") || pathname?.includes("blog")) {
-				setIsScrolled(true);
+			if (
+				pathname?.includes('feedbackz-pricing') ||
+				pathname?.includes('blog')
+			) {
+				setIsScrolled(true)
 			}
-		};
+		}
 
-		window.addEventListener("scroll", handleScroll, { passive: true });
-		handleScroll(); // Check on mount in case the user is already scrolled
+		window.addEventListener('scroll', handleScroll, { passive: true })
+		handleScroll() // Check on mount in case the user is already scrolled
 
 		return () => {
-			window.removeEventListener("scroll", handleScroll);
-		};
-	}, []);
+			window.removeEventListener('scroll', handleScroll)
+		}
+	}, [])
 
 	const handleHashChange = (url: string) => {
-		const element = document.getElementById(url);
+		const element = document.getElementById(url)
 		if (element) {
-			element.scrollIntoView({ behavior: "smooth" });
+			element.scrollIntoView({ behavior: 'smooth' })
 		}
-	};
+	}
 
 	return (
 		<nav className={`fixed w-full top-0 left-0 transition-all z-[999]`}>
 			<div
 				className={cn(
-					"max-w-full md:max-w-[85%] lg:max-w-[80%] xl:max-w-[75%] mx-auto px-3 py-3 mt-[20px] flex items-center justify-between rounded-[20px]",
-					isScrolled ? "bg-[#050520]" : "bg-transparent"
+					'max-w-full md:max-w-[85%] lg:max-w-[80%] xl:max-w-[75%] mx-auto px-3 py-3 mt-[20px] flex items-center justify-between rounded-[20px]',
+					isScrolled ? 'bg-[#050520]' : 'bg-transparent',
 				)}
 			>
 				<Logo isTransparentBg={true} />
@@ -67,23 +70,29 @@ const LandingPageNavBar = () => {
 				{/* Desktop Menu */}
 				<div className="hidden lg:flex items-center gap-x-10">
 					<Link
-						onClick={() => handleHashChange("#features")}
+						onClick={() => handleHashChange('#features')}
 						href="#features"
 						className="text-sm text-slate-100 hover:cursor-pointer hover:text-gray-200"
 					>
 						Features
 					</Link>
 					<Link
-						onClick={() => handleHashChange("#faq")}
+						onClick={() => handleHashChange('#faq')}
 						href="#faq"
 						className="text-sm text-slate-100 hover:cursor-pointer hover:text-gray-200"
 					>
 						FAQ
 					</Link>
-					<Link href="/blog" className="text-sm text-slate-100 hover:cursor-pointer hover:text-gray-200">
+					<Link
+						href="/blog"
+						className="text-sm text-slate-100 hover:cursor-pointer hover:text-gray-200"
+					>
 						Blog
 					</Link>
-					<Link href="/feedbackz-pricing" className="text-sm text-slate-100 hover:cursor-pointer hover:text-gray-200">
+					<Link
+						href="/feedbackz-pricing"
+						className="text-sm text-slate-100 hover:cursor-pointer hover:text-gray-200"
+					>
 						Pricing
 					</Link>
 					<Link href="/tos">
@@ -91,7 +100,10 @@ const LandingPageNavBar = () => {
 							Terms of Service
 						</div>
 					</Link>
-					<Link href="/privacy-policy" className="text-sm text-slate-100 hover:cursor-pointer hover:text-gray-200">
+					<Link
+						href="/privacy-policy"
+						className="text-sm text-slate-100 hover:cursor-pointer hover:text-gray-200"
+					>
 						Privacy Policy
 					</Link>
 				</div>
@@ -131,13 +143,16 @@ const LandingPageNavBar = () => {
 						Features
 					</Link>
 					<Link
-						onClick={() => handleHashChange("#faq")}
+						onClick={() => handleHashChange('#faq')}
 						href="#faq"
 						className="text-sm text-slate-100 hover:cursor-pointer hover:text-gray-200"
 					>
 						FAQ
 					</Link>
-					<Link href="/blog" className="text-sm text-slate-100 hover:cursor-pointer hover:text-gray-200">
+					<Link
+						href="/blog"
+						className="text-sm text-slate-100 hover:cursor-pointer hover:text-gray-200"
+					>
 						Blog
 					</Link>
 					<Link
@@ -187,7 +202,7 @@ const LandingPageNavBar = () => {
 				</div>
 			)}
 		</nav>
-	);
-};
+	)
+}
 
-export default LandingPageNavBar;
+export default LandingPageNavBar

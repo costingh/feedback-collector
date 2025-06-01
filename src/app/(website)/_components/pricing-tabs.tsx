@@ -1,10 +1,10 @@
-import React from "react";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import PlanCard from "./plan-card";
-import { PLANS } from "../feedbackz-pricing/constants";
+import React from 'react'
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
+import PlanCard from './plan-card'
+import { PLANS } from '../feedbackz-pricing/constants'
 
 const PricingTabs: React.FC = () => {
-	const [activeTab, setActiveTab] = React.useState("yearly");
+	const [activeTab, setActiveTab] = React.useState('yearly')
 
 	return (
 		<Tabs defaultValue="yearly" onValueChange={setActiveTab}>
@@ -12,9 +12,9 @@ const PricingTabs: React.FC = () => {
 				<TabsTrigger
 					value="yearly"
 					className={`w-48 rounded-full px-6 py-2 text-base font-medium transition-all duration-300 hover:bg-gray-200 ${
-						activeTab === "yearly"
-							? "border-2 border-indigo-600"
-							: ""
+						activeTab === 'yearly'
+							? 'border-2 border-indigo-600'
+							: ''
 					}`}
 				>
 					Pay yearly <span className="text-xs ml-2">(Save 20%)</span>
@@ -22,9 +22,9 @@ const PricingTabs: React.FC = () => {
 				<TabsTrigger
 					value="monthly"
 					className={`w-48 rounded-full px-6 py-2 text-base font-medium transition-all duration-300 hover:bg-gray-200 ${
-						activeTab === "monthly"
-							? "border-2 border-indigo-600"
-							: ""
+						activeTab === 'monthly'
+							? 'border-2 border-indigo-600'
+							: ''
 					}`}
 				>
 					Pay monthly
@@ -49,7 +49,7 @@ const PricingTabs: React.FC = () => {
 				</div>
 			</TabsContent>
 		</Tabs>
-	);
-};
+	)
+}
 
-export default PricingTabs;
+export default PricingTabs

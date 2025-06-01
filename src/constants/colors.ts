@@ -1,1 +1,1 @@
-export const BASE_PRIMARY_COLOR = "rgb(34, 197, 94)";
+export const BASE_PRIMARY_COLOR = 'rgb(34, 197, 94)'

@@ -1,7 +1,4 @@
-import {
-	Loader2,
-	Trash2,
-} from "lucide-react";
+import { Loader2, Trash2 } from 'lucide-react'
 import {
 	Dialog,
 	DialogClose,
@@ -11,15 +8,15 @@ import {
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger,
-} from "@/components/ui/dialog";
-import { Tag } from "@/types/Tag";
+} from '@/components/ui/dialog'
+import { Tag } from '@/types/Tag'
 
 export function ConfirmDeleteTag({
 	tag,
-	handleDeleteTag
+	handleDeleteTag,
 }: {
-	tag: Tag;
-	handleDeleteTag: (tagId: string) => void;
+	tag: Tag
+	handleDeleteTag: (tagId: string) => void
 }) {
 	return (
 		<Dialog>
@@ -54,12 +51,12 @@ export function ConfirmDeleteTag({
 					</div>
 
 					<DialogClose asChild>
-						<div id="close-dialog" style={{ display: "none" }}>
+						<div id="close-dialog" style={{ display: 'none' }}>
 							Save changes
 						</div>
 					</DialogClose>
 				</DialogFooter>
 			</DialogContent>
 		</Dialog>
-	);
+	)
 }

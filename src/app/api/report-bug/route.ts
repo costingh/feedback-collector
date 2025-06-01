@@ -1,31 +1,33 @@
-import { auth } from "@clerk/nextjs/server";
-import { NextResponse } from "next/server";
-import {client} from "@/lib/prisma";
+import { auth } from '@clerk/nextjs/server'
+import { NextResponse } from 'next/server'
+import { client } from '@/lib/prisma'
 
 export async function POST(req: Request) {
-    try {
-        const { userId } = auth();
+	try {
+		const { userId } = auth()
 
-        const body = await req.json();
-        const { description } = body;
+		const body = await req.json()
+		const { description } = body
 
-        if (!userId) {
-            return new NextResponse("Unauthorized", { status: 401 });
-        }
+		if (!userId) {
+			return new NextResponse('Unauthorized', { status: 401 })
+		}
 
-        if (!description || description.trim() === "") {
-            return new NextResponse("Description cannot be empty", { status: 400 });
-        }
-        const bugReport = await client.bugReport.create({
-            data: {
-                description,
-                userId,
-            },
-        });
+		if (!description || description.trim() === '') {
+			return new NextResponse('Description cannot be empty', {
+				status: 400,
+			})
+		}
+		const bugReport = await client.bugReport.create({
+			data: {
+				description,
+				userId,
+			},
+		})
 
-        return NextResponse.json({ result: bugReport, error: null });
-    } catch (error) {
-        console.error("[BUG_REPORT_CREATION_ERROR]", error);
-        return new NextResponse("Internal Server Error", { status: 500 });
-    }
+		return NextResponse.json({ result: bugReport, error: null })
+	} catch (error) {
+		console.error('[BUG_REPORT_CREATION_ERROR]', error)
+		return new NextResponse('Internal Server Error', { status: 500 })
+	}
 }

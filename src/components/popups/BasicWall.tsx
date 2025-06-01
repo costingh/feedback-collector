@@ -1,61 +1,73 @@
-"use client";
+'use client'
 
-import React, { useState, useRef, useEffect } from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import StarsRating from "../stars/stars-rating";
-import { Play } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { useExpandableText } from "@/hooks/useExpandableText";
-import { Widget } from "@prisma/client";
+import React, { useState, useRef, useEffect } from 'react'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import StarsRating from '../stars/stars-rating'
+import { Play } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { useExpandableText } from '@/hooks/useExpandableText'
+import { Widget } from '@prisma/client'
 
-type WidgetType = Widget & {testimonials: any[]; deviceWidth?: number;};
+type WidgetType = Widget & { testimonials: any[]; deviceWidth?: number }
 
 interface PaginationData {
-	total: number;
-	page: number;
-	limit: number;
-	hasMore: boolean;
+	total: number
+	page: number
+	limit: number
+	hasMore: boolean
 }
 
-function BasicWall({ widget, setPage, isFetching, paginationData }: { widget: WidgetType, setPage: any, isFetching: boolean, paginationData?: PaginationData}) {
-	const [allTestimonials, setAllTestimonials] = useState<any[]>([]);
-	const videoRefs = useRef<{ [key: string]: HTMLVideoElement | null }>({});
-	const { isExpanded, toggle } = useExpandableText();
-	const [maxCharactersToShow, setMaxCharactersToShow] = useState(300);
-	const [columnsClass, setColumnsClass] = useState("columns-1 sm:columns-2 lg:columns-3");
-	
+function BasicWall({
+	widget,
+	setPage,
+	isFetching,
+	paginationData,
+}: {
+	widget: WidgetType
+	setPage: any
+	isFetching: boolean
+	paginationData?: PaginationData
+}) {
+	const [allTestimonials, setAllTestimonials] = useState<any[]>([])
+	const videoRefs = useRef<{ [key: string]: HTMLVideoElement | null }>({})
+	const { isExpanded, toggle } = useExpandableText()
+	const [maxCharactersToShow, setMaxCharactersToShow] = useState(300)
+	const [columnsClass, setColumnsClass] = useState(
+		'columns-1 sm:columns-2 lg:columns-3',
+	)
+
 	useEffect(() => {
-		if (!widget?.deviceWidth) return;
-	
+		if (!widget?.deviceWidth) return
+
 		if (widget.deviceWidth < 640) {
-			setMaxCharactersToShow(50);
-			setColumnsClass("columns-1");
+			setMaxCharactersToShow(50)
+			setColumnsClass('columns-1')
 		} else if (widget.deviceWidth < 1024) {
-			setMaxCharactersToShow(150);
-			setColumnsClass("columns-2");
+			setMaxCharactersToShow(150)
+			setColumnsClass('columns-2')
 		} else {
-			setMaxCharactersToShow(300);
-			setColumnsClass("columns-3");
+			setMaxCharactersToShow(300)
+			setColumnsClass('columns-3')
 		}
-	}, [widget?.deviceWidth]);
-	
+	}, [widget?.deviceWidth])
+
 	React.useEffect(() => {
 		if (widget) {
-			const newTestimonials = widget?.testimonials || [];
+			const newTestimonials = widget?.testimonials || []
 			setAllTestimonials((prev) => {
 				const uniqueTestimonials = newTestimonials.filter(
-					(newT) => !prev.some((p) => p.id === newT.id)
-				);
-				return [...prev, ...uniqueTestimonials];
-			});
+					(newT) => !prev.some((p) => p.id === newT.id),
+				)
+				return [...prev, ...uniqueTestimonials]
+			})
 		}
-	}, [widget]);
+	}, [widget])
 
-	const hasMore = paginationData?.hasMore;
+	const hasMore = paginationData?.hasMore
 
 	const loadMore = () => {
-		setPage((prev: number) => prev + 1);
-	};
+		setPage((prev: number) => prev + 1)
+	}
 
 	return (
 		<div className="flex flex-col gap-6">
@@ -79,7 +91,7 @@ function BasicWall({ widget, setPage, isFetching, paginationData }: { widget: Wi
 										className="w-full h-full object-cover bg-gray-200"
 										ref={(el) => {
 											if (el) {
-												videoRefs.current[t.id] = el;
+												videoRefs.current[t.id] = el
 											}
 										}}
 										preload="none"
@@ -93,25 +105,25 @@ function BasicWall({ widget, setPage, isFetching, paginationData }: { widget: Wi
 												scale={0.7}
 												marginLeft={-20}
 												variant={widget?.starsVariant}
-                                				color={widget?.starsColor}
+												color={widget?.starsColor}
 											/>
 											<p className="text-[17px] font-[500] m-0 p-0 text-white">
 												{t?.name}
 											</p>
 											<span className="text-[14px] font-[400] text-white/80">
-												{t?.jobTitle || "Customer"}
+												{t?.jobTitle || 'Customer'}
 											</span>
 										</div>
 										<div
 											className="flex items-center justify-center cursor-pointer"
 											onClick={() => {
 												const video =
-													videoRefs.current[t.id];
+													videoRefs.current[t.id]
 												if (video) {
 													if (video.paused) {
-														video.play();
+														video.play()
 													} else {
-														video.pause();
+														video.pause()
 													}
 												}
 											}}
@@ -129,7 +141,7 @@ function BasicWall({ widget, setPage, isFetching, paginationData }: { widget: Wi
 									<Avatar className="w-8 h-8 sm:w-10 sm:h-10">
 										<AvatarImage src={t?.avatar} />
 										<AvatarFallback className="text-[10px] sm:text-[12px]">
-											{t?.name?.slice(0, 2) || "N/A"}
+											{t?.name?.slice(0, 2) || 'N/A'}
 										</AvatarFallback>
 									</Avatar>
 									<div>
@@ -158,23 +170,27 @@ function BasicWall({ widget, setPage, isFetching, paginationData }: { widget: Wi
 										scale={0.7}
 										marginLeft={-20}
 										variant={widget?.starsVariant}
-                                		color={widget?.starsColor}
+										color={widget?.starsColor}
 									/>
 								</div>
 								<p
 									className="text-[13px] sm:text-[14px] mt-2 sm:mt-3 mb-3 sm:mb-4"
 									style={{ color: widget?.thirdTextColor }}
 								>
-									{t?.message?.length > maxCharactersToShow && !isExpanded(t.id)
-									? `${t.message?.slice(0, maxCharactersToShow)}... `
-									: t.message}
+									{t?.message?.length > maxCharactersToShow &&
+									!isExpanded(t.id)
+										? `${t.message?.slice(0, maxCharactersToShow)}... `
+										: t.message}
 
-									{t?.message.length > maxCharactersToShow && (
+									{t?.message.length >
+										maxCharactersToShow && (
 										<span
 											onClick={() => toggle(t.id)}
 											className="text-blue-500 cursor-pointer hover:underline ml-1 text-sm"
 										>
-											{isExpanded(t.id) ? "See less" : "See more"}
+											{isExpanded(t.id)
+												? 'See less'
+												: 'See more'}
 										</span>
 									)}
 								</p>
@@ -191,33 +207,39 @@ function BasicWall({ widget, setPage, isFetching, paginationData }: { widget: Wi
 					</div>
 				))}
 			</div>
-			{(paginationData?.total || 0) > 0 && <div className="flex flex-col gap-6 pb-4">
-				<div className="flex justify-center">
-
-					<Button
-						onClick={loadMore}
-						disabled={isFetching || !hasMore}
-						className="bg-black text-white hover:bg-black/90 px-6 py-2 rounded-lg"
-					>
-						{isFetching ? (
-							<div className="flex items-center gap-2">
-								<div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-								<span>Loading...</span>
-							</div>
-						) : (
-							"Load More"
-						)}
-					</Button>
+			{(paginationData?.total || 0) > 0 && (
+				<div className="flex flex-col gap-6 pb-4">
+					<div className="flex justify-center">
+						<Button
+							onClick={loadMore}
+							disabled={isFetching || !hasMore}
+							className="bg-black text-white hover:bg-black/90 px-6 py-2 rounded-lg"
+						>
+							{isFetching ? (
+								<div className="flex items-center gap-2">
+									<div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+									<span>Loading...</span>
+								</div>
+							) : (
+								'Load More'
+							)}
+						</Button>
+					</div>
 				</div>
-			</div>}
+			)}
 
-			{(paginationData?.total || 0) === 0 && <div className="flex flex-col gap-6 pb-4">
-				<div className="flex justify-center">
-					<p className="text-gray-500 text-center">No testimonials to show. Please add some testimonials to your widget.</p>
+			{(paginationData?.total || 0) === 0 && (
+				<div className="flex flex-col gap-6 pb-4">
+					<div className="flex justify-center">
+						<p className="text-gray-500 text-center">
+							No testimonials to show. Please add some
+							testimonials to your widget.
+						</p>
+					</div>
 				</div>
-			</div>}
+			)}
 		</div>
-	);
+	)
 }
 
-export default BasicWall;
+export default BasicWall

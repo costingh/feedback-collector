@@ -1,13 +1,13 @@
-"use client";
+'use client'
 
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import LandingPageNavBar from "../_components/navbar";
-import Faq from "../_components/faq";
-import ExplorePlans from "../_components/explore-plans";
-import PricingTabs from "../_components/pricing-tabs";
-import Footer from "../_components/footer";
-import Container from "@/components/layout/container";
+import { Button } from '@/components/ui/button'
+import Link from 'next/link'
+import LandingPageNavBar from '../_components/navbar'
+import Faq from '../_components/faq'
+import ExplorePlans from '../_components/explore-plans'
+import PricingTabs from '../_components/pricing-tabs'
+import Footer from '../_components/footer'
+import Container from '@/components/layout/container'
 
 export default function Pricing() {
 	return (
@@ -58,7 +58,7 @@ export default function Pricing() {
 							and effortlessly gather, showcase, and share client
 							feedback. Boost trust and conversions with
 							customizable forms and dynamic displays on your
-							website or SaaS platform!{" "}
+							website or SaaS platform!{' '}
 						</span>
 						<Link href="/auth/sign-up">
 							<Button
@@ -99,7 +99,7 @@ export default function Pricing() {
 				<Footer />
 			</Container>
 		</>
-	);
+	)
 }
 
 const CheckIconSvg = () => (
@@ -116,4 +116,4 @@ const CheckIconSvg = () => (
 			clipRule="evenodd"
 		></path>
 	</svg>
-);
+)

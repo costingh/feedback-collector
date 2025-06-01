@@ -1,10 +1,10 @@
-"use client";
+'use client'
 
-import ShareableElement from "@/components/popups/ShareableElement";
+import ShareableElement from '@/components/popups/ShareableElement'
 
 type Props = {
-	params: { workspaceId: string };
-};
+	params: { workspaceId: string }
+}
 
 const CreatorPage = ({ params: { workspaceId } }: Props) => {
 	return (
@@ -38,17 +38,38 @@ const CreatorPage = ({ params: { workspaceId } }: Props) => {
 				</div>
 
 				<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
-					<ShareableElement workspaceId={workspaceId} type='basic_wall'/>
-					<ShareableElement workspaceId={workspaceId} type='rolling_wall'/>
-					<ShareableElement workspaceId={workspaceId} type='rating_badge'/>
-					<ShareableElement workspaceId={workspaceId} type='avatars'/>
-					<ShareableElement workspaceId={workspaceId} type='social_star'/>
-					<ShareableElement workspaceId={workspaceId} type='minimalist_review'/>
-					<ShareableElement workspaceId={workspaceId} type='hero_quotes'/>
+					<ShareableElement
+						workspaceId={workspaceId}
+						type="basic_wall"
+					/>
+					<ShareableElement
+						workspaceId={workspaceId}
+						type="rolling_wall"
+					/>
+					<ShareableElement
+						workspaceId={workspaceId}
+						type="rating_badge"
+					/>
+					<ShareableElement
+						workspaceId={workspaceId}
+						type="avatars"
+					/>
+					<ShareableElement
+						workspaceId={workspaceId}
+						type="social_star"
+					/>
+					<ShareableElement
+						workspaceId={workspaceId}
+						type="minimalist_review"
+					/>
+					<ShareableElement
+						workspaceId={workspaceId}
+						type="hero_quotes"
+					/>
 				</div>
 			</div>
 		</>
-	);
-};
+	)
+}
 
-export default CreatorPage;
+export default CreatorPage

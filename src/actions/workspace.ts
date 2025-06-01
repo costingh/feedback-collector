@@ -82,16 +82,16 @@ export const getWorkSpaces = async () => {
 			},
 		})
 
-		if(!data) 
-			return { status: 400 }
+		if (!data) return { status: 400 }
 
-		data.workspace = [...data?.workspace, ...data?.members?.map(
-			(wk: any, index: number) => ({
+		data.workspace = [
+			...data?.workspace,
+			...data?.members?.map((wk: any, index: number) => ({
 				id: wk?.WorkSpace?.id,
 				name: wk?.WorkSpace?.name,
-				type: wk?.WorkSpace?.type
-			})
-		)]
+				type: wk?.WorkSpace?.type,
+			})),
+		]
 
 		if (data) {
 			return { status: 200, data: data }
@@ -159,27 +159,26 @@ export const howToPost = async () => {
 	}
 }
 
-
 export const getUserTestimonials = async (workspaceId: string) => {
-    try {
-        const user = await currentUser();
+	try {
+		const user = await currentUser()
 
-        if (!user) return { status: 404 };
+		if (!user) return { status: 404 }
 
-        const testimonials = await client.formResponse.findMany({
-            where: {
-                form: {
-                    workspaceId: workspaceId
-                }
-            },
-            include: {
-                form: true,
-            },
-        });
+		const testimonials = await client.formResponse.findMany({
+			where: {
+				form: {
+					workspaceId: workspaceId,
+				},
+			},
+			include: {
+				form: true,
+			},
+		})
 
-        return { status: 200, data: testimonials };
-    } catch (error) {
-        console.error("Error fetching testimonials:", error);
-        return { status: 400 };
-    }
-};
+		return { status: 200, data: testimonials }
+	} catch (error) {
+		console.error('Error fetching testimonials:', error)
+		return { status: 400 }
+	}
+}

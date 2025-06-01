@@ -1,25 +1,24 @@
 'use client'
 
-import DisplayWidget from "@/components/widgets/DisplayWidget";
-import { getUserWidget, getUserWidgets } from "@/actions/widgets";
-import { useQueryData } from "@/hooks/useQueryData";
-import { LoadingSpinner } from "@/components/animations/loading-spinner";
-import { cn, formatNumberOfReviews, needsDarkBackground } from "@/lib/utils";
-import { useState } from "react";
+import DisplayWidget from '@/components/widgets/DisplayWidget'
+import { getUserWidget, getUserWidgets } from '@/actions/widgets'
+import { useQueryData } from '@/hooks/useQueryData'
+import { LoadingSpinner } from '@/components/animations/loading-spinner'
+import { cn, formatNumberOfReviews, needsDarkBackground } from '@/lib/utils'
+import { useState } from 'react'
 // TODO
 const ShareWidgetPage = ({ params }: { params: { widgetId: string } }) => {
 	// const [startTime, setStartTime] = useState<number | null>(null); // Start time for time spent
 	// const [hasInteracted, setHasInteracted] = useState(false); // Track user interaction
 
-	const [page, setPage] = useState(1);
-	const [limit, setLimit] = useState(6);
+	const [page, setPage] = useState(1)
+	const [limit, setLimit] = useState(6)
 	const { data: widgetResponse, isFetching: isFetching } = useQueryData(
-		["shared-widget"],
-		() => getUserWidget('/' + params.widgetId, page, limit)
-	);
+		['shared-widget'],
+		() => getUserWidget('/' + params.widgetId, page, limit),
+	)
 
-	const widget = (widgetResponse as any)?.widget || [];
-
+	const widget = (widgetResponse as any)?.widget || []
 
 	// const handleGetAllUserWidgets = useCallback(async () => {
 	// 	setIsSearchingWidgets(true);
@@ -104,13 +103,26 @@ const ShareWidgetPage = ({ params }: { params: { widgetId: string } }) => {
 				{isFetching ? (
 					<div className="w-full h-full flex items-center justify-center">
 						<span className="inline-block">
-							<LoadingSpinner size={30} className={cn(needsDarkBackground(widget) ? 'text-white' : 'text-black')} />
+							<LoadingSpinner
+								size={30}
+								className={cn(
+									needsDarkBackground(widget)
+										? 'text-white'
+										: 'text-black',
+								)}
+							/>
 						</span>
 					</div>
-				) : <DisplayWidget widget={widget} setPage={setPage} isFetching={isFetching}/>}
+				) : (
+					<DisplayWidget
+						widget={widget}
+						setPage={setPage}
+						isFetching={isFetching}
+					/>
+				)}
 			</div>
 		</>
-	);
-};
+	)
+}
 
-export default ShareWidgetPage;
+export default ShareWidgetPage

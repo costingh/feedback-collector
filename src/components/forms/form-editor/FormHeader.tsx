@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from 'next/image'
 
 export const FormHeader = ({
 	brandName,
@@ -9,36 +9,35 @@ export const FormHeader = ({
 	setStep,
 	onInteraction,
 }: {
-	brandName: string | undefined;
-	brandLogo: string | undefined;
-	primaryColor: string | undefined;
-	BASE_PRIMARY_COLOR: string | undefined;
-	step: number | undefined;
-	setStep: any | undefined;
-	onInteraction: any | undefined;
+	brandName: string | undefined
+	brandLogo: string | undefined
+	primaryColor: string | undefined
+	BASE_PRIMARY_COLOR: string | undefined
+	step: number | undefined
+	setStep: any | undefined
+	onInteraction: any | undefined
 }) => (
 	<div className="flex items-center justify-between mb-4 md:mb-8">
 		<div className="relative">
-			{!brandName || !brandLogo || !primaryColor ? 
-				(
-					<div className="flex items-center gap-3">
-						<div className="w-[35px] md:w-[45px] h-[35px] md:h-[45px] bg-gray-300 rounded-[10px] animate-pulse"></div>
-						<div className="h-6 md:h-8 bg-gray-300 rounded w-[150px] animate-pulse"></div>
-					</div>
-				) : (
-					<div className="flex items-center gap-3">
-						<Image
-							src={'/images' + brandLogo || ""}
-							alt={brandName || "logo"}
-							width={45}
-							height={45}
-							className="w-[35px] md:w-[45px] h-[35px] md:h-[45px]"
-						/>
-						<h1 className="text-[18px] md:text-[25px] font-black text-gray-900 font-fredoka">
-							{brandName}
-						</h1>
-					</div>
-				)}
+			{!brandName || !brandLogo || !primaryColor ? (
+				<div className="flex items-center gap-3">
+					<div className="w-[35px] md:w-[45px] h-[35px] md:h-[45px] bg-gray-300 rounded-[10px] animate-pulse"></div>
+					<div className="h-6 md:h-8 bg-gray-300 rounded w-[150px] animate-pulse"></div>
+				</div>
+			) : (
+				<div className="flex items-center gap-3">
+					<Image
+						src={'/images' + brandLogo || ''}
+						alt={brandName || 'logo'}
+						width={45}
+						height={45}
+						className="w-[35px] md:w-[45px] h-[35px] md:h-[45px]"
+					/>
+					<h1 className="text-[18px] md:text-[25px] font-black text-gray-900 font-fredoka">
+						{brandName}
+					</h1>
+				</div>
+			)}
 			{/* <div
 				className="w-[80px] h-[2px] rounded-full absolute bottom-[-10px] left-0"
 				style={{
@@ -51,8 +50,14 @@ export const FormHeader = ({
 				className="flex items-center justify-center w-10 h-10 hover:bg-gray-200 border-[1px] border-gray-300 rounded-full cursor-pointer"
 				onClick={() => {
 					// @ts-ignore
-					setStep((prevStep) => prevStep == 1 || prevStep == 2 ? 0 : prevStep == 3 ? 0 : 0);
-					if (onInteraction) onInteraction("prevStep");
+					setStep((prevStep) =>
+						prevStep == 1 || prevStep == 2
+							? 0
+							: prevStep == 3
+								? 0
+								: 0,
+					)
+					if (onInteraction) onInteraction('prevStep')
 				}}
 			>
 				<svg
@@ -72,4 +77,4 @@ export const FormHeader = ({
 			</div>
 		)}
 	</div>
-);
+)

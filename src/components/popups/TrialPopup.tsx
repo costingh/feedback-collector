@@ -1,19 +1,19 @@
-"use client";
+'use client'
 
-import { Lock } from "lucide-react";
-import React, { ReactNode } from "react";
-import { Button } from "../ui/button";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import PaymentButton from "../global/payment-button";
+import { Lock } from 'lucide-react'
+import React, { ReactNode } from 'react'
+import { Button } from '../ui/button'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import PaymentButton from '../global/payment-button'
 
 function TrialPopup({ children }: { children: ReactNode }) {
-	const pathname = usePathname();
+	const pathname = usePathname()
 
 	return (
 		<>
-			{!pathname?.includes("/settings") &&
-			!pathname?.includes("/subscription") ? (
+			{!pathname?.includes('/settings') &&
+			!pathname?.includes('/subscription') ? (
 				<main className="flex items-center justify-center min-h-screen bg-gray-100">
 					<div className="max-w-lg w-full bg-white shadow-md rounded-[15px] p-8 text-center">
 						<Lock className="w-16 h-16 text-gray-400 mx-auto mb-4" />
@@ -27,7 +27,7 @@ function TrialPopup({ children }: { children: ReactNode }) {
 
 						<div className="mt-6 space-y-4">
 							<Link href="/feedbackz-pricing">
-								<PaymentButton planType="PRO"/>
+								<PaymentButton planType="PRO" />
 							</Link>
 							<div className="my-2"></div>
 							<Link href="/feedbackz-pricing">
@@ -42,7 +42,7 @@ function TrialPopup({ children }: { children: ReactNode }) {
 
 						<div>
 							<div className="text-sm text-gray-400 mt-6">
-								Need help?{" "}
+								Need help?{' '}
 								<Link
 									href="/support"
 									className="text-indigo-600 hover:underline"
@@ -59,7 +59,7 @@ function TrialPopup({ children }: { children: ReactNode }) {
 				</>
 			)}
 		</>
-	);
+	)
 }
 
-export default TrialPopup;
+export default TrialPopup

@@ -1,5 +1,5 @@
-import { Braces, Copy, Link } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Braces, Copy, Link } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 import {
 	Dialog,
 	DialogClose,
@@ -8,12 +8,12 @@ import {
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { useState } from "react";
-import CodeSnippet from "../testimonials-form/code-snippet";
-import useCopy from "@/hooks/useCopy";
+} from '@/components/ui/dialog'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { useState } from 'react'
+import CodeSnippet from '../testimonials-form/code-snippet'
+import useCopy from '@/hooks/useCopy'
 
 export function ShareWidgetModal({
 	children,
@@ -21,19 +21,19 @@ export function ShareWidgetModal({
 	widgetUrl,
 	handleClose,
 }: {
-	isOpened?: boolean;
-	widgetUrl?: string;
-	handleClose?: any;
-	children?: React.ReactNode;
+	isOpened?: boolean
+	widgetUrl?: string
+	handleClose?: any
+	children?: React.ReactNode
 }) {
-	const [isActive, setIsActive] = useState("share");
-	const [embeddingType, setEmbeddingType] = useState(1);
-	const embedCode = `<feedbackz-widget data-widget-id="${widgetUrl?.replace('/', '')}"></feedbackz-widget>\n<script src="${process.env.NEXT_PUBLIC_HOST_URL}/widget-embed.iife.js"></script>`;
-	const { copied, handleCopy } = useCopy();
+	const [isActive, setIsActive] = useState('share')
+	const [embeddingType, setEmbeddingType] = useState(1)
+	const embedCode = `<feedbackz-widget data-widget-id="${widgetUrl?.replace('/', '')}"></feedbackz-widget>\n<script src="${process.env.NEXT_PUBLIC_HOST_URL}/widget-embed.iife.js"></script>`
+	const { copied, handleCopy } = useCopy()
 
 	// Helper to render tab content for Share and Embed sections
 	const renderTabContent = () => {
-		if (isActive === "share") {
+		if (isActive === 'share') {
 			return (
 				<div className="border border-gray-100 p-4 rounded-lg">
 					<h1 className="text-gray-800 font-semibold text-sm">
@@ -47,7 +47,7 @@ export function ShareWidgetModal({
 							id="link"
 							value={
 								process.env.NEXT_PUBLIC_HOST_URL +
-								"/w" +
+								'/w' +
 								widgetUrl
 							}
 							readOnly
@@ -59,8 +59,8 @@ export function ShareWidgetModal({
 							onClick={() =>
 								handleCopy(
 									process.env.NEXT_PUBLIC_HOST_URL +
-										"/w" +
-										widgetUrl
+										'/w' +
+										widgetUrl,
 								)
 							}
 						>
@@ -68,7 +68,7 @@ export function ShareWidgetModal({
 						</Button>
 					</div>
 				</div>
-			);
+			)
 		}
 		return (
 			<div className="w-full">
@@ -91,15 +91,15 @@ export function ShareWidgetModal({
 				</p>
 				<CodeSnippet code={embedCode} handleCopy={handleCopy} />
 			</div>
-		);
-	};
+		)
+	}
 
 	// Helper to render embed options
 	const renderEmbedOption = (type: number) => {
-		const isActiveEmbed = embeddingType === type;
+		const isActiveEmbed = embeddingType === type
 		const style = isActiveEmbed
-			? { backgroundColor: "rgb(243, 244, 246)" }
-			: {};
+			? { backgroundColor: 'rgb(243, 244, 246)' }
+			: {}
 		return (
 			<div
 				className="w-1/2 rounded-lg border border-gray-200 p-4 cursor-pointer hover:bg-gray-100 relative"
@@ -108,7 +108,7 @@ export function ShareWidgetModal({
 			>
 				<div className="flex flex-col space-y-1">
 					{Array(6)
-						.fill("")
+						.fill('')
 						.map((_, i) => (
 							<div
 								key={i}
@@ -118,8 +118,8 @@ export function ShareWidgetModal({
 				</div>
 				<div className="h-[100px] bg-green-400 w-[150px] mx-auto rounded my-4"></div>
 			</div>
-		);
-	};
+		)
+	}
 
 	return (
 		<Dialog
@@ -134,16 +134,16 @@ export function ShareWidgetModal({
 				<div className="flex max-w-[calc(1200px-50px)]">
 					<div className="w-1/3">
 						{renderTab(
-							"share",
-							"Share the link",
-							"Share your link on social media, your website, or anywhere else.",
-							<Link size={18} />
+							'share',
+							'Share the link',
+							'Share your link on social media, your website, or anywhere else.',
+							<Link size={18} />,
 						)}
 						{renderTab(
-							"embed",
-							"Embed",
-							"Embed the widget on your website to showcase testimonials.",
-							<Braces size={18} />
+							'embed',
+							'Embed',
+							'Embed the widget on your website to showcase testimonials.',
+							<Braces size={18} />,
 						)}
 					</div>
 					<div className="w-2/3 pl-6">{renderTabContent()}</div>
@@ -155,19 +155,19 @@ export function ShareWidgetModal({
 				</DialogFooter>
 			</DialogContent>
 		</Dialog>
-	);
+	)
 
 	// Helper to render sidebar tabs
 	function renderTab(
 		key: string,
 		title: string,
 		description: string,
-		icon: React.ReactNode
+		icon: React.ReactNode,
 	) {
-		const isActiveTab = isActive === key;
+		const isActiveTab = isActive === key
 		const style = isActiveTab
-			? { backgroundColor: "rgb(229, 231, 235)" }
-			: {};
+			? { backgroundColor: 'rgb(229, 231, 235)' }
+			: {}
 		return (
 			<div
 				className="rounded-lg hover:bg-gray-100 cursor-pointer py-3 px-4 flex gap-3 mb-4"
@@ -184,6 +184,6 @@ export function ShareWidgetModal({
 					</p>
 				</div>
 			</div>
-		);
+		)
 	}
 }

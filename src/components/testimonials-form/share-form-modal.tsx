@@ -1,6 +1,6 @@
-import { Braces, Copy, Link, Share2 } from "lucide-react";
+import { Braces, Copy, Link, Share2 } from 'lucide-react'
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button'
 import {
 	Dialog,
 	DialogClose,
@@ -10,40 +10,51 @@ import {
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { useEffect, useState } from "react";
-import { Form } from "@/types/Form";
-import CodeSnippet from "./code-snippet";
+} from '@/components/ui/dialog'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { useEffect, useState } from 'react'
+import { Form } from '@/types/Form'
+import CodeSnippet from './code-snippet'
 
 const ShareFormModal = ({
 	form,
 	formUrl,
 	handleCopy,
 }: {
-	form: Form;
-	formUrl: string;
-	handleCopy: (url: string) => void;
+	form: Form
+	formUrl: string
+	handleCopy: (url: string) => void
 }) => {
-	const [isActive, setIsActive] = useState("share");
-	const [embeddingType, setEmbeddingType] = useState(1);
+	const [isActive, setIsActive] = useState('share')
+	const [embeddingType, setEmbeddingType] = useState(1)
 
-	const width = "100%";
-	const height = "100%";
-	const allow = "camera;microphone";
-	
+	const width = '100%'
+	const height = '100%'
+	const allow = 'camera;microphone'
+
 	const inlineIframeCode = `<feedbackz-form data-widget-type="inline" data-form-id="${form?.url?.replace('/p/', '')}"></feedbackz-form>\n<script src="${process.env.NEXT_PUBLIC_HOST_URL}/form-embed.iife.js?formId=${form?.url?.replace('/p/', '')}"></script>`
-	
+
 	const popupIframeCode = `<feedbackz-form data-widget-type="centered-popup" data-form-id="${form?.url?.replace('/p/', '')}"></feedbackz-form>\n<script src="${process.env.NEXT_PUBLIC_HOST_URL}/form-embed.iife.js?formId=${form?.url?.replace('/p/', '')}"></script>`
-	
+
 	const chatStyleIframeCode = `<feedbackz-form data-form-id="${form?.url?.replace('/p/', '')}" data-widget-type="chat-style-floading-widget"></feedbackz-form>\n<script src="${process.env.NEXT_PUBLIC_HOST_URL}/form-embed.iife.js?formId=${form?.url?.replace('/p/', '')}"></script>`
-	
-	const [code, setCode] =
-		useState(embeddingType == 1 ? inlineIframeCode : embeddingType == 2 ? popupIframeCode : chatStyleIframeCode);
+
+	const [code, setCode] = useState(
+		embeddingType == 1
+			? inlineIframeCode
+			: embeddingType == 2
+				? popupIframeCode
+				: chatStyleIframeCode,
+	)
 
 	useEffect(() => {
-		setCode(embeddingType == 1 ? inlineIframeCode : embeddingType == 2 ? popupIframeCode : chatStyleIframeCode)
+		setCode(
+			embeddingType == 1
+				? inlineIframeCode
+				: embeddingType == 2
+					? popupIframeCode
+					: chatStyleIframeCode,
+		)
 	}, [embeddingType])
 
 	return (
@@ -67,11 +78,11 @@ const ShareFormModal = ({
 						<div
 							className="rounded-[15px] hover:bg-gray-100 cursor-pointer py-3 px-4 flex gap-3 mb-4"
 							style={
-								isActive == "share"
-									? { background: "rgb(229 231 235)" }
+								isActive == 'share'
+									? { background: 'rgb(229 231 235)' }
 									: {}
 							}
-							onClick={() => setIsActive("share")}
+							onClick={() => setIsActive('share')}
 						>
 							<Link
 								className="text-gray-600 mt-[2px]"
@@ -90,11 +101,11 @@ const ShareFormModal = ({
 						<div
 							className="rounded-[15px] hover:bg-gray-100 cursor-pointer py-3 px-4 flex gap-3 mb-4"
 							style={
-								isActive == "embed"
-									? { background: "rgb(229 231 235)" }
+								isActive == 'embed'
+									? { background: 'rgb(229 231 235)' }
 									: {}
 							}
-							onClick={() => setIsActive("embed")}
+							onClick={() => setIsActive('embed')}
 						>
 							<Braces
 								className="text-gray-600 mt-[2px]"
@@ -113,7 +124,7 @@ const ShareFormModal = ({
 					</div>
 					<div className="w-[70%] pl-6">
 						{/* SHARE FORM TAB */}
-						{isActive == "share" && (
+						{isActive == 'share' && (
 							<div className="border-[1px] border-gray-100 p-4 rounded-[15px]">
 								<h1 className="text-gray-800 font-[600] text-[14px]">
 									Link to your form
@@ -149,7 +160,7 @@ const ShareFormModal = ({
 						)}
 
 						{/* EMBED FORM TAB */}
-						{isActive == "embed" && (
+						{isActive == 'embed' && (
 							<div className="w-full">
 								<h1 className="text-gray-800 font-[600] text-[14px]">
 									How would you like to embed your form?
@@ -166,8 +177,8 @@ const ShareFormModal = ({
 											embeddingType == 1
 												? {
 														background:
-															"rgb(243 244 246",
-												  }
+															'rgb(243 244 246',
+													}
 												: {}
 										}
 									>
@@ -186,8 +197,8 @@ const ShareFormModal = ({
 											embeddingType == 2
 												? {
 														background:
-															"rgb(243 244 246",
-												  }
+															'rgb(243 244 246',
+													}
 												: {}
 										}
 									>
@@ -220,8 +231,8 @@ const ShareFormModal = ({
 											embeddingType == 2
 												? {
 														background:
-															"rgb(243 244 246",
-												  }
+															'rgb(243 244 246',
+													}
 												: {}
 										}
 									>
@@ -243,8 +254,7 @@ const ShareFormModal = ({
 										<div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
 										<div className="h-2 bg-gray-200 rounded w-ful mt-1"></div>
 
-										<div className="absolute bottom-[20px] left-[20px] w-[40px] h-[40px] rounded-full bg-green-400">
-										</div>
+										<div className="absolute bottom-[20px] left-[20px] w-[40px] h-[40px] rounded-full bg-green-400"></div>
 									</div>
 								</div>
 
@@ -274,7 +284,7 @@ const ShareFormModal = ({
 				</DialogFooter>
 			</DialogContent>
 		</Dialog>
-	);
+	)
 }
 
 export default ShareFormModal

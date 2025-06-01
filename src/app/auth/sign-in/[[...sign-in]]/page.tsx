@@ -1,19 +1,17 @@
-"use client";
+'use client'
 
-import React from "react";
-import { SignIn } from "@clerk/nextjs";
-import { useUser } from '@clerk/nextjs';
+import React from 'react'
+import { SignIn } from '@clerk/nextjs'
+import { useUser } from '@clerk/nextjs'
 
-type Props = {};
+type Props = {}
 
 const SignInPage = (props: Props) => {
-	const { user } = useUser();
+	const { user } = useUser()
 
-	if (user) window.location.href = "/dashboard";
+	if (user) window.location.href = '/dashboard'
 
-	return (
-			<SignIn />
-	);
-};
+	return <SignIn />
+}
 
-export default SignInPage;
+export default SignInPage

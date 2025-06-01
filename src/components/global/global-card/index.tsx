@@ -1,18 +1,18 @@
-import React from "react";
+import React from 'react'
 import {
 	Card,
 	CardDescription,
 	CardFooter,
 	CardHeader,
 	CardTitle,
-} from "@/components/ui/card";
+} from '@/components/ui/card'
 
 type Props = {
-	title: string;
-	description: string;
-	children?: React.ReactNode;
-	footer?: React.ReactNode;
-};
+	title: string
+	description: string
+	children?: React.ReactNode
+	footer?: React.ReactNode
+}
 
 const GlobalCard = ({ title, children, description, footer }: Props) => {
 	return (
@@ -28,7 +28,7 @@ const GlobalCard = ({ title, children, description, footer }: Props) => {
 			{children && <div className="px-4">{children}</div>}
 			{footer && <CardFooter className="px-4 py-2">{footer}</CardFooter>}
 		</Card>
-	);
-};
+	)
+}
 
-export default GlobalCard;
+export default GlobalCard

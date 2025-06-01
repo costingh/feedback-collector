@@ -1,374 +1,422 @@
-"use client";
+'use client'
 
-import Image from "next/image";
-import { useState } from "react";
-import { CheckCircle, Globe, Router, Upload, XCircle } from "lucide-react";
-import axios from "axios";
-import { toast } from "sonner";
-import TestimonialsFromOtherSources from "./TestimonialsFromOtherSources";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
+import Image from 'next/image'
+import { useState } from 'react'
+import { CheckCircle, Globe, Router, Upload, XCircle } from 'lucide-react'
+import axios from 'axios'
+import { toast } from 'sonner'
+import TestimonialsFromOtherSources from './TestimonialsFromOtherSources'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 type Props = {
-    workspaceId: string;
-};
+	workspaceId: string
+}
 
 const sources = [
-    {
-        name: "G2",
-        id: "g2",
-        logo: (
-            <Image
-                src="/images/testimonials-import-sources/g2.png"
-                alt="G2 logo"
-                width={20}
-                height={20}
-            />
-        ),
-        example: "https://www.g2.com/products/feedbackz",
-        placeholder: "https://www.g2.com/products/[business-name]",
-        pattern: /^https:\/\/www\.g2\.com\/products\/[a-zA-Z0-9-]+$/,
-    },
-    {
-        name: "Capterra",
-        id: "capterra",
-        logo: (
-            <Image
-                src="/images/testimonials-import-sources/capterra.png"
-                alt="Capterra logo"
-                width={20}
-                height={20}
-            />
-        ),
-        example: "https://www.capterra.com/p/1234567890/feedbackz",
-        placeholder: "https://www.capterra.com/p/[product-id]",
-        pattern: /^https:\/\/www\.capterra\.com\/p\/[0-9]+\/[a-zA-Z0-9-]+$/,
-    },
-    {
-        name: "Trustpilot",
-        id: "trustpilot",
-        logo: (
-            <Image
-                src="/images/testimonials-import-sources/trustpilot.png"
-                alt="Trustpilot logo"
-                width={20}
-                height={20}
-            />
-        ),
-        example: "https://www.trustpilot.com/review/feedbackz.com",
-        placeholder: "https://www.trustpilot.com/reviews/[website.com]",
-        pattern: /^https:\/\/www\.trustpilot\.com\/review\/[a-zA-Z0-9.-]+\.[a-z]+$/,
-    },
-    {
-        name: "X (Twitter)",
-        id: "x",
-        logo: (
-            <Image
-                src="/images/testimonials-import-sources/twitterx.png"
-                alt="X logo"
-                width={20}
-                height={20}
-            />
-        ),
-        example: "https://x.com/feedbackz/status/1234567890",
-        placeholder: "https://x.com/[username]/status/[tweet-id]",
-        pattern: /^https:\/\/x\.com\/[a-zA-Z0-9_]+\/status\/[0-9]+$/,
-    },
-];
+	{
+		name: 'G2',
+		id: 'g2',
+		logo: (
+			<Image
+				src="/images/testimonials-import-sources/g2.png"
+				alt="G2 logo"
+				width={20}
+				height={20}
+			/>
+		),
+		example: 'https://www.g2.com/products/feedbackz',
+		placeholder: 'https://www.g2.com/products/[business-name]',
+		pattern: /^https:\/\/www\.g2\.com\/products\/[a-zA-Z0-9-]+$/,
+	},
+	{
+		name: 'Capterra',
+		id: 'capterra',
+		logo: (
+			<Image
+				src="/images/testimonials-import-sources/capterra.png"
+				alt="Capterra logo"
+				width={20}
+				height={20}
+			/>
+		),
+		example: 'https://www.capterra.com/p/1234567890/feedbackz',
+		placeholder: 'https://www.capterra.com/p/[product-id]',
+		pattern: /^https:\/\/www\.capterra\.com\/p\/[0-9]+\/[a-zA-Z0-9-]+$/,
+	},
+	{
+		name: 'Trustpilot',
+		id: 'trustpilot',
+		logo: (
+			<Image
+				src="/images/testimonials-import-sources/trustpilot.png"
+				alt="Trustpilot logo"
+				width={20}
+				height={20}
+			/>
+		),
+		example: 'https://www.trustpilot.com/review/feedbackz.com',
+		placeholder: 'https://www.trustpilot.com/reviews/[website.com]',
+		pattern:
+			/^https:\/\/www\.trustpilot\.com\/review\/[a-zA-Z0-9.-]+\.[a-z]+$/,
+	},
+	{
+		name: 'X (Twitter)',
+		id: 'x',
+		logo: (
+			<Image
+				src="/images/testimonials-import-sources/twitterx.png"
+				alt="X logo"
+				width={20}
+				height={20}
+			/>
+		),
+		example: 'https://x.com/feedbackz/status/1234567890',
+		placeholder: 'https://x.com/[username]/status/[tweet-id]',
+		pattern: /^https:\/\/x\.com\/[a-zA-Z0-9_]+\/status\/[0-9]+$/,
+	},
+]
 
 const ImportTestimonialsPage = ({ workspaceId }: Props) => {
-    const [showSources, setShowSources] = useState(false);
-    const [selectedSource, setSelectedSource] = useState<string | null>(null);
-    const [url, setUrl] = useState("");
-    const [testimonialsToImport, setTestimonialsToImport] = useState<any[]>([]);
-    const source = sources.find((s) => s.id === selectedSource);
-    const isValid = source?.pattern.test(url) ?? false;
-    const [isChoosingSources, setIsChoosingSources] = useState(true);
-    const [checkedItems, setChecked] = useState(new Set<number>());
-    const [isUploadingFile, setIsUploadingFile] = useState(false);
-    const [file, setFile] = useState<File | null>(null);
-    const router = useRouter();
+	const [showSources, setShowSources] = useState(false)
+	const [selectedSource, setSelectedSource] = useState<string | null>(null)
+	const [url, setUrl] = useState('')
+	const [testimonialsToImport, setTestimonialsToImport] = useState<any[]>([])
+	const source = sources.find((s) => s.id === selectedSource)
+	const isValid = source?.pattern.test(url) ?? false
+	const [isChoosingSources, setIsChoosingSources] = useState(true)
+	const [checkedItems, setChecked] = useState(new Set<number>())
+	const [isUploadingFile, setIsUploadingFile] = useState(false)
+	const [file, setFile] = useState<File | null>(null)
+	const router = useRouter()
 
-    const handleImportTestimonials = async (url: string, source: string) => {
-        setIsChoosingSources(false);
-        console.log(`Importing testimonials from ${url} using ${source}`);
+	const handleImportTestimonials = async (url: string, source: string) => {
+		setIsChoosingSources(false)
+		console.log(`Importing testimonials from ${url} using ${source}`)
 
-        if (!url.trim()) {
-            toast.error("Url cannot be empty");
-            return;
-        }
+		if (!url.trim()) {
+			toast.error('Url cannot be empty')
+			return
+		}
 
-        // You may want to dynamically select API path based on source param
-        const response = await axios.post("/api/import-testimonials/g2-testimonials", {
-            url,
-        });
+		// You may want to dynamically select API path based on source param
+		const response = await axios.post(
+			'/api/import-testimonials/g2-testimonials',
+			{
+				url,
+			},
+		)
 
-        const data = response?.data?.result;
-        const reviews = data?.all_reviews;
+		const data = response?.data?.result
+		const reviews = data?.all_reviews
 
-        const testimonials = reviews?.map((review: any) => ({
-            id: review?.review_id,
-            name: review?.reviewer?.reviewer_name,
-            message: review?.review_content,
-            jobTitle: review?.reviewer?.reviewer_job_title,
-            website: review?.reviewer?.reviewer_link,
-            createdAt: review?.publish_date,
-            video: review?.video_link,
-            // logo: review?.product_logo,
-            link: review?.review_link,
-            source: "G2",
-            company: review?.product_name,
-            stars: review?.review_rating,
-            email: review?.reviewer?.reviewer_email,
-            avatar: review?.reviewer?.reviewer_avatar,
-            tags: review?.review_question_answers?.map((answer: any) => answer?.question),
-        }));
+		const testimonials = reviews?.map((review: any) => ({
+			id: review?.review_id,
+			name: review?.reviewer?.reviewer_name,
+			message: review?.review_content,
+			jobTitle: review?.reviewer?.reviewer_job_title,
+			website: review?.reviewer?.reviewer_link,
+			createdAt: review?.publish_date,
+			video: review?.video_link,
+			// logo: review?.product_logo,
+			link: review?.review_link,
+			source: 'G2',
+			company: review?.product_name,
+			stars: review?.review_rating,
+			email: review?.reviewer?.reviewer_email,
+			avatar: review?.reviewer?.reviewer_avatar,
+			tags: review?.review_question_answers?.map(
+				(answer: any) => answer?.question,
+			),
+		}))
 
-        // console.log(reviews[0]);
-        setTestimonialsToImport(testimonials);
-    };
+		// console.log(reviews[0]);
+		setTestimonialsToImport(testimonials)
+	}
 
-    const isChecked = (id: number) => {
-        return checkedItems.has(id);
-    };
+	const isChecked = (id: number) => {
+		return checkedItems.has(id)
+	}
 
-    const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-        const selectedFile = e.target.files?.[0];
-        if (!selectedFile) return;
+	const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+		const selectedFile = e.target.files?.[0]
+		if (!selectedFile) return
 
-        if (selectedFile.size > 5 * 1024 * 1024) {
-            toast.error("File is too large. Max 5MB.");
-            return;
-        }
+		if (selectedFile.size > 5 * 1024 * 1024) {
+			toast.error('File is too large. Max 5MB.')
+			return
+		}
 
-        const fileExtension = selectedFile.name.split(".").pop()?.toLowerCase();
-        const reader = new FileReader();
+		const fileExtension = selectedFile.name.split('.').pop()?.toLowerCase()
+		const reader = new FileReader()
 
-        reader.onload = async (event) => {
-            const text = event.target?.result;
-            let testimonials = [];
+		reader.onload = async (event) => {
+			const text = event.target?.result
+			let testimonials = []
 
-            try {
-                if (fileExtension === "json") {
-                    testimonials = JSON.parse(text as string);
-                } else if (fileExtension === "csv") {
-                    testimonials = parseCSV(text as string);
-                } else {
-                    toast.error("Unsupported file format");
-                    return;
-                }
+			try {
+				if (fileExtension === 'json') {
+					testimonials = JSON.parse(text as string)
+				} else if (fileExtension === 'csv') {
+					testimonials = parseCSV(text as string)
+				} else {
+					toast.error('Unsupported file format')
+					return
+				}
 
-                await axios.post("/api/import-testimonials/bulk-import-from-file", {
-                    workspaceId,
-                    testimonials,
-                });
+				await axios.post(
+					'/api/import-testimonials/bulk-import-from-file',
+					{
+						workspaceId,
+						testimonials,
+					},
+				)
 
-                toast.success("Testimonials uploaded successfully!");
-                setIsUploadingFile(false);
-                router.push(`/dashboard/${workspaceId}/testimonials`);
-            } catch (error) {
-                console.error(error);
-                toast.error("Failed to parse and upload file.");
-            }
-        };
+				toast.success('Testimonials uploaded successfully!')
+				setIsUploadingFile(false)
+				router.push(`/dashboard/${workspaceId}/testimonials`)
+			} catch (error) {
+				console.error(error)
+				toast.error('Failed to parse and upload file.')
+			}
+		}
 
-        if (fileExtension === "json" || fileExtension === "csv") {
-            reader.readAsText(selectedFile);
-        }
-    };
+		if (fileExtension === 'json' || fileExtension === 'csv') {
+			reader.readAsText(selectedFile)
+		}
+	}
 
-    const parseCSV = (csvText: string) => {
-        const lines = csvText.split("\n").filter(Boolean);
-        const headers = lines[0].split(",").map(h => h.trim());
-        return lines.slice(1).map(line => {
-            const values = line.split(",").map(v => v.trim());
-            return headers.reduce((acc, header, idx) => {
-                acc[header] = values[idx];
-                return acc;
-            }, {} as Record<string, string>);
-        });
-    };
+	const parseCSV = (csvText: string) => {
+		const lines = csvText.split('\n').filter(Boolean)
+		const headers = lines[0].split(',').map((h) => h.trim())
+		return lines.slice(1).map((line) => {
+			const values = line.split(',').map((v) => v.trim())
+			return headers.reduce(
+				(acc, header, idx) => {
+					acc[header] = values[idx]
+					return acc
+				},
+				{} as Record<string, string>,
+			)
+		})
+	}
 
+	return (
+		<div className="flex px-8 py-5 w-full">
+			<div className="w-full space-y-6">
+				<div className="flex items-center justify-between">
+					<h2 className="text-xl font-semibold">
+						Import Testimonials ✨
+					</h2>
+				</div>
 
-    return (
-        <div className="flex px-8 py-5 w-full">
-            <div className="w-full space-y-6">
-                <div className="flex items-center justify-between">
-                    <h2 className="text-xl font-semibold">Import Testimonials ✨</h2>
-                </div>
+				{(isChoosingSources || isUploadingFile) && (
+					<>
+						{/* Trigger */}
+						<div className="space-y-4">
+							{/* Import from Website */}
+							<div
+								// onClick={() => setShowSources(!showSources)}
+								className="relative w-full flex items-start gap-4 border border-gray-300 rounded-md p-4 cursor-pointer hover:bg-gray-50 transition"
+							>
+								{/* Badge */}
+								<span className="absolute top-2 right-2 bg-red-100 text-red-700 text-xs font-semibold px-2 py-0.5 rounded-full select-none">
+									Not Supported Yet
+								</span>
 
-                {(isChoosingSources || isUploadingFile) && (
-                    <>
-                        {/* Trigger */}
-                        <div className="space-y-4">
-                            {/* Import from Website */}
-                            <div
-                                // onClick={() => setShowSources(!showSources)}
-                                className="relative w-full flex items-start gap-4 border border-gray-300 rounded-md p-4 cursor-pointer hover:bg-gray-50 transition"
-                            >
-                                {/* Badge */}
-                                <span className="absolute top-2 right-2 bg-red-100 text-red-700 text-xs font-semibold px-2 py-0.5 rounded-full select-none">
-                                    Not Supported Yet
-                                </span>
+								<div className="text-blue-500 mt-1">
+									<Globe className="w-6 h-6" />
+								</div>
+								<div>
+									<h3 className="text-gray-800 font-semibold text-sm sm:text-base">
+										Import from a Website
+									</h3>
+									<p className="text-gray-500 text-sm">
+										Bring in testimonials from platforms
+										like G2, Trustpilot, or Capterra.
+									</p>
+								</div>
+							</div>
 
-                                <div className="text-blue-500 mt-1">
-                                    <Globe className="w-6 h-6" />
-                                </div>
-                                <div>
-                                    <h3 className="text-gray-800 font-semibold text-sm sm:text-base">
-                                        Import from a Website
-                                    </h3>
-                                    <p className="text-gray-500 text-sm">
-                                        Bring in testimonials from platforms like G2, Trustpilot, or Capterra.
-                                    </p>
-                                </div>
-                            </div>
+							{/* Import from File */}
+							<div
+								onClick={() => {
+									setIsUploadingFile(true)
+									setIsChoosingSources(false)
+								}}
+								className="w-full flex items-start gap-4 border border-gray-300 rounded-md p-4 cursor-pointer hover:bg-gray-50 transition"
+							>
+								<div className="text-green-500 mt-1">
+									<Upload className="w-6 h-6" />
+								</div>
+								<div>
+									<h3 className="text-gray-800 font-semibold text-sm sm:text-base">
+										Import from a File
+									</h3>
+									<p className="text-gray-500 text-sm">
+										Upload testimonials via CSV or JSON
+										file.
+									</p>
+								</div>
+							</div>
+						</div>
 
-                            {/* Import from File */}
-                            <div
-                                onClick={() => {
-                                    setIsUploadingFile(true);
-                                    setIsChoosingSources(false);
-                                }}
-                                className="w-full flex items-start gap-4 border border-gray-300 rounded-md p-4 cursor-pointer hover:bg-gray-50 transition"
-                            >
-                                <div className="text-green-500 mt-1">
-                                    <Upload className="w-6 h-6" />
-                                </div>
-                                <div>
-                                    <h3 className="text-gray-800 font-semibold text-sm sm:text-base">
-                                        Import from a File
-                                    </h3>
-                                    <p className="text-gray-500 text-sm">
-                                        Upload testimonials via CSV or JSON file.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+						{showSources && (
+							<div className="space-y-6">
+								<div className="flex gap-4 pt-2">
+									{sources.map((src) => (
+										<div
+											key={src.id}
+											onClick={() => {
+												setSelectedSource(src.id)
+												setUrl('')
+											}}
+											className={`w-[80px] h-[80px] flex flex-col items-center justify-center border rounded-md cursor-pointer hover:bg-gray-100 transition ${
+												selectedSource === src.id
+													? 'border-black'
+													: 'border-gray-300'
+											}`}
+										>
+											<div>{src.logo}</div>
+											<div className="mt-2 text-sm text-center font-medium">
+												{src.name}
+											</div>
+										</div>
+									))}
+								</div>
 
-                        {showSources && (
-                            <div className="space-y-6">
-                                <div className="flex gap-4 pt-2">
-                                    {sources.map((src) => (
-                                        <div
-                                            key={src.id}
-                                            onClick={() => {
-                                                setSelectedSource(src.id);
-                                                setUrl("");
-                                            }}
-                                            className={`w-[80px] h-[80px] flex flex-col items-center justify-center border rounded-md cursor-pointer hover:bg-gray-100 transition ${selectedSource === src.id ? "border-black" : "border-gray-300"
-                                                }`}
-                                        >
-                                            <div>{src.logo}</div>
-                                            <div className="mt-2 text-sm text-center font-medium">{src.name}</div>
-                                        </div>
-                                    ))}
-                                </div>
+								{selectedSource && (
+									<div className="space-y-3 flex flex-col">
+										<label className="text-sm font-medium text-gray-700">
+											Paste the {source?.name} URL
+										</label>
+										<div className="relative">
+											<input
+												type="text"
+												value={url}
+												onChange={(e) =>
+													setUrl(e.target.value)
+												}
+												placeholder={
+													source?.placeholder
+												}
+												className="w-full border border-gray-300 rounded-md px-4 py-2 pr-10"
+											/>
+											<div className="absolute right-3 top-1/2 transform -translate-y-1/2">
+												{url.length > 0 &&
+													(isValid ? (
+														<CheckCircle className="text-green-500 w-5 h-5" />
+													) : (
+														<XCircle className="text-red-500 w-5 h-5" />
+													))}
+											</div>
+										</div>
+										<span className="text-sm text-gray-500">
+											{source?.example}
+										</span>
 
-                                {selectedSource && (
-                                    <div className="space-y-3 flex flex-col">
-                                        <label className="text-sm font-medium text-gray-700">
-                                            Paste the {source?.name} URL
-                                        </label>
-                                        <div className="relative">
-                                            <input
-                                                type="text"
-                                                value={url}
-                                                onChange={(e) => setUrl(e.target.value)}
-                                                placeholder={source?.placeholder}
-                                                className="w-full border border-gray-300 rounded-md px-4 py-2 pr-10"
-                                            />
-                                            <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-                                                {url.length > 0 &&
-                                                    (isValid ? (
-                                                        <CheckCircle className="text-green-500 w-5 h-5" />
-                                                    ) : (
-                                                        <XCircle className="text-red-500 w-5 h-5" />
-                                                    ))}
-                                            </div>
-                                        </div>
-                                        <span className="text-sm text-gray-500">{source?.example}</span>
+										<div>
+											<button
+												onClick={() =>
+													handleImportTestimonials(
+														url,
+														selectedSource!,
+													)
+												}
+												disabled={!isValid}
+												className={`px-4 py-2 text-white rounded-md transition ${
+													isValid
+														? 'bg-black hover:bg-gray-800'
+														: 'bg-gray-300 cursor-not-allowed'
+												}`}
+											>
+												Import Testimonials
+											</button>
+										</div>
 
-                                        <div>
-                                            <button
-                                                onClick={() => handleImportTestimonials(url, selectedSource!)}
-                                                disabled={!isValid}
-                                                className={`px-4 py-2 text-white rounded-md transition ${isValid ? "bg-black hover:bg-gray-800" : "bg-gray-300 cursor-not-allowed"
-                                                    }`}
-                                            >
-                                                Import Testimonials
-                                            </button>
-                                        </div>
+										<TestimonialsFromOtherSources
+											testimonials={testimonialsToImport}
+											isChecked={isChecked}
+											setChecked={setChecked}
+											tags={[]}
+											checkedItems={checkedItems}
+											workspaceId={workspaceId}
+										/>
+									</div>
+								)}
+							</div>
+						)}
+					</>
+				)}
 
-                                        <TestimonialsFromOtherSources
-                                            testimonials={testimonialsToImport}
-                                            isChecked={isChecked}
-                                            setChecked={setChecked}
-                                            tags={[]}
-                                            checkedItems={checkedItems}
-                                            workspaceId={workspaceId}
-                                        />
-                                    </div>
-                                )}
-                            </div>
-                        )}
-                    </>
-                )}
+				{isUploadingFile && (
+					<div className="max-w-md mx-auto bg-white shadow-lg rounded-lg p-8 border border-gray-200">
+						<h2 className="text-2xl font-semibold text-gray-900 mb-4">
+							Upload a Structured File
+						</h2>
+						<p className="text-gray-600 mb-6">
+							Upload a CSV or JSON file to import testimonials.
+							See a sample template{' '}
+							<Link
+								href="/example_csv_import_testimonials.csv"
+								download="/example_csv_import_testimonials.csv"
+								className="text-blue-600 hover:underline"
+							>
+								here
+							</Link>
+							.
+						</p>
 
-                {isUploadingFile && (
-                    <div className="max-w-md mx-auto bg-white shadow-lg rounded-lg p-8 border border-gray-200">
-                        <h2 className="text-2xl font-semibold text-gray-900 mb-4">Upload a Structured File</h2>
-                        <p className="text-gray-600 mb-6">
-                            Upload a CSV or JSON file to import testimonials. See a sample template{" "}
-                            <Link
-                                href="/example_csv_import_testimonials.csv"
-                                download="/example_csv_import_testimonials.csv"
-                                className="text-blue-600 hover:underline"
-                            >
-                                here
-                            </Link>
-                            .
-                        </p>
+						<label
+							htmlFor="file-upload"
+							className="flex items-center justify-center w-full h-40 border-2 border-dashed border-gray-300 rounded-md cursor-pointer hover:border-blue-500 transition-colors bg-gray-50"
+						>
+							<svg
+								className="w-10 h-10 text-blue-500 mr-3"
+								fill="none"
+								stroke="currentColor"
+								strokeWidth="2"
+								viewBox="0 0 24 24"
+								xmlns="http://www.w3.org/2000/svg"
+								aria-hidden="true"
+							>
+								<path
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									d="M7 16v4h10v-4m-5-12v12m-5-5l5-5 5 5"
+								></path>
+							</svg>
+							<span className="text-gray-600 font-medium">
+								Click to upload or drag and drop your file
+							</span>
+							<input
+								type="file"
+								id="file-upload"
+								accept=".csv,.json"
+								onChange={handleFileChange}
+								className="hidden"
+							/>
+						</label>
 
-                        <label
-                            htmlFor="file-upload"
-                            className="flex items-center justify-center w-full h-40 border-2 border-dashed border-gray-300 rounded-md cursor-pointer hover:border-blue-500 transition-colors bg-gray-50"
-                        >
-                            <svg
-                                className="w-10 h-10 text-blue-500 mr-3"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg"
-                                aria-hidden="true"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="M7 16v4h10v-4m-5-12v12m-5-5l5-5 5 5"
-                                ></path>
-                            </svg>
-                            <span className="text-gray-600 font-medium">Click to upload or drag and drop your file</span>
-                            <input
-                                type="file"
-                                id="file-upload"
-                                accept=".csv,.json"
-                                onChange={handleFileChange}
-                                className="hidden"
-                            />
-                        </label>
+						<div className="flex justify-between mt-4 text-sm text-gray-500">
+							<span>
+								Supported formats:{' '}
+								<span className="font-semibold text-gray-700">
+									CSV, XLSX, XLS, JSON
+								</span>
+							</span>
+							<span>
+								Max size:{' '}
+								<span className="font-semibold text-gray-700">
+									5MB
+								</span>
+							</span>
+						</div>
+					</div>
+				)}
+			</div>
+		</div>
+	)
+}
 
-                        <div className="flex justify-between mt-4 text-sm text-gray-500">
-                            <span>Supported formats: <span className="font-semibold text-gray-700">CSV, XLSX, XLS, JSON</span></span>
-                            <span>Max size: <span className="font-semibold text-gray-700">5MB</span></span>
-                        </div>
-                    </div>
-                )}
-
-            </div>
-        </div>
-    );
-};
-
-export default ImportTestimonialsPage;
+export default ImportTestimonialsPage

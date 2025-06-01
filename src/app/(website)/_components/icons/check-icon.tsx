@@ -12,4 +12,4 @@ export const CheckIcon = () => (
 			clipRule="evenodd"
 		></path>
 	</svg>
-);
+)
