@@ -77,6 +77,11 @@ export default function RootLayout({
 					src={`${process.env.NEXT_PUBLIC_HOST_URL}/form-embed.iife.js`}
 					strategy="afterInteractive"
 				/>
+
+				<Script
+					src='https://js.howdygo.com/v1.2.1/index.js'
+					strategy="afterInteractive"
+				/>
 			</html>
 		</ClerkProvider>
 	);
