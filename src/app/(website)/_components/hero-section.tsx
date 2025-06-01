@@ -13,11 +13,9 @@ export const HeroSection = () => {
 							{/* @ts-ignore */}
 							<feedbackz-widget data-widget-id="uOQcCM3"></feedbackz-widget>
 
+							{/* prettier-ignore */}
 							{/* @ts-ignore */}
-							<feedbackz-form
-								data-form-id="KAVTPAry"
-								data-widget-type="chat-style-floading-widget"
-							></feedbackz-form>
+							<feedbackz-form data-form-id="KAVTPAry" data-widget-type="chat-style-floading-widget"></feedbackz-form>
 
 							<Image
 								src={'/images/made-with-feedbackz-white.png'}
