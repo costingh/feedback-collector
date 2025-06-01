@@ -264,13 +264,9 @@ const TestimonialPopup: React.FC<TestimonialPopupProps> = ({
 														</span>
 													)}
 												</span>
-												<input
-													// @ts-ignore
-													value={
-														userInfoValue[
-															input.key
-														] || ''
-													}
+												{/* prettier-ignore */}
+												{/* @ts-ignore */}
+												<input value={ userInfoValue[input.key] || ''}
 													onChange={(e) =>
 														handleInputChange(
 															input.key,
