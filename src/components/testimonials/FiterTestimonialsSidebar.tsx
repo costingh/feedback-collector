@@ -35,9 +35,8 @@ const TagComponent = ({
 	)
 }
 
-{
-	/* @ts-ignore */
-}
+// prettier-ignore
+{/* @ts-ignore */}
 const FiterTestimonialsSidebar: React.FC = ({
 	testimonials,
 	filters,

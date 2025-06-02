@@ -27,9 +27,9 @@ import {
 
 interface CustomizeLabelsProps {
 	widget:
-		| (Widget & { _count: { testimonials: number } } & { avgStars: number })
-		| null
-		| undefined
+	| (Widget & { _count: { testimonials: number } } & { avgStars: number })
+	| null
+	| undefined
 	setWidget: (widget: Widget) => void
 }
 
@@ -63,7 +63,7 @@ const CustomizeWidget: React.FC<CustomizeLabelsProps> = ({
 				widget?.starsVariant || '',
 			),
 		['shared-widget'],
-		() => {},
+		() => { },
 	)
 
 	const handleChangeAssetValue = (value: string) => {
@@ -160,12 +160,12 @@ const CustomizeWidget: React.FC<CustomizeLabelsProps> = ({
 					</span>
 					<ColorPicker
 						inputValue={widget?.starsColor}
+						// prettier-ignore
 						// @ts-ignore
-						setInputValue={(color: string) =>
-							setWidget((prevWidget) => ({
-								...prevWidget,
-								starsColor: color,
-							}))
+						setInputValue={(color: string) => setWidget((prevWidget) => ({
+							...prevWidget,
+							starsColor: color,
+						}))
 						}
 					/>
 				</div>
@@ -302,12 +302,12 @@ const CustomizeWidget: React.FC<CustomizeLabelsProps> = ({
 							</span>
 							<ColorPicker
 								inputValue={widget?.primaryTextColor}
+								// prettier-ignore
 								// @ts-ignore
-								setInputValue={(color: string) =>
-									setWidget((prevWidget) => ({
-										...prevWidget,
-										primaryTextColor: color,
-									}))
+								setInputValue={(color: string) => setWidget((prevWidget) => ({
+									...prevWidget,
+									primaryTextColor: color,
+								}))
 								}
 							/>
 						</div>
@@ -319,12 +319,12 @@ const CustomizeWidget: React.FC<CustomizeLabelsProps> = ({
 								</span>
 								<ColorPicker
 									inputValue={widget?.secondaryTextColor}
+									// prettier-ignore
 									// @ts-ignore
-									setInputValue={(color: string) =>
-										setWidget((prevWidget) => ({
-											...prevWidget,
-											secondaryTextColor: color,
-										}))
+									setInputValue={(color: string) => setWidget((prevWidget) => ({
+										...prevWidget,
+										secondaryTextColor: color,
+									}))
 									}
 								/>
 							</div>
@@ -343,12 +343,12 @@ const CustomizeWidget: React.FC<CustomizeLabelsProps> = ({
 							</span>
 							<ColorPicker
 								inputValue={widget?.cardBackground}
+								// prettier-ignore
 								// @ts-ignore
-								setInputValue={(color: string) =>
-									setWidget((prevWidget) => ({
-										...prevWidget,
-										cardBackground: color,
-									}))
+								setInputValue={(color: string) => setWidget((prevWidget) => ({
+									...prevWidget,
+									cardBackground: color,
+								}))
 								}
 							/>
 						</div>
@@ -358,12 +358,12 @@ const CustomizeWidget: React.FC<CustomizeLabelsProps> = ({
 							</span>
 							<ColorPicker
 								inputValue={widget?.primaryTextColor}
+								// prettier-ignore
 								// @ts-ignore
-								setInputValue={(color: string) =>
-									setWidget((prevWidget) => ({
-										...prevWidget,
-										primaryTextColor: color,
-									}))
+								setInputValue={(color: string) => setWidget((prevWidget) => ({
+									...prevWidget,
+									primaryTextColor: color,
+								}))
 								}
 							/>
 						</div>
@@ -373,12 +373,12 @@ const CustomizeWidget: React.FC<CustomizeLabelsProps> = ({
 							</span>
 							<ColorPicker
 								inputValue={widget?.secondaryTextColor}
+								// prettier-ignore
 								// @ts-ignore
-								setInputValue={(color: string) =>
-									setWidget((prevWidget) => ({
-										...prevWidget,
-										secondaryTextColor: color,
-									}))
+								setInputValue={(color: string) => setWidget((prevWidget) => ({
+									...prevWidget,
+									secondaryTextColor: color,
+								}))
 								}
 							/>
 						</div>
@@ -388,12 +388,12 @@ const CustomizeWidget: React.FC<CustomizeLabelsProps> = ({
 							</span>
 							<ColorPicker
 								inputValue={widget?.thirdTextColor}
+								// prettier-ignore
 								// @ts-ignore
-								setInputValue={(color: string) =>
-									setWidget((prevWidget) => ({
-										...prevWidget,
-										thirdTextColor: color,
-									}))
+								setInputValue={(color: string) => setWidget((prevWidget) => ({
+									...prevWidget,
+									thirdTextColor: color,
+								}))
 								}
 							/>
 						</div>
@@ -403,12 +403,12 @@ const CustomizeWidget: React.FC<CustomizeLabelsProps> = ({
 							</span>
 							<ColorPicker
 								inputValue={widget?.cardBorderColor}
+								// prettier-ignore
 								// @ts-ignore
-								setInputValue={(color: string) =>
-									setWidget((prevWidget) => ({
-										...prevWidget,
-										cardBorderColor: color,
-									}))
+								setInputValue={(color: string) => setWidget((prevWidget) => ({
+									...prevWidget,
+									cardBorderColor: color,
+								}))
 								}
 							/>
 						</div>
@@ -427,12 +427,12 @@ const CustomizeWidget: React.FC<CustomizeLabelsProps> = ({
 								</span>
 								<ColorPicker
 									inputValue={widget?.cardBackground}
+									// prettier-ignore
 									// @ts-ignore
-									setInputValue={(color: string) =>
-										setWidget((prevWidget) => ({
-											...prevWidget,
-											cardBackground: color,
-										}))
+									setInputValue={(color: string) => setWidget((prevWidget) => ({
+										...prevWidget,
+										cardBackground: color,
+									}))
 									}
 								/>
 							</div>
@@ -442,12 +442,12 @@ const CustomizeWidget: React.FC<CustomizeLabelsProps> = ({
 								</span>
 								<ColorPicker
 									inputValue={widget?.primaryTextColor}
+									// prettier-ignore
 									// @ts-ignore
-									setInputValue={(color: string) =>
-										setWidget((prevWidget) => ({
-											...prevWidget,
-											primaryTextColor: color,
-										}))
+									setInputValue={(color: string) => setWidget((prevWidget) => ({
+										...prevWidget,
+										primaryTextColor: color,
+									}))
 									}
 								/>
 							</div>
@@ -457,12 +457,12 @@ const CustomizeWidget: React.FC<CustomizeLabelsProps> = ({
 								</span>
 								<ColorPicker
 									inputValue={widget?.secondaryTextColor}
+									// prettier-ignore
 									// @ts-ignore
-									setInputValue={(color: string) =>
-										setWidget((prevWidget) => ({
-											...prevWidget,
-											secondaryTextColor: color,
-										}))
+									setInputValue={(color: string) => setWidget((prevWidget) => ({
+										...prevWidget,
+										secondaryTextColor: color,
+									}))
 									}
 								/>
 							</div>
@@ -472,12 +472,12 @@ const CustomizeWidget: React.FC<CustomizeLabelsProps> = ({
 								</span>
 								<ColorPicker
 									inputValue={widget?.thirdTextColor}
+									// prettier-ignore
 									// @ts-ignore
-									setInputValue={(color: string) =>
-										setWidget((prevWidget) => ({
-											...prevWidget,
-											thirdTextColor: color,
-										}))
+									setInputValue={(color: string) => setWidget((prevWidget) => ({
+										...prevWidget,
+										thirdTextColor: color,
+									}))
 									}
 								/>
 							</div>
@@ -487,12 +487,12 @@ const CustomizeWidget: React.FC<CustomizeLabelsProps> = ({
 								</span>
 								<ColorPicker
 									inputValue={widget?.cardBorderColor}
+									// prettier-ignore
 									// @ts-ignore
-									setInputValue={(color: string) =>
-										setWidget((prevWidget) => ({
-											...prevWidget,
-											cardBorderColor: color,
-										}))
+									setInputValue={(color: string) => setWidget((prevWidget) => ({
+										...prevWidget,
+										cardBorderColor: color,
+									}))
 									}
 								/>
 							</div>
@@ -510,12 +510,12 @@ const CustomizeWidget: React.FC<CustomizeLabelsProps> = ({
 							</span>
 							<ColorPicker
 								inputValue={widget?.cardBackground}
+								// prettier-ignore
 								// @ts-ignore
-								setInputValue={(color: string) =>
-									setWidget((prevWidget) => ({
-										...prevWidget,
-										cardBackground: color,
-									}))
+								setInputValue={(color: string) => setWidget((prevWidget) => ({
+									...prevWidget,
+									cardBackground: color,
+								}))
 								}
 							/>
 						</div>
@@ -525,12 +525,12 @@ const CustomizeWidget: React.FC<CustomizeLabelsProps> = ({
 							</span>
 							<ColorPicker
 								inputValue={widget?.primaryTextColor}
+								// prettier-ignore
 								// @ts-ignore
-								setInputValue={(color: string) =>
-									setWidget((prevWidget) => ({
-										...prevWidget,
-										primaryTextColor: color,
-									}))
+								setInputValue={(color: string) => setWidget((prevWidget) => ({
+									...prevWidget,
+									primaryTextColor: color,
+								}))
 								}
 							/>
 						</div>
@@ -540,12 +540,12 @@ const CustomizeWidget: React.FC<CustomizeLabelsProps> = ({
 							</span>
 							<ColorPicker
 								inputValue={widget?.secondaryTextColor}
+								// prettier-ignore
 								// @ts-ignore
-								setInputValue={(color: string) =>
-									setWidget((prevWidget) => ({
-										...prevWidget,
-										secondaryTextColor: color,
-									}))
+								setInputValue={(color: string) => setWidget((prevWidget) => ({
+									...prevWidget,
+									secondaryTextColor: color,
+								}))
 								}
 							/>
 						</div>
@@ -563,12 +563,12 @@ const CustomizeWidget: React.FC<CustomizeLabelsProps> = ({
 							</span>
 							<ColorPicker
 								inputValue={widget?.cardBackground}
+								// prettier-ignore
 								// @ts-ignore
-								setInputValue={(color: string) =>
-									setWidget((prevWidget) => ({
-										...prevWidget,
-										cardBackground: color,
-									}))
+								setInputValue={(color: string) => setWidget((prevWidget) => ({
+									...prevWidget,
+									cardBackground: color,
+								}))
 								}
 							/>
 						</div>
@@ -578,12 +578,12 @@ const CustomizeWidget: React.FC<CustomizeLabelsProps> = ({
 							</span>
 							<ColorPicker
 								inputValue={widget?.primaryTextColor}
+								// prettier-ignore
 								// @ts-ignore
-								setInputValue={(color: string) =>
-									setWidget((prevWidget) => ({
-										...prevWidget,
-										primaryTextColor: color,
-									}))
+								setInputValue={(color: string) => setWidget((prevWidget) => ({
+									...prevWidget,
+									primaryTextColor: color,
+								}))
 								}
 							/>
 						</div>
@@ -593,9 +593,9 @@ const CustomizeWidget: React.FC<CustomizeLabelsProps> = ({
 							</span>
 							<ColorPicker
 								inputValue={widget?.secondaryTextColor}
+								// prettier-ignore
 								// @ts-ignore
-								setInputValue={(color: string) =>
-									setWidget((prevWidget) => ({
+								setInputValue={(color: string) => setWidget((prevWidget) => ({
 										...prevWidget,
 										secondaryTextColor: color,
 									}))
@@ -608,9 +608,9 @@ const CustomizeWidget: React.FC<CustomizeLabelsProps> = ({
 							</span>
 							<ColorPicker
 								inputValue={widget?.thirdTextColor}
+								// prettier-ignore
 								// @ts-ignore
-								setInputValue={(color: string) =>
-									setWidget((prevWidget) => ({
+								setInputValue={(color: string) => setWidget((prevWidget) => ({
 										...prevWidget,
 										thirdTextColor: color,
 									}))
