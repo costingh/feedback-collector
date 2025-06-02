@@ -115,18 +115,31 @@ export const HeroSection = () => {
 						</span>
 					</div>
 
-					<a
-						href="https://startupfa.me/s/feedbackz.co?utm_source=feedbackz.co"
-						target="_blank"
-					>
-						<img
-							src="https://startupfa.me/badges/featured/dark-rounded.webp"
-							alt="Featured on Startup Fame"
-							width="171"
-							height="54"
-							className="fixed bottom-[20px] right-[100px] z-[999]"
-						/>
-					</a>
+					<div className="flex items-center gap-10 mt-4">
+						<a
+							href="https://startupfa.me/s/feedbackz.co?utm_source=feedbackz.co"
+							target="_blank"
+						>
+							<img
+								src="https://startupfa.me/badges/featured/dark-rounded.webp"
+								alt="Featured on Startup Fame"
+								width="171"
+								height="54"
+							/>
+						</a>
+
+						<a
+							href="https://peerlist.io/costingh/project/feedbackzco"
+							target="_blank"
+						>
+							<img
+								src="/images/landing-page/peerlist-launch-dark-badge.svg"
+								alt="Peerlist Launch Badge"
+								width="171"
+								height="54"
+							/>
+						</a>
+					</div>
 				</div>
 			</div>
 		</div>
