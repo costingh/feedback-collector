@@ -128,6 +128,7 @@ export const HeroSection = () => {
 							/>
 						</a>
 
+						<a href="https://www.producthunt.com/products/feedbackz-2?embed=true&utm_source=badge-featured&utm_medium=badge&utm_source=badge-feedbackz&#0045;2" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=973036&theme=dark&t=1748935237964" alt="Feedbackz - Social&#0032;proof&#0032;that&#0032;builds&#0032;trust&#0032;and&#0032;drives&#0032;sales | Product Hunt" style={{width: '250px', height: '54px'}} width="250" height="54" /></a>
 						<a
 							href="https://peerlist.io/costingh/project/feedbackzco"
 							target="_blank"
@@ -139,6 +140,7 @@ export const HeroSection = () => {
 								height="54"
 							/>
 						</a>
+
 					</div>
 				</div>
 			</div>
