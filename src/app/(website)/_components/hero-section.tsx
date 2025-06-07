@@ -141,6 +141,23 @@ export const HeroSection = () => {
 							/>
 						</a>
 
+						<a href="https://frogdr.com/feedbackz.co?utm_source=feedbackz.co" target="_blank">
+							<img
+								src="https://frogdr.com/feedbackz.co/badge-dark.svg?round=1"
+								alt="Monitor your Domain Rating with FrogDR"
+								width="250"
+								height="54"
+							/>
+						</a>
+
+						<a href="https://twelve.tools" target="_blank">
+							<img
+								src="https://twelve.tools/badge0-dark.svg"
+								alt="Featured on Twelve Tools"
+								width="200"
+								height="54"
+							/>
+						</a>
 					</div>
 				</div>
 			</div>
