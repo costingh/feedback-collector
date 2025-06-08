@@ -1,66 +1,88 @@
+// app/api/scrape/route.ts (or .js depending on your setup)
 import { NextResponse } from 'next/server'
-import puppeteer from 'puppeteer'
+import axios from 'axios'
+import { g2ReviewsMock } from '@/mocks/g2-reviews-mock'
+import { SUBSCRIPTION_PLAN } from '@prisma/client'
+import { client } from '@/lib/prisma'
+import { currentUser } from '@clerk/nextjs/server'
 
 export async function POST(req: Request) {
-	try {
-		const { url } = await req.json()
+  try {
+    const { url, workspaceId } = await req.json()
 
-		if (!url || !url.includes('g2.com/products/')) {
-			return new NextResponse('Invalid URL', { status: 400 })
+    if (!url || !url.includes('g2.com/products/')) {
+      return new NextResponse('Invalid URL', { status: 400 })
+    }
+
+    // Extract the product slug from the G2 URL (e.g., postman from g2.com/products/postman/)
+    const match = url.match(/g2\.com\/products\/([^\/]+)/)
+    const product = match?.[1]
+
+    if (!product) {
+      return new NextResponse('Product not found in URL', { status: 400 })
+    }
+
+	const user = await currentUser()
+		if (!user) {
+			return NextResponse.json({ error: 'Unauthorized.' }, { status: 401 })
 		}
 
-		const browser = await puppeteer.launch({ headless: 'shell' }) // or "new" for v22+
-		const page = await browser.newPage()
+	const currentUserData = await client.user.findUnique({
+		where: {
+			clerkid: user.id,
+		},
+	})
+	
+	const plan = await client.subscription.findUnique({
+		where: {
+			userId: currentUserData?.id,
+		},
+		select: {
+			plan: true,
+		},
+	})
 
-		const reviewsUrl =
-			url + '/reviews?filters%5Bkeyphrases%5D=&order=g2_default'
-		await page.goto(reviewsUrl, {
-			waitUntil: 'networkidle2',
-			timeout: 0,
-		})
+	let importsLimit = 1;
 
-		console.log(await page.evaluate(() => document.body.innerHTML))
-
-		const reviews = await page.evaluate(() => {
-			const reviewEls = document.querySelectorAll(
-				'[id^="survey_response_"]',
-			)
-
-			console.log(reviewEls)
-
-			return Array.from(reviewEls)
-				.slice(0, 5)
-				.map((el) => {
-					const name =
-						el
-							.querySelector('meta[itemprop="author"]')
-							?.getAttribute('content') || ''
-					const message =
-						el
-							.querySelector('meta[itemprop="reviewBody"]')
-							?.getAttribute('content') || ''
-					const stars = 5 // You can parse actual stars here if needed
-					const avatar = ''
-					const jobTitle = ''
-
-					return {
-						id: Math.random().toString(36).substring(2),
-						name,
-						message,
-						stars,
-						avatar,
-						jobTitle,
-						source: 'G2',
-						createdAt: new Date().toISOString(),
-					}
-				})
-		})
-
-		await browser.close()
-
-		return NextResponse.json({ result: reviews })
-	} catch (error) {
-		console.error('SCRAPER ERROR:', error)
-		return new NextResponse('Scraping failed', { status: 500 })
+	if (plan?.plan == SUBSCRIPTION_PLAN.FREE) {
+		importsLimit = 1;
+	} else if (plan?.plan == SUBSCRIPTION_PLAN.PRO) {
+		importsLimit = 10;
+	} else if (plan?.plan == SUBSCRIPTION_PLAN.BUSINESS) {
+		importsLimit = 25;
 	}
+
+	const currentUserImportCounter = await client.user.findUnique({
+		where: {
+			clerkid: user.id,
+		},
+		select: {
+			testiImportCounter: true,
+		},
+	})
+
+	if(currentUserImportCounter?.testiImportCounter && currentUserImportCounter.testiImportCounter >= importsLimit) {
+		return NextResponse.json({ error: 'You have reached the maximum number of imports.' }, { status: 403 })
+	}
+
+    const response = await axios.get('https://g2-data-api.p.rapidapi.com/g2-products', {
+      params: {
+        product,
+        max_reviews: 1000,
+      },
+      headers: {
+        'x-rapidapi-host': 'g2-data-api.p.rapidapi.com',
+        'x-rapidapi-key': '6b22ed3204msh2bbb241e26ef785p12c1c2jsn323e67260591',
+      },
+    })
+
+	// const response = {data: g2ReviewsMock}
+
+    const reviews = response.data
+
+    return NextResponse.json({ result: reviews })
+  } catch (error) {
+    console.error('SCRAPER ERROR:', error)
+    return new NextResponse('Scraping failed', { status: 500 })
+  }
 }

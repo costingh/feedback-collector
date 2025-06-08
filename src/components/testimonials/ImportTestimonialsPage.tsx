@@ -1,6 +1,5 @@
 'use client'
 
-import Image from 'next/image'
 import { useState } from 'react'
 import { CheckCircle, Globe, Router, Upload, XCircle } from 'lucide-react'
 import axios from 'axios'
@@ -8,74 +7,13 @@ import { toast } from 'sonner'
 import TestimonialsFromOtherSources from './TestimonialsFromOtherSources'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { sources } from '@/constants/testimonials-sources'
+import { getUserTestiImportCounter } from '@/actions/workspace'
+import { useQuery } from '@tanstack/react-query'
 
 type Props = {
 	workspaceId: string
 }
-
-const sources = [
-	{
-		name: 'G2',
-		id: 'g2',
-		logo: (
-			<Image
-				src="/images/testimonials-import-sources/g2.png"
-				alt="G2 logo"
-				width={20}
-				height={20}
-			/>
-		),
-		example: 'https://www.g2.com/products/feedbackz',
-		placeholder: 'https://www.g2.com/products/[business-name]',
-		pattern: /^https:\/\/www\.g2\.com\/products\/[a-zA-Z0-9-]+$/,
-	},
-	{
-		name: 'Capterra',
-		id: 'capterra',
-		logo: (
-			<Image
-				src="/images/testimonials-import-sources/capterra.png"
-				alt="Capterra logo"
-				width={20}
-				height={20}
-			/>
-		),
-		example: 'https://www.capterra.com/p/1234567890/feedbackz',
-		placeholder: 'https://www.capterra.com/p/[product-id]',
-		pattern: /^https:\/\/www\.capterra\.com\/p\/[0-9]+\/[a-zA-Z0-9-]+$/,
-	},
-	{
-		name: 'Trustpilot',
-		id: 'trustpilot',
-		logo: (
-			<Image
-				src="/images/testimonials-import-sources/trustpilot.png"
-				alt="Trustpilot logo"
-				width={20}
-				height={20}
-			/>
-		),
-		example: 'https://www.trustpilot.com/review/feedbackz.com',
-		placeholder: 'https://www.trustpilot.com/reviews/[website.com]',
-		pattern:
-			/^https:\/\/www\.trustpilot\.com\/review\/[a-zA-Z0-9.-]+\.[a-z]+$/,
-	},
-	{
-		name: 'X (Twitter)',
-		id: 'x',
-		logo: (
-			<Image
-				src="/images/testimonials-import-sources/twitterx.png"
-				alt="X logo"
-				width={20}
-				height={20}
-			/>
-		),
-		example: 'https://x.com/feedbackz/status/1234567890',
-		placeholder: 'https://x.com/[username]/status/[tweet-id]',
-		pattern: /^https:\/\/x\.com\/[a-zA-Z0-9_]+\/status\/[0-9]+$/,
-	},
-]
 
 const ImportTestimonialsPage = ({ workspaceId }: Props) => {
 	const [showSources, setShowSources] = useState(false)
@@ -90,48 +28,61 @@ const ImportTestimonialsPage = ({ workspaceId }: Props) => {
 	const [file, setFile] = useState<File | null>(null)
 	const router = useRouter()
 
+	const { data: testiImportCounter } = useQuery({
+		queryKey: ['user-testi-import-counter', workspaceId],
+		queryFn: () => getUserTestiImportCounter(workspaceId),
+	})
+
+
 	const handleImportTestimonials = async (url: string, source: string) => {
-		setIsChoosingSources(false)
-		console.log(`Importing testimonials from ${url} using ${source}`)
+		try {
+			setIsChoosingSources(false)
+			console.log(`Importing testimonials from ${url} using ${source}`)
 
-		if (!url.trim()) {
-			toast.error('Url cannot be empty')
-			return
+			if (!url.trim()) {
+				toast.error('Url cannot be empty')
+				return
+			}
+
+			// You may want to dynamically select API path based on source param
+			const response = await axios.post(
+				'/api/import-testimonials/g2-testimonials',
+				{
+					url,
+					workspaceId
+				},
+			)
+
+			const data = response?.data?.result
+			const reviews = data?.all_reviews
+
+			const testimonials = reviews?.map((review: any) => ({
+				id: review?.review_id,
+				name: review?.reviewer?.reviewer_name,
+				message: review?.review_content,
+				jobTitle: review?.reviewer?.reviewer_job_title,
+				website: review?.reviewer?.reviewer_link,
+				createdAt: review?.publish_date,
+				video: review?.video_link,
+				// logo: review?.product_logo,
+				link: review?.review_link,
+				source: 'G2',
+				company: review?.product_name,
+				stars: review?.review_rating,
+				email: review?.reviewer?.reviewer_email,
+				avatar: review?.reviewer?.reviewer_avatar,
+				tags: review?.review_question_answers?.map(
+					(answer: any) => answer?.question,
+				),
+			}))
+
+			// console.log(reviews[0]);
+			setTestimonialsToImport(testimonials)
+		} catch (error) {
+			setIsChoosingSources(true)
+			console.error(error)
+			toast.error('Failed to import testimonials. You reached your limit')
 		}
-
-		// You may want to dynamically select API path based on source param
-		const response = await axios.post(
-			'/api/import-testimonials/g2-testimonials',
-			{
-				url,
-			},
-		)
-
-		const data = response?.data?.result
-		const reviews = data?.all_reviews
-
-		const testimonials = reviews?.map((review: any) => ({
-			id: review?.review_id,
-			name: review?.reviewer?.reviewer_name,
-			message: review?.review_content,
-			jobTitle: review?.reviewer?.reviewer_job_title,
-			website: review?.reviewer?.reviewer_link,
-			createdAt: review?.publish_date,
-			video: review?.video_link,
-			// logo: review?.product_logo,
-			link: review?.review_link,
-			source: 'G2',
-			company: review?.product_name,
-			stars: review?.review_rating,
-			email: review?.reviewer?.reviewer_email,
-			avatar: review?.reviewer?.reviewer_avatar,
-			tags: review?.review_question_answers?.map(
-				(answer: any) => answer?.question,
-			),
-		}))
-
-		// console.log(reviews[0]);
-		setTestimonialsToImport(testimonials)
 	}
 
 	const isChecked = (id: number) => {
@@ -208,6 +159,9 @@ const ImportTestimonialsPage = ({ workspaceId }: Props) => {
 					<h2 className="text-xl font-semibold">
 						Import Testimonials ✨
 					</h2>
+					<p className="text-sm text-gray-500">
+						Current imports: {testiImportCounter?.data}
+					</p>
 				</div>
 
 				{(isChoosingSources || isUploadingFile) && (
@@ -216,13 +170,13 @@ const ImportTestimonialsPage = ({ workspaceId }: Props) => {
 						<div className="space-y-4">
 							{/* Import from Website */}
 							<div
-								// onClick={() => setShowSources(!showSources)}
+								onClick={() => setShowSources(!showSources)}
 								className="relative w-full flex items-start gap-4 border border-gray-300 rounded-md p-4 cursor-pointer hover:bg-gray-50 transition"
 							>
 								{/* Badge */}
-								<span className="absolute top-2 right-2 bg-red-100 text-red-700 text-xs font-semibold px-2 py-0.5 rounded-full select-none">
+								{/* <span className="absolute top-2 right-2 bg-red-100 text-red-700 text-xs font-semibold px-2 py-0.5 rounded-full select-none">
 									Not Supported Yet
-								</span>
+								</span> */}
 
 								<div className="text-blue-500 mt-1">
 									<Globe className="w-6 h-6" />
@@ -271,11 +225,10 @@ const ImportTestimonialsPage = ({ workspaceId }: Props) => {
 												setSelectedSource(src.id)
 												setUrl('')
 											}}
-											className={`w-[80px] h-[80px] flex flex-col items-center justify-center border rounded-md cursor-pointer hover:bg-gray-100 transition ${
-												selectedSource === src.id
-													? 'border-black'
-													: 'border-gray-300'
-											}`}
+											className={`w-[80px] h-[80px] flex flex-col items-center justify-center border rounded-md cursor-pointer hover:bg-gray-100 transition ${selectedSource === src.id
+												? 'border-black'
+												: 'border-gray-300'
+												}`}
 										>
 											<div>{src.logo}</div>
 											<div className="mt-2 text-sm text-center font-medium">
@@ -324,30 +277,29 @@ const ImportTestimonialsPage = ({ workspaceId }: Props) => {
 													)
 												}
 												disabled={!isValid}
-												className={`px-4 py-2 text-white rounded-md transition ${
-													isValid
-														? 'bg-black hover:bg-gray-800'
-														: 'bg-gray-300 cursor-not-allowed'
-												}`}
+												className={`px-4 py-2 text-white rounded-md transition ${isValid
+													? 'bg-black hover:bg-gray-800'
+													: 'bg-gray-300 cursor-not-allowed'
+													}`}
 											>
 												Import Testimonials
 											</button>
 										</div>
-
-										<TestimonialsFromOtherSources
-											testimonials={testimonialsToImport}
-											isChecked={isChecked}
-											setChecked={setChecked}
-											tags={[]}
-											checkedItems={checkedItems}
-											workspaceId={workspaceId}
-										/>
 									</div>
 								)}
 							</div>
 						)}
 					</>
 				)}
+
+				{showSources && selectedSource && testimonialsToImport?.length > 0 && <TestimonialsFromOtherSources
+					testimonials={testimonialsToImport}
+					isChecked={isChecked}
+					setChecked={setChecked}
+					tags={[]}
+					checkedItems={checkedItems}
+					workspaceId={workspaceId}
+				/>}
 
 				{isUploadingFile && (
 					<div className="max-w-md mx-auto bg-white shadow-lg rounded-lg p-8 border border-gray-200">

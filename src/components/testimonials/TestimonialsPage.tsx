@@ -119,6 +119,13 @@ const TestimonialsPage = ({ workspaceId }: Props) => {
 			)
 		}
 
+		if (filters.sources.length > 0) {
+			_filteredTestimonials = _filteredTestimonials.filter((t) =>
+				// @ts-ignore
+				filters.sources.some((source) => t.source == source),
+			)
+		}
+
 		// @ts-ignore
 		setFilteredTestimonials(_filteredTestimonials)
 	}, [filters, testimonials])

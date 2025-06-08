@@ -12,6 +12,7 @@ export const useTestimonialsFilter = (): TestimonialsFilterReturn => {
 		approvalStatus: 'all',
 		tags: [],
 		forms: [],
+		sources: []
 	})
 
 	return {

@@ -8,18 +8,12 @@ import DisplayTestimonialTags from '@/components/tags/DisplayTestimonialTags'
 import { timeAgo } from '@/lib/utils'
 import StarsRating from '@/components/stars/stars-rating'
 import Link from 'next/link'
-import { CircleHelp, Eye } from 'lucide-react'
-import { UnratedIconVariant2 } from '@/app/(website)/_components/icons/unrated-icon-variant-2'
-import { RatedIconVariant2 } from '@/app/(website)/_components/icons/rated-icon-variant-2'
-import {
-	Tooltip,
-	TooltipContent,
-	TooltipProvider,
-	TooltipTrigger,
-} from '@/components/ui/tooltip'
-import Image from 'next/image'
-import TestimonialsSourceComponent from './TestimonialsSourceComponent'
+import { CircleHelp, Eye, Loader2 } from 'lucide-react'
 
+import TestimonialsSourceComponent from './TestimonialsSourceComponent'
+import { toast } from 'sonner'
+import axios from 'axios'
+import { useRouter } from 'next/navigation'
 function TestimonialsFromOtherSources({
 	testimonials,
 	isChecked,
@@ -36,12 +30,12 @@ function TestimonialsFromOtherSources({
 	workspaceId?: string
 }) {
 	const _MAX_CHARACTERS_TO_SHOW = 150
-
+	const [isImporting, setIsImporting] = useState(false)
 	// Inside TestimonialsFromOtherSources component, above return
 	const [expandedMessages, setExpandedMessages] = useState<Set<string>>(
 		new Set(),
 	)
-
+	const router = useRouter()
 	// Helper function to toggle message expansion
 	const toggleExpand = (id: string) => {
 		setExpandedMessages((prev) => {
@@ -55,17 +49,32 @@ function TestimonialsFromOtherSources({
 		})
 	}
 
-	const handleImportSelectedTestimonials = () => {
-		console.log('Importing selected testimonials')
+	const handleImportSelectedTestimonials = async () => {
+		console.log('Importing selected testimonials   ', testimonials)
+		setIsImporting(true)
+		await axios.post(
+			'/api/import-testimonials/bulk-import-g2',
+			{
+				workspaceId,
+				testimonials: testimonials.filter((t: any) => checkedItems.has(t.id)),
+			},
+		)
+
+		toast.success('Testimonials uploaded successfully!')
+		router.push(`/dashboard/${workspaceId}/testimonials`)
+		setIsImporting(false)
 	}
 
 	const canImportSelectedTestimonials = () => {
-		// return selectedTestimonials.length > 0;
-		return true
+		return checkedItems.size > 0;
 	}
 
 	const handleCheckAll = () => {
 		setChecked(new Set(testimonials.map((t: any) => t.id)))
+	}
+
+	const handleUnselectAll = () => {
+		setChecked(new Set())
 	}
 
 	return (
@@ -79,8 +88,8 @@ function TestimonialsFromOtherSources({
 							style={
 								isChecked(t.id)
 									? {
-											background: 'rgb(243 244 246)',
-										}
+										background: 'rgb(243 244 246)',
+									}
 									: {}
 							}
 						>
@@ -134,20 +143,20 @@ function TestimonialsFromOtherSources({
 								<div className="my-3 text-[15px] text-gray-700 font-normal max-w-[700px]">
 									{t?.message.length >
 										_MAX_CHARACTERS_TO_SHOW &&
-									!expandedMessages.has(t.id)
+										!expandedMessages.has(t.id)
 										? `${t.message.slice(0, _MAX_CHARACTERS_TO_SHOW)}... `
 										: t.message}
 									{t?.message.length >
 										_MAX_CHARACTERS_TO_SHOW && (
-										<span
-											onClick={() => toggleExpand(t.id)}
-											className="text-blue-500 cursor-pointer hover:underline ml-1 text-sm"
-										>
-											{expandedMessages.has(t.id)
-												? 'See less'
-												: 'See more'}
-										</span>
-									)}
+											<span
+												onClick={() => toggleExpand(t.id)}
+												className="text-blue-500 cursor-pointer hover:underline ml-1 text-sm"
+											>
+												{expandedMessages.has(t.id)
+													? 'See less'
+													: 'See more'}
+											</span>
+										)}
 								</div>
 
 								<div className="flex items-center justify-start gap-2">
@@ -192,24 +201,41 @@ function TestimonialsFromOtherSources({
 					<div>
 						<button
 							onClick={handleImportSelectedTestimonials}
-							disabled={!canImportSelectedTestimonials()}
-							className={`px-4 py-2 text-white rounded-md transition ${
-								canImportSelectedTestimonials()
+							disabled={!canImportSelectedTestimonials() || isImporting}
+							className={`px-4 py-2 text-white rounded-md transition min-w-[150px] min-h-[30px] ${canImportSelectedTestimonials()
 									? 'bg-black hover:bg-gray-800'
 									: 'bg-gray-300 cursor-not-allowed'
-							}`}
+								}`}
 						>
-							Import Testimonials
+							{isImporting ? (
+								<Loader2 size={14} className="spin mx-auto" />
+							) : (
+								'Import Testimonials'
+							)}
 						</button>
 					</div>
 					<div
-						// onClick={handleCheckAll}
+						onClick={handleCheckAll}
 						className="flex items-center gap-3 cursor-pointer px-4 py-2 transition-all hover:bg-gray-200 bg-gray-100 rounded-[6px]"
 					>
 						<span className="text-[16px] text-gray-500 whitespace-nowrap">
 							Select All
 						</span>
 					</div>
+
+					{checkedItems?.size > 0 && (
+						<div
+							onClick={handleUnselectAll}
+							className="flex items-center gap-3 cursor-pointer px-4 py-2 transition-all hover:bg-gray-200 bg-gray-100 rounded-[6px]"
+						>
+							<span className="text-[16px] text-gray-500 whitespace-nowrap">
+								Unselect All
+							</span>
+						</div>)}
+
+					{checkedItems?.size > 0 && (
+						<p>{checkedItems?.size} selected</p>
+					)}
 				</div>
 
 				<div className="flex items-center gap-4">
@@ -219,14 +245,14 @@ function TestimonialsFromOtherSources({
 						</p>
 					)}
 
-					<div
+					{/* <div
 						onClick={handleCheckAll}
 						className="flex items-center gap-3 cursor-pointer px-4 py-2 transition-all hover:bg-gray-200 bg-gray-100 rounded-[6px]"
 					>
 						<span className="text-[16px] text-gray-500 whitespace-nowrap">
 							Filter
 						</span>
-					</div>
+					</div> */}
 				</div>
 			</div>
 		</>

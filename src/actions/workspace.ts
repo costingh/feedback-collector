@@ -182,3 +182,23 @@ export const getUserTestimonials = async (workspaceId: string) => {
 		return { status: 400 }
 	}
 }
+
+export const getUserTestiImportCounter = async (workspaceId: string) => {
+	try {
+		const user = await currentUser()
+		if (!user) return { status: 404 }
+
+		const counter = await client.user.findUnique({
+			where: {
+				clerkid: user.id,
+			},
+			select: {
+				testiImportCounter: true,
+			},
+		})
+
+		return { status: 200, data: counter?.testiImportCounter }
+	} catch (error) {
+		return { status: 400 }
+	}
+}

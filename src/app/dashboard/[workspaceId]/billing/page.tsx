@@ -1,4 +1,5 @@
 import { getPaymentInfo } from '@/actions/user'
+import { PLANS } from '@/app/(website)/feedbackz-pricing/constants'
 import React from 'react'
 
 type Props = {}
@@ -17,10 +18,7 @@ const BillingPage = async (props: Props) => {
 				</div>
 				<div>
 					<h1 className="text-[16px] text-bold">
-						{/* TODO: get price dynamically */}$
-						{payment?.data?.subscription?.plan === 'PRO'
-							? '99'
-							: '0'}
+						{PLANS.monthly.find(plan => plan.name?.toUpperCase() === payment?.data?.subscription?.plan?.toUpperCase())?.price}
 						/Month
 					</h1>
 					<p className="text-gray-400 text-[12px]">

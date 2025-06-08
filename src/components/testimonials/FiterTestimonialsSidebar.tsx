@@ -1,15 +1,22 @@
 'use client'
 
 import { X } from 'lucide-react'
-import React from 'react'
+import React, { useState } from 'react'
 import { Input } from '@/components/ui/input'
 import { cn, tagCategories } from '@/lib/utils'
 import StarsRating from '@/components/stars/stars-rating'
 import { Tag } from '@/types/Tag'
 import { Form } from '@/types/Form'
 import { Separator } from '@/components/ui/separator'
-import { UnratedIconVariant2 } from '@/app/(website)/_components/icons/unrated-icon-variant-2'
-import { RatedIconVariant2 } from '@/app/(website)/_components/icons/rated-icon-variant-2'
+import { sources } from '@/constants/testimonials-sources'
+import {
+	Tooltip,
+	TooltipContent,
+	TooltipProvider,
+	TooltipTrigger,
+} from '@/components/ui/tooltip'
+import { CircleHelp } from 'lucide-react'
+
 
 const TagComponent = ({
 	label,
@@ -36,7 +43,7 @@ const TagComponent = ({
 }
 
 // prettier-ignore
-{/* @ts-ignore */}
+{/* @ts-ignore */ }
 const FiterTestimonialsSidebar: React.FC = ({
 	testimonials,
 	filters,
@@ -58,6 +65,8 @@ const FiterTestimonialsSidebar: React.FC = ({
 	groupedTags: any
 	userForms: Form[]
 }) => {
+
+	const [selectedSource, setSelectedSource] = useState<string | null>(null)
 	return (
 		<div
 			className={cn(
@@ -170,6 +179,42 @@ const FiterTestimonialsSidebar: React.FC = ({
 
 			<Separator className="w-4/5 my-3" />
 			<span className="text-gray-900 font-semibold text-[14px] mb-2">
+				Sources
+			</span>
+
+			<TooltipProvider>
+				<div className="flex gap-4 pt-2">
+					{sources.map((src) => (
+						<Tooltip delayDuration={0} key={src.id}>
+							<TooltipTrigger asChild>
+								<div
+									
+									onClick={() => {
+										setFilters((prevFilters: any) => ({
+											...prevFilters,
+											sources: prevFilters.sources.includes(src.key)
+												? prevFilters.sources.filter((s: any) => s !== src.key)
+												: [...prevFilters.sources, src.key],
+										}))
+									}}
+									className={`w-[40px] h-[40px] flex flex-col items-center justify-center border rounded-md cursor-pointer hover:bg-gray-100 transition ${filters.sources.includes(src.key)
+										? 'border-black'
+										: 'border-gray-300'
+										}`}
+								>
+									<div>{src.logo}</div>
+								</div>
+							</TooltipTrigger>
+							<TooltipContent>
+								<p>{src.name}</p>
+							</TooltipContent>
+						</Tooltip>
+					))}
+				</div>
+			</TooltipProvider>
+
+			<Separator className="w-4/5 my-3" />
+			<span className="text-gray-900 font-semibold text-[14px] mb-2">
 				Tags
 			</span>
 			<div className="w-full mb-4">
@@ -205,13 +250,13 @@ const FiterTestimonialsSidebar: React.FC = ({
 													(t: any) => t.id == tag.id,
 												)
 													? prevFilters.tags.filter(
-															(t: any) =>
-																t.id != tag.id,
-														)
+														(t: any) =>
+															t.id != tag.id,
+													)
 													: [
-															...prevFilters.tags,
-															tag,
-														],
+														...prevFilters.tags,
+														tag,
+													],
 											}))
 										}
 									/>
@@ -247,9 +292,9 @@ const FiterTestimonialsSidebar: React.FC = ({
 										testimonial.id == form.id,
 								)
 									? prevFilters.forms.filter(
-											(testimonial: any) =>
-												testimonial.id != form.id,
-										)
+										(testimonial: any) =>
+											testimonial.id != form.id,
+									)
 									: [...prevFilters.forms, form],
 							}))
 						}
