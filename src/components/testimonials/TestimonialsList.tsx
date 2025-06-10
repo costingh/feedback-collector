@@ -162,6 +162,7 @@ function TestimonialsList({
 								<div>
 									<Link
 										target="_blank"
+										rel="noopener noreferrer"
 										href={`${process.env.NEXT_PUBLIC_HOST_URL}/dashboard/${workspaceId}/forms/edit/${t?.form?.url?.replace('/p/', '')}`}
 									>
 										<div className="flex items-center border border-indigo-600 cursor-pointer px-2 py-1 rounded-[10px] gap-3">

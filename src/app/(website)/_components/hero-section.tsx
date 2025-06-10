@@ -119,6 +119,7 @@ export const HeroSection = () => {
 						<a
 							href="https://startupfa.me/s/feedbackz.co?utm_source=feedbackz.co"
 							target="_blank"
+							rel="noopener noreferrer"
 						>
 							<img
 								src="https://startupfa.me/badges/featured/dark-rounded.webp"
@@ -132,6 +133,7 @@ export const HeroSection = () => {
 						<a
 							href="https://peerlist.io/costingh/project/feedbackzco"
 							target="_blank"
+							rel="noopener noreferrer"
 						>
 							<img
 								src="/images/landing-page/peerlist-launch-dark-badge.svg"
@@ -141,7 +143,7 @@ export const HeroSection = () => {
 							/>
 						</a>
 
-						<a href="https://frogdr.com/feedbackz.co?utm_source=feedbackz.co" target="_blank">
+						<a href="https://frogdr.com/feedbackz.co?utm_source=feedbackz.co" rel="noopener noreferrer" target="_blank">
 							<img
 								src="https://frogdr.com/feedbackz.co/badge-dark.svg?round=1"
 								alt="Monitor your Domain Rating with FrogDR"
@@ -150,7 +152,7 @@ export const HeroSection = () => {
 							/>
 						</a>
 
-						<a href="https://twelve.tools" target="_blank">
+						<a href="https://twelve.tools" rel="noopener noreferrer" target="_blank">
 							<img
 								src="https://twelve.tools/badge0-dark.svg"
 								alt="Featured on Twelve Tools"

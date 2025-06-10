@@ -156,6 +156,7 @@ function Widget({
 
 							<Link
 								target="_blank"
+								rel="noopener noreferrer"
 								className="hover:bg-gray-200 cursor-pointer rounded-[6px] p-1 flex gap-2 items-center"
 								href={`/dashboard/${workspaceId}/share/edit/${widget?.url}`}
 							>

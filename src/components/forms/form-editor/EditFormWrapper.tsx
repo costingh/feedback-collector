@@ -302,6 +302,7 @@ export default function EditFormWrapper({
 												form?.url
 											}
 											target="_blank"
+											rel="noopener noreferrer"
 										>
 											<SquareArrowOutUpRight
 												size={15}
