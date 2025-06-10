@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
 import Logo from './logo'
+import { LinkedInLogoIcon } from '@radix-ui/react-icons'
 
 function Footer() {
 	return (
@@ -9,6 +10,13 @@ function Footer() {
 				<div className="w-[30%] flex flex-col gap-5">
 					<Logo />
 					<p>Built with 🧠 in 🇷🇴</p>
+					<Link href="https://www.linkedin.com/company/feedbackz-co/" target="_blank" className="flex items-center gap-2">
+						<LinkedInLogoIcon className="w-4 h-4" />
+						<span>
+							Follow us on LinkedIn
+						</span>
+					</Link>
+
 				</div>
 				<div className="w-[70%] flex items-start justify-between">
 					<div className="w-[25%] flex flex-col gap-3">

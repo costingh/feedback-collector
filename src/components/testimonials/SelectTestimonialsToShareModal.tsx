@@ -16,6 +16,7 @@ import { LoadingSpinner } from '../animations/loading-spinner'
 import { useMutationData } from '@/hooks/useMutationData'
 import { updateWidget } from '@/actions/widgets'
 import { Form } from '@/types/Form'
+import { Button } from '../ui/button'
 
 export const SelectTestimonialsToShareModal = ({
 	isOpened,
@@ -42,6 +43,7 @@ export const SelectTestimonialsToShareModal = ({
 }) => {
 	const { filters, setFilters } = useTestimonialsFilter()
 	const [filteredTestimonials, setFilteredTestimonials] = useState([])
+	const [isLoading, setIsLoading] = useState(false)
 
 	useEffect(() => {
 		let _filteredTestimonials = [...testimonials]
@@ -93,7 +95,12 @@ export const SelectTestimonialsToShareModal = ({
 
 		// @ts-ignore
 		setFilteredTestimonials(_filteredTestimonials)
+		setIsLoading(false)
 	}, [filters, testimonials])
+
+	const handleCheckAll = () => {
+		setChecked(new Set(filteredTestimonials.map((t: any) => t.id)))
+	}
 
 	return (
 		<Dialog open={isOpened} onOpenChange={handleClose}>
@@ -106,23 +113,39 @@ export const SelectTestimonialsToShareModal = ({
 				</DialogHeader>
 				<div className="text-center pt-2 space-y-2 text-zinc-900 font-medium flex">
 					<div className="w-[750px] mr-2">
-						<div className="inline-block mb-[20px] w-full text-left">
-							<div className="flex items-center gap-x-2 font-bold text-xl">
-								Approved testimonials
+						<div className="flex justify-between items-center">
+							<div className="inline-block mb-[20px] w-full text-left">
+								<div className="flex items-center gap-x-2 font-bold text-xl">
+									Approved testimonials
+								</div>
+								<p className="text-[15px] text-gray-600 font-normal">
+									New testimonials that you approve wont
+									automatically get added to this widget
+								</p>
 							</div>
-							<p className="text-[15px] text-gray-600 font-normal">
-								New testimonials that you approve wont
-								automatically get added to this widget
-							</p>
+							<div
+								onClick={handleCheckAll}
+								className="flex items-center gap-3 cursor-pointer px-4 py-2 transition-all hover:bg-gray-200 bg-gray-100 rounded-[6px]"
+							>
+								<span className="text-[16px] text-gray-500 whitespace-nowrap">
+									Select All
+								</span>
+							</div>
 						</div>
 
-						<TestimonialsList
-							testimonials={filteredTestimonials}
-							tags={tags}
-							isChecked={isChecked}
-							setChecked={setChecked}
-							checkedItems={checkedItems}
-						/>
+						{!isLoading ? (
+							<TestimonialsList
+								testimonials={filteredTestimonials}
+								tags={tags}
+								isChecked={isChecked}
+								setChecked={setChecked}
+								checkedItems={checkedItems}
+							/>
+						) : (
+							<div className="flex items-center justify-center">
+								<LoadingSpinner />
+							</div>
+						)}
 					</div>
 					<div>
 						{/* @ts-ignore */}
