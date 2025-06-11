@@ -30,7 +30,7 @@ function Widget({
 }: {
 	widget: any
 	workspaceId: string
-	numberOfReviews: string
+	numberOfReviews: number
 	setPage: (page: number) => void
 	isFetching: boolean
 }) {
