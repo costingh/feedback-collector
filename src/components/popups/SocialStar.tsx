@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import StarsRating from '@/components/stars/stars-rating'
-import Image from 'next/image'
 import clsx from 'clsx'
 import NoTestimonialsLinkedMessage from '../widgets/NoTestimonialsLinkedMessage'
 import { cn } from '@/lib/utils'
+import { useExpandableText } from '@/hooks/useExpandableText'
 
 function SocialStar({
 	transition,
@@ -18,6 +18,9 @@ function SocialStar({
 	widget: any
 	style?: React.CSSProperties
 }) {
+	const [maxCharactersToShow, setMaxCharactersToShow] = useState(300)
+	const { isExpanded, toggle } = useExpandableText()
+
 	return (
 		<>
 			{numberOfReviews > 0 ? (
@@ -31,9 +34,9 @@ function SocialStar({
 							className={clsx(
 								'flex items-start gap-3 p-2 rounded-[20px] w-full max-w-[600px]',
 								transition &&
-									'transition-transform duration-300 ease-in-out group-hover:scale-110',
+								'transition-transform duration-300 ease-in-out group-hover:scale-110',
 								widget?.cardBorderColor !== 'transparent' &&
-									'border-[1px]',
+								'border-[1px]',
 							)}
 							style={{
 								backgroundColor: widget?.cardBackground,
@@ -65,7 +68,21 @@ function SocialStar({
 									)}
 									style={{ color: widget?.primaryTextColor }}
 								>
-									{t?.message}
+									{t?.message?.length > maxCharactersToShow &&
+										!isExpanded(t?.id)
+										? `${t?.message?.slice(0, maxCharactersToShow)}... `
+										: t?.message}
+									{t?.message.length >
+										maxCharactersToShow && (
+											<span
+												onClick={() => toggle(t?.id)}
+												className="text-blue-500 cursor-pointer hover:underline ml-1 text-sm"
+											>
+												{isExpanded(t?.id)
+													? 'See less'
+													: 'See more'}
+											</span>
+										)}
 								</p>
 
 								<span
