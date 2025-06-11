@@ -177,6 +177,7 @@ const EditWidgetContent = ({
 				<WidgetEditorSidebar
 					widget={currentWidget}
 					setWidget={setCurrentWidget}
+					paginationData={paginationData}
 				/>
 				<div className="flex items-center justify-center p-4 pb-10 w-[calc(100%-300px)] overflow-auto">
 					<div

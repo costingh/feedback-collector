@@ -24,7 +24,11 @@ export const getUserWidgets = async (workspaceId: string | undefined) => {
 				},
 				_count: {
 					select: {
-						testimonials: true,
+						testimonials: {
+							where: {
+								approved: true,
+							},
+						},
 					},
 				},
 			},

@@ -15,7 +15,7 @@ function InlineAvatarsVariant({
 		| (Widget & { _count: { testimonials: number } } & { avgStars: number })
 		| null
 		| undefined
-	numberOfReviews: string
+	numberOfReviews: number
 }) {
 	return (
 		<>

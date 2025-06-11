@@ -31,6 +31,12 @@ interface CustomizeLabelsProps {
 	| null
 	| undefined
 	setWidget: (widget: Widget) => void
+	paginationData: {
+		total: number
+		page: number
+		limit: number
+		hasMore: boolean
+	}
 }
 
 type FormLabelsType = {
@@ -43,6 +49,7 @@ type FormLabelsType = {
 const CustomizeWidget: React.FC<CustomizeLabelsProps> = ({
 	widget,
 	setWidget,
+	paginationData,
 }) => {
 	if (!widget?.id) return null
 
@@ -145,7 +152,7 @@ const CustomizeWidget: React.FC<CustomizeLabelsProps> = ({
 					</p>
 
 					<span className="text-[13px] font-normal text-gray-400 leading-[17px]">
-						You have linked {widget?._count?.testimonials}{' '}
+						You have linked {paginationData?.total}{' '}
 						testimonials
 					</span>
 				</div>

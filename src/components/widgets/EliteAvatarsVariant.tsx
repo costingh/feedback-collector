@@ -1,6 +1,5 @@
 import clsx from 'clsx'
 import StarsRating from '@/components/stars/stars-rating'
-import Image from 'next/image'
 import { Widget } from '@prisma/client'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
@@ -22,7 +21,7 @@ function EliteAvatarsVariant({
 		| (Widget & { _count: { testimonials: number } } & { avgStars: number })
 		| null
 		| undefined
-	numberOfReviews: string
+	numberOfReviews: number
 }) {
 	return (
 		<>
@@ -66,7 +65,7 @@ function EliteAvatarsVariant({
 								`${widget?.avgStars?.toFixed(
 									1,
 								)} rating based on ${
-									widget?._count?.testimonials
+									numberOfReviews
 								} reviews`}
 						</div>
 						<div className="flex sm:-space-x-5 avatar-group justify-center sm:justify-start self-center">
@@ -79,11 +78,11 @@ function EliteAvatarsVariant({
 								</Avatar>
 							))}
 
-							{(widget?._count?.testimonials || 0) > 3 && (
+							{(numberOfReviews || 0) > 3 && (
 								<Avatar>
 									<AvatarFallback>
 										{formatNumberOfReviews(
-											(widget?._count?.testimonials ||
+											(numberOfReviews ||
 												0) - 3,
 										)}
 									</AvatarFallback>

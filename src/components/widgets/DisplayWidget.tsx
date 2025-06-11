@@ -59,7 +59,7 @@ function DisplayWidget({
 					{widget.type == 'social_star' && (
 						<SocialStar
 							testimonials={widget?.testimonials}
-							numberOfReviews={widget?._count?.testimonials}
+							numberOfReviews={paginationData?.total}
 							widget={widget}
 						/>
 					)}
@@ -68,7 +68,7 @@ function DisplayWidget({
 						<Avatars
 							testimonials={widget?.testimonials}
 							widget={widget}
-							numberOfReviews={widget?._count?.testimonials}
+							numberOfReviews={paginationData?.total}
 						/>
 					)}
 
