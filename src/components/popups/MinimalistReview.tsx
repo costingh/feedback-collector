@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import StarsRating from '@/components/stars/stars-rating'
+import { useExpandableText } from '@/hooks/useExpandableText'
 
 function MinimalistReview({
 	review,
@@ -11,6 +12,9 @@ function MinimalistReview({
 	widget: any
 	style?: React.CSSProperties
 }) {
+	const { isExpanded, toggle } = useExpandableText()
+	const [maxCharactersToShow, setMaxCharactersToShow] = useState(300)
+
 	return (
 		<div
 			className="rounded-[20px] border-gray-200 border-[1px] py-4 px-8 bg-white w-[400px]"
@@ -32,7 +36,21 @@ function MinimalistReview({
 						: {}
 				}
 			>
-				{review?.message || 'You have not linked any testimonials'}
+				{review?.message?.length > maxCharactersToShow &&
+					!isExpanded(review?.id)
+					? `${review?.message?.slice(0, maxCharactersToShow)}... `
+					: review?.message}
+				{review?.message.length >
+					maxCharactersToShow && (
+						<span
+							onClick={() => toggle(review?.id)}
+							className="text-blue-500 cursor-pointer hover:underline ml-1 text-sm"
+						>
+							{isExpanded(review?.id)
+								? 'See less'
+								: 'See more'}
+						</span>
+					)}
 			</p>
 
 			<div className="flex mt-5 items-center justify-between">
