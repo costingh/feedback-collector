@@ -187,7 +187,7 @@ const FormsPage = ({ params: { workspaceId } }: Props) => {
 													handleCopy(
 														process.env
 															.NEXT_PUBLIC_HOST_URL +
-															form.url,
+														form.url,
 													)
 												}
 											/>
@@ -224,13 +224,13 @@ const FormsPage = ({ params: { workspaceId } }: Props) => {
 													)}
 													{item ==
 														'Response Rate' && (
-														<>
-															{getResponseRate(
-																form,
-															)}
-															%
-														</>
-													)}
+															<>
+																{getResponseRate(
+																	form,
+																)}
+																%
+															</>
+														)}
 												</p>
 												<span className="text-gray-500 text-[13px]">
 													{item}
@@ -302,7 +302,7 @@ const FormsPage = ({ params: { workspaceId } }: Props) => {
 											/>
 											<div className="text-[13px] font-[500]">
 												{isDuplicatingForm ==
-												form.id ? (
+													form.id ? (
 													<Loader2
 														size={14}
 														className="spin my-[4px] mx-[4px]"
@@ -319,6 +319,7 @@ const FormsPage = ({ params: { workspaceId } }: Props) => {
 												form.url
 											}
 											target="_blank"
+											rel="noopener noreferrer"
 											className="rounded-[7px] bg-gray-200 text-gray-500 px-[10px] py-[4px] cursor-pointer hover:bg-gray-300 flex items-center gap-[4px]"
 										>
 											<SquareArrowOutUpRight
