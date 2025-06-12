@@ -54,9 +54,7 @@ const WidgetsPage = ({ params: { workspaceId } }: Props) => {
 										<Widget
 											widget={widget}
 											workspaceId={workspaceId}
-											numberOfReviews={formatNumberOfReviews(
-												widget?._count?.testimonials,
-											)}
+											numberOfReviews={widget?._count?.testimonials}
 											setPage={setPage}
 											isFetching={isFetching}
 										/>
