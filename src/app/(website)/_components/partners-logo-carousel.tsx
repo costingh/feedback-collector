@@ -5,6 +5,7 @@ const logos = [
 	'/images/trusted-by-logos/partnerLogo1.svg',
 	'/images/trusted-by-logos/partnerLogo2.svg',
 	'/images/trusted-by-logos/partnerLogo3.svg',
+	// '/images/trusted-by-logos/partnerLogo4.png',
 ]
 
 export const PartnersLogoCarousel = () => {

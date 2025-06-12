@@ -17,22 +17,22 @@ export const sources = [
 		placeholder: 'https://www.g2.com/products/[business-name]',
 		pattern: /^https:\/\/www\.g2\.com\/products\/[a-zA-Z0-9-]+$/,
 	},
-	// {
-	// 	name: 'Capterra',
-	// 	id: 'capterra',
-	// 	key: 'imported_from_capterra',
-	// 	logo: (
-	// 		<Image
-	// 			src="/images/testimonials-import-sources/capterra.png"
-	// 			alt="Capterra logo"
-	// 			width={20}
-	// 			height={20}
-	// 		/>
-	// 	),
-	// 	example: 'https://www.capterra.com/p/1234567890/feedbackz',
-	// 	placeholder: 'https://www.capterra.com/p/[product-id]',
-	// 	pattern: /^https:\/\/www\.capterra\.com\/p\/[0-9]+\/[a-zA-Z0-9-]+$/,
-	// },
+	{
+		name: 'Capterra',
+		id: 'capterra',
+		key: 'imported_from_capterra',
+		logo: (
+			<Image
+				src="/images/testimonials-import-sources/capterra.png"
+				alt="Capterra logo"
+				width={20}
+				height={20}
+			/>
+		),
+		example: 'https://www.capterra.com/p/1234567890/feedbackz',
+		placeholder: 'https://www.capterra.com/p/[product-id]',
+		pattern: /^https:\/\/www\.capterra\.com\/p\/[0-9]+\/[a-zA-Z0-9-]+$/,
+	},
 	// {
 	// 	name: 'Trustpilot',
 	// 	id: 'trustpilot',

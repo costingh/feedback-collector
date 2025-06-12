@@ -21,6 +21,7 @@ function TestimonialsFromOtherSources({
 	tags,
 	checkedItems,
 	workspaceId,
+	source,
 }: {
 	testimonials: any
 	isChecked: any
@@ -28,6 +29,7 @@ function TestimonialsFromOtherSources({
 	tags: any
 	checkedItems: any
 	workspaceId?: string
+	source: string
 }) {
 	const _MAX_CHARACTERS_TO_SHOW = 150
 	const [isImporting, setIsImporting] = useState(false)
@@ -53,10 +55,11 @@ function TestimonialsFromOtherSources({
 		console.log('Importing selected testimonials   ', testimonials)
 		setIsImporting(true)
 		await axios.post(
-			'/api/import-testimonials/bulk-import-g2',
+			'/api/import-testimonials/bulk-import',
 			{
 				workspaceId,
 				testimonials: testimonials.filter((t: any) => checkedItems.has(t.id)),
+				source: source == 'g2' ? 'imported_from_g2' : 'imported_from_capterra'
 			},
 		)
 

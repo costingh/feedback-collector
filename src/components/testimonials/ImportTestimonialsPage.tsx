@@ -33,8 +33,63 @@ const ImportTestimonialsPage = ({ workspaceId }: Props) => {
 		queryFn: () => getUserTestiImportCounter(workspaceId),
 	})
 
-
 	const handleImportTestimonials = async (url: string, source: string) => {
+		if(source === 'g2') {
+			await handleImportG2Testimonials(url, source)
+		} else if (source === 'capterra') {
+			await handleImportCapterraTestimonials(url, source)
+		}
+	}
+	
+	const handleImportCapterraTestimonials = async (url: string, source: string) => {
+		try {
+			setIsChoosingSources(false)
+			console.log(`Importing testimonials from ${url} using ${source}`)
+
+			if (!url.trim()) {
+				toast.error('Url cannot be empty')
+				return
+			}
+
+			// You may want to dynamically select API path based on source param
+			const response = await axios.post(
+				'/api/import-testimonials/capterra-testimonials',
+				{
+					url,
+					workspaceId
+				},
+			)
+
+			const data = response?.data?.result
+			const reviews = data?.highlighted_reviews
+
+			const testimonials = reviews?.map((review: any) => ({
+				id: review?.review_id,
+				name: review?.reviewer?.full_name,
+				message: review?.overall,
+				jobTitle: review?.reviewer?.job_title,
+				website: review?.link,
+				createdAt: review?.published_at,
+				video: '',
+				link: review?.link,
+				source: 'capterra',
+				company: review?.industry,
+				stars: review?.rating,
+				email: '',
+				avatar: '',
+				tags: []
+			}))
+
+			// console.log(reviews[0]);
+			setTestimonialsToImport(testimonials)
+		} catch (error) {
+			setIsChoosingSources(true)
+			console.error(error)
+			toast.error('Failed to import testimonials. You reached your limit')
+		}
+	}
+
+	const handleImportG2Testimonials = async (url: string, source: string) => {
 		try {
 			setIsChoosingSources(false)
 			console.log(`Importing testimonials from ${url} using ${source}`)
@@ -299,6 +354,7 @@ const ImportTestimonialsPage = ({ workspaceId }: Props) => {
 					tags={[]}
 					checkedItems={checkedItems}
 					workspaceId={workspaceId}
+					source={selectedSource}
 				/>}
 
 				{isUploadingFile && (

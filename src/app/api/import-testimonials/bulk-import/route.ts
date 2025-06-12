@@ -40,8 +40,7 @@ async function uploadFromUrl(url: string, prefix: string): Promise<string> {
 
 export async function POST(req: Request) {
 	try {
-		const { workspaceId, testimonials } = await req.json()
-
+		const { workspaceId, testimonials, source } = await req.json()
 		if (!workspaceId || !Array.isArray(testimonials)) {
 			return NextResponse.json({ error: 'Invalid input.' }, { status: 400 })
 		}
@@ -158,7 +157,7 @@ export async function POST(req: Request) {
 					logo: '',
 					video: videoUrl,
 					approved: false,
-					source: 'imported_from_g2',
+					source: source,
 					createdAt: testimonial.createdAt ?new Date(testimonial.createdAt) : new Date(),
 				},
 			})
