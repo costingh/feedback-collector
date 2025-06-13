@@ -518,3 +518,18 @@ export function constructMetadata({
 		},
 	}
 }
+
+export const generateSoftwareSchema = () => ({
+	"@context": "https://schema.org",
+	"@type": "SoftwareApplication",
+	"name": "Feedbackz",
+	"operatingSystem": "Web",
+	"applicationCategory": "BusinessApplication",
+	"description": "Feedbackz helps freelancers and businesses collect and showcase text and video testimonials with shareable pages, forms, and widgets.",
+	"url": "https://feedbackz.co",
+	"offers": {
+		"@type": "Offer",
+		"price": "0",
+		"priceCurrency": "USD"
+	}
+})

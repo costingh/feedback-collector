@@ -15,6 +15,7 @@ import { constructMetadata } from '@/lib/utils'
 // styles
 import './globals.css'
 import { Fredoka } from 'next/font/google'
+import { SchemaOrg } from '@/components/seo/SchemaOrg'
 const fredoka = Fredoka({
 	subsets: ['latin'],
 	weight: ['300', '400', '500', '600', '700'],
@@ -23,6 +24,25 @@ const fredoka = Fredoka({
 })
 
 export const metadata = constructMetadata()
+
+const organizationSchema = {
+	"@context": "https://schema.org",
+	"@type": "Organization",
+	"name": "Feedbackz",
+	"url": "https://feedbackz.co",
+	"logo": "https://feedbackz.co/images/logo.png",
+	"sameAs": [
+		"https://twitter.com/costingh_07",
+		"https://www.linkedin.com/company/feedbackz-co"
+	]
+}
+
+const websiteSchema = {
+	"@context": "https://schema.org",
+	"@type": "WebSite",
+	"name": "Feedbackz",
+	"url": "https://feedbackz.co"
+}
 
 export default function RootLayout({
 	children,
@@ -52,6 +72,8 @@ export default function RootLayout({
 							],
 						}}
 					/>
+					<SchemaOrg schema={organizationSchema} />
+					<SchemaOrg schema={websiteSchema} />
 				</head>
 				<body>
 					<Analytics />
