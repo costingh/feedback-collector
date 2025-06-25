@@ -126,12 +126,12 @@ function Footer() {
 						>
 							Contact
 						</Link>
-						{/* <Link
-							href="#"
+						<Link
+							href="https://outsoci.com"
 							className="text-[15px] text-gray-500 cursor-pointer transition-all hover:pl-2 hover:text-gray-900 font-[300]"
 						>
-							Integrations
-						</Link> */}
+							Outsoci.com - email scraping tool
+						</Link>
 					</div>
 				</div>
 			</div>
