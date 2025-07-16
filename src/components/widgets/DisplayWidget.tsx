@@ -6,20 +6,29 @@ import SocialStar from '../popups/SocialStar'
 import Avatars from '../popups/Avatars'
 import MinimalistReview from '../popups/MinimalistReview'
 import HeroQuotes from '../popups/HeroQuotes'
+import { cn } from '@/lib/utils'
 
 function DisplayWidget({
 	widget,
 	setPage,
 	isFetching,
 	paginationData,
+	className,
+	scale,
+	marginTop,
+	style
 }: {
 	widget: any
 	setPage: any
 	isFetching: boolean
 	paginationData?: any
+	className?: string
+	scale?: number
+	marginTop?: number
+	style?: React.CSSProperties
 }) {
 	return (
-		<div className="w-full flex items-center justify-center">
+		<div className={cn("w-full flex items-start justify-center", className)}>
 			{widget && (
 				<>
 					{widget.type == 'basic_wall' && (
@@ -31,6 +40,8 @@ function DisplayWidget({
 							setPage={setPage}
 							isFetching={isFetching}
 							paginationData={paginationData}
+							scale={scale}
+							marginTop={marginTop}
 						/>
 					)}
 
@@ -49,6 +60,8 @@ function DisplayWidget({
 								setPage={setPage}
 								isFetching={isFetching}
 								paginationData={paginationData}
+								scale={scale}
+								marginTop={marginTop}
 							/>
 						))}
 
@@ -61,6 +74,7 @@ function DisplayWidget({
 							testimonials={widget?.testimonials}
 							numberOfReviews={paginationData?.total}
 							widget={widget}
+							style={style}
 						/>
 					)}
 
@@ -69,6 +83,7 @@ function DisplayWidget({
 							testimonials={widget?.testimonials}
 							widget={widget}
 							numberOfReviews={paginationData?.total}
+							style={style}
 						/>
 					)}
 

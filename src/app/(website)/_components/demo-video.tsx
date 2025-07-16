@@ -1,6 +1,6 @@
 export const DemoVideo = () => {
 	return (
-		<div className="relative mx-auto max-w-7xl px-6 pb-4 lg:px-16">
+		<div className="relative mx-auto max-w-7xl px-6 pb-4 lg:px-16 mb-[100px]">
 			<div className="relative overflow-hidden rounded-3xl ">
 				<div className="to-transparent absolute bottom-0 left-0 right-0 hidden h-[250px] w-full bg-gradient-to-t from-[#272943] via-[#272943]/70 lg:flex"></div>
 				<div

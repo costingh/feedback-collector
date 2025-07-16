@@ -25,6 +25,8 @@ const StarsRating: React.FC<StarsRatingProps> = ({
 	variant,
 	color,
 }) => {
+
+
 	if (variant == 'default') {
 		return (
 			//@ts-ignore

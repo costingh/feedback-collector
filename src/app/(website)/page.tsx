@@ -11,6 +11,7 @@ import { CrispChat } from './_components/crisp-chat'
 import { PartnersLogoCarousel } from './_components/partners-logo-carousel'
 import { KpisSection } from './_components/kpis-section'
 import { DemoVideo } from './_components/demo-video'
+import { WidgetShowcase } from './_components/widget-showcase'
 import { HeroButton } from './_components/hero-button'
 import UseSteps from './_components/use-steps'
 import WhyUseFeedbackz from './_components/why-use-feedbackz'
@@ -28,9 +29,10 @@ const LandingPage = () => {
 				<div className="bg-[#050520]">
 					<LandingPageNavBar />
 					<HeroSection />
-					<DemoVideo />
 					<PartnersLogoCarousel />
 					<KpisSection />
+					<WidgetShowcase />
+					<DemoVideo />
 					<CTABanner2 />
 				</div>
 			</div>

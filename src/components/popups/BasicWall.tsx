@@ -22,11 +22,15 @@ function BasicWall({
 	setPage,
 	isFetching,
 	paginationData,
+	scale,
+	marginTop,
 }: {
 	widget: WidgetType
 	setPage: any
 	isFetching: boolean
 	paginationData?: PaginationData
+	scale?: number
+	marginTop?: number
 }) {
 	const [allTestimonials, setAllTestimonials] = useState<any[]>([])
 	const videoRefs = useRef<{ [key: string]: HTMLVideoElement | null }>({})
@@ -72,7 +76,12 @@ function BasicWall({
 	return (
 		<div className="flex flex-col gap-6">
 			<div
-				className={`${columnsClass} gap-3 sm:gap-4 mx-auto px-2 sm:px-4 w-full [column-fill:_balance]`}
+				className={`${columnsClass} gap-3 sm:gap-4 mx-auto px-2 sm:px-4 [column-fill:_balance] w-full`}
+				style={{
+					minWidth: widget?.deviceWidth,
+					transform: scale ? `scale(${scale})` : undefined,
+					marginTop: marginTop ? `${marginTop}px` : undefined,
+				}}
 			>
 				{allTestimonials?.map((t: any) => (
 					<div
